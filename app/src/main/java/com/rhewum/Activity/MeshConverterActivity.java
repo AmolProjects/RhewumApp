@@ -66,7 +66,6 @@ public class MeshConverterActivity extends AppCompatActivity implements View.OnC
     public String meshOpeningEtStr;
     private RadioButton mmRadio;
     private ScrollView parentScrollView;
-//    private RelativeLayout backs;
     private int pickerAstmIndex = 0;
     /* access modifiers changed from: private */
     public int pickerIndex = 0;
@@ -96,10 +95,9 @@ public class MeshConverterActivity extends AppCompatActivity implements View.OnC
             ResponsiveAndroidBars.setNavigationBarColor(this, getResources().getColor(R.color.grey_background), false, false);
         }
 
-//       this.backs.setOnClickListener(this);
+
         this.back.setOnClickListener(this);
         this.meshBackTv.setOnClickListener(this);
-//        this.info.setOnClickListener(this);
         this.meshInfoIv.setOnClickListener(this);
         this.meshInfoTv.setOnClickListener(this);
         this.din_1.setOnClickListener(this);
@@ -159,7 +157,6 @@ public class MeshConverterActivity extends AppCompatActivity implements View.OnC
     private void setUpViews() {
         this.back=(ImageView) findViewById(R.id.activity_mesh_back_iv);
         this.meshInfoIv=(ImageView) findViewById(R.id.activity_mesh_info_iv);
-//        this.backs=(RelativeLayout)findViewById(R.id.activity_mesh_back);
         this.info = (RelativeLayout) findViewById(R.id.activity_mesh_info_layout);
         this.din_1 = (EditText) findViewById(R.id.activity_mesh_din1_et);
         this.astm = (EditText) findViewById(R.id.activity_mesh_astm_et);
@@ -182,7 +179,6 @@ public class MeshConverterActivity extends AppCompatActivity implements View.OnC
 
     public void onClick(View view) {
         if (view.equals(this.back)) {
-            Toast.makeText(MeshConverterActivity.this,"clicked",Toast.LENGTH_SHORT).show();
             unRegisterSensorListner();
             finish();
             overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
