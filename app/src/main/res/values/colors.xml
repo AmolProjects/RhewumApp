@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="header_background">#FFFFFFFF</color>
+    <color name="grey_background">#303030</color>
+    <color name="stop_btn">#f03524</color>
+    <color name="header_backgrounds">#008ac8</color>
+    <color name="MediumGray">#E0E0E0</color>
+    <color name="gray">#232b2b</color>
+    <color name="primary_s">#2962FF</color>
+    <color name="start_btn">#3eaf47</color>
+    <color name="grey_text">#555555</color>
+    <color name="blue_bar">#507cfe</color>
+    <color name="grey_line">#434343</color>
+    <color name="grey_line_light">#767676</color>
+    <color name="light_gray_silver">#DCDCDC</color>
+    <color name="header_color">#2c98f0</color>
+    <color name="black0">#373737</color>
+    <color name="grey_background_transperant">#d9303030</color>
+</resources>

@@ -1,0 +1,34 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout android:id="@+id/activity_info_header_layout" android:background="@color/grey_background_transperant"
+        android:layout_width="match_parent" android:layout_height="@dimen/header_layout">
+
+        <RelativeLayout android:id="@+id/activity_info_back_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <ImageView android:id="@+id/activity_info_back_iv"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/baseline_arrow_back_24"
+                android:contentDescription="@string/todo"
+                />
+            <TextView android:textSize="@dimen/text_size_16" android:textColor="@color/header_backgrounds" android:id="@+id/activity_info_back_tv"
+                android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="@dimen/layout_margin_2"
+                android:text="@string/back"
+                android:layout_toEndOf="@+id/activity_info_back_iv" android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/activity_info_header_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/info"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_18" />
+    </RelativeLayout>
+    <WebView android:id="@+id/activity_info_webview" android:layout_width="match_parent" android:layout_height="match_parent"/>
+</LinearLayout>
