@@ -58,8 +58,20 @@ dependencies {
     implementation (libs.mpandroidchart)
     implementation (libs.jtransforms)
 
-    implementation(group = "com.itextpdf", name = "itextpdf", version = "5.5.13.1")
+    //slider
+    implementation (libs.autoimageslider)
+    //glide
+    implementation(libs.glide)
+
+    //firebase
+    implementation(libs.firebase.database)
+    implementation(libs.firebase.firestore)
     implementation(libs.firebase.messaging)
+    implementation(libs.firebase.storage)
+    implementation (libs.shortcutbadger)
+
+    implementation(group = "com.itextpdf", name = "itextpdf", version = "5.5.13.1")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
