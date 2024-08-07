@@ -16,7 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.rhewum.Activity.VibcheckerGraph.PlotView;
 import com.rhewum.Activity.VibcheckerGraph.PlotViewMaxValues;
 import com.rhewum.Activity.database.RhewumDbHelper;
+import com.rhewum.DrawerBaseActivity;
 import com.rhewum.R;
+import com.rhewum.databinding.ActivityVibCheckerAccelerometer2Binding;
+import com.rhewum.databinding.ActivityVibCheckerAccelerometer3Binding;
 
 import org.jtransforms.fft.DoubleFFT_1D;
 
@@ -27,7 +30,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-public class VibCheckerAccelerometer3Activity extends AppCompatActivity {
+public class VibCheckerAccelerometer3Activity extends DrawerBaseActivity {
     ImageView imgBack;
     TextView txtBack,txtDateTime,txtZZ,txtX,txty,txtfrZ,txtfrx,txtfry,txtSummary,txtPSD;
     private Calendar calendar;
@@ -41,10 +44,13 @@ public class VibCheckerAccelerometer3Activity extends AppCompatActivity {
     float[] xDisplacement,yDisplacement,zDisplacement;
     Button bt_save,bt_share;
     RhewumDbHelper dbHelper;
+    ActivityVibCheckerAccelerometer3Binding activityVibCheckerAccelerometer3Binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_vib_checker_accelerometer3);
+//        setContentView(R.layout.activity_vib_checker_accelerometer3);
+        activityVibCheckerAccelerometer3Binding = ActivityVibCheckerAccelerometer3Binding.inflate(getLayoutInflater());
+        setContentView(activityVibCheckerAccelerometer3Binding.getRoot());
         initObjects();
         getData();
         initGUI();

@@ -12,6 +12,7 @@ import com.rhewum.Activity.database.RhewumDbHelper;
 import com.rhewum.Activity.dsp.AudioMeasurement;
 import com.rhewum.Activity.dsp.AudioProcessingListener;
 import com.rhewum.Activity.dsp.RightAudioProcessing;
+import com.rhewum.DrawerBaseActivity;
 import com.rhewum.R;
 
 import android.annotation.SuppressLint;
@@ -40,6 +41,9 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.rhewum.databinding.ActivityDashBoardBinding;
+import com.rhewum.databinding.ActivityVibSonicBinding;
+
 import java.io.ByteArrayOutputStream;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -49,7 +53,7 @@ import java.util.Locale;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
-public class VibSonicActivity extends AppCompatActivity implements View.OnClickListener, OnChartValueSelectedListener, AudioProcessingListener {
+public class VibSonicActivity extends DrawerBaseActivity implements View.OnClickListener, OnChartValueSelectedListener, AudioProcessingListener {
     private RelativeLayout archiveLayout;
     private RelativeLayout backLayout;
     private Chronometer chronometer;
@@ -74,12 +78,15 @@ public class VibSonicActivity extends AppCompatActivity implements View.OnClickL
     private HashMap<Integer, Double> meanValueHashMap = new HashMap<>();
     private Button play_stop;
     private TextView timer;
+    ActivityVibSonicBinding activityVibSonicBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Utils.setFontFamily("fonts/heebo.ttf");
-        setContentView(R.layout.activity_vib_sonic);
+//        setContentView(R.layout.activity_vib_sonic);
+        activityVibSonicBinding = ActivityVibSonicBinding.inflate(getLayoutInflater());
+        setContentView(activityVibSonicBinding.getRoot());
         ResponsiveAndroidBars.setNotificationBarColor(this, getResources().getColor(R.color.header_backgrounds), false);
         ResponsiveAndroidBars.setNavigationBarColor(this, getResources().getColor(R.color.grey_background), false, false);
         setUpViews();

@@ -17,18 +17,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.rhewum.Activity.MeshConveterData.Utils;
+import com.rhewum.DrawerBaseActivity;
 import com.rhewum.R;
+import com.rhewum.databinding.ActivityFlashesBinding;
+import com.rhewum.databinding.ActivityVibFlashesBinding;
 
-public class VibFlashActivity extends AppCompatActivity implements View.OnClickListener{
+
+public class VibFlashActivity extends DrawerBaseActivity implements View.OnClickListener{
     private Button freq16;
     private Button freq20;
     private Button freq25;
@@ -48,13 +46,25 @@ public class VibFlashActivity extends AppCompatActivity implements View.OnClickL
     private boolean isBlinking = false;
     private Runnable blinkRunnable;
 
+
+//    ActivityVibFlashesBinding activityVibFlashesBinding;
+    ActivityFlashesBinding activityFlashesBinding;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//       setContentView(R.layout.activity_flashes);
+        activityFlashesBinding = ActivityFlashesBinding.inflate(getLayoutInflater());
+       setContentView(activityFlashesBinding.getRoot());
         Utils.setFontFamily("fonts/heebo.ttf");
-        setContentView(R.layout.activity_flashes);
-        setUpViews();
+       setUpViews();
+//       activityVibFlashesBinding.getRoot().getViewById(R.id.activity_vib_flash_freq_16);
         this.freqMinus.setOnClickListener(this);
+
         this.freqPlus.setOnClickListener(this);
         this.freq16.setOnClickListener(this);
         this.freq20.setOnClickListener(this);

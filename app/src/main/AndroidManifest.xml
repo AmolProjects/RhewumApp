@@ -28,9 +28,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
-    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
-    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT"/>
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
@@ -55,6 +55,12 @@
         android:theme="@style/Theme.Rhewum"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.WebsiteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.NewsActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.VibCheckerMainActivity"
             android:exported="false" />
         <activity
@@ -63,11 +69,9 @@
         <activity
             android:name=".Activity.VibCheckerAccelerometer2Activity"
             android:exported="false" />
-
         <activity
             android:name=".Activity.MeshInfoActivity"
             android:exported="false" />
-
         <activity
             android:name=".Activity.DashBoardActivity"
             android:exported="false" />
@@ -92,7 +96,6 @@
         <activity
             android:name=".Activity.MeshConverterActivity"
             android:exported="false" />
-
         <activity
             android:name=".Activity.VibSonicArchiveListActivity"
             android:exported="false" />
@@ -116,13 +119,13 @@
             android:name=".Activity.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="news_channel_id"/>
+            android:value="news_channel_id" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -145,8 +148,6 @@
                 android:name="androidx.lifecycle.ProcessLifecycleInitializer"
                 android:value="androidx.startup" />
         </provider>
-
-
     </application>
 
 </manifest>

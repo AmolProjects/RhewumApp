@@ -8,6 +8,7 @@ import com.rhewum.Activity.MeshConveterData.ResponsiveAndroidBars;
 import com.rhewum.Activity.MeshConveterData.Utils;
 import com.rhewum.Activity.database.MeasurementDao;
 import com.rhewum.Activity.database.RhewumDbHelper;
+import com.rhewum.DrawerBaseActivity;
 import com.rhewum.R;
 
 import android.annotation.SuppressLint;
@@ -77,7 +78,7 @@ import java.util.Objects;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 
-public class VibSonicArchiveActivity extends AppCompatActivity implements View.OnClickListener,OnChartValueSelectedListener {
+public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.OnClickListener,OnChartValueSelectedListener {
     private RelativeLayout backLayout;
     /* access modifiers changed from: private */
     public String csvFilePath;

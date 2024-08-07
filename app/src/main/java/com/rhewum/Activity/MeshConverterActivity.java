@@ -36,9 +36,12 @@ import com.rhewum.Activity.MeshConveterData.Constants;
 import com.rhewum.Activity.MeshConveterData.InputFilterMinMax;
 import com.rhewum.Activity.MeshConveterData.ResponsiveAndroidBars;
 import com.rhewum.Activity.MeshConveterData.Utils;
+import com.rhewum.DrawerBaseActivity;
 import com.rhewum.R;
+import com.rhewum.databinding.ActivityDashBoardBinding;
+import com.rhewum.databinding.ActivityMeshConverterBinding;
 
-public class MeshConverterActivity extends AppCompatActivity implements View.OnClickListener{
+public class MeshConverterActivity extends DrawerBaseActivity implements View.OnClickListener{
     /* access modifiers changed from: private */
     public EditText angleEt;
     /* access modifiers changed from: private */
@@ -79,13 +82,16 @@ public class MeshConverterActivity extends AppCompatActivity implements View.OnC
     private DecimalFormat twoDigitForm = new DecimalFormat("##.##");
     private EditText tyler;
     private ImageView back,meshInfoIv;
+    ActivityMeshConverterBinding activityMeshConverterBinding;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Utils.setFontFamily("fonts/heebo.ttf");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mesh_converter);
+//        setContentView(R.layout.activity_mesh_converter);
+        activityMeshConverterBinding = ActivityMeshConverterBinding.inflate(getLayoutInflater());
+        setContentView(activityMeshConverterBinding.getRoot());
         setUpViews();
 
         ResponsiveAndroidBars.setNotificationBarColor(this, getResources().getColor(R.color.header_backgrounds), false);

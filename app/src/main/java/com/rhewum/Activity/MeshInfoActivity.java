@@ -8,9 +8,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.rhewum.Activity.MeshConveterData.Utils;
 import com.rhewum.Activity.MeshConveterData.ResponsiveAndroidBars;
+import com.rhewum.DrawerBaseActivity;
 import com.rhewum.R;
 
-public class MeshInfoActivity extends AppCompatActivity {
+public class MeshInfoActivity extends DrawerBaseActivity {
     RelativeLayout activity_mesh_info_back_layout;
 
     @Override

@@ -18,11 +18,12 @@ import com.rhewum.Activity.database.MeasurementDao;
 import com.rhewum.Activity.database.RhewumDbHelper;
 import com.rhewum.Activity.interfaces.DeleteDialog;
 import com.rhewum.Activity.interfaces.DeleteListner;
+import com.rhewum.DrawerBaseActivity;
 import com.rhewum.R;
 
 import java.util.ArrayList;
 
-public class VibSonicArchiveListActivity extends AppCompatActivity implements View.OnClickListener, DeleteListner, DeleteDialog {
+public class VibSonicArchiveListActivity extends DrawerBaseActivity implements View.OnClickListener, DeleteListner, DeleteDialog {
     private RelativeLayout backLayout;
     private LinearLayout bottomLayout;
     private RhewumDbHelper dbHelper;

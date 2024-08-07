@@ -19,13 +19,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.rhewum.Activity.MeshConveterData.Utils;
+import com.rhewum.DrawerBaseActivity;
 import com.rhewum.R;
+import com.rhewum.databinding.ActivityCapacityCheckerBinding;
+import com.rhewum.databinding.ActivityVibCheckerAccelerometer3Binding;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CapacityCheckerActivity extends AppCompatActivity {
+public class CapacityCheckerActivity extends DrawerBaseActivity {
     private static final String TAG=CapacityCheckerActivity.class.getName();
     TextView txtBack,activity_mesh_trennschnitt_result;
     Spinner spinner;
@@ -37,12 +40,15 @@ public class CapacityCheckerActivity extends AppCompatActivity {
     private ArrayAdapter<String> adapter;
    private String globalFlowVelocity,editTextWidth,editTextHeightValue;
     Button bt_submit;
+    ActivityCapacityCheckerBinding activityCapacityCheckerBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Utils.setFontFamily("fonts/heebo.ttf");
-        setContentView(R.layout.activity_capacity_checker);
+//        setContentView(R.layout.activity_capacity_checker);
+        activityCapacityCheckerBinding = ActivityCapacityCheckerBinding.inflate(getLayoutInflater());
+        setContentView(activityCapacityCheckerBinding.getRoot());
         initObjects();
         selectedItemSpinner();
 

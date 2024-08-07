@@ -25,7 +25,10 @@ import androidx.core.content.ContextCompat;
 import com.rhewum.Activity.MeshConveterData.Utils;
 import com.rhewum.Activity.VibcheckerGraph.FFTProcessor;
 import com.rhewum.Activity.VibcheckerGraph.PlotView;
+import com.rhewum.DrawerBaseActivity;
 import com.rhewum.R;
+import com.rhewum.databinding.ActivityVibCheckerAccelerometer2Binding;
+import com.rhewum.databinding.ActivityVibCheckerMainBinding;
 
 import org.jtransforms.fft.FloatFFT_1D;
 
@@ -34,7 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class VibCheckerAccelerometer2Activity extends AppCompatActivity {
+public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
     TextView txtBack,txt_fiveSecond,txt_zeroDelay,txt_onLpFilter,txtZ,txtx,txty,txt_content,txtZeroDelay,txt_fivesSecond;
     LinearLayout llPlots;
     ImageView imgBack;
@@ -81,14 +84,16 @@ public class VibCheckerAccelerometer2Activity extends AppCompatActivity {
     private static final float NS2S = 1.0f / 1000000000.0f; // Nanoseconds to seconds
     private long lastTimestamp = 0;
 
-
+    ActivityVibCheckerAccelerometer2Binding activityVibCheckerAccelerometer2Binding;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Utils.setFontFamily("fonts/heebo.ttf");
-        setContentView(R.layout.activity_vib_checker_accelerometer2);
+//        setContentView(R.layout.activity_vib_checker_accelerometer2);
+        activityVibCheckerAccelerometer2Binding = ActivityVibCheckerAccelerometer2Binding.inflate(getLayoutInflater());
+        setContentView(activityVibCheckerAccelerometer2Binding.getRoot());
         initObjects();
         initGUI();
         handler = new Handler();

@@ -25,7 +25,9 @@ import com.rhewum.Activity.Adapter.HomeDashBoardAdapter;
 import com.rhewum.Activity.Adapter.SliderAdapter;
 import com.rhewum.Activity.data.ItemData;
 import com.rhewum.Activity.model.SliderItem;
+import com.rhewum.DrawerBaseActivity;
 import com.rhewum.R;
+import com.rhewum.databinding.ActivityDashBoardBinding;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
@@ -34,7 +36,7 @@ import java.util.List;
 
 import me.leolin.shortcutbadger.ShortcutBadger;
 
-public class DashBoardActivity extends AppCompatActivity implements HomeDashBoardAdapter.ItemClickListener {
+public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoardAdapter.ItemClickListener {
     ImageView img_newsBackword, img_newsForwad, img_viewPagerBackword, img_viewPagerForwad;
     RecyclerView recyclerView;
     List<ItemData> dataList;
@@ -50,7 +52,7 @@ public class DashBoardActivity extends AppCompatActivity implements HomeDashBoar
 
     private static final int NOTIFICATION_PERMISSION_REQUEST_CODE = 1;
 
-
+    ActivityDashBoardBinding activityDashBoardBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +62,9 @@ public class DashBoardActivity extends AppCompatActivity implements HomeDashBoar
             checkAndRequestNotificationPermission();
         }
         FirebaseApp.initializeApp(this);
-        setContentView(R.layout.activity_dash_board);
+//       setContentView(R.layout.activity_dash_board);
+      activityDashBoardBinding = ActivityDashBoardBinding.inflate(getLayoutInflater());
+        setContentView(activityDashBoardBinding.getRoot());
         initObjects();
         db = FirebaseFirestore.getInstance();
 
@@ -69,9 +73,9 @@ public class DashBoardActivity extends AppCompatActivity implements HomeDashBoar
         // setting the adapter
         homeDashBoardAdapter = new HomeDashBoardAdapter(DashBoardActivity.this, dataList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(layoutManager);
+        activityDashBoardBinding.recyclerView.setLayoutManager(layoutManager);
         HomeDashBoardAdapter.ViewHolder.setClickListener(this);
-        recyclerView.setAdapter(homeDashBoardAdapter);
+        activityDashBoardBinding.recyclerView.setAdapter(homeDashBoardAdapter);
 
         // Set click listeners for forward and backward navigation
         img_newsBackword.setOnClickListener(view -> navigateBackward());
@@ -82,7 +86,7 @@ public class DashBoardActivity extends AppCompatActivity implements HomeDashBoar
             int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
             int itemCount = homeDashBoardAdapter.getItemCount();
             if (firstVisibleItemPosition + 1 < itemCount) {
-                recyclerView.smoothScrollToPosition(firstVisibleItemPosition + 1);
+                activityDashBoardBinding.recyclerView.smoothScrollToPosition(firstVisibleItemPosition + 1);
             }
         });
 
@@ -90,7 +94,7 @@ public class DashBoardActivity extends AppCompatActivity implements HomeDashBoar
         img_viewPagerBackword.setOnClickListener(view -> {
             int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
             if (firstVisibleItemPosition - 1 >= 0) {
-                recyclerView.smoothScrollToPosition(firstVisibleItemPosition - 1);
+                activityDashBoardBinding.recyclerView.smoothScrollToPosition(firstVisibleItemPosition - 1);
             }
         });
 
@@ -102,7 +106,7 @@ public class DashBoardActivity extends AppCompatActivity implements HomeDashBoar
                 int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
                 int itemCount = homeDashBoardAdapter.getItemCount();
                 if (firstVisibleItemPosition + 1 < itemCount) {
-                    recyclerView.smoothScrollToPosition(firstVisibleItemPosition + 1);
+                    activityDashBoardBinding.recyclerView.smoothScrollToPosition(firstVisibleItemPosition + 1);
                 }
             }
         });
@@ -113,7 +117,7 @@ public class DashBoardActivity extends AppCompatActivity implements HomeDashBoar
             public void onClick(View view) {
                 int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
                 if (firstVisibleItemPosition - 1 >= 0) {
-                    recyclerView.smoothScrollToPosition(firstVisibleItemPosition - 1);
+                    activityDashBoardBinding.recyclerView.smoothScrollToPosition(firstVisibleItemPosition - 1);
                 }
             }
 
