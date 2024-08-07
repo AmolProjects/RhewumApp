@@ -462,7 +462,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="@dimen/layout_margin_15"
                         android:layout_toRightOf="@+id/activity_mesh_trennschnitt_projected_opening"
-                        android:text="@string/_2_99_inches"
+                        android:text=""
                         android:textColor="@color/header_backgrounds"
                         android:textSize="@dimen/text_size_16"  />
                 </LinearLayout>

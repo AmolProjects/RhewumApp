@@ -282,128 +282,46 @@ public class MeshConverterActivity extends DrawerBaseActivity implements View.On
             public void onAccuracyChanged(Sensor sensor, int i) {
             }
 
-//            public void onSensorChanged(SensorEvent sensorEvent) {
-//                if (sensorEvent.sensor.getType() == 1) {
-//                    float f = sensorEvent.values[0] / 9.8f;
-//                    float f2 = sensorEvent.values[1] / 9.8f;
-//                    float f3 = sensorEvent.values[2] / 9.8f;
-//                    if (f == 0.0f) {
-//                        f = 0.01f;
-//                    }
-//                    if (f2 == 0.0f) {
-//
-//                        f2 = 0.01f;
-//                    }
-//                    if (f3 == 0.0f) {
-//                        f3 = 0.01f;
-//                    }
-//                    int atan = (int) ((Math.atan((double) (f2 / f)) * 180.0d) / 3.141592653589793d);
-//                    int abs1 = Math.abs(atan);
-//
-//                    if (Math.abs(f3) >= 0.9f) {
-//                        angleEt.setText("");
-//                    } else if ((f2 < 0.0f && atan < 0) || (f < 0.0f && f2 < 0.0f)) {
-//                        showAlert();
-//                    } else if (abs1 > 45) {
-//                        showAlert();
-//                    } else {
-//                        customAlertDialog.setVisibility(View.GONE);
-//                        isAlertShown = false;
-////                     angleEt.setText(Integer.toString(abs1));
-//                        angleEt.setText(String.valueOf(abs1));
-////                     angleEt.setText(abs1);
-////                        angleEt.setText(String.format(Locale.getDefault(), "%d", abs1));
-//                    }
-//                }
-//            }
-
-            //new
-//            public void onSensorChanged(SensorEvent sensorEvent) {
-//                if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-//                    float f = sensorEvent.values[0] / 9.8f; // X-axis
-//                    float f2 = sensorEvent.values[1] / 9.8f; // Y-axis
-//                    float f3 = sensorEvent.values[2] / 9.8f; // Z-axis
-//
-//                    if (f2 == 0.0f) {
-//                        f2 = 0.01f;
-//                    }
-//                    if (f3 == 0.0f) {
-//                        f3 = 0.01f;
-//                    }
-//
-//                    // Calculate the angle between the Y and Z axes
-//                    int angle = (int) ((Math.atan((double) (f/ f3)) * 180.0d) / Math.PI);
-//                    int absAngle = Math.abs(angle);
-//
-//                    if (Math.abs(f2) >= 0.9f) { // Device held flat (X-axis mostly affected)
-//                        angleEt.setText(""); // Clear angle display
-//                    }
-////                    else if ((f3 < 0.0f && angle < 0) || (f2 < 0.0f && f3 < 0.0f)) {
-////                        showAlert(); // Handle specific case if needed
-////                    }
-//
-//                    else if (absAngle > 45) { // Arbitrary threshold, can be adjusted
-//                        showAlert(); // Show alert if angle is steep
-//                    } else {
-//                        customAlertDialog.setVisibility(View.GONE);
-//                        isAlertShown = false;
-//                        angleEt.setText(String.valueOf(absAngle)); // Display the angle
-//                    }
-//                }
-//            }
-            //new close
-
             public void onSensorChanged(SensorEvent sensorEvent) {
                 if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
                     float f = sensorEvent.values[0]; // X-axis
                     float f2 = sensorEvent.values[1]; // Y-axis
                     float f3 = sensorEvent.values[2]; // Z-axis
 
-                    // Normalize the accelerometer values to the range -1 to 1
-                    float normalizedF = f / 9.8f;
-                    float normalizedF2 = f2 / 9.8f;
-                    float normalizedF3 = f3 / 9.8f;
+                    // Calculate the magnitude of the acceleration vector
+                    float magnitude = (float) Math.sqrt(f * f + f2 * f2 + f3 * f3);
 
-                    // Avoid zero values to prevent division by zero
-                    if (normalizedF2 == 0.0f) normalizedF2 = 0.01f;
+                    // Normalize the accelerometer values
+                    float normalizedF = f / magnitude;
+                    float normalizedF2 = f2 / magnitude;
+                    float normalizedF3 = f3 / magnitude;
 
-                    // Determine if the device is in a vertical position against a wall
-                    boolean isVertical = Math.abs(normalizedF2) > 0.7 && Math.abs(normalizedF3) < 0.3;
+                    // Calculate the angle with respect to the Z-axis
+                    int angle = (int) Math.toDegrees(Math.acos(normalizedF3));
+                    int absAngle = Math.abs(angle);
 
-                    if (isVertical) {
-                        // Calculate the angle between the X and Y axes (rotation around Z-axis)
-                        int angle = (int) ((Math.atan2(normalizedF, normalizedF2) * 180.0d) / Math.PI);
-                        int absAngle = Math.abs(angle);
-
-                        angleEt.setText(String.valueOf(absAngle));
-                        if (absAngle > 46) {
-                            showAlert(); // Show alert if the angle exceeds 45 degrees
-                        } else if (absAngle <= 45) {
-                            customAlertDialog.setVisibility(View.GONE);
-                            isAlertShown = false;
-                            angleEt.setText(String.valueOf(absAngle)); // Display the angle
-                        } else {
-                            angleEt.setText("");
-                            showAlert(); // Show alert if the angle exceeds 45 degrees
-                        }
+                    angleEt.setText(String.valueOf(absAngle));
+                    if (absAngle > 45) {
+                        showAlert(); // Show alert if the angle exceeds 45 degrees
+                    } else {
+                        customAlertDialog.setVisibility(View.GONE);
+                        isAlertShown = false;
+                        angleEt.setText(String.valueOf(absAngle)); // Display the angle
                     }
 
-                    else {
-                        // Clear the angle display when the device is not vertical
-                        angleEt.setText("");
+                    // Check if the device is flat on the surface
+                    boolean isFlat = Math.abs(f3) > 9.0 && Math.abs(f) < 1.0 && Math.abs(f2) < 1.0;
+                    if (isFlat) {
+                        angleEt.setText(""); // Clear the angle display
                         customAlertDialog.setVisibility(View.GONE);
                         isAlertShown = false;
                     }
                 }
             }
-
-
-
         };
         this.sensorEventListener = r0;
-        this.sensorManager.registerListener(r0, this.sensor, 3);
+        this.sensorManager.registerListener(r0, this.sensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
-
     /* access modifiers changed from: private */
     public void showAlert() {
         this.angleEt.setText("");
