@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "68354347074",
+    "project_id": "rhewum-d96a9",
+    "storage_bucket": "rhewum-d96a9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:68354347074:android:bccab8a02a6c4d95d99ddb",
+        "android_client_info": {
+          "package_name": "com.rhewum"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_2EfRI1KG1FeK_aRslycDXk1RiPRtBhw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

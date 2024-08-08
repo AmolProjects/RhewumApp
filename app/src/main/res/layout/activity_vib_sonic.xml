@@ -1,0 +1,73 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/activity_vib_sonic_main_layout"
+    android:background="@color/black0"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout android:id="@+id/activity_vib_sonic_header_layout" android:background="@color/grey_background_transperant" android:layout_width="match_parent" android:layout_height="@dimen/header_layout">
+        <RelativeLayout android:id="@+id/activity_vib_sonic_back_layout" android:layout_width="wrap_content" android:layout_height="match_parent">
+            <ImageView android:id="@+id/activity_vib_sonic_back_iv"
+                android:contentDescription="@string/todo"
+                app:srcCompat="@drawable/baseline_arrow_back_24" android:layout_width="wrap_content" android:layout_height="wrap_content"  android:layout_centerVertical="true"/>
+            <TextView android:textSize="@dimen/text_size_16" android:textColor="@color/header_backgrounds" android:id="@+id/activity_vib_sonic_back_tv" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/layout_margin_2" android:text="@string/back" android:layout_toEndOf="@+id/activity_vib_sonic_back_iv" android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/activity_vib_sonic_header_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/vib_sonic"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_18" />
+        <RelativeLayout android:id="@+id/activity_vib_sonic_archive_layout" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_alignParentEnd="true">
+            <ImageView android:id="@+id/activity_vib_sonic_archive_iv" android:layout_width="wrap_content" android:layout_height="wrap_content"  android:layout_toEndOf="@+id/activity_vib_sonic_archive_tv" android:layout_centerVertical="true"
+                android:contentDescription="@string/todo" />
+            <TextView android:textSize="@dimen/text_size_16" android:textColor="@color/header_backgrounds" android:id="@+id/activity_vib_sonic_archive_tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="@dimen/layout_margin_2" android:text="@string/archive" android:layout_centerVertical="true"/>
+        </RelativeLayout>
+    </RelativeLayout>
+    <ScrollView android:background="@color/white" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1.1">
+        <RelativeLayout android:id="@+id/activity_vib_sonic_relativeLayout" android:layout_width="match_parent" android:layout_height="match_parent">
+            <RelativeLayout android:id="@+id/graphLayout" android:layout_width="match_parent" android:layout_height="wrap_content">
+                <TextView android:textSize="@dimen/text_size_12" android:id="@+id/activity_vib_sonic_dba_tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="5dp" android:layout_marginTop="@dimen/layout_margin_5" android:text="dB(A)"/>
+                <com.github.mikephil.charting.charts.BarChart android:id="@+id/activity_vib_sonic_soundGraph" android:layout_width="match_parent" android:layout_height="325dp" android:layout_marginTop="@dimen/layout_margin_20"/>
+            </RelativeLayout>
+            <TextView android:textSize="@dimen/text_size_16"
+                android:gravity="center_horizontal" android:id="@+id/activity_vib_sonic_dbaValue"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/layout_margin_15" android:layout_marginTop="@dimen/layout_margin_15"
+                android:textColor="@color/grey_background"
+                android:text="@string/mean_level_0_00_db_a" android:layout_below="@+id/graphLayout"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
+    </ScrollView>
+    <ScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="0.7">
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TextView android:id="@+id/activity_vib_sonic_horizontalline_tv1" android:background="@color/light_gray_silver" android:layout_width="match_parent" android:layout_height="0.5dp" android:layout_marginLeft="@dimen/layout_margin_10" android:layout_marginTop="@dimen/layout_margin_15" android:layout_marginRight="@dimen/layout_margin_10"/>
+            <LinearLayout android:id="@+id/timerLayout" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/layout_margin_15" android:layout_below="@+id/activity_vib_sonic_horizontalline_tv1">
+                <TextView android:textSize="@dimen/text_size_16" android:textColor="@color/white" android:gravity="end" android:id="@+id/activity_vib_sonic_time_elapsed_tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/time_elapsed" android:layout_weight="1"/>
+                <Chronometer android:textSize="@dimen/text_size_16" android:textColor="@color/white" android:id="@+id/chronometer1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="@dimen/layout_margin_5" android:format="00:00:00" android:text="@string/chronometer" android:layout_weight="1" android:layout_toRightOf="@+id/activity_vib_sonic_time_elapsed_tv"/>
+            </LinearLayout>
+            <TextView android:id="@+id/activity_vib_sonic_horizontalline_tv2" android:background="@color/light_gray_silver" android:layout_width="match_parent" android:layout_height="0.5dp" android:layout_marginLeft="@dimen/layout_margin_10" android:layout_marginTop="@dimen/layout_margin_15" android:layout_marginRight="@dimen/layout_margin_10" android:layout_below="@+id/timerLayout"/>
+            <TextView android:textSize="@dimen/text_size_16" android:textColor="@color/white" android:gravity="center_horizontal" android:id="@+id/activity_vib_sonic_mean_level_tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="@dimen/layout_margin_15" android:text="@string/mean_level_total_0_0_db_a" android:layout_below="@+id/activity_vib_sonic_horizontalline_tv2"
+                android:layout_centerHorizontal="true"/>
+            <TextView android:id="@+id/activity_vib_sonic_horizontalline_tv3" android:background="@color/light_gray_silver" android:layout_width="match_parent" android:layout_height="0.5dp" android:layout_marginLeft="@dimen/layout_margin_10" android:layout_marginTop="@dimen/layout_margin_15" android:layout_marginRight="@dimen/layout_margin_10" android:layout_below="@+id/activity_vib_sonic_mean_level_tv"/>
+
+            <Button
+                android:textSize="@dimen/text_size_16"
+                android:textColor="@color/white"
+                android:id="@+id/bt_vib_reset"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:layout_marginLeft="@dimen/layout_margin_15"
+                android:layout_marginTop="@dimen/layout_margin_15"
+                android:layout_marginRight="@dimen/layout_margin_15"
+                android:layout_marginBottom="@dimen/layout_margin_10"
+                android:text="@string/play"
+                android:layout_below="@+id/activity_vib_sonic_horizontalline_tv3" />
+
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>

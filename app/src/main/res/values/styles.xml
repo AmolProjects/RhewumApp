@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme -->
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your theme here -->
+        <item name="colorPrimary">@color/header_backgrounds</item>
+        <item name="colorPrimaryDark">@color/primary_s</item>
+        <item name="colorAccent">@color/header_backgrounds</item>
+        <item name="android:statusBarColor">@color/grey_background_transperant</item>
+        <item name="android:navigationBarColor">@color/header_backgrounds</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+
+    <style name="clickEffect">
+        <item name="android:background">@drawable/click_effect</item>
+    </style>
+
+    <style name="spinner_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/spinner_background</item>
+        <item name="android:popupBackground">#DFFFFFFF</item>
+    </style>
+</resources>

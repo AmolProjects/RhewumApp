@@ -1,0 +1,45 @@
+[versions]
+agp = "8.4.1"
+calligraphy3 = "3.1.1"
+graphview = "4.2.2"
+emoji2 = "1.4.0"
+jtransforms = "3.1"
+junit = "4.13.2"
+junitVersion = "1.1.5"
+espressoCore = "3.5.1"
+appcompat = "1.7.0"
+lifecycleRuntimeKtx = "2.8.1"
+material = "1.12.0"
+activity = "1.9.0"
+mpandroidchart = "v2.2.4"
+opencsv = "4.6"
+constraintlayout = "2.1.4"
+ormliteAndroid = "4.48"
+rajawali = "1.1.970"
+startupRuntime = "1.1.1"
+googleGmsGoogleServices = "4.4.2"
+firebaseMessaging = "24.0.0"
+
+[libraries]
+graphview = { module = "com.jjoe64:graphview", version.ref = "graphview" }
+calligraphy3 = { module = "io.github.inflationx:calligraphy3", version.ref = "calligraphy3" }
+emoji2 = { module = "androidx.emoji2:emoji2", version.ref = "emoji2" }
+jtransforms = { module = "com.github.wendykierp:JTransforms", version.ref = "jtransforms" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+mpandroidchart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "mpandroidchart" }
+opencsv = { module = "com.opencsv:opencsv", version.ref = "opencsv" }
+constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+ormlite-android = { module = "com.j256.ormlite:ormlite-android", version.ref = "ormliteAndroid" }
+startup-runtime = { module = "androidx.startup:startup-runtime", version.ref = "startupRuntime" }
+firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging", version.ref = "firebaseMessaging" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
+

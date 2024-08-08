@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:orientation="vertical" android:background="@color/white" android:layout_width="match_parent" android:layout_height="match_parent">
+    <RelativeLayout android:id="@+id/delete_layout" android:layout_width="match_parent" android:layout_height="@dimen/layout_margin_50">
+        <TextView android:textSize="@dimen/text_size_20" android:textColor="@color/stop_btn" android:gravity="center_horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/delete_measurement" android:layout_centerVertical="true"/>
+    </RelativeLayout>
+    <LinearLayout android:orientation="horizontal" android:background="@color/grey_line" android:layout_width="match_parent" android:layout_height="0.5dp"/>
+    <RelativeLayout android:id="@+id/export_csv_layout" android:layout_width="match_parent" android:layout_height="@dimen/layout_margin_50">
+        <TextView android:textSize="@dimen/text_size_20" android:textColor="@color/header_backgrounds" android:gravity="center_horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/mail_csv" android:layout_centerVertical="true"/>
+    </RelativeLayout>
+    <LinearLayout android:orientation="horizontal" android:background="@color/grey_line" android:layout_width="match_parent" android:layout_height="0.5dp"/>
+    <RelativeLayout android:id="@+id/export_pdf_layout" android:layout_width="match_parent" android:layout_height="@dimen/layout_margin_50">
+        <TextView android:textSize="@dimen/text_size_20" android:textColor="@color/header_backgrounds" android:gravity="center_horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/mail_pdf" android:layout_centerVertical="true"/>
+    </RelativeLayout>
+    <LinearLayout android:orientation="horizontal" android:background="@color/grey_line" android:layout_width="match_parent" android:layout_height="0.5dp"/>
+    <RelativeLayout android:id="@+id/cancel_layout" android:layout_width="match_parent" android:layout_height="@dimen/layout_margin_50">
+        <TextView android:textSize="@dimen/text_size_20" android:textStyle="bold" android:textColor="@color/header_backgrounds" android:gravity="center_horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/cancel" android:layout_centerVertical="true"/>
+    </RelativeLayout>
+</LinearLayout>
