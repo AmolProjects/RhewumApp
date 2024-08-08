@@ -92,7 +92,7 @@
     <!--::::::::::::::::::::Archive  Screen::::::::::::::::::-->
     <string name="arch_ScreenTit">Archive</string>
     <string name="more">More</string>
-    <string name="currentDate">01–30-2024,11:56</string>
+    <string name="currentDate">01–30–2024,11:56</string>
     <string name="measure_time">Measurement Time :</string>
     <string name="txtFrequency">Frequency</string>
     <string name="sound_pressure_leve">Sound Pressure Level</string>
@@ -162,7 +162,7 @@
     <string name="ok">OK</string>
     <string name="no">No</string>
     <string name="txtTitles">CapacityChecker</string>
-    <string name="vibTitle">Information before you strat</string>
+    <string name="vibTitle">Information before you start</string>
     <string name="vibContent">To be able to identify your machine\'s capacity,We need to help with entering some of your machine\'s data. Please fill out the following.The information buttons will give you advice regarding how to do so</string>
     <string name="m">m</string>
     <string name="ft">ft</string>
