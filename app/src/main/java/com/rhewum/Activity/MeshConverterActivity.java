@@ -1,6 +1,7 @@
 package com.rhewum.Activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -353,9 +354,13 @@ public class MeshConverterActivity extends DrawerBaseActivity implements View.On
 
         final NumberPicker numberPicker = (NumberPicker) this.dialog.findViewById(R.id.numberPicker);
         insertValuesToPicker(str, numberPicker);
+
         if (this.isDin1_Clicked) {
+
             int indexOf = Arrays.asList(Constants.din_1_Values).indexOf(this.din_1.getText().toString());
             this.mainIndex = indexOf;
+
+
             if (indexOf < 0) {
                 numberPicker.setValue(0);
                 this.din_1.setText(Constants.din_1_Values[0]);
@@ -364,6 +369,7 @@ public class MeshConverterActivity extends DrawerBaseActivity implements View.On
                 this.din_2.setText(Constants.din_2_Values[0]);
             } else {
                 numberPicker.setValue(indexOf);
+
             }
         } else if (this.isAstm_Clicked) {
             this.mainIndex = Arrays.asList(Constants.astm_ValuesNew).indexOf(this.astm.getText().toString());
@@ -410,8 +416,18 @@ public class MeshConverterActivity extends DrawerBaseActivity implements View.On
             }
         }
 //        NumberPicker.mListner = this;
-        numberPicker.setFocusable(true);
-        numberPicker.setFocusableInTouchMode(true);
+//        numberPicker.setFocusable(false);
+//        numberPicker.setFocusableInTouchMode(false);
+
+        // Set an OnClickListener to dismiss the dialog when the NumberPicker is clicked
+        numberPicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog2.dismiss();  // Dismiss the dialog
+            }
+        });
+        
+
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             public void onValueChange(NumberPicker numberPicker, int i, int i2) {
                 int unused = MeshConverterActivity.this.pickerIndex = numberPicker.getValue();
@@ -459,6 +475,7 @@ public class MeshConverterActivity extends DrawerBaseActivity implements View.On
 
     private void insertValuesToPicker(String str, NumberPicker numberPicker) {
         if (str.equals("din1")) {
+
             numberPicker.setMaxValue(Constants.din_1_Values.length - 1);
             numberPicker.setDisplayedValues(Constants.din_1_Values);
             return;
@@ -512,6 +529,7 @@ public class MeshConverterActivity extends DrawerBaseActivity implements View.On
     private void hideSoftInput(EditText editText) {
         ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(editText.getWindowToken(), 0);
     }
+
 
     public void onClick(boolean z) {
         if (z) {

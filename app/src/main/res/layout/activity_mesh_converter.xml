@@ -134,7 +134,10 @@
                         android:cursorVisible="false"
                         android:focusableInTouchMode="false"
                         android:gravity="center"
-                        android:textSize="@dimen/text_size_16" />
+                        android:clickable="false"
+                        android:inputType="none"
+                        android:textSize="@dimen/text_size_16"
+                        />
 
                     <EditText
                         android:id="@+id/activity_mesh_astm_et"
