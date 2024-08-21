@@ -17,15 +17,14 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.window.OnBackInvokedDispatcher;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.rhewum.Activity.MeshConveterData.Utils;
+import com.rhewum.DrawerBaseActivity;
 import com.rhewum.R;
+import com.rhewum.databinding.ActivityCapacityCheckerBinding;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,7 +33,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-public class CapacityCheckerActivity extends AppCompatActivity {
+public class CapacityCheckerActivity extends DrawerBaseActivity {
     private static final String TAG=CapacityCheckerActivity.class.getName();
     TextView txtBack,activity_mesh_trennschnitt_result;
     Spinner spinner;
@@ -46,6 +45,7 @@ public class CapacityCheckerActivity extends AppCompatActivity {
     private ArrayAdapter<String> adapter;
    private String globalFlowVelocity,editTextWidth,editTextHeightValue;
     Button bt_submit;
+    ActivityCapacityCheckerBinding activityCapacityCheckerBinding;
     Handler uiHandler;
     // Declare the executor service at the class level
     private ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -54,18 +54,25 @@ public class CapacityCheckerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Utils.setFontFamily("fonts/heebo.ttf");
-        setContentView(R.layout.activity_capacity_checker);
+//        setContentView(R.layout.activity_capacity_checker);
+        activityCapacityCheckerBinding = ActivityCapacityCheckerBinding.inflate(getLayoutInflater());
+        setContentView(activityCapacityCheckerBinding.getRoot());
         initObjects();
         selectedItemSpinner();
 
-        imgBack.setOnClickListener(view ->{
-            finish();
-            overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View view) {
+                finish();
+                overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
+
+            }
         });
         txtBack.setOnClickListener(view -> {
             finish();
             overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
         });
+
+
         textMachineTypeInfo.setOnClickListener(view -> showAlert("Please provide your information machine type"));
         textScreenWidthInfo.setOnClickListener(view -> showAlert("Please provide your information screen type"));
         textScreenAngleInfo.setOnClickListener(view -> showAlert("Please provide your information screen angle"));
@@ -119,7 +126,7 @@ public class CapacityCheckerActivity extends AppCompatActivity {
                     // Update the UI with the result
                     try {
                         double layerHeight = future.get();
-                        runOnUiThread(() -> activity_mesh_trennschnitt_result.setText(String.format("%.3f", layerHeight)));
+                        runOnUiThread(() -> activity_mesh_trennschnitt_result.setText(String.format("%.5f", layerHeight)));
                         Log.e("Radio Width in m", selectedOptionWidth);
                     } catch (Exception e) {
                         e.printStackTrace();

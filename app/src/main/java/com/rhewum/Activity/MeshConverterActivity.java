@@ -1,6 +1,7 @@
 package com.rhewum.Activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
@@ -35,9 +37,12 @@ import com.rhewum.Activity.MeshConveterData.Constants;
 import com.rhewum.Activity.MeshConveterData.InputFilterMinMax;
 import com.rhewum.Activity.MeshConveterData.ResponsiveAndroidBars;
 import com.rhewum.Activity.MeshConveterData.Utils;
+import com.rhewum.DrawerBaseActivity;
 import com.rhewum.R;
+import com.rhewum.databinding.ActivityDashBoardBinding;
+import com.rhewum.databinding.ActivityMeshConverterBinding;
 
-public class MeshConverterActivity extends AppCompatActivity implements View.OnClickListener{
+public class MeshConverterActivity extends DrawerBaseActivity implements View.OnClickListener{
     /* access modifiers changed from: private */
     public EditText angleEt;
     /* access modifiers changed from: private */
@@ -65,26 +70,29 @@ public class MeshConverterActivity extends AppCompatActivity implements View.OnC
     public String meshOpeningEtStr;
     private RadioButton mmRadio;
     private ScrollView parentScrollView;
-    private RelativeLayout backs;
     private int pickerAstmIndex = 0;
     /* access modifiers changed from: private */
     public int pickerIndex = 0;
     private int pickerTylerIndex = 0;
     /* access modifiers changed from: private */
-    public TextView resultTv;
+    public TextView resultTv,meshBackTv,meshInfoTv;
     private Sensor sensor;
     private SensorEventListener sensorEventListener;
     private SensorManager sensorManager;
     private TextView subTitle_angle;
     private DecimalFormat twoDigitForm = new DecimalFormat("##.##");
     private EditText tyler;
+    private ImageView back,meshInfoIv;
+    ActivityMeshConverterBinding activityMeshConverterBinding;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Utils.setFontFamily("fonts/heebo.ttf");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mesh_converter);
+//        setContentView(R.layout.activity_mesh_converter);
+        activityMeshConverterBinding = ActivityMeshConverterBinding.inflate(getLayoutInflater());
+        setContentView(activityMeshConverterBinding.getRoot());
         setUpViews();
 
         ResponsiveAndroidBars.setNotificationBarColor(this, getResources().getColor(R.color.header_backgrounds), false);
@@ -94,8 +102,11 @@ public class MeshConverterActivity extends AppCompatActivity implements View.OnC
             ResponsiveAndroidBars.setNavigationBarColor(this, getResources().getColor(R.color.grey_background), false, false);
         }
 
-        this.backs.setOnClickListener(this);
-        this.info.setOnClickListener(this);
+
+        this.back.setOnClickListener(this);
+        this.meshBackTv.setOnClickListener(this);
+        this.meshInfoIv.setOnClickListener(this);
+        this.meshInfoTv.setOnClickListener(this);
         this.din_1.setOnClickListener(this);
         this.astm.setOnClickListener(this);
         this.tyler.setOnClickListener(this);
@@ -122,7 +133,8 @@ public class MeshConverterActivity extends AppCompatActivity implements View.OnC
             }
 
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                if (MeshConverterActivity.this.meshOpeningEt.getText().toString().trim().equals("") || MeshConverterActivity.this.angleEt.getText().toString().trim().equals("")) {
+                if (MeshConverterActivity.this.meshOpeningEt.getText().toString().trim().equals("")
+                        || MeshConverterActivity.this.angleEt.getText().toString().trim().equals("")) {
                     String unused = MeshConverterActivity.this.meshOpeningEtStr = charSequence.toString().trim();
                     MeshConverterActivity.this.resultTv.setText("");
                     return;
@@ -150,7 +162,8 @@ public class MeshConverterActivity extends AppCompatActivity implements View.OnC
         });
     }
     private void setUpViews() {
-        this.backs=(RelativeLayout)findViewById(R.id.activity_mesh_back);
+        this.back=(ImageView) findViewById(R.id.activity_mesh_back_iv);
+        this.meshInfoIv=(ImageView) findViewById(R.id.activity_mesh_info_iv);
         this.info = (RelativeLayout) findViewById(R.id.activity_mesh_info_layout);
         this.din_1 = (EditText) findViewById(R.id.activity_mesh_din1_et);
         this.astm = (EditText) findViewById(R.id.activity_mesh_astm_et);
@@ -158,6 +171,8 @@ public class MeshConverterActivity extends AppCompatActivity implements View.OnC
         this.din_2 = (EditText) findViewById(R.id.activity_mesh_din2_et);
         this.parentScrollView = (ScrollView) findViewById(R.id.activity_mesh_parent_scrollView);
         this.resultTv = (TextView) findViewById(R.id.activity_mesh_trennschnitt_result);
+        this.meshBackTv = (TextView) findViewById(R.id.activity_mesh_back_tv);
+        this.meshInfoTv = (TextView) findViewById(R.id.activity_mesh_info_tv);
         this.mmRadio = (RadioButton) findViewById(R.id.radio_screenWidth_m);
         this.inchRadio = (RadioButton) findViewById(R.id.radio_screenWidth_ft);
         this.manualRadio = (RadioButton) findViewById(R.id.activity_mesh_trennschnitt_manual_radio);
@@ -170,12 +185,31 @@ public class MeshConverterActivity extends AppCompatActivity implements View.OnC
     }
 
     public void onClick(View view) {
-        if (view.equals(this.backs)) {
-            Toast.makeText(MeshConverterActivity.this,"clicked",Toast.LENGTH_SHORT).show();
+        if (view.equals(this.back)) {
             unRegisterSensorListner();
             finish();
             overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
-        } else if (view.equals(this.info)) {
+        }
+
+        else if (view.equals(this.meshBackTv)) {
+            unRegisterSensorListner();
+            finish();
+            overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
+        }
+
+        else if (view.equals(this.meshInfoIv)) {
+            unRegisterSensorListner();
+            startActivity(new Intent(this, MeshInfoActivity.class));
+            overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
+        }
+
+        else if (view.equals(this.meshInfoTv)) {
+            unRegisterSensorListner();
+            startActivity(new Intent(this, MeshInfoActivity.class));
+            overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
+        }
+
+        else if (view.equals(this.info)) {
             unRegisterSensorListner();
             startActivity(new Intent(this, MeshInfoActivity.class));
             overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
@@ -244,50 +278,51 @@ public class MeshConverterActivity extends AppCompatActivity implements View.OnC
     private void calculateAngle() {
         SensorManager sensorManager2 = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         this.sensorManager = sensorManager2;
-        this.sensor = sensorManager2.getDefaultSensor(1);
+        this.sensor = sensorManager2.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         SensorEventListener r0 = new SensorEventListener() {
             public void onAccuracyChanged(Sensor sensor, int i) {
             }
 
             public void onSensorChanged(SensorEvent sensorEvent) {
-                if (sensorEvent.sensor.getType() == 1) {
-                    float f = sensorEvent.values[0] / 9.8f;
-                    float f2 = sensorEvent.values[1] / 9.8f;
-                    float f3 = sensorEvent.values[2] / 9.8f;
-                    if (f == 0.0f) {
-                        f = 0.01f;
-                    }
-                    if (f2 == 0.0f) {
+                if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+                    float f = sensorEvent.values[0]; // X-axis
+                    float f2 = sensorEvent.values[1]; // Y-axis
+                    float f3 = sensorEvent.values[2]; // Z-axis
 
-                        f2 = 0.01f;
-                    }
-                    if (f3 == 0.0f) {
-                        f3 = 0.01f;
-                    }
-                    int atan = (int) ((Math.atan((double) (f2 / f)) * 180.0d) / 3.141592653589793d);
-                    int abs1 = Math.abs(atan);
+                    // Calculate the magnitude of the acceleration vector
+                    float magnitude = (float) Math.sqrt(f * f + f2 * f2 + f3 * f3);
 
-                    if (Math.abs(f3) >= 0.9f) {
-                        angleEt.setText("");
-                    } else if ((f2 < 0.0f && atan < 0) || (f < 0.0f && f2 < 0.0f)) {
-                        showAlert();
-                    } else if (abs1 > 45) {
-                        showAlert();
+                    // Normalize the accelerometer values
+                    float normalizedF = f / magnitude;
+                    float normalizedF2 = f2 / magnitude;
+                    float normalizedF3 = f3 / magnitude;
+
+                    // Calculate the angle with respect to the Z-axis
+                    int angle = (int) Math.toDegrees(Math.acos(normalizedF3));
+                    int absAngle = Math.abs(angle);
+
+                    angleEt.setText(String.valueOf(absAngle));
+                    if (absAngle > 45) {
+                        showAlert(); // Show alert if the angle exceeds 45 degrees
                     } else {
                         customAlertDialog.setVisibility(View.GONE);
                         isAlertShown = false;
-//                     angleEt.setText(Integer.toString(abs1));
-                        angleEt.setText(String.valueOf(abs1));
-//                     angleEt.setText(abs1);
-//                        angleEt.setText(String.format(Locale.getDefault(), "%d", abs1));
+                        angleEt.setText(String.valueOf(absAngle)); // Display the angle
+                    }
+
+                    // Check if the device is flat on the surface
+                    boolean isFlat = Math.abs(f3) > 9.0 && Math.abs(f) < 1.0 && Math.abs(f2) < 1.0;
+                    if (isFlat) {
+                        angleEt.setText(""); // Clear the angle display
+                        customAlertDialog.setVisibility(View.GONE);
+                        isAlertShown = false;
                     }
                 }
             }
         };
         this.sensorEventListener = r0;
-        this.sensorManager.registerListener(r0, this.sensor, 3);
+        this.sensorManager.registerListener(r0, this.sensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
-
     /* access modifiers changed from: private */
     public void showAlert() {
         this.angleEt.setText("");
@@ -319,9 +354,13 @@ public class MeshConverterActivity extends AppCompatActivity implements View.OnC
 
         final NumberPicker numberPicker = (NumberPicker) this.dialog.findViewById(R.id.numberPicker);
         insertValuesToPicker(str, numberPicker);
+
         if (this.isDin1_Clicked) {
+
             int indexOf = Arrays.asList(Constants.din_1_Values).indexOf(this.din_1.getText().toString());
             this.mainIndex = indexOf;
+
+
             if (indexOf < 0) {
                 numberPicker.setValue(0);
                 this.din_1.setText(Constants.din_1_Values[0]);
@@ -330,6 +369,7 @@ public class MeshConverterActivity extends AppCompatActivity implements View.OnC
                 this.din_2.setText(Constants.din_2_Values[0]);
             } else {
                 numberPicker.setValue(indexOf);
+
             }
         } else if (this.isAstm_Clicked) {
             this.mainIndex = Arrays.asList(Constants.astm_ValuesNew).indexOf(this.astm.getText().toString());
@@ -376,8 +416,18 @@ public class MeshConverterActivity extends AppCompatActivity implements View.OnC
             }
         }
 //        NumberPicker.mListner = this;
-        numberPicker.setFocusable(true);
-        numberPicker.setFocusableInTouchMode(true);
+//        numberPicker.setFocusable(false);
+//        numberPicker.setFocusableInTouchMode(false);
+
+        // Set an OnClickListener to dismiss the dialog when the NumberPicker is clicked
+        numberPicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog2.dismiss();  // Dismiss the dialog
+            }
+        });
+
+
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             public void onValueChange(NumberPicker numberPicker, int i, int i2) {
                 int unused = MeshConverterActivity.this.pickerIndex = numberPicker.getValue();
@@ -425,6 +475,7 @@ public class MeshConverterActivity extends AppCompatActivity implements View.OnC
 
     private void insertValuesToPicker(String str, NumberPicker numberPicker) {
         if (str.equals("din1")) {
+
             numberPicker.setMaxValue(Constants.din_1_Values.length - 1);
             numberPicker.setDisplayedValues(Constants.din_1_Values);
             return;
@@ -478,6 +529,7 @@ public class MeshConverterActivity extends AppCompatActivity implements View.OnC
     private void hideSoftInput(EditText editText) {
         ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(editText.getWindowToken(), 0);
     }
+
 
     public void onClick(boolean z) {
         if (z) {

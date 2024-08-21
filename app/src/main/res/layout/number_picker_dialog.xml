@@ -6,6 +6,22 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
+<!--    <net.simonvt.numberpicker.NumberPicker-->
+<!--        android:id="@+id/numberPicker"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="200dp"-->
+<!--        android:layout_marginLeft="5dp" />-->
+
+    <!--    <com.rhewum.CustomNumberPicker-->
+    <!--        android:id="@+id/numberPicker"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="200dp"-->
+    <!--        android:layout_marginLeft="5dp"-->
+    <!--        android:descendantFocusability="afterDescendants"-->
+    <!--        android:focusableInTouchMode="false"-->
+    <!--        android:clickable="false"-->
+    <!--        android:longClickable="false"/>-->
+
     <NumberPicker
         android:id="@+id/numberPicker"
         android:layout_width="wrap_content"

@@ -80,9 +80,10 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:elevation="8dp"
                 android:background="@color/light_gray_silver"
+                android:elevation="8dp"
                 android:foregroundGravity="center_horizontal"
                 app:layout_constraintBottom_toTopOf="@+id/displacement_graph"
                 app:layout_constraintDimensionRatio="h,1:0.6"
@@ -96,9 +97,10 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:elevation="8dp"
                 android:background="@color/light_gray_silver"
+                android:elevation="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/bt_save"
                 app:layout_constraintDimensionRatio="h,1:0.6"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -110,6 +112,7 @@
                 android:id="@+id/bt_save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="4dp"
                 android:layout_weight="1"
                 android:text="@string/save"
@@ -117,13 +120,15 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/bt_share"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/displacement_graph" />
 
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/bt_share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="4dp"
                 android:layout_weight="1"
                 android:text="@string/share"
@@ -131,7 +136,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/bt_save" />
+                app:layout_constraintStart_toEndOf="@+id/bt_save"
+                app:layout_constraintTop_toBottomOf="@+id/displacement_graph" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

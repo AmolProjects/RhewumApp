@@ -37,7 +37,7 @@
             <TextView android:textSize="@dimen/text_size_16"
                 android:gravity="center_horizontal" android:id="@+id/activity_vib_sonic_dbaValue"
                 android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/layout_margin_15" android:layout_marginTop="@dimen/layout_margin_15"
+                android:layout_marginStart="@dimen/layout_margin_15" android:layout_marginTop="@dimen/layout_margin_8"
                 android:textColor="@color/grey_background"
                 android:text="@string/mean_level_0_00_db_a" android:layout_below="@+id/graphLayout"
                 android:layout_alignParentEnd="true"/>

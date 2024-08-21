@@ -50,6 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
             <ImageView
+
                 android:id="@+id/activity_mesh_info_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -79,7 +80,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -136,7 +137,10 @@
                         android:cursorVisible="false"
                         android:focusableInTouchMode="false"
                         android:gravity="center"
-                        android:textSize="@dimen/text_size_16" />
+                        android:clickable="false"
+                        android:inputType="none"
+                        android:textSize="@dimen/text_size_16"
+                        />
 
                     <EditText
                         android:id="@+id/activity_mesh_astm_et"
@@ -370,7 +374,7 @@
                 <TextView
                     android:id="@+id/activity_mesh_trennschnitt_no2"
                     android:layout_width="@dimen/textview_width"
-                    android:layout_height="@dimen/textview_width"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/activity_mesh_trennschnitt_no1"
                     android:layout_marginStart="@dimen/layout_margin_10"
                     android:layout_marginTop="@dimen/layout_margin_50"

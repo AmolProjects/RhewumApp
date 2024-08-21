@@ -17,13 +17,16 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.rhewum.Activity.MeshConveterData.Utils;
+import com.rhewum.DrawerBaseActivity;
 import com.rhewum.R;
+import com.rhewum.databinding.ActivityFlashesBinding;
 
-public class VibFlashActivity extends AppCompatActivity implements View.OnClickListener{
+
+
+public class VibFlashActivity extends DrawerBaseActivity implements View.OnClickListener{
     private Button freq16;
     private Button freq20;
     private Button freq25;
@@ -43,17 +46,29 @@ public class VibFlashActivity extends AppCompatActivity implements View.OnClickL
     private boolean isBlinking = false;
     private Runnable blinkRunnable;
 
+
+//    ActivityVibFlashesBinding activityVibFlashesBinding;
+    ActivityFlashesBinding activityFlashesBinding;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//       setContentView(R.layout.activity_flashes);
+        activityFlashesBinding = ActivityFlashesBinding.inflate(getLayoutInflater());
+       setContentView(activityFlashesBinding.getRoot());
         Utils.setFontFamily("fonts/heebo.ttf");
-        setContentView(R.layout.activity_vib_flash);
+      //  setContentView(R.layout.activity_vib_flash);
         // Set the status bar color
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.header_backgrounds));
         setUpViews();
         this.freqMinus.setOnClickListener(this);
+
         this.freqPlus.setOnClickListener(this);
         this.freq16.setOnClickListener(this);
         this.freq20.setOnClickListener(this);
@@ -87,7 +102,7 @@ public class VibFlashActivity extends AppCompatActivity implements View.OnClickL
                 if (isBlinking) {
                     stopBlinking();
                 } else {
-                    startBlinking(Double.parseDouble(freqTv.getText().toString()));
+                    startBlinking(Double.parseDouble(freqTv.getText().toString()),5);
                 }
             }
         });
@@ -196,7 +211,7 @@ public class VibFlashActivity extends AppCompatActivity implements View.OnClickL
         }
     }
     @SuppressLint("SetTextI18n")
-    private void startBlinking(double frequency) {
+    private void startBlinking(double frequency, int i) {
         long period = (long) (1000 / frequency / 2); // Half period for ON and OFF
         long endTime = System.currentTimeMillis() + 5 * 1000L;
         isBlinking = true;

@@ -16,9 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.rhewum.Activity.MeshConveterData.ResponsiveAndroidBars;
 import com.rhewum.Activity.MeshConveterData.Utils;
 import com.rhewum.Activity.interfaces.JsInterface;
+import com.rhewum.DrawerBaseActivity;
 import com.rhewum.R;
 
-public class InfoActivity extends AppCompatActivity implements View.OnClickListener{
+public class InfoActivity extends DrawerBaseActivity implements View.OnClickListener{
     private RelativeLayout backLayout;
     private WebView wv;
 

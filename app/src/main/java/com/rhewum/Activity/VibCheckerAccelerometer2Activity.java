@@ -30,7 +30,10 @@ import androidx.core.content.ContextCompat;
 import com.rhewum.Activity.MeshConveterData.Utils;
 import com.rhewum.Activity.VibcheckerGraph.FFTProcessor;
 import com.rhewum.Activity.VibcheckerGraph.PlotView;
+import com.rhewum.DrawerBaseActivity;
 import com.rhewum.R;
+import com.rhewum.databinding.ActivityCapacityCheckerBinding;
+import com.rhewum.databinding.ActivityVibCheckerAccelerometer2Binding;
 
 import org.jtransforms.fft.FloatFFT_1D;
 
@@ -40,7 +43,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-public class VibCheckerAccelerometer2Activity extends AppCompatActivity {
+public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
     private SensorEventListener sensorEventListener;
     static private final int SAMPLING_PERIOD_MICROS = 10000;
     static private final int PLOT_BUFFER_MILLIS = 6000;
@@ -90,12 +93,14 @@ public class VibCheckerAccelerometer2Activity extends AppCompatActivity {
     private Handler uiHandler;
     private HandlerThread handlerThread;
     private Handler backgroundHandler;
+    ActivityVibCheckerAccelerometer2Binding activityVibCheckerAccelerometer2Binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Utils.setFontFamily("fonts/heebo.ttf");
-        setContentView(R.layout.activity_vib_checker_accelerometer2);
+        activityVibCheckerAccelerometer2Binding = ActivityVibCheckerAccelerometer2Binding.inflate(getLayoutInflater());
+        setContentView(activityVibCheckerAccelerometer2Binding.getRoot());
         initObjects();
         initHandlers();
         initGUI();
@@ -143,19 +148,19 @@ public class VibCheckerAccelerometer2Activity extends AppCompatActivity {
         bt_vib_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                        // UI update code here
-                        if (startFlag) {
-                            hideTheUi();
-                            initGUI();
-                            startSensor();
-                            startCountdown();
-                            resetMaxValues();
-                            startFlag = false;
-                        } else {
-                            nextToScreen();
-                        }
-                    }
-                });
+                // UI update code here
+                if (startFlag) {
+                    hideTheUi();
+                    initGUI();
+                    startSensor();
+                    startCountdown();
+                    resetMaxValues();
+                    startFlag = false;
+                } else {
+                    nextToScreen();
+                }
+            }
+        });
 
         // click on onLpFilter
         txt_onLpFilter.setOnClickListener(v -> {
@@ -220,8 +225,8 @@ public class VibCheckerAccelerometer2Activity extends AppCompatActivity {
     // next to the accelerometer screen
     private void nextToScreen() {
         uiHandler.post(() -> {
-        bt_vib_start.setBackgroundColor(ContextCompat.getColor(VibCheckerAccelerometer2Activity.this, R.color.header_backgrounds));
-        bt_vib_start.setText(R.string.start);
+            bt_vib_start.setBackgroundColor(ContextCompat.getColor(VibCheckerAccelerometer2Activity.this, R.color.header_backgrounds));
+            bt_vib_start.setText(R.string.start);
         });
         Intent intent = new Intent(VibCheckerAccelerometer2Activity.this, VibCheckerMainActivity.class);
         // send the data for acceleration
@@ -325,7 +330,7 @@ public class VibCheckerAccelerometer2Activity extends AppCompatActivity {
         if (!isSensorRunning) {
             initSensor();
             // Duration to draw the graph in milliseconds
-           // USER_TIME_DRAW_DURATION_MILLIS = 6000;
+            // USER_TIME_DRAW_DURATION_MILLIS = 6000;
             stopSensorRunnable = this::stopSensor;
             // Duration to draw the graph in milliseconds
             int USER_TIME_DRAW_DURATION_MILLIS = 6000;
@@ -418,7 +423,7 @@ public class VibCheckerAccelerometer2Activity extends AppCompatActivity {
         if (isSensorRunning) {
             SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
             sensorManager.unregisterListener(sensorEventListener);
-           // handlerThread.quitSafely();
+            // handlerThread.quitSafely();
             isSensorRunning = false;
         }
     }

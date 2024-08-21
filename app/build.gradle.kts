@@ -37,6 +37,10 @@ android {
             }
         }
     }
+    buildFeatures{
+        viewBinding=true
+    }
+
 }
 
 dependencies {
@@ -58,8 +62,24 @@ dependencies {
     implementation (libs.mpandroidchart)
     implementation (libs.jtransforms)
 
+    // :::::::: Retrofit ::::
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
+    implementation (libs.okhttp)
+    implementation (libs.logging.interceptor)
+
+    //slider
+    implementation (libs.autoimageslider)
+    //glide
+    implementation(libs.glide)
+
+    //firebase
+    implementation(libs.firebase.database)
+    implementation(libs.firebase.firestore)
     implementation(group = "com.itextpdf", name = "itextpdf", version = "5.5.13.1")
     implementation(libs.firebase.messaging)
+    implementation(libs.firebase.storage)
+    implementation (libs.shortcutbadger)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

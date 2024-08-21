@@ -19,7 +19,10 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import com.rhewum.Activity.Adapter.VibCheckerAdapter;
 import com.rhewum.Activity.Fragments.PsdFragment;
 import com.rhewum.Activity.Fragments.SummeryFragment;
+import com.rhewum.DrawerBaseActivity;
 import com.rhewum.R;
+import com.rhewum.databinding.ActivityVibCheckerMainBinding;
+import com.rhewum.databinding.ActivityVibSonicBinding;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,17 +30,21 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class VibCheckerMainActivity extends AppCompatActivity {
+public class VibCheckerMainActivity extends DrawerBaseActivity {
     private TabLayout tab_layout;
     private ViewPager2 viewPager;
     private VibCheckerAdapter vibCheckerAdapter;
     TextView txtBack;
     ImageView imgBack;
 
+    ActivityVibCheckerMainBinding activityVibCheckerMainBinding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_vib_checker_main);
+//        setContentView(R.layout.activity_vib_checker_main);
+        activityVibCheckerMainBinding = ActivityVibCheckerMainBinding.inflate(getLayoutInflater());
+        setContentView(activityVibCheckerMainBinding.getRoot());
         initObjects();
 
         txtBack.setOnClickListener(new View.OnClickListener() {

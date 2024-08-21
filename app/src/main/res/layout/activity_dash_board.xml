@@ -7,8 +7,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.DashBoardActivity">
+
     <ImageView
-        android:id="@+id/img_test"
+        android:id="@+id/slider_imageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="fitXY"
@@ -20,7 +21,20 @@
         app:layout_constraintTop_toTopOf="parent"
         android:src="@drawable/banner"
          />
-
+    <com.smarteist.autoimageslider.SliderView
+        android:id="@+id/img_test"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        android:contentDescription="@string/todo"
+        app:layout_constraintDimensionRatio="1:0.5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:sliderScrollTimeInSec="1"
+        app:sliderAutoCycleDirection="back_and_forth"
+        app:sliderAnimationDuration="600"/>
     <TextView
         android:id="@+id/txtNewsTitle"
         android:layout_width="wrap_content"
@@ -39,6 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+
         android:background="#008ac8"
         android:padding="8dp"
         android:text="@string/txtContent"

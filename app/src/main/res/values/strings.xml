@@ -231,4 +231,6 @@
     <string name="note">Note:</string>
     <string name="date">Date</string>
     <string name="mean_level_time">Mean Level Time</string>
+    <string name="menu_drawer_open">Open</string>
+    <string name="menu_drawer_close">Close</string>
 </resources>

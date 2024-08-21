@@ -15,10 +15,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.rhewum.DrawerBaseActivity;
 import com.rhewum.R;
 
 @SuppressLint("CustomSplashScreen")
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends DrawerBaseActivity {
     private boolean isAskPermission = false;
     private static final int AUDIO_PERMISSION_REQUEST_CODE = 201;
     private static final String TAG=SplashActivity.class.getName();
