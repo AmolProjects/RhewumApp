@@ -85,13 +85,13 @@
             android:name=".Activity.VibFlashActivity"
             android:exported="false" />
 
-        <service
-            android:name=".Activity.NotificationService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
+<!--        <service-->
+<!--            android:name=".Activity.NotificationService"-->
+<!--            android:exported="false">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.google.firebase.MESSAGING_EVENT" />-->
+<!--            </intent-filter>-->
+<!--        </service>-->
 
         <activity
             android:name=".Activity.MeshConverterActivity"
@@ -115,9 +115,17 @@
             </intent-filter>
         </activity>
 
+<!--        <service-->
+<!--            android:name=".Activity.MyFirebaseMessagingService"-->
+<!--            android:exported="true">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.google.firebase.MESSAGING_EVENT" />-->
+<!--            </intent-filter>-->
+<!--        </service>-->
+
         <service
-            android:name=".Activity.MyFirebaseMessagingService"
-            android:exported="false">
+            android:name=".Activity.NotificationService"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -126,6 +134,7 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="news_channel_id" />
+
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -148,6 +157,7 @@
                 android:name="androidx.lifecycle.ProcessLifecycleInitializer"
                 android:value="androidx.startup" />
         </provider>
-    </application>
+
+            </application>
 
 </manifest>

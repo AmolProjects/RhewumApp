@@ -1,7 +1,10 @@
 package com.rhewum.Activity;
 import static com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType.WORM;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -10,11 +13,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -53,6 +59,8 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
     private static final int NOTIFICATION_PERMISSION_REQUEST_CODE = 1;
 
     ActivityDashBoardBinding activityDashBoardBinding;
+    private BadgeDrawerArrowDrawable badgeDrawable;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +74,8 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
       activityDashBoardBinding = ActivityDashBoardBinding.inflate(getLayoutInflater());
         setContentView(activityDashBoardBinding.getRoot());
         initObjects();
+
+
         db = FirebaseFirestore.getInstance();
 
 
@@ -125,6 +135,20 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
 
 
     }
+
+//    private void updateBadge(int badgeCount) {
+//        ImageView badgeImageView = findViewById(R.id.toolBar); // Replace with your actual ImageView ID
+//        if (badgeImageView != null) {
+//            if (badgeCount > 0) {
+//                badgeDrawable.setText(String.valueOf(badgeCount));
+//                badgeImageView.setImageDrawable(badgeDrawable);
+//            } else {
+//                badgeDrawable.setText(""); // Clear badge text if no notifications
+//                badgeImageView.setImageDrawable(null); // Hide the badge if no notifications
+//            }
+//            badgeDrawable.invalidateSelf(); // Force redraw
+//        }
+//    }
 
     private void checkAndRequestNotificationPermission() {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS)
@@ -246,6 +270,8 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
         recyclerView = findViewById(R.id.recyclerView);
         img_viewPagerBackword = findViewById(R.id.img_viewPagerBackword);
         img_viewPagerForwad = findViewById(R.id.img_viewPagerForwad);
+
+
         // Sample data
         dataList = new ArrayList<>();
         int[] images = {
@@ -292,12 +318,13 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
         startActivity(intent);
     }
 
-    @Override
     protected void onResume() {
         super.onResume();
-        clearBadgeCount();
-    }
 
+
+//        LocalBroadcastManager.getInstance(this).registerReceiver(badgeUpdateReceiver,
+//                new IntentFilter("com.rhewum.UPDATE_BADGE"));
+    }
     private void clearBadgeCount() {
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         prefs.edit().putInt(BADGE_COUNT_KEY, 0).apply();
@@ -316,4 +343,36 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
         }
     }
 
+//    private final BroadcastReceiver badgeUpdateReceiver = new BroadcastReceiver() {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            Log.d("BadgeUpdate", "Broadcast received. Intent: " + intent);
+//            if (intent != null && intent.hasExtra("badge_count")) {
+//                int badgeCount = intent.getIntExtra("badge_count", 0);
+//                Log.d("BadgeUpdate", "Badge count: " + badgeCount);
+////                updateBadge(badgeCount);
+//            } else {
+//                Log.d("BadgeUpdate", "Broadcast received with no badge count.");
+//            }
+//        }
+//    };
+
+//    private void updateBadge(int badgeCount) {
+//        ImageView badgeImageView = findViewById(R.id.toolBar); // Ensure this ID matches your toolbar
+//        if (badgeImageView != null) {
+//            if (badgeCount > 0) {
+//                badgeDrawable.setText(""); // Red dot only, no text
+//                badgeImageView.setImageDrawable(badgeDrawable);
+//            } else {
+//                badgeImageView.setImageDrawable(null); // Hide the badge if no notifications
+//            }
+//            badgeDrawable.invalidateSelf(); // Force redraw
+//        }
+//    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+//        LocalBroadcastManager.getInstance(this).unregisterReceiver(badgeUpdateReceiver);
+    }
 }

@@ -1,0 +1,41 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+
+    >
+
+<!--    &lt;!&ndash; Placeholder for the menu item text with the badge overlapping it &ndash;&gt;-->
+    <TextView
+        android:id="@+id/menu_item_text"
+        android:layout_width="83dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|start"
+        android:gravity="start"
+        android:paddingStart="1dp"
+        android:paddingEnd="10dp"
+
+
+        android:textSize="16sp" />
+
+    <!-- The badge overlapping the text -->
+    <TextView
+        android:id="@+id/menu_item_badge"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/red_dot"
+        android:minWidth="20dp"
+        android:minHeight="20dp"
+        android:padding="1dp"
+        android:text="2"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        android:visibility="visible"
+        android:layout_gravity="center_vertical|start"
+        android:gravity="center_horizontal"
+
+        />
+
+</FrameLayout>

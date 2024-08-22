@@ -1,18 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:checkableBehavior="single"
+        >
         <item
             android:id="@+id/nav_home"
             android:visible="true"
-            android:title="Home" />
+            android:title=""
+            />
         <item
             android:id="@+id/nav_news"
-            android:title="News" />
+            android:title=""
+            android:actionLayout="@layout/menu_item_with_badge"
+            />
+
         <item
             android:id="@+id/nav_info"
-            android:title="Info" />
+            android:title=""
+            />
         <item
             android:id="@+id/nav_website"
-            android:title="Website" />
+            android:title=""
+            />
     </group>
 </menu>
