@@ -48,7 +48,7 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
     private static final int NOTIFICATION_PERMISSION_REQUEST_CODE = 1;
 
     ActivityDashBoardBinding activityDashBoardBinding;
-    private BadgeDrawerArrowDrawable badgeDrawable;
+
 
 
     @Override
