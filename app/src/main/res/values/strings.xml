@@ -169,7 +169,7 @@
     <string name="screen_width">Screen width</string>
     <string name="screen_angle">Screen angle</string>
     <string name="degree">degree</string>
-    <string name="kg_sqm">Kg/sqm</string>
+    <string name="kg_sqm">Kg/m3</string>
     <string name="layer_height">Layer height</string>
     <string name="cm">cm</string>
     <string name="material_density">Material density</string>
@@ -179,8 +179,9 @@
     <string name="_6">6</string>
     <string name="projected_capacity">Projected capacity</string>
     <string name="meshconverter">MeshConverter</string>
-    <string name="all_is_good">All is good</string>
-    <string name="txtContent">app will be content new information </string>
+    <string name="all_is_good">News title</string>
+    <string name="txtContent">News header </string>
+    <string name="txtDescriptions">News descriptions</string>
     <string name="meine_funktionen">Meine Funktionen</string>
     <string name="chronometer">Chronometer</string>
     <string name="mean_level_total_0_0_db_a">Mean Level Total : 0.0 dB(A)</string>
@@ -200,6 +201,7 @@
     <string name="y">y</string>
     <string name="x">x</string>
     <string name="summary">Summary</string>
+    <string name="psd_summary">PSD Summary</string>
     <string name="psd">PSD</string>
     <string name="new_record">New Record</string>
     <string name="_10_12_24_00_00_pm">10–12-24 00:00 pm</string>
@@ -233,4 +235,5 @@
     <string name="mean_level_time">Mean Level Time</string>
     <string name="menu_drawer_open">Open</string>
     <string name="menu_drawer_close">Close</string>
+    <string name="detailnews">DetailNews</string>
 </resources>

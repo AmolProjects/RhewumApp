@@ -1,4 +1,5 @@
 package com.rhewum.Activity;
+import android.annotation.SuppressLint;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
@@ -46,6 +47,8 @@ public class CapacityCheckerActivity extends DrawerBaseActivity {
    private String globalFlowVelocity,editTextWidth,editTextHeightValue;
     Button bt_submit;
     ActivityCapacityCheckerBinding activityCapacityCheckerBinding;
+
+
     Handler uiHandler;
     // Declare the executor service at the class level
     private ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -73,60 +76,79 @@ public class CapacityCheckerActivity extends DrawerBaseActivity {
         });
 
 
-        textMachineTypeInfo.setOnClickListener(view -> showAlert("Please provide your information machine type"));
-        textScreenWidthInfo.setOnClickListener(view -> showAlert("Please provide your information screen type"));
-        textScreenAngleInfo.setOnClickListener(view -> showAlert("Please provide your information screen angle"));
-        imgMaterialDenInfo.setOnClickListener(view -> showAlert("Please provide your information material density"));
-        imgLayerHeightInfo.setOnClickListener(view -> showAlert("Please provide your information layer height"));
+        textMachineTypeInfo.setOnClickListener(view -> showAlert("Read the machine type off your machines type plate"));
+        textScreenWidthInfo.setOnClickListener(view -> showAlert("Measure the inside width or read the required parameters off your machines type plate"));
+        textScreenAngleInfo.setOnClickListener(view -> showAlert("Please enter screen angle"));
+        imgMaterialDenInfo.setOnClickListener(view -> showAlert("Give an estimation of the material density in the required unit"));
+        imgLayerHeightInfo.setOnClickListener(view -> showAlert("While the machine is running, measure or estimate the height of the material layer directly at the infeed of the machine. It should be measured before material has fallen through the screen."));
 
 
         bt_submit.setOnClickListener(new View.OnClickListener() {
+            double widthScreenValueM, layerHeightValueMM,MaterialDensityFt;
+            @SuppressLint({"DefaultLocale", "SetTextI18n"})
             @Override
             public void onClick(View view) {
                 String selectedItem = spinner.getSelectedItem().toString();
+                Log.e("CapacityChecker","CapacityChecker"+selectedItem);
                 int selectedWidth = radioGroup_screenWidth.getCheckedRadioButtonId();
                 int selectedHeight = radioGroup_Height.getCheckedRadioButtonId();
-
-                if (selectedItem.equals("Select one...")) {
+                if (selectedItem.equals("Select one…")) {
                     // No valid option selected
-                    Toast.makeText(CapacityCheckerActivity.this, "Please select a valid option Machine type", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CapacityCheckerActivity.this, "Please select Machine type", Toast.LENGTH_SHORT).show();
                 } else if (selectedWidth == -1) {
                     // No radio button is selected
-                    Toast.makeText(CapacityCheckerActivity.this, "Please select an option Screen width", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CapacityCheckerActivity.this, "Please select Screen width", Toast.LENGTH_SHORT).show();
                 } else if (edt_ScreenWidth.getText().toString().isEmpty()) {
-                    edt_ScreenWidth.setError("Please select an option Screen width");
+                    edt_ScreenWidth.setError("Please select Screen width");
                 } else if (editTexScreenAngle.getText().toString().isEmpty()) {
-                    editTexScreenAngle.setError("Please select an option Screen angle");
+                    editTexScreenAngle.setError("Please select Screen angle");
                 } else if (editTextMaterialDensity.getText().toString().isEmpty()) {
-                    editTextMaterialDensity.setError("Please select an option Material density");
+                    editTextMaterialDensity.setError("Please select Material density");
                 } else if (selectedHeight == -1) {
-                    Toast.makeText(CapacityCheckerActivity.this, "Please select an option Layer height", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CapacityCheckerActivity.this, "Please select Layer height", Toast.LENGTH_SHORT).show();
                 } else if (editTextLayerHeight.getText().toString().isEmpty()) {
-                    editTextLayerHeight.setError("Please select an option Layer height");
+                    editTextLayerHeight.setError("Please select Layer height");
                 } else {
-                    // Extract necessary values
+                    // Extract the value of height and width according to radio button selected by user
                     RadioButton selectedRadioButton = findViewById(selectedWidth);
                     String selectedOptionWidth = selectedRadioButton.getText().toString();
 
-                    double rheTypeValue = Double.parseDouble(globalFlowVelocity);
-                    double widthScreenValueM = Double.parseDouble(edt_ScreenWidth.getText().toString());
-                    double screenValueAngle = Double.parseDouble(editTexScreenAngle.getText().toString());
-                    double layerHeightValueCm = Double.parseDouble(editTextLayerHeight.getText().toString());
-                    double materialDensityValueM = Double.parseDouble(editTextMaterialDensity.getText().toString());
+                    // for layer height radio button id
+                    RadioButton selectedLayerHeight=findViewById(selectedHeight);
+                    String selectedOptionHeight = selectedLayerHeight.getText().toString();
 
+                    if(selectedOptionWidth.equals("m")){
+                        widthScreenValueM = Double.parseDouble(edt_ScreenWidth.getText().toString());
+                        MaterialDensityFt=Double.parseDouble(editTextMaterialDensity.getText().toString());
+                        Log.e("Width screen","MaterialDensityFt M..."+MaterialDensityFt);
+                    }else{
+                        widthScreenValueM = Double.parseDouble(edt_ScreenWidth.getText().toString());
+                        MaterialDensityFt=Double.parseDouble(editTextMaterialDensity.getText().toString())*0.0283;
+                        Log.e("Width screen","MaterialDensityFt FT..."+MaterialDensityFt);
+                    } if(selectedOptionHeight.equals("cm")){
+                        layerHeightValueMM = (Double.parseDouble(editTextLayerHeight.getText().toString()))*10;
+                        Log.e("Height screen","layerHeightValue CM TO MM..."+layerHeightValueMM);
+                    } else {
+                        layerHeightValueMM=(layerHeightValueMM)*(25.4);
+                        Log.e("Height screen","layerHeightValue Inch TO  MM..."+layerHeightValueMM);
+                    }
+
+                    double rheTypeValue = Double.parseDouble(globalFlowVelocity);
                     // Use executor service to perform the calculations in a background thread
                     Future<Double> future = executorService.submit(() -> {
                         // Perform calculations
-                        double upperResult = (rheTypeValue) * (widthScreenValueM) * (screenValueAngle);
-                        double upperResult1 = (upperResult / layerHeightValueCm);
-                        double lowerResult = (materialDensityValueM) * (widthScreenValueM * rheTypeValue) * (3.6);
-                        return (upperResult1) / (lowerResult);
+                        return (rheTypeValue)*(layerHeightValueMM)*(MaterialDensityFt)*(widthScreenValueM)*(0.0036);
                     });
 
                     // Update the UI with the result
                     try {
                         double layerHeight = future.get();
-                        runOnUiThread(() -> activity_mesh_trennschnitt_result.setText(String.format("%.5f", layerHeight)));
+                        edt_ScreenWidth.setText("");
+                        editTexScreenAngle.setText("");
+                        editTextMaterialDensity.setText("");
+                        editTextLayerHeight.setText("");
+                        activity_mesh_trennschnitt_result.setText("");
+                        runOnUiThread(() -> activity_mesh_trennschnitt_result.setText(String.format("%.2f", layerHeight)+" "+"mm"));
                         Log.e("Radio Width in m", selectedOptionWidth);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -218,7 +240,7 @@ public class CapacityCheckerActivity extends DrawerBaseActivity {
 
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
-                    // Do nothing
+                    Toast.makeText(CapacityCheckerActivity.this, "Please selected machine type value: " + globalFlowVelocity, Toast.LENGTH_SHORT).show();
                 }
             });
         });

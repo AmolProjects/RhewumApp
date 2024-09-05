@@ -15,14 +15,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.rhewum.Activity.Pojo.MainJsonNews;
+import com.rhewum.Apis.ApiServices;
+import com.rhewum.Apis.RetrofitInstance;
 import com.rhewum.DrawerBaseActivity;
 import com.rhewum.R;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends DrawerBaseActivity {
     private boolean isAskPermission = false;
     private static final int AUDIO_PERMISSION_REQUEST_CODE = 201;
     private static final String TAG=SplashActivity.class.getName();
+  //  public ArrayList<MainJsonNews>mainJsonNewsArrayList;
+  //  private ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +46,7 @@ public class SplashActivity extends DrawerBaseActivity {
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
         setContentView(R.layout.activity_splash);
+       // mainJsonNewsArrayList=new ArrayList<>();
         // initObject();
         askPermission();
     }

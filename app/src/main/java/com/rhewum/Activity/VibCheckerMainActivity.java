@@ -89,23 +89,12 @@ public class VibCheckerMainActivity extends DrawerBaseActivity {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                if (position == 1) { // When SecondFragment is selected
-                    // x displacement data ,y and z
-                    List<Float> listDisplacementX =SummeryFragment.getDataListX();
-                    List<Float> listDisplacementY =SummeryFragment.getDataListY();
-                    List<Float> listDisplacementZ =SummeryFragment.getDataListZ();
-                    // x magnitude frequency,y and z in the form of list return
-                    List<Float>  xMagnitudeFrequency=SummeryFragment.xFrequencyMagnitude();
-                    List<Float>  yMagnitudeFrequency=SummeryFragment.yFrequencyMagnitude();
-                    List<Float>  zMagnitudeFrequency=SummeryFragment.zFrequencyMagnitude();
-                    // put x,y,z dominant frequency
-                    PsdFragment.xUpdateMagnitudeFrequency(xMagnitudeFrequency);
-                    PsdFragment.yUpdateMagnitudeFrequency(yMagnitudeFrequency);
-                    PsdFragment.zUpdateMagnitudeFrequency(zMagnitudeFrequency);
-                    // put x,y,z displacement list data
-                    PsdFragment.updateDataX(listDisplacementX);
-                    PsdFragment.updateDataY(listDisplacementY);
-                    PsdFragment.updateDataZ(listDisplacementZ);
+                if (position == 1) { // When SecondFragment is selected and send the data
+                    // max acceleration x
+                    handleMaxAcceleration();
+                    handleMaxFrequency();
+                    handleDisplacementData();
+                    handleFrequencyMagnitudeData();
 
                 }
             }
@@ -116,6 +105,53 @@ public class VibCheckerMainActivity extends DrawerBaseActivity {
             }
         });
     }
+
+    private void handleMaxAcceleration() {
+        // max acceleration x
+        float XMaxAcceleration = SummeryFragment.maxXAcceleration();
+        float YMaxAcceleration = SummeryFragment.maxYAcceleration();
+        float ZMaxAcceleration = SummeryFragment.maxZAcceleration();
+
+        PsdFragment.xMaxAcceleration(XMaxAcceleration);
+        PsdFragment.yMaxAcceleration(YMaxAcceleration);
+        PsdFragment.zMaxAcceleration(ZMaxAcceleration);
+    }
+
+    private void handleMaxFrequency() {
+        // max dominant frequency
+        float XMaxFrequency = SummeryFragment.dominantXFrequency();
+        float YMaxFrequency = SummeryFragment.dominantYFrequency();
+        float ZMaxFrequency = SummeryFragment.dominantZFrequency();
+
+        PsdFragment.xMaxFrequency(XMaxFrequency);
+        PsdFragment.yMaxFrequency(YMaxFrequency);
+        PsdFragment.zMaxFrequency(ZMaxFrequency);
+    }
+
+    private void handleDisplacementData() {
+        // max Displacement
+        List<Float> listDisplacementX = SummeryFragment.getDataListX();
+        List<Float> listDisplacementY = SummeryFragment.getDataListY();
+        List<Float> listDisplacementZ = SummeryFragment.getDataListZ();
+
+        PsdFragment.updateDataX(listDisplacementX);
+        PsdFragment.updateDataY(listDisplacementY);
+        PsdFragment.updateDataZ(listDisplacementZ);
+    }
+
+    private void handleFrequencyMagnitudeData() {
+        // max dominant magnitude frequency
+        List<Float> xMagnitudeFrequency = SummeryFragment.xFrequencyMagnitude();
+        List<Float> yMagnitudeFrequency = SummeryFragment.yFrequencyMagnitude();
+        List<Float> zMagnitudeFrequency = SummeryFragment.zFrequencyMagnitude();
+
+        PsdFragment.xUpdateMagnitudeFrequency(xMagnitudeFrequency);
+        PsdFragment.yUpdateMagnitudeFrequency(yMagnitudeFrequency);
+        PsdFragment.zUpdateMagnitudeFrequency(zMagnitudeFrequency);
+    }
+
+
+
 
 
     private void initObjects(){

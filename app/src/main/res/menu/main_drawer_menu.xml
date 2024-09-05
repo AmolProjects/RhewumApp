@@ -4,15 +4,16 @@
         <item
             android:id="@+id/nav_home"
             android:visible="true"
-            android:title="Home" />
+            android:title="" />
         <item
             android:id="@+id/nav_news"
-            android:title="News" />
+            android:title=""
+            android:actionLayout="@layout/menu_item_with_badge"/>
         <item
             android:id="@+id/nav_info"
-            android:title="Info" />
+            android:title="" />
         <item
             android:id="@+id/nav_website"
-            android:title="Website" />
+            android:title="" />
     </group>
 </menu>

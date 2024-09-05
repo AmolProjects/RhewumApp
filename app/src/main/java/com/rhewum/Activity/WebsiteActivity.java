@@ -22,12 +22,9 @@ public class WebsiteActivity extends DrawerBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        setContentView(R.layout.activity_website);
-
-        WebView webView = findViewById(R.id.webView);
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-
-        webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("https://www.rhewum.com/");
+        // Create an Intent to open the web browser
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.rhewum.com/"));
+        startActivity(browserIntent);
+        finish();
     }
 }

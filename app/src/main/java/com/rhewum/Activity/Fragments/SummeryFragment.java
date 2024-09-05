@@ -278,7 +278,7 @@ public class SummeryFragment extends Fragment {
     public static List<Float> zFrequencyMagnitude(){
         return zFrequencyMagnitude;
     }
-    /*public static float maxXAcceleration(){
+    public static float maxXAcceleration(){
        return accelerationX;
     }
     public static float maxYAcceleration(){
@@ -296,7 +296,7 @@ public class SummeryFragment extends Fragment {
     }
     public static float dominantZFrequency(){
         return zDominantFrequency;
-    }*/
+    }
 
 
     public void createPdf(){

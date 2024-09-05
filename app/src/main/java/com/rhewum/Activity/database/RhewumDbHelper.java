@@ -21,28 +21,33 @@ import java.util.List;
 
 public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = Constants.DbName;
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private Dao<MeasurementDao, Integer> frequencyDao;
     private Dao<VibCheckerSummaryDao, Integer> accelerometerDao;
+    private Dao<PsdSummaryDao,Integer>displacementDao;
 
     public RhewumDbHelper(Context context) {
         super(context, DATABASE_NAME, (SQLiteDatabase.CursorFactory) null, DATABASE_VERSION);
     }
 
+    // create a table
     public void onCreate(SQLiteDatabase sQLiteDatabase, ConnectionSource connectionSource) {
         try {
-            TableUtils.createTable((ConnectionSource) this.connectionSource, MeasurementDao.class);
+            TableUtils.createTable(connectionSource, MeasurementDao.class);
             TableUtils.createTable(connectionSource, VibCheckerSummaryDao.class);
+            TableUtils.createTable(connectionSource, PsdSummaryDao.class);
 
         } catch (SQLException e) {
             e.getMessage();
         }
     }
 
+    // upgrade the table regarding the data
     public void onUpgrade(SQLiteDatabase sQLiteDatabase, ConnectionSource connectionSource, int i, int i2) {
         try {
             TableUtils.dropTable(connectionSource, MeasurementDao.class, true);
             TableUtils.dropTable(connectionSource, VibCheckerSummaryDao.class, true);
+            TableUtils.dropTable(connectionSource, PsdSummaryDao.class,true);
             onCreate(sQLiteDatabase, connectionSource);
         } catch (SQLException e) {
             String name = RhewumDbHelper.class.getName();
@@ -50,6 +55,7 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
             e.getMessage();
         }
     }
+    // create model class for vibSonic data
 
     public Dao<MeasurementDao, Integer> getMeasurementDao() throws SQLException {
         if (this.frequencyDao == null) {
@@ -57,6 +63,7 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
         }
         return this.frequencyDao;
     }
+    // create model class for acceleration data
 
     public Dao<VibCheckerSummaryDao, Integer> getAccelerometerDao() throws SQLException {
         if (this.accelerometerDao == null) {
@@ -64,6 +71,21 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
         }
         return this.accelerometerDao;
     }
+    // create model class for displacement data
+    public Dao<PsdSummaryDao, Integer> getDisplacementDao() throws SQLException {
+        if (this.displacementDao == null) {
+            this.displacementDao = getDao(PsdSummaryDao.class);
+        }
+        return this.displacementDao;
+    }
+    // create model class for frequency data
+    public Dao<PsdSummaryDao, Integer> getFrequencyDao() throws SQLException {
+        if (this.displacementDao == null) {
+            this.displacementDao = getDao(PsdSummaryDao.class);
+        }
+        return this.displacementDao;
+    }
+    // getting the vibsonic data
 
     public ArrayList<MeasurementDao> getMeasurementList() {
         try {
@@ -80,7 +102,7 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
             return null;
         }
     }
-
+    // delete the vibsonic data according to vibsonic id
     public void deleteMeasurementListById(ArrayList<MeasurementDao> arrayList) {
         Iterator<MeasurementDao> it = arrayList.iterator();
         while (it.hasNext()) {
@@ -95,7 +117,7 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
             }
         }
     }
-
+    // delete the vibsonic list
     public void deleteMeasurementList(ArrayList<MeasurementDao> arrayList) {
         Iterator<MeasurementDao> it = arrayList.iterator();
         while (it.hasNext()) {
@@ -106,7 +128,7 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
             }
         }
     }
-
+    // getting the data according to last id
     public int getLastId() {
         List<MeasurementDao> arrayList = new ArrayList<>();
         try {
@@ -138,6 +160,8 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
+    // insert the record of vibsoinc data within the database
+
     public void addNewRecord(Context context, String str, String str2, String str3, HashMap<Integer, Double> hashMap) {
         MeasurementDao measurementDao = new MeasurementDao();
         measurementDao.measurementDate = new Date();
@@ -161,6 +185,8 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
+    // insert the record of Max acceleration data within the database
+
     public void maxAccelerometerData(float maxAccX,float maxAccY,float maxAccZ){
         try {
             VibCheckerSummaryDao accelerometer = new VibCheckerSummaryDao();
@@ -173,7 +199,7 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
             Utils.showLog("Error inserting data: " + e.getMessage());
         }
     }
-
+    // insert the record of Max dominant frequency data within the database
     public void maxDominantFrequencyData(float maxdominantFrX,float maxdominantFrY,float maxdominantFrZ){
         try {
             VibCheckerSummaryDao accelerometer = new VibCheckerSummaryDao();
@@ -186,23 +212,34 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
             Utils.showLog("Error inserting data: " + e.getMessage());
         }
     }
+    // insert the record of displacement data within the database
+    public void saveDisplacementData(List<Float> xDisplacement, List<Float> yDisplacement, List<Float> zDisplacement) throws SQLException {
+        for (int i = 0; i < xDisplacement.size(); i++) {
+            PsdSummaryDao psdSummaryDao = new PsdSummaryDao();
+            psdSummaryDao.xDisplacement= xDisplacement.get(i);
+            psdSummaryDao.yDisplacement= yDisplacement.get(i);
+            psdSummaryDao.zDisplacement= zDisplacement.get(i);
+            getDisplacementDao().create(psdSummaryDao);
 
-  /*  public void addAccelerometerData(List<float[]> accelerometerData) {
+        }
+    }
+
+    // insert the record of fft frequency data within the database
+    public void saveFrequencyMagnitudeData(List<Float> xFrequencyMagnitude, List<Float> yFrequencyMagnitude, List<Float> zFrequencyMagnitude) {
         try {
-            for (float[] data : accelerometerData) {
-                VibCheckerSummaryDao accelerometer = new VibCheckerSummaryDao();
-                accelerometer.xAxis = data[0];
-                accelerometer.yAxis = data[1];
-                accelerometer.zAxis = data[2];
-                getAccelerometerDao().create(accelerometer);
-                Utils.showLog("Data inserted: " + data[0] + ", " + data[1] + ", " + data[2]);
-
+            for (int i = 0; i < xFrequencyMagnitude.size(); i++) {
+                PsdSummaryDao psdSummaryDao = new PsdSummaryDao();
+                psdSummaryDao.xFrequencyMagnitude= xFrequencyMagnitude.get(i);
+                psdSummaryDao.yFrequencyMagnitude= yFrequencyMagnitude.get(i);
+                psdSummaryDao.zFrequencyMagnitude= zFrequencyMagnitude.get(i);
+                getDisplacementDao().create(psdSummaryDao);
             }
         } catch (SQLException e) {
-            Utils.showLog("Error inserting data: " + e.getMessage());
+            Utils.showLog("Error inserting frequency magnitude data: " + e.getMessage());
         }
-    }*/
+    }
 
+    // fetching the data for the vib-checker for accelerometer
     public ArrayList<VibCheckerSummaryDao> getVibCheckerAcc() {
         try {
             QueryBuilder<VibCheckerSummaryDao, Integer> queryBuilder = getAccelerometerDao().queryBuilder();
@@ -222,4 +259,29 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
             return null;
         }
     }
+
+    // Method to fetch the latest Displacement data based on timestamp
+    public List<PsdSummaryDao> getLatestDisplacementsByListSize(int limit) {
+        List<PsdSummaryDao> displacement = new ArrayList<>();
+        try {
+            // Ensure the limit is greater than 0
+            if (limit <= 0) {
+                return displacement;
+            }
+            QueryBuilder<PsdSummaryDao, Integer> queryBuilder = getDisplacementDao().queryBuilder();
+            // Order by ID in descending order to get the latest entries
+            queryBuilder.orderBy("id", false); // 'false' for descending order
+            // Limit the number of results
+            queryBuilder.limit((long) limit);
+            // Log the query to check correctness (Optional)
+            String query = queryBuilder.prepareStatementString();
+            System.out.println("Generated Query: " + query);
+            // Execute the query and retrieve the results
+            displacement = getDisplacementDao().query(queryBuilder.prepare());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return displacement;
+    }
+
 }

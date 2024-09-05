@@ -13,14 +13,6 @@ public class MainJsonNews {
         this.current_page = current_page;
     }
 
-    public ArrayList<SubArrayNews> getData() {
-        return data;
-    }
-
-    public void setData(ArrayList<SubArrayNews> data) {
-        this.data = data;
-    }
-
     public String getFirst_page_url() {
         return first_page_url;
     }
@@ -84,21 +76,28 @@ public class MainJsonNews {
     public void setPrev_page_url(Object prev_page_url) {
         this.prev_page_url = prev_page_url;
     }
-
-    public int getMyto() {
-        return myto;
-    }
-
-    public void setMyto(int myto) {
-        this.myto = myto;
-    }
-
     public int getTotal() {
         return total;
     }
 
     public void setTotal(int total) {
         this.total = total;
+    }
+
+    public ArrayList<SubArrayNews> getData() {
+        return data;
+    }
+
+    public int getTo() {
+        return to;
+    }
+
+    public void setData(ArrayList<SubArrayNews> data) {
+        this.data = data;
+    }
+
+    public void setTo(int to) {
+        this.to = to;
     }
 
     public ArrayList<SubArrayNews> data;
@@ -110,7 +109,7 @@ public class MainJsonNews {
     public String path;
     public int per_page;
     public Object prev_page_url;
-    public int myto;
+    public int to;
     public int total;
 }
 

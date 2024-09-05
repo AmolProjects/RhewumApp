@@ -410,6 +410,10 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         float dx = (xDisplacement.isEmpty() ? 0 : xDisplacement.get(xDisplacement.size() - 1)) + vx * dt;
         float dy = (yDisplacement.isEmpty() ? 0 : yDisplacement.get(yDisplacement.size() - 1)) + vy * dt;
         float dz = (zDisplacement.isEmpty() ? 0 : zDisplacement.get(zDisplacement.size() - 1)) + vz * dt;
+        // Convert displacement from meters to millimeters
+       // dx *= 1000;
+       // dy *= 1000;
+        //dz *= 1000;
 
         xDisplacement.add(dx);
         yDisplacement.add(dy);

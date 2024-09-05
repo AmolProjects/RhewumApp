@@ -88,11 +88,10 @@ public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.
     public RhewumDbHelper dbHelper;
     /* access modifiers changed from: private */
     public String[] freqList;
-    private String htmlPdf;
     /* access modifiers changed from: private */
     public String jumpFrom;
     private BarChart mChart;
-    private String[] mXaxisValues = {"32", "63", "125", "250", "500", "1K", "2K", "4K", "8K", "16K"};
+    private final String[] mXaxisValues = {"32", "63", "125", "250", "500", "1K", "2K", "4K", "8K", "16K"};
     /* access modifiers changed from: private */
     public String mailBody = "<html xmlns=\\\"http://www.w3.org/1999/xhtml\\\"><head><meta http-equiv=\\\"Content-Type\\\" content=\\\"text/html; charset=utf-8\\\" /></head><body><table width=\\\"100%%\\\" border=\\\"0\\\" cellspacing=\\\"15\\\" cellpadding=\\\"0\\\"><tr><td>Dear user,<br />Please find attached the results of your measurements with the RHEWUM VibSonic App as of [HTML_DATE_STRING]</td></tr><br><br><tr><td>We hope that our service was of use to you. Please do not hesitate to contact us if you need any more information, more precise measurements or a personal consultation.</td></tr><br><br><tr><td>We are looking forward to support you and your project ideas.</td></tr><br><br><tr><td>RHEWUM GmbH<br />Rosentalstr. 24<br />42899 Remscheid<br />Germany</td></tr><br><br><tr><td>Mail : <a href=\"mailto:info@rhewum.com\">info@rhewum.com</a><br /> Web: <a href=\"http://www.rhewum.com\">http://www.rhewum.com</a></td></tr><tr><td>&nbsp;</td></tr></table></body></html>";
     private String mailSubject = "Result of RHEWUM VibSonic App";
@@ -122,20 +121,21 @@ public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.
         String string = Objects.requireNonNull(getIntent().getExtras()).getString("JumpFrom");
         this.jumpFrom = string;
         assert string != null;
+        String htmlPdf;
         if (string.equals("ArchieveList")) {
             int i = getIntent().getExtras().getInt(SecurityConstants.Id);
-            this.htmlPdf = Utils.readHtmlVibSonic(this, i, this.jumpFrom);
+            htmlPdf = Utils.readHtmlVibSonic(this, i, this.jumpFrom);
             ArrayList<MeasurementDao> listById = this.dbHelper.getListById(i);
             this.measurementList = listById;
             addValuesToIntegerArrayList(listById);
         } else {
-            this.htmlPdf = Utils.readHtmlVibSonic(this, 0, this.jumpFrom);
+            htmlPdf = Utils.readHtmlVibSonic(this, 0, this.jumpFrom);
             ArrayList<MeasurementDao> listById2 = this.dbHelper.getListById(this.dbHelper.getLastId());
             this.measurementList = listById2;
             Log.e("VibSonicArchiveActivity","VibSonicArchiveActivity List Is::"+this.measurementList.size());
             addValuesToIntegerArrayList(listById2);
         }
-        this.wv.loadDataWithBaseURL("", this.htmlPdf, "text/html", "UTF-8", "");
+        this.wv.loadDataWithBaseURL("", htmlPdf, "text/html", "UTF-8", "");
         this.wv.setDrawingCacheEnabled(true);
         this.wv.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView webView, String str) {
@@ -399,7 +399,7 @@ public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.
             Utils.showLog(sb.toString());
             try {
                 if (!file.exists() && !file.createNewFile()) {
-                    Toast.makeText(VibSonicArchiveActivity.this, "SOMETHING WENT WORNG", Toast.LENGTH_LONG).show();
+                    Toast.makeText(VibSonicArchiveActivity.this, "SOMETHING WENT WRONG", Toast.LENGTH_LONG).show();
                 }
                 CSVWriter cSVWriter = new CSVWriter(new FileWriter(file));
                 VibSonicArchiveActivity.this.dbHelper.getMeasurementList();

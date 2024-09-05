@@ -1,26 +1,26 @@
 package com.rhewum.Activity;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.os.IBinder;
-import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.rhewum.R;
@@ -33,23 +33,56 @@ public class NotificationService extends FirebaseMessagingService {
     private static final String NOTIFICATION_COUNT_KEY = "notification_count";
     private static final String PREFERENCES_FILE_NAME = "my_preferences";
 
+    private static final String PREFS_NAME = "BadgePrefs";
+    private static final String BADGE_COUNT_KEY = "badge_count";
+
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
         if (remoteMessage.getNotification() != null) {
+            // Increment the badge count and store it in SharedPreferences
             incrementNotificationCount();
+            // Send the notification
             sendNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
+            // Broadcast the updated badge count
+            broadcastBadgeCount();
+
         }
+
+        // suscribe the topic
+        FirebaseMessaging.getInstance().subscribeToTopic("news")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        String msg = "Subscribed";
+                        if (!task.isSuccessful()) {
+                            msg = "Subscribe failed";
+                        }
+                        Log.d(TAG, msg);
+                        //Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+
+    @Override
+    public void onNewToken(@NonNull String token) {
+        super.onNewToken(token);
+        Log.e("NotificationService:","Token is:"+token);
     }
 
     private void sendNotification(String title, String messageBody) {
         Intent intent = new Intent(this, DashBoardActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("from_notification", true);  // Add extra to identify notification click
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
 
+        // Retrieve the updated badge count
+//        int badgeCount = getBadgeCount();
+
         SharedPreferences prefs = getSharedPreferences(PREFERENCES_FILE_NAME, Context.MODE_PRIVATE);
-        int count = prefs.getInt(NOTIFICATION_COUNT_KEY, 0);
+        int count = prefs.getInt(BADGE_COUNT_KEY, 0);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.rhewumt) // Replace with your app icon
@@ -75,14 +108,28 @@ public class NotificationService extends FirebaseMessagingService {
     }
 
     private void incrementNotificationCount() {
-        SharedPreferences prefs = getSharedPreferences(PREFERENCES_FILE_NAME, Context.MODE_PRIVATE);
-        int count = prefs.getInt(NOTIFICATION_COUNT_KEY, 0);
-        prefs.edit().putInt(NOTIFICATION_COUNT_KEY, count).apply();
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        int currentCount = prefs.getInt(BADGE_COUNT_KEY, 0);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(BADGE_COUNT_KEY, currentCount + 1);
+        editor.apply();
+
     }
 
-    private void resetNotificationCount() {
-        SharedPreferences prefs = getSharedPreferences(PREFERENCES_FILE_NAME, Context.MODE_PRIVATE);
-        prefs.edit().putInt(NOTIFICATION_COUNT_KEY, 0).apply();
+
+    private int getBadgeCount() {
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        return prefs.getInt(BADGE_COUNT_KEY, 0);
+
     }
+
+    private void broadcastBadgeCount() {
+        int badgeCount = getBadgeCount();
+        Intent intent = new Intent("com.rhewum.UPDATE_BADGE");
+        intent.putExtra("badge_count", badgeCount);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        Log.d("BroadcastTest", "Broadcast sent for badge update with count: " + badgeCount);
+    }
+
 
 }

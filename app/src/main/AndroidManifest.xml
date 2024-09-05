@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -48,11 +50,15 @@
         android:allowClearUserData="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_new"
+        android:icon="@mipmap/ic_launcher_new"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="31">
+        <activity
+            android:name=".ViewDetailListActivity"
+            android:exported="false" />
         <activity
             android:name=".Activity.WebsiteActivity"
             android:exported="false" />
@@ -62,58 +68,45 @@
         <activity
             android:name=".Activity.VibCheckerMainActivity"
             android:exported="false"
-            android:theme="@style/AppTheme"/>
-
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Activity.VibCheckerAccelerometer2Activity"
             android:exported="false"
-            android:theme="@style/AppTheme"/>
-
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Activity.MeshInfoActivity"
             android:exported="false"
-            android:theme="@style/AppTheme"/>
-
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Activity.DashBoardActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.CapacityCheckerActivity"
             android:exported="false"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Activity.InfoActivity"
             android:exported="false"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Activity.VibFlashActivity"
             android:exported="false" />
-
-        <service
-            android:name=".Activity.NotificationService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
         <activity
             android:name=".Activity.MeshConverterActivity"
             android:exported="false"
-            android:theme="@style/AppTheme"/>
-
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Activity.VibSonicArchiveListActivity"
             android:exported="false"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Activity.VibSonicArchiveActivity"
             android:exported="false"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Activity.VibSonicActivity"
             android:exported="false"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Activity.SplashActivity"
             android:exported="true">
@@ -125,7 +118,7 @@
         </activity>
 
         <service
-            android:name=".Activity.MyFirebaseMessagingService"
+            android:name=".Activity.NotificationService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -145,7 +138,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
-
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="com.rhewum.androidx-startup"

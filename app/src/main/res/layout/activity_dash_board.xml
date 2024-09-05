@@ -35,34 +35,6 @@
         app:sliderScrollTimeInSec="1"
         app:sliderAutoCycleDirection="back_and_forth"
         app:sliderAnimationDuration="600"/>
-    <TextView
-        android:id="@+id/txtNewsTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/all_is_good"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_18"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/img_test" />
-
-    <TextView
-        android:id="@+id/txtNewMainContent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-
-        android:background="#008ac8"
-        android:padding="8dp"
-        android:text="@string/txtContent"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_16"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/txtNewsTitle"
-        app:layout_constraintTop_toBottomOf="@+id/txtNewsTitle" />
-
     <ImageView
         android:id="@+id/img_newsForwad"
         android:layout_width="wrap_content"

@@ -6,7 +6,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitInstance {
-    public static String baseUrl="https://www.rhewum.com/api/articles?";
+    public static String baseUrl="https://www.rhewum.com/";
     public static Retrofit retrofit;
     public static Retrofit getRetrofit(){
 

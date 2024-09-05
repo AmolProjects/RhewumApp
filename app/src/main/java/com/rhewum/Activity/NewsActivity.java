@@ -1,5 +1,7 @@
 package com.rhewum.Activity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -21,12 +23,11 @@ public class NewsActivity extends DrawerBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
 
-        WebView webView = findViewById(R.id.webView);
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-
-        webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("https://www.rhewum.com/news/all-news/");
+        // Create an Intent to open the web browser
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.rhewum.com/news/all-news/"));
+        startActivity(browserIntent);
+      // Close the WebsiteActivity after redirecting to the web browser
+        finish();
 
     }
 }

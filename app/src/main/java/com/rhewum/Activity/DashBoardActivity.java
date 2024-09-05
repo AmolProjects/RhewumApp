@@ -14,29 +14,37 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.rhewum.Activity.Adapter.HomeDashBoardAdapter;
 import com.rhewum.Activity.Adapter.SliderAdapter;
+import com.rhewum.Activity.Pojo.MainJsonNews;
+import com.rhewum.Activity.Pojo.SubArrayNews;
 import com.rhewum.Activity.data.ItemData;
-import com.rhewum.Activity.model.SliderItem;
+import com.rhewum.Apis.ApiServices;
+import com.rhewum.Apis.RetrofitInstance;
 import com.rhewum.DrawerBaseActivity;
 import com.rhewum.R;
+import com.rhewum.Utils.DeviceUtils;
 import com.rhewum.databinding.ActivityDashBoardBinding;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import me.leolin.shortcutbadger.ShortcutBadger;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoardAdapter.ItemClickListener {
     ImageView img_newsBackword, img_newsForwad, img_viewPagerBackword, img_viewPagerForwad;
@@ -45,33 +53,31 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
     HomeDashBoardAdapter homeDashBoardAdapter;
     private FirebaseFirestore db;
     private SliderAdapter sliderAdapter;
-    private List<SliderItem> sliderItems = new ArrayList<>();
     private int currentIndex = 0; // Start from the first item
     private SliderView sliderView;
-
+    public ArrayList<MainJsonNews>mainJsonNewsArrayList;
+    public ArrayList<SubArrayNews>subArrayNews;
     private static final String PREFS_NAME = "BadgePrefs";
     private static final String BADGE_COUNT_KEY = "badge_count";
 
     private static final int NOTIFICATION_PERMISSION_REQUEST_CODE = 1;
-
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
     ActivityDashBoardBinding activityDashBoardBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        makeApiCallWithExecutor();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             checkAndRequestNotificationPermission();
         }
-        FirebaseApp.initializeApp(this);
+       // FirebaseApp.initializeApp(this);
 //       setContentView(R.layout.activity_dash_board);
       activityDashBoardBinding = ActivityDashBoardBinding.inflate(getLayoutInflater());
         setContentView(activityDashBoardBinding.getRoot());
         initObjects();
-        db = FirebaseFirestore.getInstance();
 
-
-        fetchSliderData();
         // setting the adapter
         homeDashBoardAdapter = new HomeDashBoardAdapter(DashBoardActivity.this, dataList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -130,6 +136,7 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     private void checkAndRequestNotificationPermission() {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -148,54 +155,28 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
     }
 
     private void navigateForward() {
-//        if (sliderItems.size() == 0) {
-//            Toast.makeText(this, "No items to display", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//        if (currentIndex < sliderItems.size() - 1) {
-//            currentIndex++;
-//            sliderAdapter.setCurrentPosition(currentIndex);
-//            sliderAdapter.notifyDataSetChanged(); // Update the adapter to show the new item
-//            Toast.makeText(this, "Forward Clicked", Toast.LENGTH_SHORT).show();
-//        } else {
-//            Toast.makeText(this, "End of List", Toast.LENGTH_SHORT).show();
-//        }
         if (sliderView != null && sliderAdapter != null) {
             int nextIndex = sliderView.getCurrentPagePosition() + 1;
             if (nextIndex < sliderAdapter.getCount()) {
                 sliderView.setCurrentPagePosition(nextIndex);
             } else {
                 // Optionally handle if reached the end
-                Toast.makeText(this, "You are at the last item.", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(this, "You are at the last item.", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
     private void navigateBackward() {
-//        if (sliderItems.size() == 0) {
-//            Toast.makeText(this, "No items to display", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//        if (currentIndex > 0) {
-//            currentIndex--;
-//            sliderAdapter.setCurrentPosition(currentIndex);
-//            sliderAdapter.notifyDataSetChanged(); // Update the adapter to show the new item
-//            Toast.makeText(this, "Backward Clicked", Toast.LENGTH_SHORT).show();
-//        } else {
-//            Toast.makeText(this, "Start of List", Toast.LENGTH_SHORT).show();
-//        }
-
         if (sliderView != null && sliderAdapter != null) {
             int nextIndex = sliderView.getCurrentPagePosition() -1;
             if (nextIndex < sliderAdapter.getCount()) {
                 sliderView.setCurrentPagePosition(nextIndex);
             } else {
                 // Optionally handle if reached the end
-                Toast.makeText(this, "You are at the last item.", Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(this, "You are at the last item.", Toast.LENGTH_SHORT).show();
             }
         }
     }
-
 
     private void updateSlider() {
         if (sliderAdapter != null) {
@@ -205,28 +186,7 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
 
     }
 
-
-    private void fetchSliderData() {
-        db.collection("news")
-                .addSnapshotListener((snapshots, e) -> {
-                    if (e != null) {
-                        Log.e("Firestore", "Error listening for updates: ", e);
-                        return;
-                    }
-
-                    if (snapshots != null && !snapshots.isEmpty()) {
-                        List<SliderItem> sliderItems = new ArrayList<>();
-                        for (QueryDocumentSnapshot document : snapshots) {
-                            SliderItem item = document.toObject(SliderItem.class);
-                            sliderItems.add(item);
-                        }
-                        setupSlider(sliderItems);
-                    }
-                });
-    }
-
-
-    private void setupSlider(List<SliderItem> sliderItems) {
+    private void setupSlider(ArrayList<SubArrayNews> sliderItems) {
         sliderView = findViewById(R.id.img_test);
         sliderAdapter = new SliderAdapter(this, sliderItems);
         sliderView.setSliderAdapter(sliderAdapter);
@@ -248,6 +208,8 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
         img_newsBackword = findViewById(R.id.img_newsBackword);
         img_newsForwad = findViewById(R.id.img_newsForwad);
         Window window = getWindow();
+        mainJsonNewsArrayList=new ArrayList<>();
+        subArrayNews=new ArrayList<>();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.header_backgrounds));
         recyclerView = findViewById(R.id.recyclerView);
@@ -268,9 +230,38 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
         for (int i = 0; i < images.length; i++) {
             dataList.add(new ItemData(titles[i], images[i]));
         }
+        // Retrieve device ID and Android ID
+
+        String androidId = DeviceUtils.getAndroidId(this);
+        Log.e("androidId ","androidId:"+androidId);
     }
 
     @Override
+    public void onItemClick(View view, int position) {
+        switch (position) {
+            case 0:
+                Intent intent = new Intent(this, MeshConverterActivity.class);
+                startActivity(intent);
+                break;
+            case 1:
+                Toast.makeText(this,"Work in Progress..",Toast.LENGTH_SHORT).show();
+                break;
+            case 2:
+                Intent intent1 = new Intent(this, VibFlashActivity.class);
+                startActivity(intent1);
+                break;
+            case 3:
+                Toast.makeText(this,"Work in Progress..",Toast.LENGTH_SHORT).show();
+                break;
+            case 4:
+                Intent intent4 = new Intent(this, CapacityCheckerActivity.class);
+                startActivity(intent4);
+                break;
+        }
+
+    }
+
+  /*  @Override
     public void onItemClick(View view, int position) {
         // Determine which activity to open based on the position
         Class<?> activityClass;
@@ -297,7 +288,7 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
         }
         Intent intent = new Intent(this, activityClass);
         startActivity(intent);
-    }
+    }*/
 
     @Override
     protected void onResume() {
@@ -321,6 +312,33 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
                 // Permission denied, show a message to the user
             }
         }
+    }
+    // create makeApiCallWithExecutor
+    public void makeApiCallWithExecutor() {
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                apiCall();
+            }
+        });
+    }
+    public void apiCall(){
+        ApiServices apiServices= RetrofitInstance.getRetrofit().create(ApiServices.class);
+        Call<MainJsonNews> call=apiServices.getNews(1,"pUFUoSFjTLQng8hFbSs4tAI9LwZmJBiOApWItqPLzMwVUAsRQf");
+        call.enqueue(new Callback<MainJsonNews>() {
+            @Override
+            public void onResponse(Call<MainJsonNews> call, Response<MainJsonNews> response) {
+                assert response.body() != null;
+                ArrayList<SubArrayNews>subArrayNews=response.body().getData();
+                setupSlider(subArrayNews);
+
+            }
+
+            @Override
+            public void onFailure(Call<MainJsonNews> call, Throwable t) {
+
+            }
+        });
     }
 
 }

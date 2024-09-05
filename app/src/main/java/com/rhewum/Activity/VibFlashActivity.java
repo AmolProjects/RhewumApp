@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
@@ -45,6 +46,7 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
     private boolean isFlashOn = false;
     private boolean isBlinking = false;
     private Runnable blinkRunnable;
+    ImageView imgBack;
 
 
 //    ActivityVibFlashesBinding activityVibFlashesBinding;
@@ -68,7 +70,6 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.header_backgrounds));
         setUpViews();
         this.freqMinus.setOnClickListener(this);
-
         this.freqPlus.setOnClickListener(this);
         this.freq16.setOnClickListener(this);
         this.freq20.setOnClickListener(this);
@@ -78,6 +79,14 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
         this.freq60.setOnClickListener(this);
         this.txtBack.setOnClickListener(this);
         this.activity_vib_flash_start_btn.setOnClickListener(this);
+        // click on back
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
+            }
+        });
 
         this.freqTv.addTextChangedListener(new TextWatcher() {
             @Override
@@ -124,7 +133,6 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
                 resetOtherButtons("");
             }
         } else if (view.equals(this.txtBack)) {
-          //  this.txtBack.setChecked(false);
             finish();
             overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
         } else {
@@ -153,6 +161,7 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
         this.freq50 = (Button) findViewById(R.id.activity_vib_flash_freq_50);
         this.freq60 = (Button) findViewById(R.id.activity_vib_flash_freq_60);
         this.txtBack = (TextView) findViewById(R.id.txtBack);
+        imgBack=findViewById(R.id.imgBack);
         this.activity_vib_flash_start_btn=findViewById(R.id.activity_vib_flash_start_btn);
         this.freq16.setText(Html.fromHtml("16 &frac23;"));
         this.freqMinus.setText(Html.fromHtml("&minus;"));
@@ -213,7 +222,7 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
     @SuppressLint("SetTextI18n")
     private void startBlinking(double frequency, int i) {
         long period = (long) (1000 / frequency / 2); // Half period for ON and OFF
-        long endTime = System.currentTimeMillis() + 5 * 1000L;
+        long endTime = System.currentTimeMillis() + 10 * 1000L;
         isBlinking = true;
 
         activity_vib_flash_start_btn.setBackgroundColor(Color.RED);
