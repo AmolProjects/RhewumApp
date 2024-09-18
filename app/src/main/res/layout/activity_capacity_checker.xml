@@ -171,9 +171,8 @@
                     android:id="@+id/cardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_margin="1dp"
                     android:layout_marginTop="8dp"
-                    android:background="@color/white"
                     app:cardCornerRadius="8dp"
                     app:cardElevation="8dp"
                     app:contentPaddingBottom="8dp"
@@ -228,9 +227,8 @@
                             android:id="@+id/txtMachineType"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
+                            android:layout_marginStart="6dp"
                             android:text="@string/machine_type"
-                            android:textColor="@color/grey_line"
                             android:textSize="@dimen/text_size_16"
                             app:layout_constraintBottom_toBottomOf="@+id/textView5"
                             app:layout_constraintStart_toEndOf="@+id/textView5"
@@ -254,10 +252,10 @@
                             android:id="@+id/spinner"
                             android:layout_width="0dp"
                             android:layout_height="35dp"
-                            android:layout_marginStart="16dp"
+                            android:layout_marginStart="12dp"
                             android:layout_marginEnd="8dp"
                             android:background="@drawable/spinner_background"
-                            android:backgroundTint="@color/grey_line"
+                            android:backgroundTint="@color/header_backgrounds"
                             android:entries="@array/spinner_items"
                             android:prompt="@string/spinner_title"
                             android:spinnerMode="dropdown"
@@ -284,9 +282,8 @@
                             android:id="@+id/txtScreenWidth"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
+                            android:layout_marginStart="6dp"
                             android:text="@string/screen_width"
-                            android:textColor="@color/grey_line"
                             android:textSize="@dimen/text_size_16"
                             app:layout_constraintBottom_toBottomOf="@+id/textView6"
                             app:layout_constraintStart_toEndOf="@+id/textView6"
@@ -308,14 +305,14 @@
                             android:id="@+id/edt_ScreenWidth"
                             android:layout_width="0dp"
                             android:layout_height="35dp"
-                            android:layout_marginStart="2dp"
+                            android:layout_marginStart="8dp"
                             android:autofillHints=""
                             android:background="@drawable/rectangle"
                             android:ems="10"
                             android:inputType="numberDecimal"
                             android:textColor="@color/grey_line"
                             app:layout_constraintBottom_toBottomOf="@+id/textView6"
-                            app:layout_constraintDimensionRatio="w,1:0.4"
+                            app:layout_constraintDimensionRatio="w,1:0.35"
                             app:layout_constraintStart_toStartOf="@+id/spinner"
                             app:layout_constraintTop_toTopOf="@+id/textView6"
                             app:layout_constraintVertical_bias="0.5" />
@@ -325,6 +322,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="8dp"
                             android:orientation="vertical"
                             app:layout_constraintBottom_toBottomOf="@+id/textView6"
                             app:layout_constraintEnd_toEndOf="@+id/spinner"
@@ -339,7 +337,7 @@
                                 android:checked="true"
                                 android:padding="2dp"
                                 android:text="@string/m"
-                                android:textColor="@color/grey_line" />
+                                 />
 
                             <RadioButton
                                 android:id="@+id/radio_screenWidth_ft"
@@ -348,11 +346,11 @@
                                 android:layout_margin="0dp"
                                 android:padding="2dp"
                                 android:text="@string/ft"
-                                android:textColor="@color/grey_line" />
+                                />
                         </RadioGroup>
 
                         <TextView
-                            android:id="@+id/textView7"
+                            android:id="@+id/textView8"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:layout_marginTop="24dp"
@@ -362,81 +360,14 @@
                             android:textColor="@color/white"
                             android:textSize="@dimen/text_size_16"
                             app:layout_constraintStart_toStartOf="@+id/textView5"
-                            app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
-                        <TextView
-                            android:id="@+id/txtScreenAngle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:text="@string/screen_angle"
-                            android:textColor="@color/grey_line"
-                            android:textSize="@dimen/text_size_16"
-                            app:layout_constraintBottom_toBottomOf="@+id/textView7"
-                            app:layout_constraintStart_toEndOf="@+id/textView7"
-                            app:layout_constraintTop_toTopOf="@+id/textView7" />
-
-                        <ImageView
-                            android:id="@+id/textScreenAngleInfo"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:contentDescription="@string/app_name"
-                            android:scaleType="fitCenter"
-                            app:layout_constraintBottom_toBottomOf="@+id/textView7"
-                            app:layout_constraintDimensionRatio="1:1.4"
-                            app:layout_constraintEnd_toEndOf="@+id/textScreenWidthInfo"
-                            app:layout_constraintStart_toStartOf="@+id/textScreenWidthInfo"
-                            app:layout_constraintTop_toTopOf="@+id/textView7"
-                            app:srcCompat="@drawable/baseline_error_24" />
-
-                        <EditText
-                            android:id="@+id/editTexScreenAngle"
-                            android:layout_width="0dp"
-                            android:layout_height="35dp"
-                            android:layout_marginStart="2dp"
-                            android:autofillHints="true"
-                            android:background="@drawable/rectangle"
-                            android:ems="10"
-                            android:inputType="numberDecimal"
-                            android:textColor="@color/grey_line"
-                            app:layout_constraintBottom_toBottomOf="@+id/textView7"
-                            app:layout_constraintDimensionRatio="w,1:0.4"
-                            app:layout_constraintStart_toStartOf="@+id/spinner"
-                            app:layout_constraintTop_toTopOf="@+id/textView7"
-                            app:layout_constraintVertical_bias="0.5" />
-
-                        <TextView
-                            android:id="@+id/txtDegree"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:text="@string/degree"
-                            android:textColor="@color/grey_line"
-                            android:textSize="@dimen/text_size_16"
-                            app:layout_constraintBottom_toBottomOf="@+id/editTexScreenAngle"
-                            app:layout_constraintStart_toStartOf="@+id/radioGroup_screenWidth"
-                            app:layout_constraintTop_toTopOf="@+id/editTexScreenAngle" />
-
-                        <TextView
-                            android:id="@+id/textView8"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_marginTop="24dp"
-                            android:background="@drawable/round_box_blue"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:text="@string/_4"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/text_size_16"
-                            app:layout_constraintStart_toStartOf="@+id/textView5"
-                            app:layout_constraintTop_toBottomOf="@+id/textView7" />
+                            app:layout_constraintTop_toBottomOf="@+id/radioGroup_screenWidth" />
 
                         <TextView
                             android:id="@+id/txtMaterailDensity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
+                            android:layout_marginStart="6dp"
                             android:text="@string/material_density"
-                            android:textColor="@color/grey_line"
                             android:textSize="@dimen/text_size_16"
                             app:layout_constraintBottom_toBottomOf="@+id/textView8"
                             app:layout_constraintStart_toEndOf="@+id/textView8"
@@ -450,8 +381,8 @@
                             android:scaleType="fitCenter"
                             app:layout_constraintBottom_toBottomOf="@+id/textView8"
                             app:layout_constraintDimensionRatio="1:1.4"
-                            app:layout_constraintEnd_toEndOf="@+id/textScreenAngleInfo"
-                            app:layout_constraintStart_toStartOf="@+id/textScreenAngleInfo"
+                            app:layout_constraintEnd_toStartOf="@+id/editTextMaterialDensity"
+                            app:layout_constraintStart_toEndOf="@+id/txtMaterailDensity"
                             app:layout_constraintTop_toTopOf="@+id/textView8"
                             app:srcCompat="@drawable/baseline_error_24" />
 
@@ -459,29 +390,47 @@
                             android:id="@+id/editTextMaterialDensity"
                             android:layout_width="0dp"
                             android:layout_height="35dp"
-                            android:layout_marginStart="2dp"
+                            android:layout_marginStart="8dp"
                             android:autofillHints="true"
                             android:background="@drawable/rectangle"
                             android:ems="10"
                             android:inputType="numberDecimal"
                             android:textColor="@color/grey_line"
                             app:layout_constraintBottom_toBottomOf="@+id/textView8"
-                            app:layout_constraintDimensionRatio="w,1:0.4"
+                            app:layout_constraintDimensionRatio="w,1:0.35"
                             app:layout_constraintStart_toStartOf="@+id/spinner"
                             app:layout_constraintTop_toTopOf="@+id/textView8"
                             app:layout_constraintVertical_bias="0.5" />
 
-                        <TextView
-                            android:id="@+id/txtKg"
+                        <RadioGroup
+                            android:id="@+id/radioGroup_MaterialDensity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:text="@string/kg_sqm"
-                            android:textColor="@color/grey_line"
-                            android:textSize="@dimen/text_size_16"
+                            android:layout_alignParentEnd="true"
+                            android:orientation="vertical"
                             app:layout_constraintBottom_toBottomOf="@+id/editTextMaterialDensity"
                             app:layout_constraintStart_toStartOf="@+id/radioGroup_screenWidth"
-                            app:layout_constraintTop_toTopOf="@+id/editTextMaterialDensity" />
+                            app:layout_constraintTop_toTopOf="@+id/editTextMaterialDensity">
+
+                            <RadioButton
+                                android:id="@+id/radio_Material_DensityM"
+                                android:layout_width="wrap_content"
+                                android:layout_height="25dp"
+                                android:layout_margin="0dp"
+                                android:checked="true"
+                                android:padding="2dp"
+                                android:text="@string/kg_m3"
+                                 />
+
+                            <RadioButton
+                                android:id="@+id/radio_Material_DensityLb"
+                                android:layout_width="wrap_content"
+                                android:layout_height="25dp"
+                                android:layout_margin="0dp"
+                                android:padding="2dp"
+                                android:text="@string/lb_ft3"
+                                 />
+                        </RadioGroup>
 
                         <TextView
                             android:id="@+id/textView9"
@@ -490,19 +439,18 @@
                             android:layout_marginTop="24dp"
                             android:background="@drawable/round_box_blue"
                             android:gravity="center_horizontal|center_vertical"
-                            android:text="@string/_5"
+                            android:text="@string/_4"
                             android:textColor="@color/white"
                             android:textSize="@dimen/text_size_16"
                             app:layout_constraintStart_toStartOf="@+id/textView5"
-                            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+                            app:layout_constraintTop_toBottomOf="@+id/radioGroup_MaterialDensity" />
 
                         <TextView
                             android:id="@+id/txtLayerHeight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
+                            android:layout_marginStart="6dp"
                             android:text="@string/layer_height"
-                            android:textColor="@color/grey_line"
                             android:textSize="@dimen/text_size_16"
                             app:layout_constraintBottom_toBottomOf="@+id/textView9"
                             app:layout_constraintStart_toEndOf="@+id/textView9"
@@ -516,8 +464,8 @@
                             android:scaleType="fitCenter"
                             app:layout_constraintBottom_toBottomOf="@+id/textView9"
                             app:layout_constraintDimensionRatio="1:1.4"
-                            app:layout_constraintEnd_toEndOf="@+id/textScreenAngleInfo"
-                            app:layout_constraintStart_toStartOf="@+id/textScreenAngleInfo"
+                            app:layout_constraintEnd_toStartOf="@+id/editTextLayerHeight"
+                            app:layout_constraintStart_toEndOf="@+id/txtMaterailDensity"
                             app:layout_constraintTop_toTopOf="@+id/textView9"
                             app:srcCompat="@drawable/baseline_error_24" />
 
@@ -525,14 +473,14 @@
                             android:id="@+id/editTextLayerHeight"
                             android:layout_width="0dp"
                             android:layout_height="35dp"
-                            android:layout_marginStart="2dp"
+                            android:layout_marginStart="8dp"
                             android:autofillHints="true"
                             android:background="@drawable/rectangle"
                             android:ems="10"
                             android:inputType="numberDecimal"
                             android:textColor="@color/grey_line"
                             app:layout_constraintBottom_toBottomOf="@+id/textView9"
-                            app:layout_constraintDimensionRatio="w,1:0.4"
+                            app:layout_constraintDimensionRatio="w,1:0.35"
                             app:layout_constraintStart_toStartOf="@+id/spinner"
                             app:layout_constraintTop_toTopOf="@+id/textView9"
                             app:layout_constraintVertical_bias="0.5" />
@@ -557,7 +505,7 @@
                                 android:checked="true"
                                 android:padding="2dp"
                                 android:text="@string/cm"
-                                android:textColor="@color/grey_line" />
+                                />
 
                             <RadioButton
                                 android:id="@+id/Radioheight_inch"
@@ -566,20 +514,9 @@
                                 android:layout_margin="0dp"
                                 android:padding="2dp"
                                 android:text="@string/inch"
-                                android:textColor="@color/grey_line" />
+                                />
                         </RadioGroup>
 
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/bt_submit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/layout_margin_12"
-                            android:layout_weight="1"
-                            android:text="@string/submit"
-                            android:textColor="@color/header_backgrounds"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/radioGroup_Height" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -606,7 +543,7 @@
                 android:layout_marginStart="@dimen/layout_margin_10"
                 android:background="@drawable/oval_blue"
                 android:gravity="center_horizontal|center_vertical"
-                android:text="@string/_6"
+                android:text="@string/_5"
                 android:textColor="@color/white" />
 
 

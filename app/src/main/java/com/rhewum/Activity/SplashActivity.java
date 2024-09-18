@@ -16,6 +16,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.rhewum.Activity.Pojo.MainJsonNews;
+import com.rhewum.Activity.Pojo.Notifications;
 import com.rhewum.Apis.ApiServices;
 import com.rhewum.Apis.RetrofitInstance;
 import com.rhewum.DrawerBaseActivity;
@@ -35,8 +36,6 @@ public class SplashActivity extends DrawerBaseActivity {
     private boolean isAskPermission = false;
     private static final int AUDIO_PERMISSION_REQUEST_CODE = 201;
     private static final String TAG=SplashActivity.class.getName();
-  //  public ArrayList<MainJsonNews>mainJsonNewsArrayList;
-  //  private ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +45,7 @@ public class SplashActivity extends DrawerBaseActivity {
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
         setContentView(R.layout.activity_splash);
-       // mainJsonNewsArrayList=new ArrayList<>();
-        // initObject();
+      //  getNotificationApi();
         askPermission();
     }
     // resume the screen
@@ -122,5 +120,24 @@ public class SplashActivity extends DrawerBaseActivity {
 //                askPermission();
             }
         }
+    }
+
+    private void getNotificationApi(){
+        ApiServices apiServices= RetrofitInstance.getRetrofit().create(ApiServices.class);
+        // Create request body
+        Notifications requestBody = new Notifications();
+        Call<Notifications>call=apiServices.postNotificationData("vo5agsgDG36FYO1c58vCfL4gEZ0Jg4Dqr9ZlKqHPCT8QKcz2MpyJA3CQhDqD",requestBody);
+        call.enqueue(new Callback<Notifications>() {
+            @Override
+            public void onResponse(@NonNull Call<Notifications> call, @NonNull Response<Notifications> response) {
+                Log.e("Notification Response","Notification Response is::"+response.body());
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Notifications> call, @NonNull Throwable t) {
+
+            }
+        });
     }
 }

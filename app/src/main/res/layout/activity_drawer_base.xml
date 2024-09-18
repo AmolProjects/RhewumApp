@@ -10,14 +10,14 @@
     android:background="@color/white"
     android:fitsSystemWindows="true">
 
+    <!-- Main content of the activity -->
     <include layout="@layout/content_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-
-
+    <!-- Navigation View with header, menu items, and button -->
     <com.google.android.material.navigation.NavigationView
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         android:layout_gravity="start"
@@ -26,6 +26,37 @@
         android:background="@color/light_gray_silver"
         app:headerLayout="@layout/main_drawers_headers"
         app:menu="@menu/main_drawer_menu"
-        android:layoutDirection="ltr"/>
+        android:layoutDirection="ltr">
+
+        <!-- Use a FrameLayout to overlay the button over the menu -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- Menu items from the menu file will automatically appear here -->
+
+            <!-- Button at the bottom -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@color/light_gray_silver"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btn_bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="8dp"
+                    android:textStyle="bold"
+                    android:text="@string/enjoy_the_difference"
+                    android:background="@color/black"
+                    android:textColor="@android:color/white"
+                    android:gravity="center"
+                    android:padding="16dp"/>
+            </LinearLayout>
+
+        </FrameLayout>
+    </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>

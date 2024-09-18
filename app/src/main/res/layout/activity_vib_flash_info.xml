@@ -45,7 +45,7 @@
             android:id="@+id/activity_mesh_info_header_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/mesh_converter"
+            android:text="@string/vib_flashInfo"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_18"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@string/info_about_norms"
+                android:text="@string/how_to_use_vibflash"
                 android:textColor="@color/header_backgrounds"
                 android:textSize="15sp"
                 android:textStyle="bold"
@@ -98,7 +98,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
-                android:text="@string/cal_info"
+                android:text="@string/vib_flash_content"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -106,83 +106,60 @@
                 app:layout_constraintTop_toBottomOf="@+id/activity_mesh_info_norm_tv" />
 
             <TextView
-                android:id="@+id/activity_mesh_info_deu"
-                android:layout_width="0dp"
+                android:id="@+id/vibFalshWork"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/how_it_works"
+                android:textColor="@color/header_backgrounds"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/activity_mesh_info_calculations_tv"/>
+
+            <TextView
+                android:id="@+id/worksVibFalsh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/activity_mesh_info_norm_tv"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:layout_weight="0.5"
-                android:text="@string/deu"
-                android:textColor="@color/header_backgrounds"
-                android:textSize="15sp"
-                app:layout_constraintDimensionRatio="w,1:0"
-                app:layout_constraintStart_toStartOf="@+id/activity_mesh_info_calculations_tv"
-                app:layout_constraintTop_toBottomOf="@+id/activity_mesh_info_calculations_tv" />
-
-            <TextView
-                android:id="@+id/activity_mesh_info_deu_details"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
                 android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:text="@string/deu_details"
+                android:text="@string/vib_flash_works"
                 android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="@+id/activity_mesh_info_deu"
-                app:layout_constraintDimensionRatio="w,1:0"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/activity_mesh_info_deu"
-                app:layout_constraintTop_toTopOf="@+id/activity_mesh_info_deu" />
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/activity_mesh_info_norm_tv"
+                app:layout_constraintTop_toBottomOf="@+id/vibFalshWork" />
 
             <TextView
-                android:id="@+id/activity_mesh_info_usa"
+                android:id="@+id/notes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_weight="0.5"
-                android:text="@string/usa"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/note"
                 android:textColor="@color/header_backgrounds"
                 android:textSize="15sp"
-                app:layout_constraintStart_toStartOf="@+id/activity_mesh_info_deu"
-                app:layout_constraintTop_toBottomOf="@+id/activity_mesh_info_deu_details" />
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/worksVibFalsh" />
 
             <TextView
-                android:id="@+id/activity_mesh_info_usa_details"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:text="@string/usa_details"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="@+id/activity_mesh_info_usa"
-                app:layout_constraintDimensionRatio="w,1:0"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/activity_mesh_info_deu_details"
-                app:layout_constraintTop_toTopOf="@+id/activity_mesh_info_usa" />
-
-            <TextView
-                android:id="@+id/activity_mesh_info_tyler"
+                android:id="@+id/vibFlashNotes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_weight="0.5"
-                android:text="@string/tylers"
-                android:textColor="@color/header_backgrounds"
+                android:layout_below="@+id/activity_mesh_info_norm_tv"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/vib_flashNotes"
                 android:textSize="15sp"
-                app:layout_constraintDimensionRatio="w,1:0"
-                app:layout_constraintStart_toStartOf="@+id/activity_mesh_info_usa"
-                app:layout_constraintTop_toBottomOf="@+id/activity_mesh_info_usa_details" />
-
-            <TextView
-                android:id="@+id/activity_mesh_info_tyler_details"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/tyler_details"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="@+id/activity_mesh_info_tyler"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/activity_mesh_info_usa_details"
-                app:layout_constraintTop_toTopOf="@+id/activity_mesh_info_tyler" />
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/activity_mesh_info_norm_tv"
+                app:layout_constraintTop_toBottomOf="@+id/notes" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

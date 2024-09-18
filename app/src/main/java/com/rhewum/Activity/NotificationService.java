@@ -40,29 +40,15 @@ public class NotificationService extends FirebaseMessagingService {
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-        if (remoteMessage.getNotification() != null) {
-            // Increment the badge count and store it in SharedPreferences
+        // Consolidate data and notification payload handling
+        if (!remoteMessage.getData().isEmpty() || remoteMessage.getNotification() != null) {
             incrementNotificationCount();
-            // Send the notification
-            sendNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
-            // Broadcast the updated badge count
+            String title = remoteMessage.getNotification() != null ? remoteMessage.getNotification().getTitle() : "Default Title";
+            String body = remoteMessage.getNotification() != null ? remoteMessage.getNotification().getBody() : "Default Message";
+            sendNotification(title, body);
             broadcastBadgeCount();
-
         }
 
-        // suscribe the topic
-        FirebaseMessaging.getInstance().subscribeToTopic("news")
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        String msg = "Subscribed";
-                        if (!task.isSuccessful()) {
-                            msg = "Subscribe failed";
-                        }
-                        Log.d(TAG, msg);
-                        //Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
-                    }
-                });
     }
 
 

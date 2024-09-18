@@ -24,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.rhewum.Activity.Adapter.HomeDashBoardAdapter;
 import com.rhewum.Activity.Adapter.SliderAdapter;
 import com.rhewum.Activity.Pojo.MainJsonNews;
+import com.rhewum.Activity.Pojo.Notifications;
 import com.rhewum.Activity.Pojo.SubArrayNews;
 import com.rhewum.Activity.data.ItemData;
 import com.rhewum.Apis.ApiServices;
@@ -68,6 +69,7 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         makeApiCallWithExecutor();
+       // getNotificationApi();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             checkAndRequestNotificationPermission();
@@ -261,7 +263,7 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
 
     }
 
-  /*  @Override
+ /*   @Override
     public void onItemClick(View view, int position) {
         // Determine which activity to open based on the position
         Class<?> activityClass;
@@ -327,7 +329,7 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
         Call<MainJsonNews> call=apiServices.getNews(1,"pUFUoSFjTLQng8hFbSs4tAI9LwZmJBiOApWItqPLzMwVUAsRQf");
         call.enqueue(new Callback<MainJsonNews>() {
             @Override
-            public void onResponse(Call<MainJsonNews> call, Response<MainJsonNews> response) {
+            public void onResponse(@NonNull Call<MainJsonNews> call, @NonNull Response<MainJsonNews> response) {
                 assert response.body() != null;
                 ArrayList<SubArrayNews>subArrayNews=response.body().getData();
                 setupSlider(subArrayNews);
@@ -335,7 +337,26 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
             }
 
             @Override
-            public void onFailure(Call<MainJsonNews> call, Throwable t) {
+            public void onFailure(@NonNull Call<MainJsonNews> call, @NonNull Throwable t) {
+
+            }
+        });
+    }
+
+    private void getNotificationApi(){
+        ApiServices apiServices= RetrofitInstance.getRetrofit().create(ApiServices.class);
+        // Create request body
+        Notifications requestBody = new Notifications();
+        Call<Notifications>call=apiServices.postNotificationData("vo5agsgDG36FYO1c58vCfL4gEZ0Jg4Dqr9ZlKqHPCT8QKcz2MpyJA3CQhDqD",requestBody);
+        call.enqueue(new Callback<Notifications>() {
+            @Override
+            public void onResponse(@NonNull Call<Notifications> call, @NonNull Response<Notifications> response) {
+                Log.e("Notification Response","Notification Response is::"+response.body());
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Notifications> call, @NonNull Throwable t) {
 
             }
         });

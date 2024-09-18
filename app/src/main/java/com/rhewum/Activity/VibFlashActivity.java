@@ -2,6 +2,7 @@ package com.rhewum.Activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraManager;
@@ -10,13 +11,19 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
 import android.text.Html;
+import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
@@ -36,7 +43,8 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
     private Button freq60;
     private Button freqMinus;
     private Button freqPlus;
-    private TextView freqTv,txtBack;
+    private TextView txtBack,activity_mesh_info_tv;
+    private EditText freqTv;
     private TextView hertzTv;
     private  Button activity_vib_flash_start_btn;
     private static final String TAG = VibFlashActivity.class.getName();
@@ -46,14 +54,11 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
     private boolean isFlashOn = false;
     private boolean isBlinking = false;
     private Runnable blinkRunnable;
-    ImageView imgBack;
-
+    ImageView imgBack,activity_mesh_info_iv;
+    private boolean isRunning = false;
 
 //    ActivityVibFlashesBinding activityVibFlashesBinding;
     ActivityFlashesBinding activityFlashesBinding;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,13 +83,100 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
         this.freq50.setOnClickListener(this);
         this.freq60.setOnClickListener(this);
         this.txtBack.setOnClickListener(this);
-        this.activity_vib_flash_start_btn.setOnClickListener(this);
-        // click on back
-        imgBack.setOnClickListener(new View.OnClickListener() {
+        this.freqTv.setOnClickListener(this);
+        activity_mesh_info_tv.setOnClickListener(this);
+        activity_mesh_info_iv.setOnClickListener(this);
+
+        // continuous increment when button hold by user
+        freqPlus.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                isRunning = true; // Start the flag for continuous changes
+                blinkRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        String charSequence = freqTv.getText().toString();
+                        if (!charSequence.equals("100.0")) {
+                            freqTv.setText(Utils.getIncreasedValue(charSequence));
+                            resetOtherButtons("");
+                            if (isRunning) {
+                                handler.postDelayed(this, 100); // Change the text every 100 milliseconds
+                            }
+                        }
+                    }
+                };
+                handler.post(blinkRunnable); // Start the runnable
+                return true;
+            }
+        });
+
+       // Stop the continuous update when the button is released
+        freqPlus.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP || motionEvent.getAction() == MotionEvent.ACTION_CANCEL) {
+                    isRunning = false; // Stop updating when the long press is released
+                }
+                return false;
+            }
+
+        });
+
+        // continuous decrement when button hold by user
+        freqMinus.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                isRunning = true; // Start the flag for continuous changes
+                blinkRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        String charSequence2 = freqTv.getText().toString();
+                        if (!charSequence2.equals("10.0")) {
+                            freqTv.setText(Utils.getDecreasedValue(charSequence2));
+                            resetOtherButtons("");
+                            if (isRunning) {
+                                handler.postDelayed(this, 100); // Change the text every 100 milliseconds
+                            }
+                        }
+                    }
+                };
+                handler.post(blinkRunnable); // Start the runnable
+                return true;
+            }
+        });
+
+        // Stop the continuous update when the button is released
+        freqMinus.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP || motionEvent.getAction() == MotionEvent.ACTION_CANCEL) {
+                    isRunning = false; // Stop updating when the long press is released
+                }
+                return false;
+            }
+
+        });
+
+        // click and go on info screen
+        activity_mesh_info_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
-                overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
+              startActivity(new Intent(VibFlashActivity.this, VibFlashInfoActivity.class));
+            }
+        });
+        activity_mesh_info_iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(VibFlashActivity.this, VibFlashInfoActivity.class));
+
+            }
+        });
+
+        // Open the keyboard when the TextView (EditText) is clicked
+        freqTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showKeyboard(freqTv);
             }
         });
 
@@ -101,10 +193,14 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
 
             @Override
             public void afterTextChanged(Editable editable) {
-
-
+                // Get the updated text after the change
+                String updatedText = editable.toString();
+                // Now you can use the updatedText value
+                // For example: Log the updated text or update a variable
+                System.out.println("Updated Text: " + updatedText);
             }
         });
+
         this.activity_vib_flash_start_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,6 +213,7 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
         });
 
     }
+
 
     @Override
     public void onClick(View view) {
@@ -152,7 +249,7 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
         handler = new Handler(Looper.getMainLooper()); // Initialize the Handler
         this.freqMinus = (Button) findViewById(R.id.activity_vib_flash_freq_minus);
         this.freqPlus = (Button) findViewById(R.id.activity_vib_flash_freq_plus);
-        this.freqTv = (TextView) findViewById(R.id.activity_vib_flash_frequency_tv);
+        this.freqTv = (EditText) findViewById(R.id.activity_vib_flash_frequency_tv);
         this.hertzTv = (TextView) findViewById(R.id.activity_vib_flash_hertz_tv);
         this.freq16 = (Button) findViewById(R.id.activity_vib_flash_freq_16);
         this.freq20 = (Button) findViewById(R.id.activity_vib_flash_freq_20);
@@ -163,6 +260,8 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
         this.txtBack = (TextView) findViewById(R.id.txtBack);
         imgBack=findViewById(R.id.imgBack);
         this.activity_vib_flash_start_btn=findViewById(R.id.activity_vib_flash_start_btn);
+        activity_mesh_info_tv=findViewById(R.id.activity_mesh_info_tv);
+        activity_mesh_info_iv=findViewById(R.id.activity_mesh_info_iv);
         this.freq16.setText(Html.fromHtml("16 &frac23;"));
         this.freqMinus.setText(Html.fromHtml("&minus;"));
 
@@ -258,6 +357,14 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
             cameraManager.setTorchMode(cameraId, false); // Ensure the flash is turned off
         } catch (CameraAccessException e) {
             e.printStackTrace();
+        }
+    }
+    // Show the keyboard programmatically
+    private void showKeyboard(View view) {
+        freqTv.setInputType(InputType.TYPE_CLASS_NUMBER);
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
         }
     }
 }

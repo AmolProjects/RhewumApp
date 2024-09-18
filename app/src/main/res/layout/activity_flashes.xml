@@ -83,20 +83,61 @@
                     app:layout_constraintTop_toTopOf="@+id/txtBack"
                     app:srcCompat="@drawable/baseline_arrow_back_24" />
 
+                <TextView
+                    android:id="@+id/activity_mesh_info_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/info"
+                    android:layout_marginEnd="8dp"
+                    android:textColor="@color/header_backgrounds"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/activity_mesh_info_iv"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/activity_mesh_info_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/todo"
+                    android:layout_margin="2dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/activity_mesh_info_tv"
+                    app:layout_constraintEnd_toEndOf="@+id/my_toolbar"
+                    app:layout_constraintTop_toTopOf="@+id/activity_mesh_info_tv"
+                    app:srcCompat="@drawable/baseline_arrow_forward_24" />
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.appbar.AppBarLayout>
-
-        <TextView
+        <EditText
             android:id="@+id/activity_vib_flash_frequency_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginTop="16dp"
             android:text="@string/default_freq"
+            android:textColor="@color/black0"
             android:textSize="@dimen/text_size_80"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+            android:inputType="number" />
+
+       <!-- <TextView
+            android:id="@+id/activity_vib_flash_frequency_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="16dp"
+            android:text="@string/default_freq"
+            android:textColor="@color/black0"
+            android:textSize="@dimen/text_size_80"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />-->
 
         <TextView
             android:id="@+id/activity_vib_flash_hertz_tv"
@@ -105,6 +146,7 @@
             android:layout_below="@+id/activity_vib_flash_frequency_tv"
             android:layout_marginStart="16dp"
             android:text="@string/hertz"
+            android:textColor="@color/black0"
             android:textSize="@dimen/text_size_16"
             app:layout_constraintBottom_toBottomOf="@+id/activity_vib_flash_frequency_tv"
             app:layout_constraintDimensionRatio="w,1:0"
@@ -259,11 +301,10 @@
 
             <Button
                 android:id="@+id/activity_vib_flash_freq_minus"
-                style="@style/clickEffect"
-                android:layout_width="wrap_content"
+                style="@style/clickEffectFr"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginTop="8dp"
+                android:layout_gravity="center_vertical|center_horizontal"
                 android:layout_weight="1"
                 android:text="@string/decrement_freq"
                 android:textColor="@color/white"
@@ -277,9 +318,9 @@
             <Button
                 android:id="@+id/activity_vib_flash_freq_plus"
                 style="@style/clickEffect"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="center_vertical|center_horizontal"
                 android:layout_weight="1"
                 android:text="@string/increment_freq"
                 android:textColor="@color/white"

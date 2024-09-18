@@ -1,19 +1,48 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Home item -->
+    <item
+        android:id="@+id/nav_home"
+        android:title="Home"
+        android:iconTint="@color/primary_s"
+        android:visible="true"
+        />
+
+    <!-- Sub-items under Home (no actual submenu) -->
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
-            android:visible="true"
-            android:title="" />
+            android:id="@+id/nav_mesh_converter"
+            android:title="MeshConverter"
+            android:enabled="true" />
         <item
-            android:id="@+id/nav_news"
-            android:title=""
-            android:actionLayout="@layout/menu_item_with_badge"/>
+            android:id="@+id/nav_vibsonic"
+            android:title="VibSonic"
+            android:enabled="true" />
         <item
-            android:id="@+id/nav_info"
-            android:title="" />
+            android:id="@+id/nav_vib_flash"
+            android:title="VibFlash"
+            android:enabled="true" />
         <item
-            android:id="@+id/nav_website"
-            android:title="" />
+            android:id="@+id/nav_vib_checker"
+            android:title="VibChecker"
+            android:enabled="true" />
+        <item
+            android:id="@+id/nav_capacity_checker"
+            android:title="Capacity Checker"
+            android:enabled="true" />
     </group>
+
+    <!-- Other main menu items -->
+
+    <item
+        android:id="@+id/nav_news"
+        android:title=""
+        android:actionLayout="@layout/menu_item_with_badge"/>
+    <item
+        android:id="@+id/nav_info"
+        android:title="Info" />
+    <item
+        android:id="@+id/nav_website"
+        android:title="Website" />
 </menu>

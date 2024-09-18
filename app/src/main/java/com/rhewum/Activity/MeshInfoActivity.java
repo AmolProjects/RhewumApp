@@ -6,13 +6,15 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.rhewum.Activity.MeshConveterData.Utils;
 import com.rhewum.Activity.MeshConveterData.ResponsiveAndroidBars;
 import com.rhewum.DrawerBaseActivity;
 import com.rhewum.R;
 
 public class MeshInfoActivity extends DrawerBaseActivity {
-    RelativeLayout activity_mesh_info_back_layout;
+    ConstraintLayout activity_mesh_info_back_layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,7 @@ public class MeshInfoActivity extends DrawerBaseActivity {
                 overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
             }
         });
-        ((TextView) findViewById(R.id.activity_mesh_info_tyler)).setText(Html.fromHtml("TYLER&reg;"));
+        ((TextView) findViewById(R.id.activity_mesh_info_tyler)).setText(Html.fromHtml("TYLER&reg :"));
     }
     public void onBackPressed() {
         super.onBackPressed();

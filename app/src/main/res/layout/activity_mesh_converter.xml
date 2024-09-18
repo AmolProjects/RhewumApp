@@ -2,6 +2,7 @@
     xmlns:aapt="http://schemas.android.com/aapt"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="@color/light_gray_silver"
     android:layout_height="match_parent">
 
     <RelativeLayout
@@ -50,7 +51,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
             <ImageView
-
                 android:id="@+id/activity_mesh_info_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -80,7 +80,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="70dp"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -265,6 +266,7 @@
                     android:layout_marginLeft="@dimen/layout_margin_10"
                     android:layout_marginTop="@dimen/layout_margin_10"
                     android:layout_marginRight="@dimen/layout_margin_10"
+                    android:textColor="@color/black0"
                     android:text="@string/part_b_sub_title"
                     android:textSize="@dimen/text_size_16"  />
 
@@ -277,6 +279,7 @@
                     android:text="@string/note"
                     android:layout_marginTop="5dp"
                     android:textSize="@dimen/text_size_18"
+                    android:textColor="@color/black0"
                     android:textStyle="bold" />
 
                 <TextView
@@ -286,6 +289,7 @@
                     android:layout_below="@+id/activity_mesh_trennschnitt_sub_title_1"
                     android:layout_marginEnd="@dimen/layout_margin_20"
                     android:layout_marginTop="6dp"
+                    android:textColor="@color/black0"
                     android:layout_toEndOf="@+id/activity_mesh_trennschnitt_sub_title_2"
                     android:text=""
                     android:textSize="@dimen/text_size_16"  />
@@ -321,6 +325,7 @@
                     android:layout_alignBottom="@+id/activity_mesh_trennschnitt_no1"
                     android:layout_marginStart="@dimen/layout_margin_10"
                     android:layout_marginTop="0dp"
+                    android:textColor="@color/black0"
                     android:layout_toEndOf="@+id/activity_mesh_trennschnitt_no1"
                     android:text="@string/mesh_opening"
                     android:textSize="@dimen/text_size_16" />
@@ -359,6 +364,7 @@
                         android:layout_height="30dp"
                         android:checked="true"
                         android:padding="2dp"
+                        android:textColor="@color/black0"
                         android:layout_margin="0dp"
                         android:text="@string/mm" />
 
@@ -367,6 +373,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:text="@string/inch"
+                        android:textColor="@color/black0"
                         android:padding="2dp"
                         android:layout_margin="0dp" />
                 </RadioGroup>
@@ -390,6 +397,7 @@
                     android:layout_below="@+id/activity_mesh_trennschnitt_no1"
                     android:layout_marginStart="@dimen/layout_margin_10"
                     android:layout_marginTop="@dimen/layout_margin_50"
+                    android:textColor="@color/black0"
                     android:layout_toEndOf="@+id/activity_mesh_trennschnitt_no1"
                     android:text="@string/angle"
                     android:textSize="@dimen/text_size_16" />
@@ -429,6 +437,7 @@
                         android:padding="2dp"
                         android:layout_margin="0dp"
                         android:checked="true"
+                        android:textColor="@color/black0"
                         android:text="@string/manual" />
 
                     <RadioButton
@@ -436,55 +445,55 @@
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:padding="2dp"
+                        android:textColor="@color/black0"
                         android:layout_margin="0dp"
                         android:text="@string/automatic" />
                 </RadioGroup>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/layout_margin_50"
-                    android:layout_below="@+id/activity_mesh_trennschnitt_no2"
-                    android:layout_marginTop="55dp"
-                    android:orientation="horizontal"
-                    android:background="@color/grey_background_transperant">
-
-                    <TextView
-                        android:id="@+id/activity_mesh_trennschnitt_no3"
-                        android:layout_width="@dimen/textview_width"
-                        android:layout_height="@dimen/textview_width"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/layout_margin_10"
-                        android:background="@drawable/oval_blue"
-                        android:gravity="center_vertical|center_horizontal"
-                        android:text="@string/no_3"
-                        android:textColor="@color/white" />
-
-                    <TextView
-                        android:id="@+id/activity_mesh_trennschnitt_projected_opening"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/layout_margin_10"
-                        android:layout_toRightOf="@+id/activity_mesh_trennschnitt_no3"
-                        android:text="@string/projected_opening"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_16" />
-
-                    <TextView
-                        android:id="@+id/activity_mesh_trennschnitt_result"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/layout_margin_15"
-                        android:layout_toRightOf="@+id/activity_mesh_trennschnitt_projected_opening"
-                        android:text="@string/_2_99_inches"
-                        android:textColor="@color/header_backgrounds"
-                        android:textSize="@dimen/text_size_16"  />
-                </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_margin_50"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="55dp"
+        android:orientation="horizontal"
+        android:background="@color/grey_background_transperant">
 
+        <TextView
+            android:id="@+id/activity_mesh_trennschnitt_no3"
+            android:layout_width="@dimen/textview_width"
+            android:layout_height="@dimen/textview_width"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/layout_margin_10"
+            android:background="@drawable/oval_blue"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/no_3"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/activity_mesh_trennschnitt_projected_opening"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/layout_margin_10"
+            android:layout_toRightOf="@+id/activity_mesh_trennschnitt_no3"
+            android:text="@string/projected_opening"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_16" />
+
+        <TextView
+            android:id="@+id/activity_mesh_trennschnitt_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/layout_margin_15"
+            android:layout_toRightOf="@+id/activity_mesh_trennschnitt_projected_opening"
+            android:text=""
+            android:textColor="@color/header_backgrounds"
+            android:textSize="@dimen/text_size_16"  />
+    </LinearLayout>
     <include
         android:id="@+id/activity_mesh_layout_alert"
         layout="@layout/layout_custom_alert"

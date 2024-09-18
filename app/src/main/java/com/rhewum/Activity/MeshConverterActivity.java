@@ -1,7 +1,10 @@
 package com.rhewum.Activity;
 
+import static org.apache.commons.lang3.StringUtils.isNumeric;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -88,6 +91,10 @@ public class MeshConverterActivity extends DrawerBaseActivity implements View.On
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // Lock orientation to portrait
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         Utils.setFontFamily("fonts/heebo.ttf");
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_mesh_converter);
@@ -181,7 +188,9 @@ public class MeshConverterActivity extends DrawerBaseActivity implements View.On
         this.angleEt = (EditText) findViewById(R.id.activity_mesh_trennschnitt_et_2);
         TextView textView = (TextView) findViewById(R.id.activity_mesh_trennschnitt_sub_title_3);
         this.subTitle_angle = textView;
-        textView.setText(Html.fromHtml("Angle range is between 0&deg; to 45&deg;."));
+        String htmlText = "&nbsp;Angle range is between 0&deg; and 45&deg;.";
+        textView.setText(Html.fromHtml(htmlText, Html.FROM_HTML_MODE_COMPACT));
+
     }
 
     public void onClick(View view) {
@@ -262,17 +271,25 @@ public class MeshConverterActivity extends DrawerBaseActivity implements View.On
 
     /* access modifiers changed from: private */
     public void calculateProjectedOpening() {
-        double parseDouble = Double.parseDouble(this.meshOpeningEtStr);
-        double parseDouble2 = Double.parseDouble(this.angleEtStr);
-        if (this.inchRadio.isChecked()) {
-            double cos = parseDouble * Math.cos(Math.toRadians(parseDouble2));
-            TextView textView = this.resultTv;
-            textView.setText(this.twoDigitForm.format(cos) + " inch");
-            return;
+        try {
+            if (this.meshOpeningEtStr != null && !this.meshOpeningEtStr.trim().isEmpty() && isNumeric(this.meshOpeningEtStr));
+
+            double parseDouble = Double.parseDouble(this.meshOpeningEtStr);
+            double parseDouble2 = Double.parseDouble(this.angleEtStr);
+            if (this.inchRadio.isChecked()) {
+                double cos = parseDouble * Math.cos(Math.toRadians(parseDouble2));
+                TextView textView = this.resultTv;
+                textView.setText(this.twoDigitForm.format(cos) + " inch");
+                return;
+            }
+            double cos2 = parseDouble * Math.cos(Math.toRadians(parseDouble2));
+            TextView textView2 = this.resultTv;
+            textView2.setText(this.twoDigitForm.format(cos2) + " mm");
         }
-        double cos2 = parseDouble * Math.cos(Math.toRadians(parseDouble2));
-        TextView textView2 = this.resultTv;
-        textView2.setText(this.twoDigitForm.format(cos2) + " mm");
+        catch (NumberFormatException e){
+            Toast.makeText(this, "Enter valid mesh opening input", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     private void calculateAngle() {
@@ -311,7 +328,7 @@ public class MeshConverterActivity extends DrawerBaseActivity implements View.On
                     }
 
                     // Check if the device is flat on the surface
-                    boolean isFlat = Math.abs(f3) > 9.0 && Math.abs(f) < 1.0 && Math.abs(f2) < 1.0;
+                    boolean isFlat = Math.abs(f3) > 9.0 && Math.abs(f) < 0 && Math.abs(f2) < 0;
                     if (isFlat) {
                         angleEt.setText(""); // Clear the angle display
                         customAlertDialog.setVisibility(View.GONE);
