@@ -1,48 +1,54 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Home item -->
+    <!-- Regular Item -->
     <item
         android:id="@+id/nav_home"
-        android:title="Home"
-        android:iconTint="@color/primary_s"
-        android:visible="true"
-        />
+        android:title="Home" />
 
-    <!-- Sub-items under Home (no actual submenu) -->
-    <group android:checkableBehavior="single">
+    <!-- Expandable Group -->
+    <!--    <item-->
+    <!--        android:id="@+id/nav_tools"-->
+    <!--        android:title="Tools">-->
+    <item android:title="TOOLS">
+        <menu>
+            <item
+                android:id="@+id/nav_mesh_converter"
+                android:title="MeshConverter"
+                android:icon="@drawable/circle_red"/>
+            <item
+                android:id="@+id/nav_vibsonic"
+                android:title="Vibsonic"
+                android:icon="@drawable/circle_red"/>
+            <item
+                android:id="@+id/nav_vib_flash"
+                android:title="VibFlash"
+                android:icon="@drawable/circle_red"/>
+            <item
+                android:id="@+id/nav_vib_checker"
+                android:title="VibChecker"
+                android:icon="@drawable/circle_red"/>
+            <item
+                android:id="@+id/nav_capacity_checker"
+                android:title="CapacityChecker"
+                android:icon="@drawable/circle_red"/>
+        </menu>
+    </item>
+
+    <!-- Regular Item -->
+    <group android:checkableBehavior="single"
+        android:id="@+id/group1">
         <item
-            android:id="@+id/nav_mesh_converter"
-            android:title="MeshConverter"
-            android:enabled="true" />
+            android:id="@+id/nav_info"
+            android:title="Info" />
+
         <item
-            android:id="@+id/nav_vibsonic"
-            android:title="VibSonic"
-            android:enabled="true" />
+            android:id="@+id/nav_news"
+            android:title="News"
+            android:actionLayout="@layout/menu_item_with_badge"/>
         <item
-            android:id="@+id/nav_vib_flash"
-            android:title="VibFlash"
-            android:enabled="true" />
-        <item
-            android:id="@+id/nav_vib_checker"
-            android:title="VibChecker"
-            android:enabled="true" />
-        <item
-            android:id="@+id/nav_capacity_checker"
-            android:title="Capacity Checker"
-            android:enabled="true" />
+            android:id="@+id/nav_website"
+            android:title="Website" />
+
     </group>
 
-    <!-- Other main menu items -->
-
-    <item
-        android:id="@+id/nav_news"
-        android:title=""
-        android:actionLayout="@layout/menu_item_with_badge"/>
-    <item
-        android:id="@+id/nav_info"
-        android:title="Info" />
-    <item
-        android:id="@+id/nav_website"
-        android:title="Website" />
 </menu>

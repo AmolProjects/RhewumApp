@@ -213,13 +213,13 @@
                             android:id="@+id/textView5"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
-                            android:layout_marginStart="8dp"
+                            android:layout_marginStart="5dp"
                             android:layout_marginTop="@dimen/text_size_20"
                             android:background="@drawable/round_box_blue"
                             android:gravity="center_horizontal|center_vertical"
                             android:text="@string/_1"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/text_size_16"
+                            android:textSize="@dimen/text_size_15"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/img_test" />
 
@@ -227,32 +227,32 @@
                             android:id="@+id/txtMachineType"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="6dp"
+                            android:layout_marginStart="2dp"
                             android:text="@string/machine_type"
-                            android:textSize="@dimen/text_size_16"
+                            android:textSize="@dimen/text_size_15"
                             app:layout_constraintBottom_toBottomOf="@+id/textView5"
                             app:layout_constraintStart_toEndOf="@+id/textView5"
                             app:layout_constraintTop_toTopOf="@+id/textView5" />
 
                         <ImageView
                             android:id="@+id/textMachineTypeInfo"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_marginStart="18dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
                             android:contentDescription="@string/app_name"
                             android:scaleType="fitCenter"
-                            app:layout_constraintBottom_toBottomOf="@+id/textView5"
-                            app:layout_constraintDimensionRatio="1:1.4"
+                            app:layout_constraintBottom_toBottomOf="@+id/spinner"
+                            app:layout_constraintDimensionRatio=""
                             app:layout_constraintStart_toEndOf="@+id/txtMachineType"
-                            app:layout_constraintTop_toTopOf="@+id/textView5"
-                            app:srcCompat="@drawable/baseline_error_24" />
+                            app:layout_constraintTop_toTopOf="@+id/spinner"
+                            app:srcCompat="@drawable/baseline_info_24" />
 
 
                         <Spinner
                             android:id="@+id/spinner"
                             android:layout_width="0dp"
                             android:layout_height="35dp"
-                            android:layout_marginStart="12dp"
+                            android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
                             android:background="@drawable/spinner_background"
                             android:backgroundTint="@color/header_backgrounds"
@@ -274,7 +274,7 @@
                             android:gravity="center_horizontal|center_vertical"
                             android:text="@string/_2"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/text_size_16"
+                            android:textSize="@dimen/text_size_15"
                             app:layout_constraintStart_toStartOf="@+id/textView5"
                             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
@@ -282,24 +282,24 @@
                             android:id="@+id/txtScreenWidth"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="6dp"
+                            android:layout_marginStart="2dp"
                             android:text="@string/screen_width"
-                            android:textSize="@dimen/text_size_16"
+                            android:textSize="@dimen/text_size_15"
                             app:layout_constraintBottom_toBottomOf="@+id/textView6"
-                            app:layout_constraintStart_toEndOf="@+id/textView6"
+                            app:layout_constraintStart_toEndOf="@+id/textView5"
                             app:layout_constraintTop_toTopOf="@+id/textView6" />
 
                         <ImageView
                             android:id="@+id/textScreenWidthInfo"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:contentDescription="@string/app_name"
                             android:scaleType="fitCenter"
                             app:layout_constraintBottom_toBottomOf="@+id/textView6"
-                            app:layout_constraintDimensionRatio="1:1.4"
+                            app:layout_constraintDimensionRatio=""
                             app:layout_constraintStart_toStartOf="@+id/textMachineTypeInfo"
                             app:layout_constraintTop_toTopOf="@+id/textView6"
-                            app:srcCompat="@drawable/baseline_error_24" />
+                            app:srcCompat="@drawable/baseline_info_24" />
 
                         <EditText
                             android:id="@+id/edt_ScreenWidth"
@@ -358,7 +358,7 @@
                             android:gravity="center_horizontal|center_vertical"
                             android:text="@string/_3"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/text_size_16"
+                            android:textSize="@dimen/text_size_15"
                             app:layout_constraintStart_toStartOf="@+id/textView5"
                             app:layout_constraintTop_toBottomOf="@+id/radioGroup_screenWidth" />
 
@@ -366,25 +366,25 @@
                             android:id="@+id/txtMaterailDensity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="6dp"
+                            android:layout_marginStart="2dp"
                             android:text="@string/material_density"
-                            android:textSize="@dimen/text_size_16"
+                            android:textSize="@dimen/text_size_15"
                             app:layout_constraintBottom_toBottomOf="@+id/textView8"
-                            app:layout_constraintStart_toEndOf="@+id/textView8"
+                            app:layout_constraintStart_toEndOf="@+id/textView6"
                             app:layout_constraintTop_toTopOf="@+id/textView8" />
 
                         <ImageView
                             android:id="@+id/imgMaterialDenInfo"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:contentDescription="@string/app_name"
                             android:scaleType="fitCenter"
                             app:layout_constraintBottom_toBottomOf="@+id/textView8"
-                            app:layout_constraintDimensionRatio="1:1.4"
+                            app:layout_constraintDimensionRatio=""
                             app:layout_constraintEnd_toStartOf="@+id/editTextMaterialDensity"
-                            app:layout_constraintStart_toEndOf="@+id/txtMaterailDensity"
+                            app:layout_constraintStart_toStartOf="@+id/textMachineTypeInfo"
                             app:layout_constraintTop_toTopOf="@+id/textView8"
-                            app:srcCompat="@drawable/baseline_error_24" />
+                            app:srcCompat="@drawable/baseline_info_24" />
 
                         <EditText
                             android:id="@+id/editTextMaterialDensity"
@@ -441,7 +441,7 @@
                             android:gravity="center_horizontal|center_vertical"
                             android:text="@string/_4"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/text_size_16"
+                            android:textSize="@dimen/text_size_15"
                             app:layout_constraintStart_toStartOf="@+id/textView5"
                             app:layout_constraintTop_toBottomOf="@+id/radioGroup_MaterialDensity" />
 
@@ -449,25 +449,25 @@
                             android:id="@+id/txtLayerHeight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="6dp"
+                            android:layout_marginStart="2dp"
                             android:text="@string/layer_height"
-                            android:textSize="@dimen/text_size_16"
+                            android:textSize="@dimen/text_size_15"
                             app:layout_constraintBottom_toBottomOf="@+id/textView9"
-                            app:layout_constraintStart_toEndOf="@+id/textView9"
+                            app:layout_constraintStart_toEndOf="@+id/textView8"
                             app:layout_constraintTop_toTopOf="@+id/textView9" />
 
                         <ImageView
                             android:id="@+id/imgLayerHeightInfo"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:contentDescription="@string/app_name"
                             android:scaleType="fitCenter"
                             app:layout_constraintBottom_toBottomOf="@+id/textView9"
-                            app:layout_constraintDimensionRatio="1:1.4"
+                            app:layout_constraintDimensionRatio=""
                             app:layout_constraintEnd_toStartOf="@+id/editTextLayerHeight"
-                            app:layout_constraintStart_toEndOf="@+id/txtMaterailDensity"
+                            app:layout_constraintStart_toStartOf="@+id/textMachineTypeInfo"
                             app:layout_constraintTop_toTopOf="@+id/textView9"
-                            app:srcCompat="@drawable/baseline_error_24" />
+                            app:srcCompat="@drawable/baseline_info_24" />
 
                         <EditText
                             android:id="@+id/editTextLayerHeight"
@@ -555,7 +555,7 @@
                 android:layout_marginStart="@dimen/layout_margin_10"
                 android:text="Projected capacity :"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_16" />
+                android:textSize="@dimen/text_size_15" />
 
             <TextView
                 android:id="@+id/activity_mesh_trennschnitt_result"
@@ -565,7 +565,7 @@
                 android:layout_marginStart="@dimen/layout_margin_15"
                 android:text="0"
                 android:textColor="@color/header_backgrounds"
-                android:textSize="@dimen/text_size_16" />
+                android:textSize="@dimen/text_size_15" />
 
         </LinearLayout>
 

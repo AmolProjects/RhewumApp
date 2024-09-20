@@ -1,6 +1,8 @@
 package com.rhewum.Activity.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,11 +22,13 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
     private final ArrayList<SubArrayNews> sliderItems;
     private final Context context;
     private int currentPosition = 0;
+    private static final int MAX_ITEMS = 5;  // Set the maximum number of items to display
 
     public SliderAdapter(Context context, ArrayList<SubArrayNews> sliderItems) {
         this.context = context;
-        this.sliderItems = sliderItems;
-       // Log.e("Item size","Size"+sl)
+//        this.sliderItems = sliderItems;
+        this.sliderItems = new ArrayList<>(sliderItems.subList(0, Math.min(sliderItems.size(), MAX_ITEMS)));
+        // Log.e("Item size","Size"+sl)
     }
 
     @Override
@@ -33,18 +37,60 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
         return new SliderAdapterViewHolder(view);
     }
 
+//    @Override
+//    public void onBindViewHolder(SliderAdapterViewHolder viewHolder, int position) {
+//        // Ensure we don't go out of bounds
+//        if (position >= 0 && position < sliderItems.size()) {
+//            ArrayList<SubArrayNews> sliderItem = sliderItems;
+//            viewHolder.txtNewsTitle.setText(sliderItem.get(position).title);
+//            viewHolder.txtHeader.setText(sliderItem.get(position).headline);
+//            viewHolder.txtDescription.setText(sliderItem.get(position).meta_description);
+//            Glide.with(context)
+//                    .load(sliderItem.get(position).teaser_image)
+//                    .fitCenter()
+//                    .into(viewHolder.imageView);
+//
+//            // Set click listener to open the webpage URL
+//            viewHolder.itemView.setOnClickListener(v -> {
+//                String baseUrl = "https://www.rhewum.com"; // Assuming this is the base URL
+//                String fullUrl = baseUrl + sliderItem.getUrl();
+//
+//                // Open the URL in a browser
+//                Intent intent = new Intent(Intent.ACTION_VIEW);
+//                intent.setData(Uri.parse(fullUrl));
+//                context.startActivity(intent);
+//            });
+//        }
+//    }
+
     @Override
     public void onBindViewHolder(SliderAdapterViewHolder viewHolder, int position) {
         // Ensure we don't go out of bounds
-        if (position >= 0) {
-            ArrayList<SubArrayNews> sliderItem = sliderItems;
-            viewHolder.txtNewsTitle.setText(sliderItem.get(position).title);
-            viewHolder.txtHeader.setText(sliderItem.get(position).headline);
-            viewHolder.txtDescription.setText(sliderItem.get(position).meta_description);
+        if (position >= 0 && position < sliderItems.size()) {
+            // Get the individual item at the current position
+            SubArrayNews sliderItem = sliderItems.get(position);
+
+            // Set the text fields with data from the current item
+            viewHolder.txtNewsTitle.setText(sliderItem.getTitle());
+            viewHolder.txtHeader.setText(sliderItem.getHeadline());
+            viewHolder.txtDescription.setText(sliderItem.getMeta_description());
+
+            // Load the image using Glide
             Glide.with(context)
-                    .load(sliderItem.get(position).teaser_image)
+                    .load(sliderItem.getTeaser_image())  // Assuming getTeaser_image() returns the image URL
                     .fitCenter()
                     .into(viewHolder.imageView);
+
+            // Set click listener to open the webpage URL
+            viewHolder.itemView.setOnClickListener(v -> {
+                String baseUrl = "https://www.rhewum.com"; // Assuming this is the base URL
+                String fullUrl = baseUrl + sliderItem.getUrl(); // Get URL for the current item
+
+                // Open the URL in a browser
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(fullUrl));
+                context.startActivity(intent);
+            });
         }
     }
 

@@ -91,9 +91,8 @@ public class CapacityCheckerActivity extends DrawerBaseActivity {
             overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
         });
 
-
-        textMachineTypeInfo.setOnClickListener(view -> showAlert("Read the machine type off your machines type plate"));
-        textScreenWidthInfo.setOnClickListener(view -> showAlert("Measure the inside width or read the required parameters off your machines type plate"));
+        textMachineTypeInfo.setOnClickListener(view -> showAlert("Read the machine's type off your machines type plate"));
+        textScreenWidthInfo.setOnClickListener(view -> showAlert("Measure the inside width or read the required parameters off your machine's type plate"));
         imgMaterialDenInfo.setOnClickListener(view -> showAlert("Give an estimation of the material density in the required unit"));
         imgLayerHeightInfo.setOnClickListener(view -> showAlert("While the machine is running, measure or estimate the height of the material layer directly at the infeed of the machine. It should be measured before material has fallen through the screen."));
     }
@@ -107,7 +106,7 @@ public class CapacityCheckerActivity extends DrawerBaseActivity {
 
     private void initObjects() {
         txtBack = findViewById(R.id.txtBack);
-       // bt_submit = findViewById(R.id.bt_submit);
+        // bt_submit = findViewById(R.id.bt_submit);
         textMachineTypeInfo = findViewById(R.id.textMachineTypeInfo);
         textScreenWidthInfo = findViewById(R.id.textScreenWidthInfo);
         imgMaterialDenInfo = findViewById(R.id.imgMaterialDenInfo);
@@ -232,14 +231,18 @@ public class CapacityCheckerActivity extends DrawerBaseActivity {
         String editTextMaterialDensityText = editTextMaterialDensity.getText().toString();
         String editTextLayerHeightText = editTextLayerHeight.getText().toString();
 
-        return !edtScreenWidthText.isEmpty() && isNumeric(edtScreenWidthText) &&
-                !editTextMaterialDensityText.isEmpty() && isNumeric(editTextMaterialDensityText) &&
-                !editTextLayerHeightText.isEmpty() && isNumeric(editTextLayerHeightText) &&
+        // Use a regex pattern to validate decimal numbers
+        String decimalPattern = "^[0-9]*\\.?[0-9]+$";
+
+        return !edtScreenWidthText.isEmpty() && edtScreenWidthText.matches(decimalPattern) &&
+                !editTextMaterialDensityText.isEmpty() && editTextMaterialDensityText.matches(decimalPattern) &&
+                !editTextLayerHeightText.isEmpty() && editTextLayerHeightText.matches(decimalPattern) &&
                 radioGroup_screenWidth.getCheckedRadioButtonId() != -1 &&
                 radioGroup_MaterialDensity.getCheckedRadioButtonId() != -1 &&
                 radioGroup_Height.getCheckedRadioButtonId() != -1 &&
-                spinner.getSelectedItemPosition() != 1;
+                spinner.getSelectedItemPosition() != -1; // Fixed to check against -1
     }
+
 
     private void selectedItemSpinner() {
         uiHandler.post(() -> {
@@ -247,6 +250,7 @@ public class CapacityCheckerActivity extends DrawerBaseActivity {
             spinnerItems = new ArrayList<>();
             String[] initialItems = getResources().getStringArray(R.array.spinner_items);
             spinnerItems.addAll(Arrays.asList(initialItems));
+
             // Create an ArrayAdapter using the spinner items list and a default spinner layout
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spinnerItems);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -260,34 +264,53 @@ public class CapacityCheckerActivity extends DrawerBaseActivity {
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     // Get the selected item
                     String selectedItem = spinnerItems.get(position);
-                    if (selectedItem.equals("RHEsono(formely WA)") || selectedItem.equals("RHEmoto(formely WAU)")) {
-                        globalFlowVelocity = String.valueOf(1);
-                    } else if (selectedItem.equals("RHEstack(formely MDS)")) {
-                        globalFlowVelocity = String.valueOf(0.08);
-                    } else if (selectedItem.equals("RHEflex(formely RIUS)") || selectedItem.equals("RHEtrans(formely RIU)") || selectedItem
-                            .equals("RHEfeed(formely RIM)")) {
-                        globalFlowVelocity = String.valueOf(0.25);
-                    } else if (selectedItem.equals("RHEsonox(formely WAF)") || selectedItem.equals("RHEmotox(formely WAUF)") || selectedItem.equals("RHEside/RHEmid(formely SV/AV)")) {
-                        globalFlowVelocity = String.valueOf(0.3);
-                    } else if (selectedItem.equals("RHEduo(formely DF)") || selectedItem.equals("RHEduox(formely DFM)")) {
-                        globalFlowVelocity = String.valueOf(0.8);
-                    } else if (selectedItem.equals("RHEox(formely UG)")) {
-                        globalFlowVelocity = String.valueOf(0.4);
-                    } else {
-                        globalFlowVelocity = String.valueOf(0);
+
+                    // Update the globalFlowVelocity based on the selected item
+                    switch (selectedItem) {
+                        case "RHEsono(formely WA)":
+                        case "RHEmoto(formely WAU)":
+                            globalFlowVelocity = String.valueOf(1);
+                            break;
+                        case "RHEstack(formely MDS)":
+                            globalFlowVelocity = String.valueOf(0.08);
+                            break;
+                        case "RHEflex(formely RIUS)":
+                        case "RHEtrans(formely RIU)":
+                        case "RHEfeed(formely RIM)":
+                            globalFlowVelocity = String.valueOf(0.25);
+                            break;
+                        case "RHEsonox(formely WAF)":
+                        case "RHEmotox(formely WAUF)":
+                        case "RHEside/RHEmid(formely SV/AV)":
+                            globalFlowVelocity = String.valueOf(0.3);
+                            break;
+                        case "RHEduo(formely DF)":
+                        case "RHEduox(formely DFM)":
+                            globalFlowVelocity = String.valueOf(0.8);
+                            break;
+                        case "RHEox(formely UG)":
+                            globalFlowVelocity = String.valueOf(0.4);
+                            break;
+                        default:
+                            globalFlowVelocity = String.valueOf(0);
+                            break;
                     }
 
                     // Notify the adapter of the data change
                     adapter.notifyDataSetChanged();
+
+                    // Trigger recalculation
+                    calculateAndUpdateResult();
                 }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
-                    Toast.makeText(CapacityCheckerActivity.this, "Please selected machine type value: " + globalFlowVelocity, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CapacityCheckerActivity.this, "Please select a machine type", Toast.LENGTH_SHORT).show();
                 }
             });
         });
     }
+
 
     private void showAlert(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

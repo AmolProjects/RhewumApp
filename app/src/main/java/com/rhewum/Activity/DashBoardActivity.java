@@ -24,7 +24,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.rhewum.Activity.Adapter.HomeDashBoardAdapter;
 import com.rhewum.Activity.Adapter.SliderAdapter;
 import com.rhewum.Activity.Pojo.MainJsonNews;
-import com.rhewum.Activity.Pojo.Notifications;
 import com.rhewum.Activity.Pojo.SubArrayNews;
 import com.rhewum.Activity.data.ItemData;
 import com.rhewum.Apis.ApiServices;
@@ -69,14 +68,13 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         makeApiCallWithExecutor();
-       // getNotificationApi();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             checkAndRequestNotificationPermission();
         }
-       // FirebaseApp.initializeApp(this);
+        // FirebaseApp.initializeApp(this);
 //       setContentView(R.layout.activity_dash_board);
-      activityDashBoardBinding = ActivityDashBoardBinding.inflate(getLayoutInflater());
+        activityDashBoardBinding = ActivityDashBoardBinding.inflate(getLayoutInflater());
         setContentView(activityDashBoardBinding.getRoot());
         initObjects();
 
@@ -163,7 +161,7 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
                 sliderView.setCurrentPagePosition(nextIndex);
             } else {
                 // Optionally handle if reached the end
-               // Toast.makeText(this, "You are at the last item.", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(this, "You are at the last item.", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -175,7 +173,7 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
                 sliderView.setCurrentPagePosition(nextIndex);
             } else {
                 // Optionally handle if reached the end
-             //   Toast.makeText(this, "You are at the last item.", Toast.LENGTH_SHORT).show();
+                //   Toast.makeText(this, "You are at the last item.", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -203,7 +201,6 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
             Toast.makeText(this, "No items available for slider", Toast.LENGTH_SHORT).show();
         }
     }
-
 
 
     private void initObjects() {
@@ -263,39 +260,12 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
 
     }
 
- /*   @Override
-    public void onItemClick(View view, int position) {
-        // Determine which activity to open based on the position
-        Class<?> activityClass;
-        switch (position) {
-            case 0:
-                activityClass = MeshConverterActivity.class;
-                break;
-            case 1:
-                activityClass = VibSonicActivity.class;
-                break;
-            case 2:
-                activityClass = VibFlashActivity.class;
-                break;
-            case 3:
-                activityClass = VibCheckerAccelerometer2Activity.class;
-                break;
-            case 4:
-                activityClass = CapacityCheckerActivity.class;
-                break;
-            // Add more cases as needed
-            default:
-                activityClass = MeshConverterActivity.class;
-                break;
-        }
-        Intent intent = new Intent(this, activityClass);
-        startActivity(intent);
-    }*/
+
 
     @Override
     protected void onResume() {
         super.onResume();
-        clearBadgeCount();
+
     }
 
     private void clearBadgeCount() {
@@ -329,34 +299,19 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
         Call<MainJsonNews> call=apiServices.getNews(1,"pUFUoSFjTLQng8hFbSs4tAI9LwZmJBiOApWItqPLzMwVUAsRQf");
         call.enqueue(new Callback<MainJsonNews>() {
             @Override
-            public void onResponse(@NonNull Call<MainJsonNews> call, @NonNull Response<MainJsonNews> response) {
+            public void onResponse(Call<MainJsonNews> call, Response<MainJsonNews> response) {
                 assert response.body() != null;
-                ArrayList<SubArrayNews>subArrayNews=response.body().getData();
-                setupSlider(subArrayNews);
+//                ArrayList<SubArrayNews>subArrayNews=response.body().getData();
+//                setupSlider(subArrayNews);
+                List<SubArrayNews> subArrayNews = response.body().getData();
+                // Limit the size of the list and convert it to ArrayList
+                ArrayList<SubArrayNews> limitedNews = new ArrayList<>(subArrayNews.subList(0, Math.min(subArrayNews.size(), 5)));
+                setupSlider(limitedNews);
 
             }
 
             @Override
-            public void onFailure(@NonNull Call<MainJsonNews> call, @NonNull Throwable t) {
-
-            }
-        });
-    }
-
-    private void getNotificationApi(){
-        ApiServices apiServices= RetrofitInstance.getRetrofit().create(ApiServices.class);
-        // Create request body
-        Notifications requestBody = new Notifications();
-        Call<Notifications>call=apiServices.postNotificationData("vo5agsgDG36FYO1c58vCfL4gEZ0Jg4Dqr9ZlKqHPCT8QKcz2MpyJA3CQhDqD",requestBody);
-        call.enqueue(new Callback<Notifications>() {
-            @Override
-            public void onResponse(@NonNull Call<Notifications> call, @NonNull Response<Notifications> response) {
-                Log.e("Notification Response","Notification Response is::"+response.body());
-
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<Notifications> call, @NonNull Throwable t) {
+            public void onFailure(Call<MainJsonNews> call, Throwable t) {
 
             }
         });

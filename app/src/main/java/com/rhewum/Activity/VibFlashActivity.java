@@ -84,7 +84,6 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
         this.freq60.setOnClickListener(this);
         this.txtBack.setOnClickListener(this);
         this.freqTv.setOnClickListener(this);
-        activity_mesh_info_tv.setOnClickListener(this);
         activity_mesh_info_iv.setOnClickListener(this);
 
         // continuous increment when button hold by user
@@ -158,12 +157,6 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
         });
 
         // click and go on info screen
-        activity_mesh_info_tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-              startActivity(new Intent(VibFlashActivity.this, VibFlashInfoActivity.class));
-            }
-        });
         activity_mesh_info_iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -193,11 +186,17 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
 
             @Override
             public void afterTextChanged(Editable editable) {
-                // Get the updated text after the change
-                String updatedText = editable.toString();
-                // Now you can use the updatedText value
-                // For example: Log the updated text or update a variable
-                System.out.println("Updated Text: " + updatedText);
+                try {
+                    double value = Double.parseDouble(editable.toString());
+                    if (value > 200) {
+                        freqTv.setError("Value must be 200 or less");
+                    } else {
+                        freqTv.setError(null);  // Clear error if value is valid
+                    }
+                } catch (NumberFormatException e) {
+                    // Handle the case where the input is not a valid number
+                    freqTv.setError("Please enter a valid number");
+                }
             }
         });
 
@@ -260,7 +259,7 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
         this.txtBack = (TextView) findViewById(R.id.txtBack);
         imgBack=findViewById(R.id.imgBack);
         this.activity_vib_flash_start_btn=findViewById(R.id.activity_vib_flash_start_btn);
-        activity_mesh_info_tv=findViewById(R.id.activity_mesh_info_tv);
+
         activity_mesh_info_iv=findViewById(R.id.activity_mesh_info_iv);
         this.freq16.setText(Html.fromHtml("16 &frac23;"));
         this.freqMinus.setText(Html.fromHtml("&minus;"));
@@ -361,7 +360,9 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
     }
     // Show the keyboard programmatically
     private void showKeyboard(View view) {
-        freqTv.setInputType(InputType.TYPE_CLASS_NUMBER);
+        // Allow decimal numbers, commas, and periods in input
+        freqTv.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm != null) {
             imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);

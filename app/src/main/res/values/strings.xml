@@ -32,7 +32,7 @@
     <string name="tyler_details">TYLER Screen Scale</string>
     <string name="tyler_sign">TYLER (c) Sign</string>
     <string name="usa_details">ASTM E 11(2013) and ASTM E 323 1980 (2011)</string>
-    <string name="deu_details">DIN ISO 2210</string>
+    <string name="deu_details">DIN ISO 3310</string>
     <string name="info_about_norms">Info about Norms</string>
     <string name="cal_info">The calculations within this app use the norms defined in the \"International Test Sieve Comparison Table 2024\":</string>
     <string name="angle">Angle</string>
@@ -174,7 +174,9 @@ Using the phone flash for very long periods of time can damage the hardware.</st
     <string name="no">No</string>
     <string name="txtTitles">CapacityChecker</string>
     <string name="vibTitle">Information before you start</string>
-    <string name="vibContent">To be able to identify your machine\'s capacity,we need your help with entering some of your machine\'s data. Please fill out the following.The information buttons will give you advice regarding how to do so.</string>
+    <string name="vibContent">To be able to identify your machine\'s capacity, we need your help with entering some of your machine\'s data. Please fill out the following.The information buttons will give you advice regarding how to do so.</string>
+    <string name="alert_machines">"Read the machine\'s type off your machines type plate"</string>
+    <string name="alert_secM">"Measure the inside width or read the required parameters off your machine\'s type plate"</string>
     <string name="m">m</string>
     <string name="ft">ft</string>
     <string name="screen_width">Screen width</string>
