@@ -1,5 +1,7 @@
 package com.rhewum.Activity;
 
+import static org.apache.commons.lang3.StringUtils.isNumeric;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -11,9 +13,13 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
 import android.text.Html;
+import android.text.InputFilter;
 import android.text.InputType;
+import android.text.Spanned;
 import android.text.TextWatcher;
+import android.text.method.DigitsKeyListener;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -32,6 +38,7 @@ import com.rhewum.DrawerBaseActivity;
 import com.rhewum.R;
 import com.rhewum.databinding.ActivityFlashesBinding;
 
+import java.text.DecimalFormat;
 
 
 public class VibFlashActivity extends DrawerBaseActivity implements View.OnClickListener{
@@ -57,19 +64,16 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
     ImageView imgBack,activity_mesh_info_iv;
     private boolean isRunning = false;
 
-//    ActivityVibFlashesBinding activityVibFlashesBinding;
+    //    ActivityVibFlashesBinding activityVibFlashesBinding;
     ActivityFlashesBinding activityFlashesBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//       setContentView(R.layout.activity_flashes);
         activityFlashesBinding = ActivityFlashesBinding.inflate(getLayoutInflater());
-       setContentView(activityFlashesBinding.getRoot());
+        setContentView(activityFlashesBinding.getRoot());
         Utils.setFontFamily("fonts/heebo.ttf");
-      //  setContentView(R.layout.activity_vib_flash);
-        // Set the status bar color
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.header_backgrounds));
@@ -85,21 +89,56 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
         this.txtBack.setOnClickListener(this);
         this.freqTv.setOnClickListener(this);
         activity_mesh_info_iv.setOnClickListener(this);
+        imgBack.setOnClickListener(this);
 
-        // continuous increment when button hold by user
+       // click on back button
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
         freqPlus.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
                 isRunning = true; // Start the flag for continuous changes
+
                 blinkRunnable = new Runnable() {
                     @Override
                     public void run() {
                         String charSequence = freqTv.getText().toString();
+
+                        // Replace comma with dot for proper parsing
+                        charSequence = charSequence.replace(",", ".");
+
                         if (!charSequence.equals("100.0")) {
-                            freqTv.setText(Utils.getIncreasedValue(charSequence));
-                            resetOtherButtons("");
-                            if (isRunning) {
-                                handler.postDelayed(this, 100); // Change the text every 100 milliseconds
+                            try {
+                                // Get the increased value
+
+                                String increasedValueStr = Utils.getIncreasedValue(charSequence);
+
+                                // Parse the string into a double for further use
+                                double increasedValue = Double.parseDouble(increasedValueStr);
+
+                                // Format the increased value to 2 decimal points and set it in the TextView
+                                freqTv.setText(String.format("%.1f", increasedValue));
+
+                                // Set the cursor to the end of the text
+                                freqTv.setSelection(freqTv.getText().length());
+
+                                // Reset other buttons if necessary
+                                resetOtherButtons("");
+
+                                // Keep running if the flag is set
+                                if (isRunning) {
+                                    handler.postDelayed(this, 100); // Change the text every 100 milliseconds
+                                }
+
+                            } catch (NumberFormatException e) {
+                                // Handle invalid input
+                                freqTv.setText("Invalid input");
                             }
                         }
                     }
@@ -109,11 +148,12 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
             }
         });
 
-       // Stop the continuous update when the button is released
+
         freqPlus.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP || motionEvent.getAction() == MotionEvent.ACTION_CANCEL) {
+
                     isRunning = false; // Stop updating when the long press is released
                 }
                 return false;
@@ -132,6 +172,7 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
                         String charSequence2 = freqTv.getText().toString();
                         if (!charSequence2.equals("10.0")) {
                             freqTv.setText(Utils.getDecreasedValue(charSequence2));
+                            freqTv.setSelection(freqTv.getText().length());
                             resetOtherButtons("");
                             if (isRunning) {
                                 handler.postDelayed(this, 100); // Change the text every 100 milliseconds
@@ -165,79 +206,134 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
             }
         });
 
-        // Open the keyboard when the TextView (EditText) is clicked
-        freqTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showKeyboard(freqTv);
-            }
-        });
 
-        this.freqTv.addTextChangedListener(new TextWatcher() {
+        freqTv.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // No action needed before text changes
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void afterTextChanged(Editable s) {
 
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                try {
-                    double value = Double.parseDouble(editable.toString());
-                    if (value > 200) {
-                        freqTv.setError("Value must be 200 or less");
-                    } else {
-                        freqTv.setError(null);  // Clear error if value is valid
-                    }
-                } catch (NumberFormatException e) {
-                    // Handle the case where the input is not a valid number
-                    freqTv.setError("Please enter a valid number");
+                String input = s.toString();
+                // Allow both commas and dots for decimal separation
+                input = input.replace(',', ',');
+                // Prevent the listener from being triggered continuously
+                freqTv.removeTextChangedListener(this);
+                // Update the EditText only if the input changed
+                if (!input.equals(s.toString())) {
+                    freqTv.setText(input);
+                    freqTv.setSelection(input.length()); // Move the cursor to the end
                 }
+
+                // Limit input to two decimal places
+                if (input.contains(".")) {
+                    int index = input.indexOf(".");
+                    if (input.length() - index - 1 > 2) {
+                        input = input.substring(0, index + 2); // Keep only 2 digits after the decimal
+                        freqTv.setText(input);
+                        freqTv.setSelection(input.length()); // Set cursor to the end
+                    }
+                }
+                else  if (input.contains(",")) {
+                    int index = input.indexOf(",");
+                    if (input.length() - index - 1 > 2) {
+                        input = input.substring(0, index + 2); // Keep only 2 digits after the decimal
+                        freqTv.setText(input);
+                        freqTv.setSelection(input.length()); // Set cursor to the end
+                    }
+                }
+
+                // Add listener back after making changes
+                freqTv.addTextChangedListener(this);
             }
         });
+
 
         this.activity_vib_flash_start_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String inputValue = freqTv.getText().toString().replace(',', '.'); // Replace comma with dot
                 if (isBlinking) {
                     stopBlinking();
                 } else {
-                    startBlinking(Double.parseDouble(freqTv.getText().toString()),5);
+                    try {
+                        double frequency = Double.parseDouble(inputValue);
+                        startBlinking(frequency, 5);
+                        freqTv.requestFocus();
+
+
+                    } catch (NumberFormatException e) {
+                        Toast.makeText(VibFlashActivity.this, "Please enter a valid frequency.", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
 
+
+        InputFilter filter = (source, start, end, dest, dstart, dend) -> {
+            String input = dest.toString().substring(0, dstart) + source.toString() + dest.toString().substring(dend);
+
+            // Allow comma or dot for decimal separation
+            input = input.replace(',', ',');
+
+            // Ensure only valid numbers can be input
+            if (isNumeric(input)) {
+                try {
+                    double value = Double.parseDouble(input);
+                    if (value > 100) {
+                        return ""; // Prevent input if greater than 100
+                    }
+                } catch (NumberFormatException nfe) {
+                    // Let invalid numbers show error through TextWatcher
+                }
+            }
+            return null; // Allow valid input
+        };
+
+        freqTv.setFilters(new InputFilter[]{filter});
     }
 
 
     @Override
     public void onClick(View view) {
         if (view.equals(this.freqPlus)) {
-            String charSequence = this.freqTv.getText().toString();
+            String charSequence = this.freqTv.getText().toString().replace(",", ".");
             if (!charSequence.equals("100.0")) {
                 this.freqTv.setText(Utils.getIncreasedValue(charSequence));
+                // Set the cursor to the end of the text
+                freqTv.setSelection(freqTv.getText().length());
                 resetOtherButtons("");
             }
         } else if (view.equals(this.freqMinus)) {
             String charSequence2 = this.freqTv.getText().toString();
             if (!charSequence2.equals("10.0")) {
                 this.freqTv.setText(Utils.getDecreasedValue(charSequence2));
+                // Set the cursor to the end of the text
+                freqTv.setSelection(freqTv.getText().length());
                 resetOtherButtons("");
             }
         } else if (view.equals(this.txtBack)) {
+//            overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
             finish();
-            overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
         } else {
-            String obj = view.getTag().toString();
-            this.freqTv.setText(obj);
-            resetOtherButtons(obj);
+            Object tag = view.getTag();
+            if (tag != null) {
+                String obj = tag.toString();
+                this.freqTv.setText(obj);
+                resetOtherButtons(obj);
+            } else {
+//                Toast.makeText(this, "No tag assigned to the view", Toast.LENGTH_SHORT).show();
+            }
         }
-
     }
+
     private void setUpViews() {
         cameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
         try {
@@ -358,14 +454,12 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
             e.printStackTrace();
         }
     }
-    // Show the keyboard programmatically
-    private void showKeyboard(View view) {
-        // Allow decimal numbers, commas, and periods in input
-        freqTv.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (imm != null) {
-            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
-        }
+
+    private boolean isNumeric(String str) {
+        return str.matches("-?\\d+(\\.\\d+)?"); // Adjust regex if needed
     }
+
+
 }
+

@@ -255,9 +255,9 @@ public class SummeryFragment extends Fragment {
         String formattedValueY = String.format(Locale.US, "%.1f", yDominantFrequency);
         String formattedValueZ = String.format(Locale.US, "%.1f", zDominantFrequency);
 
-        txtfrx.setText(formattedValueX+"m/s2"+"\n"+"x");
-        txtfry.setText(formattedValueY+"m/s2"+"\n"+"y");
-        txtfrZ.setText(formattedValueZ+"m/s2"+"\n"+"z");
+        txtfrx.setText(formattedValueX+"Hz"+"\n"+"x");
+        txtfry.setText(formattedValueY+"Hz"+"\n"+"y");
+        txtfrZ.setText(formattedValueZ+"Hz"+"\n"+"z");
     }
 
     public static List<Float> getDataListX() {

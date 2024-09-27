@@ -20,6 +20,7 @@ import android.text.Editable;
 import android.text.Html;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -131,7 +132,7 @@ public class MeshConverterActivity extends DrawerBaseActivity implements View.On
                 return false;
             }
         });
-        this.angleEt.setFilters(new InputFilter[]{new InputFilterMinMax("0", "45")});
+
         this.meshOpeningEt.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable editable) {
             }
@@ -140,16 +141,52 @@ public class MeshConverterActivity extends DrawerBaseActivity implements View.On
             }
 
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                String input = charSequence.toString().trim();
+
+                // Flag to track whether input is valid for further processing
+                boolean isValidInput = true;
+
+                // Check for both comma and dot in the input (only one allowed)
+                if (input.indexOf(",") != input.lastIndexOf(",") || input.indexOf(".") != input.lastIndexOf(".") ||
+                        (input.contains(",") && input.contains("."))) {
+                    // If more than one comma or dot, or both comma and dot are present, invalidate the input
+                    isValidInput = false;
+                } else if (input.contains(",") || input.contains(".")) {
+                    // Split on either comma or dot
+                    String[] parts = input.split("[,.]");
+
+                    // If there are digits after the comma or dot
+                    if (parts.length > 1 && parts[1].length() > 2) {
+                        // Trim to allow only 2 digits after the comma or dot
+                        input = parts[0] + (input.contains(",") ? "," : ".") + parts[1].substring(0, 2);
+                        MeshConverterActivity.this.meshOpeningEt.setText(input);
+                        MeshConverterActivity.this.meshOpeningEt.setSelection(input.length()); // Set cursor at the end
+                    }
+                }
+
+                // Handle the mesh opening input based on whether input is valid
+                if (!isValidInput) {
+                    MeshConverterActivity.this.resultTv.setText("Invalid input"); // Optional: show error
+                    return;
+                }
+
+                // Proceed if the input is valid and not empty
                 if (MeshConverterActivity.this.meshOpeningEt.getText().toString().trim().equals("")
                         || MeshConverterActivity.this.angleEt.getText().toString().trim().equals("")) {
-                    String unused = MeshConverterActivity.this.meshOpeningEtStr = charSequence.toString().trim();
+                    MeshConverterActivity.this.meshOpeningEtStr = input;
                     MeshConverterActivity.this.resultTv.setText("");
                     return;
                 }
-                String unused2 = MeshConverterActivity.this.meshOpeningEtStr = charSequence.toString().trim();
+
+                // Assign the valid input to meshOpeningEtStr
+                MeshConverterActivity.this.meshOpeningEtStr = input;
+
+                // Perform the calculation
                 MeshConverterActivity.this.calculateProjectedOpening();
             }
         });
+        this.angleEt.setFilters(new InputFilter[]{new InputFilterMinMax("0", "45")});
+
         this.angleEt.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable editable) {
             }
@@ -158,12 +195,23 @@ public class MeshConverterActivity extends DrawerBaseActivity implements View.On
             }
 
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                if (MeshConverterActivity.this.meshOpeningEt.getText().toString().trim().equals("") || MeshConverterActivity.this.angleEt.getText().toString().trim().equals("")) {
-                    String unused = MeshConverterActivity.this.angleEtStr = charSequence.toString().trim();
+//                if (MeshConverterActivity.this.meshOpeningEt.getText().toString().trim().equals("") || MeshConverterActivity.this.angleEt.getText().toString().trim().equals("")) {
+//                    String unused = MeshConverterActivity.this.angleEtStr = charSequence.toString().trim();
+//                    MeshConverterActivity.this.resultTv.setText("");
+//                    return;
+//                }
+//                String unused2 = MeshConverterActivity.this.angleEtStr = charSequence.toString().trim();
+//                MeshConverterActivity.this.calculateProjectedOpening();
+
+                String input = charSequence.toString().trim();
+
+                if (MeshConverterActivity.this.meshOpeningEt.getText().toString().trim().equals("")
+                        || MeshConverterActivity.this.angleEt.getText().toString().trim().equals("")) {
+                    MeshConverterActivity.this.angleEtStr = input;
                     MeshConverterActivity.this.resultTv.setText("");
                     return;
                 }
-                String unused2 = MeshConverterActivity.this.angleEtStr = charSequence.toString().trim();
+                MeshConverterActivity.this.angleEtStr = input;
                 MeshConverterActivity.this.calculateProjectedOpening();
             }
         });
@@ -270,7 +318,7 @@ public class MeshConverterActivity extends DrawerBaseActivity implements View.On
     }
 
     /* access modifiers changed from: private */
-    public void calculateProjectedOpening() {
+    /*public void calculateProjectedOpening() {
         try {
             if (this.meshOpeningEtStr != null && !this.meshOpeningEtStr.trim().isEmpty() && isNumeric(this.meshOpeningEtStr));
 
@@ -290,7 +338,115 @@ public class MeshConverterActivity extends DrawerBaseActivity implements View.On
             Toast.makeText(this, "Enter valid mesh opening input", Toast.LENGTH_SHORT).show();
         }
 
+    }*/
+
+//    private void calculateProjectedOpening() {
+//        try {
+//            if (meshOpeningEtStr != null && !meshOpeningEtStr.trim().isEmpty() && isNumeric(meshOpeningEtStr)) {
+//                double meshOpening = Double.parseDouble(convertToDecimal(meshOpeningEtStr));
+//                double angle = Double.parseDouble(convertToDecimal(angleEtStr));
+//
+//                double result;
+//                if (inchRadio.isChecked()) {
+//                    result = meshOpening * Math.cos(Math.toRadians(angle));
+//                    resultTv.setText(twoDigitForm.format(result) + " inch");
+//                } else {
+//                    result = meshOpening * Math.cos(Math.toRadians(angle));
+//                    resultTv.setText(twoDigitForm.format(result) + " mm");
+//                }
+//            }
+//        } catch (NumberFormatException e) {
+//            Toast.makeText(this, "Enter valid mesh opening input", Toast.LENGTH_SHORT).show();
+//        }
+//    }
+
+    private void calculateProjectedOpening() {
+        try {
+            // Log the raw inputs
+            Log.d("MeshConverter", "Raw meshOpeningEtStr: " + meshOpeningEtStr);
+            Log.d("MeshConverter", "Raw angleEtStr: " + angleEtStr);
+
+            String meshOpeningStr = convertToDecimal(meshOpeningEtStr);
+            String angleStr = convertToDecimal(angleEtStr);
+
+            // Log the converted inputs
+            Log.d("MeshConverter", "Converted meshOpening: " + meshOpeningStr);
+            Log.d("MeshConverter", "Converted angle: " + angleStr);
+
+            if (meshOpeningStr != null && !meshOpeningStr.trim().isEmpty() && isNumeric(meshOpeningStr)) {
+                double meshOpening = Double.parseDouble(meshOpeningStr);
+                double angle = Double.parseDouble(angleStr);
+
+                double result = meshOpening * Math.cos(Math.toRadians(angle));
+                if (inchRadio.isChecked()) {
+                    resultTv.setText(twoDigitForm.format(result) + " inch");
+                } else {
+                    resultTv.setText(twoDigitForm.format(result) + " mm");
+                }
+            }
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Enter valid mesh opening input", Toast.LENGTH_SHORT).show();
+        }
     }
+
+
+
+
+    private String convertToDecimal(String input) {
+        return input.replace(",", ".");
+    }
+
+    private boolean isNumeric(String str) {
+        return str.matches("-?\\d+(\\.\\d+)?"); // Adjust regex if needed
+    }
+//    private void calculateAngle() {
+//        SensorManager sensorManager2 = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+//        this.sensorManager = sensorManager2;
+//        this.sensor = sensorManager2.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+//        SensorEventListener r0 = new SensorEventListener() {
+//            public void onAccuracyChanged(Sensor sensor, int i) {
+//            }
+//
+//            public void onSensorChanged(SensorEvent sensorEvent) {
+//                if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+//                    float f = sensorEvent.values[0]; // X-axis
+//                    float f2 = sensorEvent.values[1]; // Y-axis
+//                    float f3 = sensorEvent.values[2]; // Z-axis
+//
+//                    // Calculate the magnitude of the acceleration vector
+//                    float magnitude = (float) Math.sqrt(f * f + f2 * f2 + f3 * f3);
+//
+//                    // Normalize the accelerometer values
+//                    float normalizedF = f / magnitude;
+//                    float normalizedF2 = f2 / magnitude;
+//                    float normalizedF3 = f3 / magnitude;
+//
+//                    // Calculate the angle with respect to the Z-axis
+//                    int angle = (int) Math.toDegrees(Math.acos(normalizedF3));
+//                    int absAngle = Math.abs(angle);
+//
+//                    angleEt.setText(String.valueOf(absAngle));
+//                    if (absAngle > 45) {
+//                        showAlert(); // Show alert if the angle exceeds 45 degrees
+//                    } else {
+//                        customAlertDialog.setVisibility(View.GONE);
+//                        isAlertShown = false;
+//                        angleEt.setText(String.valueOf(absAngle)); // Display the angle
+//                    }
+//
+//                    // Check if the device is flat on the surface
+//                    boolean isFlat = Math.abs(f3) > 9.0 && Math.abs(f) < 0 && Math.abs(f2) < 0;
+//                    if (isFlat) {
+//                        angleEt.setText(""); // Clear the angle display
+//                        customAlertDialog.setVisibility(View.GONE);
+//                        isAlertShown = false;
+//                    }
+//                }
+//            }
+//        };
+//        this.sensorEventListener = r0;
+//        this.sensorManager.registerListener(r0, this.sensor, SensorManager.SENSOR_DELAY_NORMAL);
+//    }
 
     private void calculateAngle() {
         SensorManager sensorManager2 = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -314,17 +470,29 @@ public class MeshConverterActivity extends DrawerBaseActivity implements View.On
                     float normalizedF2 = f2 / magnitude;
                     float normalizedF3 = f3 / magnitude;
 
-                    // Calculate the angle with respect to the Z-axis
-                    int angle = (int) Math.toDegrees(Math.acos(normalizedF3));
-                    int absAngle = Math.abs(angle);
+                    // Determine if tilt is along X or Z axis
+                    if (Math.abs(normalizedF) > Math.abs(normalizedF3)) {
+                        // Tilt is along the X-axis
+                        int angleX = (int) Math.toDegrees(Math.acos(normalizedF));
+                        angleEt.setText(String.valueOf(Math.abs(angleX)));
 
-                    angleEt.setText(String.valueOf(absAngle));
-                    if (absAngle > 45) {
-                        showAlert(); // Show alert if the angle exceeds 45 degrees
+                        if (Math.abs(angleX) > 45) {
+                            showAlert(); // Show alert if angle exceeds 45 degrees
+                        } else {
+                            customAlertDialog.setVisibility(View.GONE);
+                            isAlertShown = false;
+                        }
                     } else {
-                        customAlertDialog.setVisibility(View.GONE);
-                        isAlertShown = false;
-                        angleEt.setText(String.valueOf(absAngle)); // Display the angle
+                        // Tilt is along the Z-axis
+                        int angleZ = (int) Math.toDegrees(Math.acos(normalizedF3));
+                        angleEt.setText(String.valueOf(Math.abs(angleZ)));
+
+                        if (Math.abs(angleZ) > 45) {
+                            showAlert(); // Show alert if angle exceeds 45 degrees
+                        } else {
+                            customAlertDialog.setVisibility(View.GONE);
+                            isAlertShown = false;
+                        }
                     }
 
                     // Check if the device is flat on the surface
@@ -340,6 +508,8 @@ public class MeshConverterActivity extends DrawerBaseActivity implements View.On
         this.sensorEventListener = r0;
         this.sensorManager.registerListener(r0, this.sensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
+
+
     /* access modifiers changed from: private */
     public void showAlert() {
         this.angleEt.setText("");

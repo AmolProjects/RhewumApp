@@ -1,6 +1,38 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent">
-    <ImageView android:id="@+id/slider_imageView" android:layout_width="0dp" android:layout_height="0dp" android:scaleType="fitXY" android:contentDescription="@string/todo" app:layout_constraintDimensionRatio="1:0.8" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" android:src="@drawable/banner"/>
-    <TextView android:id="@+id/txtNewsTitle" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_marginTop="16dp" android:text="@string/all_is_good" android:textColor="@color/MediumGray" android:textSize="@dimen/text_size_18" android:background="#7A000000" android:maxLines="2" android:ellipsize="end" android:padding="4dp" app:layout_constraintDimensionRatio="w,1:0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="@+id/slider_imageView" app:layout_constraintEnd_toEndOf="parent"/>
-    <TextView android:id="@+id/txtHeader" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_marginTop="32dp" android:layout_marginEnd="16dp" android:background="#008ac8" android:maxLength="80" android:padding="8dp" app:layout_constraintHorizontal_bias="0.5" android:text="@string/txtContent" android:textColor="@color/white" android:textSize="@dimen/text_size_16" android:textStyle="bold" app:layout_constraintDimensionRatio="w,1:0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/txtNewsTitle"/>
-    <TextView android:id="@+id/txtDescription" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_marginEnd="16dp" android:layout_marginBottom="8dp" android:background="#008ac8" android:maxLength="100" android:padding="8dp" android:text="@string/txtDescriptions" android:textColor="@color/white" android:textSize="@dimen/text_size_16" android:textStyle="bold" app:layout_constraintBottom_toBottomOf="@+id/slider_imageView" app:layout_constraintDimensionRatio="w,1:0" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"/>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/slider_imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/todo"
+        android:scaleType="fitXY"
+        android:src="@drawable/banner"
+        app:layout_constraintDimensionRatio="1:0.8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="@dimen/layout_margin_45"
+        android:layout_marginEnd="16dp"
+        android:background="#008ac8"
+        android:maxLength="100"
+        android:padding="8dp"
+        android:text="@string/txtDescriptions"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_16"
+        android:textStyle="bold"
+        app:layout_constraintDimensionRatio="w,1:0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

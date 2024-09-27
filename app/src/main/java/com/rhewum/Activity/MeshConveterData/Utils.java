@@ -262,9 +262,9 @@ public class Utils {
         ((InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE)).showSoftInput(editText, 2);
     }
 
-    public static String getIncreasedValue(String str) {
+   /* public static String getIncreasedValue(String str) {
         String str2;
-        double nextUp = Math.nextUp(Double.valueOf(str).doubleValue() + 0.1d);
+        double nextUp = Math.nextUp(Double.parseDouble(str) + 0.1d);
         String valueOf = String.valueOf(nextUp);
         if (nextUp >= 10.0d) {
             str2 = valueOf.substring(0, 4);
@@ -272,10 +272,10 @@ public class Utils {
             str2 = valueOf.substring(0, 3);
         }
         return str2.equals("100.") ? "100.0" : str2;
-    }
+    }*/
 
     public static String getDecreasedValue(String str) {
-        double nextUp = Math.nextUp(Double.valueOf(str).doubleValue() - 0.1d);
+        double nextUp = Math.nextUp(Double.parseDouble(str) - 0.1d);
         String valueOf = String.valueOf(nextUp);
         if (nextUp > 10.0d) {
             return valueOf.substring(0, 4);
@@ -620,5 +620,23 @@ public class Utils {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         createBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
         return byteArrayOutputStream.toByteArray();
+    }
+
+    public static String getIncreasedValue(String str) {
+        // Replace comma with dot to handle locale-specific decimal points
+        str = str.replace(",", ".");
+
+        double nextUp = Math.nextUp(Double.valueOf(str) + 0.1d);
+        String valueOf = String.valueOf(nextUp);
+        String str2;
+
+        // Ensure correct string formatting based on the value
+        if (nextUp >= 10.0d) {
+            str2 = valueOf.substring(0, 4);
+        } else {
+            str2 = valueOf.substring(0, 3);
+        }
+
+        return str2.equals("100.") ? "100.0" : str2;
     }
 }

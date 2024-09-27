@@ -339,12 +339,13 @@
                     android:layout_marginEnd="@dimen/layout_margin_10"
                     android:layout_toStartOf="@+id/radioGroup_screenWidth"
                     android:autofillHints=""
+                    android:inputType="numberDecimal"
+                    android:digits="0123456789.,$"
                     android:textColor="@color/grey_background"
                     android:background="@drawable/round_box_blue_border"
                     android:focusableInTouchMode="true"
                     android:gravity="center"
                     android:imeOptions="actionDone"
-                    android:inputType="numberDecimal"
                     android:maxLength="7"
                     android:textSize="@dimen/text_size_16" />
 
@@ -416,8 +417,8 @@
                     android:focusableInTouchMode="true"
                     android:gravity="center"
                     android:imeOptions="actionDone"
-                    android:inputType="number"
-                    android:maxLength="2"
+                    android:inputType="phone"
+                    android:maxLength="5"
                     android:textColor="@color/grey_background"
                     android:textSize="@dimen/text_size_16" />
 

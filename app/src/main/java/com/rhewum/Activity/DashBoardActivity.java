@@ -202,7 +202,6 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
         }
     }
 
-
     private void initObjects() {
         img_newsBackword = findViewById(R.id.img_newsBackword);
         img_newsForwad = findViewById(R.id.img_newsForwad);
@@ -260,8 +259,33 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
 
     }
 
+/*
+    @Override
+    public void onItemClick(View view, int position) {
+        switch (position) {
+            case 0:
+                Intent intent = new Intent(this, MeshConverterActivity.class);
+                startActivity(intent);
+                break;
+            case 1:
+                Intent intent2 = new Intent(this, VibSonicActivity.class);
+                startActivity(intent2);
+                break;
+            case 2:
+                Intent intent3 = new Intent(this, VibFlashActivity.class);
+                startActivity(intent3);
+                break;
+            case 3:
+                Intent intent4 = new Intent(this, VibCheckerAccelerometer2Activity.class);
+                startActivity(intent4);
+                break;
+            case 4:
+                Intent intent5 = new Intent(this, CapacityCheckerActivity.class);
+                startActivity(intent5);
+                break;
+        }
 
-
+    }*/
     @Override
     protected void onResume() {
         super.onResume();

@@ -57,10 +57,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="31">
+
         <activity
             android:name=".Activity.VibFlashInfoActivity"
             android:exported="false"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ViewDetailListActivity"
             android:exported="false" />
@@ -96,7 +97,7 @@
         <activity
             android:name=".Activity.VibFlashActivity"
             android:exported="false"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Activity.MeshConverterActivity"
             android:exported="false"

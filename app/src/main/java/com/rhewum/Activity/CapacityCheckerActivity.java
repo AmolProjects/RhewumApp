@@ -76,8 +76,6 @@ public class CapacityCheckerActivity extends DrawerBaseActivity {
         radioGroup_Height.setOnCheckedChangeListener(new RadioGroupChangeListener());
 
 
-
-
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,6 +93,136 @@ public class CapacityCheckerActivity extends DrawerBaseActivity {
         textScreenWidthInfo.setOnClickListener(view -> showAlert("Measure the inside width or read the required parameters off your machine's type plate"));
         imgMaterialDenInfo.setOnClickListener(view -> showAlert("Give an estimation of the material density in the required unit"));
         imgLayerHeightInfo.setOnClickListener(view -> showAlert("While the machine is running, measure or estimate the height of the material layer directly at the infeed of the machine. It should be measured before material has fallen through the screen."));
+
+        edt_ScreenWidth.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                String input = charSequence.toString().trim();
+
+                // Flag to track whether input is valid for further processing
+                boolean isValidInput = true;
+
+                // Check for both comma and dot in the input (only one allowed)
+                if (input.indexOf(",") != input.lastIndexOf(",") || input.indexOf(".") != input.lastIndexOf(".") ||
+                        (input.contains(",") && input.contains("."))) {
+                    // If more than one comma or dot, or both comma and dot are present, invalidate the input
+                    isValidInput = false;
+                } else if (input.contains(",") || input.contains(".")) {
+                    // Split on either comma or dot
+                    String[] parts = input.split("[,.]");
+
+                    // If there are digits after the comma or dot
+                    if (parts.length > 1 && parts[1].length() > 2) {
+                        // Trim to allow only 2 digits after the comma or dot
+                        input = parts[0] + (input.contains(",") ? "," : ".") + parts[1].substring(0, 2);
+                        edt_ScreenWidth.setText(input);
+                        edt_ScreenWidth.setSelection(input.length()); // Set cursor at the end
+                    }
+                }
+
+                // Handle the mesh opening input based on whether input is valid
+                if (!isValidInput) {
+                    activity_mesh_trennschnitt_result.setText("Invalid input"); // Optional: show error
+                    return;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextMaterialDensity.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                String input = charSequence.toString().trim();
+
+                // Flag to track whether input is valid for further processing
+                boolean isValidInput = true;
+
+                // Check for both comma and dot in the input (only one allowed)
+                if (input.indexOf(",") != input.lastIndexOf(",") || input.indexOf(".") != input.lastIndexOf(".") ||
+                        (input.contains(",") && input.contains("."))) {
+                    // If more than one comma or dot, or both comma and dot are present, invalidate the input
+                    isValidInput = false;
+                } else if (input.contains(",") || input.contains(".")) {
+                    // Split on either comma or dot
+                    String[] parts = input.split("[,.]");
+
+                    // If there are digits after the comma or dot
+                    if (parts.length > 1 && parts[1].length() > 2) {
+                        // Trim to allow only 2 digits after the comma or dot
+                        input = parts[0] + (input.contains(",") ? "," : ".") + parts[1].substring(0, 2);
+                        editTextMaterialDensity.setText(input);
+                        editTextMaterialDensity.setSelection(input.length()); // Set cursor at the end
+                    }
+                }
+
+                // Handle the mesh opening input based on whether input is valid
+                if (!isValidInput) {
+                    activity_mesh_trennschnitt_result.setText("Invalid input"); // Optional: show error
+                    return;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextLayerHeight.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                String input = charSequence.toString().trim();
+
+                // Flag to track whether input is valid for further processing
+                boolean isValidInput = true;
+
+                // Check for both comma and dot in the input (only one allowed)
+                if (input.indexOf(",") != input.lastIndexOf(",") || input.indexOf(".") != input.lastIndexOf(".") ||
+                        (input.contains(",") && input.contains("."))) {
+                    // If more than one comma or dot, or both comma and dot are present, invalidate the input
+                    isValidInput = false;
+                } else if (input.contains(",") || input.contains(".")) {
+                    // Split on either comma or dot
+                    String[] parts = input.split("[,.]");
+
+                    // If there are digits after the comma or dot
+                    if (parts.length > 1 && parts[1].length() > 2) {
+                        // Trim to allow only 2 digits after the comma or dot
+                        input = parts[0] + (input.contains(",") ? "," : ".") + parts[1].substring(0, 2);
+                        editTextLayerHeight.setText(input);
+                        editTextLayerHeight.setSelection(input.length()); // Set cursor at the end
+                    }
+                }
+
+                // Handle the mesh opening input based on whether input is valid
+                if (!isValidInput) {
+                    activity_mesh_trennschnitt_result.setText("Invalid input"); // Optional: show error
+                    return;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override
@@ -160,9 +288,72 @@ public class CapacityCheckerActivity extends DrawerBaseActivity {
             calculateAndUpdateResult();
         }
     }
-
-
     private void calculateAndUpdateResult() {
+        // Replace commas with dots in EditText values to handle German decimal input
+        String screenWidthText = edt_ScreenWidth.getText().toString().replace(",", ".");
+        String materialDensityText = editTextMaterialDensity.getText().toString().replace(",", ".");
+        String layerHeightText = editTextLayerHeight.getText().toString().replace(",", ".");
+
+        // Ensure all inputs are valid
+        if (validateInputs(screenWidthText, materialDensityText, layerHeightText)) {
+            double widthScreenValueM, layerHeightValueMM, MaterialDensityFt;
+            try {
+                String selectedItem = spinner.getSelectedItem().toString();
+                int selectedWidth = radioGroup_screenWidth.getCheckedRadioButtonId();
+                int selectedKgM = radioGroup_MaterialDensity.getCheckedRadioButtonId();
+                int selectedHeight = radioGroup_Height.getCheckedRadioButtonId();
+
+                RadioButton selectedRadioButton = findViewById(selectedWidth);
+                String selectedOptionWidth = selectedRadioButton.getText().toString();
+
+                RadioButton selectedKgm = findViewById(selectedKgM);
+                String selectedOptionKg = selectedKgm.getText().toString();
+
+                RadioButton selectedLayerHeight = findViewById(selectedHeight);
+                String selectedOptionHeight = selectedLayerHeight.getText().toString();
+
+                // Convert width
+                if (selectedOptionWidth.equals("m")) {
+                    widthScreenValueM = Double.parseDouble(screenWidthText);
+                } else {
+                    widthScreenValueM = Double.parseDouble(screenWidthText) * 0.304;
+                }
+
+                // Convert density
+                if (selectedOptionKg.equals("kg/m3")) {
+                    MaterialDensityFt = Double.parseDouble(materialDensityText);
+                } else {
+                    MaterialDensityFt = Double.parseDouble(materialDensityText) * 16.018;
+                }
+
+                // Convert height
+                if (selectedOptionHeight.equals("cm")) {
+                    layerHeightValueMM = Double.parseDouble(layerHeightText) * 10;
+                } else {
+                    layerHeightValueMM = Double.parseDouble(layerHeightText) * 25.4;
+                }
+
+                double rheTypeValue = Double.parseDouble(globalFlowVelocity);
+
+                Future<Double> future = executorService.submit(() -> {
+                    return (rheTypeValue) * (layerHeightValueMM) * (MaterialDensityFt) * (widthScreenValueM) * (0.0036);
+                });
+
+                try {
+                    double layerHeight = future.get();
+                    runOnUiThread(() -> activity_mesh_trennschnitt_result.setText(String.format("%.2f", layerHeight) + " t/h"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(CapacityCheckerActivity.this, "Error in calculation", Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+                Toast.makeText(CapacityCheckerActivity.this, "Enter valid input", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+
+    /*private void calculateAndUpdateResult() {
         // Ensure all inputs are valid
         if (validateInputs()) {
             double widthScreenValueM, layerHeightValueMM, MaterialDensityFt;
@@ -223,10 +414,20 @@ public class CapacityCheckerActivity extends DrawerBaseActivity {
                 Toast.makeText(CapacityCheckerActivity.this, "Enter valid input", Toast.LENGTH_SHORT).show();
             }
         }
+    }*/
+
+    private boolean validateInputs(String screenWidth, String materialDensity, String layerHeight) {
+        String decimalPattern = "^[0-9]*\\.?[0-9]+$";
+
+        return !screenWidth.isEmpty() && screenWidth.matches(decimalPattern) &&
+                !materialDensity.isEmpty() && materialDensity.matches(decimalPattern) &&
+                !layerHeight.isEmpty() && layerHeight.matches(decimalPattern) &&
+                radioGroup_screenWidth.getCheckedRadioButtonId() != -1 &&
+                radioGroup_MaterialDensity.getCheckedRadioButtonId() != -1 &&
+                radioGroup_Height.getCheckedRadioButtonId() != -1 &&
+                spinner.getSelectedItemPosition() != -1;
     }
-
-
-    private boolean validateInputs() {
+   /* private boolean validateInputs() {
         String edtScreenWidthText = edt_ScreenWidth.getText().toString();
         String editTextMaterialDensityText = editTextMaterialDensity.getText().toString();
         String editTextLayerHeightText = editTextLayerHeight.getText().toString();
@@ -241,7 +442,7 @@ public class CapacityCheckerActivity extends DrawerBaseActivity {
                 radioGroup_MaterialDensity.getCheckedRadioButtonId() != -1 &&
                 radioGroup_Height.getCheckedRadioButtonId() != -1 &&
                 spinner.getSelectedItemPosition() != -1; // Fixed to check against -1
-    }
+    }*/
 
 
     private void selectedItemSpinner() {

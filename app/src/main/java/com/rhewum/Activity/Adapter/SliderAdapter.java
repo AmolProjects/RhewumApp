@@ -71,9 +71,9 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
             SubArrayNews sliderItem = sliderItems.get(position);
 
             // Set the text fields with data from the current item
-            viewHolder.txtNewsTitle.setText(sliderItem.getTitle());
-            viewHolder.txtHeader.setText(sliderItem.getHeadline());
-            viewHolder.txtDescription.setText(sliderItem.getMeta_description());
+          //  viewHolder.txtNewsTitle.setText(sliderItem.getTitle());
+            //viewHolder.txtHeader.setText(sliderItem.getHeadline());
+            viewHolder.txtDescription.setText(sliderItem.getTitle());
 
             // Load the image using Glide
             Glide.with(context)
@@ -106,13 +106,11 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
 
     static class SliderAdapterViewHolder extends SliderViewAdapter.ViewHolder {
         ImageView imageView;
-        TextView txtNewsTitle,txtHeader,txtDescription;
+        TextView txtDescription;
 
         public SliderAdapterViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.slider_imageView);
-            txtNewsTitle = itemView.findViewById(R.id.txtNewsTitle);
-            txtHeader = itemView.findViewById(R.id.txtHeader);
             txtDescription = itemView.findViewById(R.id.txtDescription);
         }
     }

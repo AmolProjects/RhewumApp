@@ -108,6 +108,9 @@
             android:layout_centerInParent="true"
             android:layout_marginTop="16dp"
             android:text="@string/default_freq"
+            android:digits="0123456789.,$"
+            android:maxLength="4"
+
             android:textColor="@color/black0"
             android:textSize="@dimen/text_size_80"
             app:layout_constraintEnd_toEndOf="parent"
