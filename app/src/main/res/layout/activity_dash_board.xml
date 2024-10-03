@@ -65,8 +65,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/meine_funktionen"
-        android:textColor="@color/black"
-        android:textSize="@dimen/text_size_16"
+        android:fontFamily="@font/handle_go"
+        android:textColor="@color/grey_text"
+        android:textSize="@dimen/text_size_15"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_newsBackword" />
@@ -97,7 +98,7 @@
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerView"
-        app:srcCompat="@drawable/baseline_arrow_forward_24" />
+        app:srcCompat="@drawable/baseline_arrow_forward_24_s" />
 
     <ImageView
         android:id="@+id/img_viewPagerBackword"
@@ -108,18 +109,20 @@
         app:layout_constraintBottom_toBottomOf="@+id/img_viewPagerForwad"
         app:layout_constraintEnd_toStartOf="@+id/img_viewPagerForwad"
         app:layout_constraintTop_toTopOf="@+id/img_viewPagerForwad"
-        app:srcCompat="@drawable/baseline_arrow_back_24" />
+        app:srcCompat="@drawable/baseline_arrow_back_24_s" />
 
-    <TextView
+    <Button
         android:id="@+id/button"
         android:layout_width="0dp"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/rectangle_button"
-        android:gravity="center_horizontal|center_vertical"
+        android:gravity="center"
         android:text="@string/enjoy_the_difference"
         android:textColor="@color/white"
         android:textSize="8dp"
+        android:fontFamily="@font/handle_go"
         android:textStyle="bold"
+        android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

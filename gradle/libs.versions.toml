@@ -25,6 +25,7 @@ shortcutbadger = "1.1.22"
 startupRuntime = "1.1.1"
 googleGmsGoogleServices = "4.4.2"
 firebaseMessaging = "24.0.0"
+viewpump = "2.0.3"
 
 [libraries]
 autoimageslider = { module = "com.github.smarteist:autoimageslider", version.ref = "autoimageslider" }
@@ -54,6 +55,7 @@ retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit
 shortcutbadger = { module = "me.leolin:ShortcutBadger", version.ref = "shortcutbadger" }
 startup-runtime = { module = "androidx.startup:startup-runtime", version.ref = "startupRuntime" }
 firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging", version.ref = "firebaseMessaging" }
+viewpump = { module = "io.github.inflationx:viewpump", version.ref = "viewpump" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

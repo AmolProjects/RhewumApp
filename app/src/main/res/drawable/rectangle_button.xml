@@ -1,4 +1,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/header_backgrounds" />
-    <corners android:radius="2dp" />
+    <!--  Button background color  -->
+    <solid android:color="@color/blue_bar"/>
+    <!--  Replace with your button color  -->
+    <!--  Define corners: top left & right are 0dp (straight), bottom left & right are rounded  -->
+    <corners android:topLeftRadius="0dp" android:topRightRadius="0dp" android:bottomLeftRadius="18dp" android:bottomRightRadius="18dp"/>
 </shape>

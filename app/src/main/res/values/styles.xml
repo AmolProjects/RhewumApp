@@ -6,12 +6,17 @@
         <item name="colorPrimary">@color/header_backgrounds</item>
         <item name="colorPrimaryDark">@color/primary_s</item>
         <item name="colorAccent">@color/header_backgrounds</item>
-        <item name="android:statusBarColor">@color/grey_background_transperant</item>
+        <item name="android:statusBarColor">@color/white</item>
         <item name="android:navigationBarColor">@color/header_backgrounds</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="drawerArrowStyle">@style/DrawerIcon</item>
+
     </style>
 
-
+    <!-- Custom TextView style -->
+    <style name="CustomTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/handle_go</item>
+    </style>
     <style name="clickEffect">
         <item name="android:background">@drawable/click_effect</item>
         <item name="android:layout_marginEnd">8dp</item>
@@ -26,5 +31,8 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/spinner_background</item>
         <item name="android:popupBackground">#DFFFFFFF</item>
+    </style>
+    <style name="DrawerIcon" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/header_backgrounds</item>
     </style>
 </resources>

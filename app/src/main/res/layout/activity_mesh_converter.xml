@@ -19,7 +19,7 @@
                 android:id="@+id/activity_mesh_back_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
+                android:layout_marginStart="8dp"
                 android:layout_centerVertical="true"
                 android:contentDescription="@string/todo"
                 app:srcCompat="@drawable/baseline_arrow_back_24" />
@@ -29,11 +29,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/layout_margin_2"
+                android:layout_marginStart="@dimen/layout_margin_8"
                 android:layout_toEndOf="@+id/activity_mesh_back_iv"
                 android:text="@string/back"
+                android:fontFamily="@font/handle_go"
                 android:textColor="@color/header_backgrounds"
-                android:textSize="@dimen/text_size_16" />
+                android:textSize="@dimen/text_size_15" />
         </RelativeLayout>
 
         <TextView
@@ -43,8 +44,9 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:text="@string/mesh_converter"
+            android:fontFamily="@font/handle_go"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size_18" />
+            android:textSize="@dimen/text_size_15"/>
 
         <RelativeLayout
             android:id="@+id/activity_mesh_info_layout"
@@ -57,6 +59,7 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
                 android:contentDescription="@string/todo"
+                android:layout_marginEnd="8dp"
                 app:srcCompat="@drawable/baseline_arrow_forward_24" />
 
             <TextView
@@ -64,11 +67,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/layout_margin_12"
+                android:layout_marginEnd="@dimen/layout_margin_8"
                 android:layout_toStartOf="@+id/activity_mesh_info_iv"
                 android:text="@string/info"
+                android:fontFamily="@font/handle_go"
                 android:textColor="@color/header_backgrounds"
-                android:textSize="@dimen/text_size_16" />
+                android:textSize="@dimen/text_size_15" />
         </RelativeLayout>
     </RelativeLayout>
 
@@ -90,7 +94,7 @@
                 android:layout_height="match_parent"
                 android:layout_below="@+id/activity_mesh_header_layout"
                 android:layout_weight="1"
-                android:background="@color/grey_background"
+                android:background="@color/header_backgrounds"
                 android:paddingBottom="@dimen/layout_margin_10">
 
                 <TextView
@@ -101,8 +105,9 @@
                     android:layout_marginTop="@dimen/layout_margin_15"
                     android:layout_marginRight="@dimen/layout_margin_10"
                     android:text="@string/norm_to_norm"
+                    android:fontFamily="@font/handle_go"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_18"
+                    android:textSize="@dimen/text_size_16"
                     android:textStyle="bold" />
 
                 <TextView
@@ -204,7 +209,7 @@
                         android:gravity="center"
                         android:text="@string/din"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_16" />
+                        android:textSize="@dimen/text_size_15" />
 
                     <TextView
                         android:id="@+id/activity_mesh_astm_tv"
@@ -214,7 +219,7 @@
                         android:gravity="center"
                         android:text="@string/astm"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_16" />
+                        android:textSize="@dimen/text_size_15" />
 
                     <TextView
                         android:id="@+id/activity_mesh_tyler_tv"
@@ -224,7 +229,7 @@
                         android:gravity="center"
                         android:text="@string/tyler"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_16" />
+                        android:textSize="@dimen/text_size_15"/>
 
                     <TextView
                         android:id="@+id/activity_mesh_din2_tv"
@@ -235,7 +240,7 @@
                         android:gravity="center"
                         android:text="@string/din"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_16" />
+                        android:textSize="@dimen/text_size_15" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -254,8 +259,9 @@
                     android:layout_marginTop="@dimen/layout_margin_15"
                     android:layout_marginRight="@dimen/layout_margin_10"
                     android:text="@string/part_b_title"
+                    android:fontFamily="@font/handle_go"
                     android:textStyle="bold"
-                    android:textSize="@dimen/text_size_18"
+                    android:textSize="@dimen/text_size_16"
                     android:textColor="@color/header_backgrounds" />
 
                 <TextView
@@ -278,7 +284,7 @@
                     android:layout_marginStart="@dimen/layout_margin_10"
                     android:text="@string/note"
                     android:layout_marginTop="5dp"
-                    android:textSize="@dimen/text_size_18"
+                    android:textSize="@dimen/text_size_16"
                     android:textColor="@color/black0"
                     android:textStyle="bold" />
 
@@ -460,7 +466,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginTop="55dp"
         android:orientation="horizontal"
-        android:background="@color/grey_background_transperant">
+        android:background="@drawable/rounded_black_button">
 
         <TextView
             android:id="@+id/activity_mesh_trennschnitt_no3"

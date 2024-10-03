@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.rhewum",
+  "applicationId": "com.rhewumapp",
   "variantName": "debug",
   "elements": [
     {

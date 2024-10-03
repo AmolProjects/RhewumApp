@@ -138,7 +138,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.rhewum.provider"
+            android:authorities="com.rhewumapp.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -147,7 +147,7 @@
         </provider>
         <provider
             android:name="androidx.startup.InitializationProvider"
-            android:authorities="com.rhewum.androidx-startup"
+            android:authorities="com.rhewumapp.androidx-startup"
             android:exported="false">
             <meta-data
                 android:name="androidx.emoji2.text.EmojiCompatInitializer"

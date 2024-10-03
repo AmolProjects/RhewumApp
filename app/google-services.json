@@ -16,6 +16,9 @@
       "api_key": [
         {
           "current_key": "AIzaSyAZ_Fo2klJMEttml1r7_oLA9i6zJo3-0Yw"
+        },
+        {
+          "current_key": "AIzaSyBA-h_F4AAn_4KWQP3v32Ataw3Z1K2HFrU"
         }
       ],
       "services": {
@@ -35,6 +38,31 @@
       "api_key": [
         {
           "current_key": "AIzaSyAZ_Fo2klJMEttml1r7_oLA9i6zJo3-0Yw"
+        },
+        {
+          "current_key": "AIzaSyBA-h_F4AAn_4KWQP3v32Ataw3Z1K2HFrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:255361527015:android:3d12266aa9c13a9ebd4642",
+        "android_client_info": {
+          "package_name": "com.rhewumapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZ_Fo2klJMEttml1r7_oLA9i6zJo3-0Yw"
+        },
+        {
+          "current_key": "AIzaSyBA-h_F4AAn_4KWQP3v32Ataw3Z1K2HFrU"
         }
       ],
       "services": {

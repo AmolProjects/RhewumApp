@@ -163,7 +163,7 @@ Using the phone flash for very long periods of time can damage the hardware.</st
     <string name="grain_size_min_range">(1–149)</string>
     <string name="hardware_alert">Dear customer: It might happen that the flash hardware in your device is not properly supporting the function. We apologize for any inconvenience.</string>
     <string name="third_freq">25</string>
-    <string name="default_freq">10.0</string>
+    <string name="default_freq">1.0</string>
     <string name="result">Waiting Result…</string>
     <string name="analysis_result">Analysis Result :</string>
     <string name="vibchecker">VibChecker</string>

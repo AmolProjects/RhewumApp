@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.rhewum"
+    namespace = "com.rhewumapp"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.rhewum"
+        applicationId = "com.rhewumapp"
         minSdk = 29
         targetSdk = 34
         versionCode = 2
@@ -57,6 +57,7 @@ dependencies {
     implementation (libs.lifecycle.runtime.ktx)
     implementation (libs.ormlite.android)
     implementation (libs.opencsv)
+    implementation (libs.viewpump)
 
     // barchart
     implementation (libs.mpandroidchart)

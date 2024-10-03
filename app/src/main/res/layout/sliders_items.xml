@@ -27,6 +27,7 @@
         android:background="#008ac8"
         android:maxLength="100"
         android:padding="8dp"
+        android:fontFamily="@font/handle_go"
         android:text="@string/txtDescriptions"
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_16"
