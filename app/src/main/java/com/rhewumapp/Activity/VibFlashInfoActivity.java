@@ -1,6 +1,8 @@
 package com.rhewumapp.Activity;
 
+import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -9,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
@@ -20,8 +23,13 @@ public class VibFlashInfoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vib_flash_info);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
 
         //  setContentView(R.layout.activity_vib_flash);
         // Set the status bar color

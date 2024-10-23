@@ -2,6 +2,7 @@ package com.rhewumapp.Activity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.net.MailTo;
 import android.net.Uri;
 import android.os.Build;
@@ -12,6 +13,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
+
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.rhewumapp.Activity.MeshConveterData.ResponsiveAndroidBars;
 import com.rhewumapp.Activity.MeshConveterData.Utils;
@@ -26,14 +29,15 @@ public class InfoActivity extends DrawerBaseActivity implements View.OnClickList
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
-        ResponsiveAndroidBars.setNotificationBarColor(this, getResources().getColor(R.color.header_background), false);
-        if (Build.VERSION.SDK_INT >= 32) {
-            ResponsiveAndroidBars.setNavigationBarColor(this, getColor(R.color.white), true, false);
-        } else {
-            ResponsiveAndroidBars.setNavigationBarColor(this, getResources().getColor(R.color.grey_background), false, false);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
+
+        ResponsiveAndroidBars.setNotificationBarColor(this, getResources().getColor(R.color.header_backgrounds), false);
+        ResponsiveAndroidBars.setNavigationBarColor(this, getResources().getColor(R.color.header_backgrounds), false, false);
         setUpViews();
         this.backLayout.setOnClickListener(this);
         this.wv.loadUrl("file:///android_asset/info.html");

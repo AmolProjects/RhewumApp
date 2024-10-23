@@ -1,10 +1,13 @@
 package com.rhewumapp.Activity;
 
+import android.content.pm.ActivityInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.rhewumapp.Activity.MeshConveterData.Utils;
@@ -17,11 +20,15 @@ public class MeshInfoActivity extends DrawerBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mesh_info2);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
 
         ResponsiveAndroidBars.setNotificationBarColor(this, getResources().getColor(R.color.header_backgrounds), false);
-        ResponsiveAndroidBars.setNavigationBarColor(this, getResources().getColor(R.color.grey_background), false, false);
+        ResponsiveAndroidBars.setNavigationBarColor(this, getResources().getColor(R.color.header_backgrounds), false, false);
         activity_mesh_info_back_layout=findViewById(R.id.activity_mesh_info_back_layout);
         activity_mesh_info_back_layout.setOnClickListener(new View.OnClickListener() {
             @Override

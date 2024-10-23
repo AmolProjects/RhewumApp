@@ -4,10 +4,14 @@
     <color name="white">#FFFFFFFF</color>
     <color name="header_background">#FFFFFFFF</color>
     <color name="grey_background">#303030</color>
+    <color name="bottom_background">#0c1a53</color>
     <color name="stop_btn">#f03524</color>
     <color name="header_backgrounds">#008ac8</color>
+    <color name="cap_infos">#E3F2FD</color>
     <color name="MediumGray">#E0E0E0</color>
+    <color name="light_gray_silvers">#F2F2F2</color>
     <color name="gray">#232b2b</color>
+    <color name="trans">#00000000</color>
     <color name="primary_s">#2962FF</color>
     <color name="start_btn">#3eaf47</color>
     <color name="grey_text">#555555</color>

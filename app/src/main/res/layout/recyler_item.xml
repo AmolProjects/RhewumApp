@@ -1,43 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Add a Guideline to control the width of CardView -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.99" />
+    <!-- CardView with reduced width -->
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         card_view:cardBackgroundColor="#E3F2FD"
         card_view:cardCornerRadius="5dp"
-        android:layout_marginTop="8sp"
-        android:layout_marginBottom="8sp"
-        android:layout_marginEnd="8sp"
-        android:layout_marginStart="8sp"
-        card_view:cardMaxElevation="8dp">
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        card_view:cardMaxElevation="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_end"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+
+        <!-- Inside the CardView -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            card_view:layout_constraintBottom_toBottomOf="parent"
-            card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintHorizontal_bias="0.5"
-            card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent"
-            card_view:layout_constraintVertical_bias="0.5">
+            android:layout_height="match_parent">
 
+            <!-- ImageView -->
             <ImageView
                 android:id="@+id/ad_icon"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
-                android:layout_marginBottom="4sp"
+                android:layout_marginBottom="4dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/todo"
                 android:scaleType="centerInside"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintDimensionRatio="1:0.8"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:0.8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/avatars" />
 
+            <!-- TextView -->
             <TextView
                 android:id="@+id/text_Title"
                 android:layout_width="wrap_content"
@@ -50,13 +67,13 @@
                 android:textColor="@color/grey_line"
                 android:textSize="@dimen/text_size_15"
                 android:textStyle="bold"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintDimensionRatio="w,1:0"
-                card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/ad_icon" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="w,1:0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ad_icon" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.cardview.widget.CardView>
 
-
-
+</androidx.constraintlayout.widget.ConstraintLayout>

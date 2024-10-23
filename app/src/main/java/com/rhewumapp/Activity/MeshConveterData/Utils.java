@@ -490,6 +490,7 @@ public class Utils {
         String valueOf = String.valueOf(measureMentList.get(0).measurementTotalTime);
         String valueOf2 = String.valueOf(measureMentList.get(0).graphImage);
         String valueOf3 = String.valueOf(measureMentList.get(0).meanLevelTotal);
+        Log.e("MeanLevel Total",valueOf3);
         try {
             inputStream = context.getResources().getAssets().open("vibsonic.html");
         } catch (IOException e) {

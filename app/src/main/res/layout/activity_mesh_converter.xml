@@ -120,128 +120,170 @@
                     android:layout_marginRight="@dimen/layout_margin_10"
                     android:text="@string/norm_to_norm_subtext"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_16" />
-
+                    android:textSize="@dimen/text_size_15" />
                 <LinearLayout
                     android:id="@+id/activity_mesh_linear_edittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/activity_mesh_norm_sub_tv"
                     android:layout_marginLeft="@dimen/layout_margin_10"
-                    android:layout_marginTop="@dimen/layout_margin_25"
-                    android:layout_marginRight="@dimen/layout_margin_10"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/activity_mesh_din1_et"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/edittext_height_mesh"
-                        android:layout_marginEnd="@dimen/layout_margin_5"
-                        android:layout_weight="1"
-                        android:textColor="@color/grey_background"
-                        android:background="@drawable/round_box_white"
-                        android:cursorVisible="false"
-                        android:focusableInTouchMode="false"
-                        android:gravity="center"
-                        android:clickable="false"
-                        android:inputType="none"
-                        android:textSize="@dimen/text_size_16"
-                        />
-
-                    <EditText
-                        android:id="@+id/activity_mesh_astm_et"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/edittext_height_mesh"
-                        android:layout_marginEnd="@dimen/layout_margin_5"
-                        android:layout_weight="1"
-                        android:autofillHints=""
-                        android:textColor="@color/grey_background"
-                        android:background="@drawable/round_box_white"
-                        android:cursorVisible="false"
-                        android:focusableInTouchMode="false"
-                        android:gravity="center"
-                        android:textSize="@dimen/text_size_16" />
-
-                    <EditText
-                        android:id="@+id/activity_mesh_tyler_et"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/edittext_height_mesh"
-                        android:layout_marginEnd="@dimen/layout_margin_5"
-                        android:layout_weight="1"
-                        android:autofillHints=""
-                        android:textColor="@color/grey_background"
-                        android:background="@drawable/round_box_white"
-                        android:cursorVisible="false"
-                        android:focusableInTouchMode="false"
-                        android:gravity="center"
-                        android:textSize="@dimen/text_size_16" />
-
-                    <EditText
-                        android:id="@+id/activity_mesh_din2_et"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/edittext_height_mesh"
-                        android:layout_weight="1"
-                        android:autofillHints=""
-                        android:textColor="@color/grey_background"
-                        android:background="@drawable/round_box_white"
-                        android:cursorVisible="false"
-                        android:focusableInTouchMode="false"
-                        android:gravity="center"
-                        android:singleLine="true"
-                        android:textSize="@dimen/text_size_16" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/activity_mesh_linear_textview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/activity_mesh_linear_edittext"
-                    android:layout_marginLeft="@dimen/layout_margin_10"
                     android:layout_marginTop="@dimen/layout_margin_10"
                     android:layout_marginRight="@dimen/layout_margin_10"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/activity_mesh_din1_tv"
-                        android:layout_width="wrap_content"
+                    <!-- First row of two EditText-TextView pairs -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="@string/din"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_15" />
+                        android:orientation="horizontal"
+                        android:padding="10dp">
 
-                    <TextView
-                        android:id="@+id/activity_mesh_astm_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="@string/astm"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_15" />
+                        <!-- First pair (DIN1) -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/activity_mesh_tyler_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="@string/tyler"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_15"/>
+                            <EditText
+                                android:id="@+id/activity_mesh_din1_et"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/edittext_height_mesh"
+                                android:layout_marginEnd="@dimen/layout_margin_5"
+                                android:hint="@string/selectSize"
+                                android:textColor="@color/header_background"
+                                android:background="@drawable/round_box_blue"
+                                android:cursorVisible="false"
+                                android:textColorHint="@color/white"
+                                android:focusableInTouchMode="false"
+                                android:gravity="center"
+                                android:clickable="false"
+                                android:inputType="none"
+                                android:textSize="@dimen/text_size_15"
+                                android:drawableEnd="@drawable/arrow_drop_down"
+                                android:drawablePadding="10dp" />
 
-                    <TextView
-                        android:id="@+id/activity_mesh_din2_tv"
-                        android:layout_width="wrap_content"
+                            <TextView
+                                android:id="@+id/activity_mesh_din1_tv"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/din"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/text_size_15"/>
+                        </LinearLayout>
+
+                        <!-- Second pair (ASTM) -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <EditText
+                                android:id="@+id/activity_mesh_astm_et"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/edittext_height_mesh"
+                                android:layout_marginEnd="@dimen/layout_margin_5"
+                                android:textColorHint="@color/white"
+                                android:textColor="@color/header_background"
+                                android:background="@drawable/round_box_blue"
+                                android:cursorVisible="false"
+                                android:hint="@string/selectSize"
+                                android:focusableInTouchMode="false"
+                                android:gravity="center"
+                                android:textSize="@dimen/text_size_15"
+                                android:drawableEnd="@drawable/arrow_drop_down"
+                                />
+
+                            <TextView
+                                android:id="@+id/activity_mesh_astm_tv"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/astm"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/text_size_15" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Second row of two EditText-TextView pairs -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/layout_margin_5"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="@string/din"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_15" />
+                        android:orientation="horizontal"
+                        android:padding="10dp">
+
+                        <!-- Third pair (Tyler) -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <EditText
+                                android:id="@+id/activity_mesh_tyler_et"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/edittext_height_mesh"
+                                android:layout_marginEnd="@dimen/layout_margin_5"
+                                android:textColorHint="@color/white"
+                                android:textColor="@color/header_background"
+                                android:background="@drawable/round_box_blue"
+                                android:cursorVisible="false"
+                                android:hint="@string/selectSize"
+                                android:focusableInTouchMode="false"
+                                android:gravity="center"
+                                android:textSize="@dimen/text_size_15"
+                                android:drawableEnd="@drawable/arrow_drop_down"/>
+
+                            <TextView
+                                android:id="@+id/activity_mesh_tyler_tv"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/tyler"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/text_size_15" />
+                        </LinearLayout>
+
+                        <!-- Fourth pair (DIN2) -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <EditText
+                                android:id="@+id/activity_mesh_din2_et"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/edittext_height_mesh"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="@dimen/layout_margin_5"
+                                android:autofillHints=""
+                                android:textColorHint="@color/white"
+                                android:textColor="@color/header_background"
+                                android:background="@drawable/round_box_blue"
+                                android:cursorVisible="false"
+                                android:hint="@string/selectSize"
+                                android:focusableInTouchMode="false"
+                                android:gravity="center"
+                                android:singleLine="true"
+                                android:textSize="@dimen/text_size_15"
+
+                                android:drawableEnd="@drawable/arrow_drop_down"/>
+
+                            <TextView
+                                android:id="@+id/activity_mesh_din2_tv"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/din"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/text_size_15" />
+                        </LinearLayout>
+                    </LinearLayout>
                 </LinearLayout>
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -274,7 +316,7 @@
                     android:layout_marginRight="@dimen/layout_margin_10"
                     android:textColor="@color/black0"
                     android:text="@string/part_b_sub_title"
-                    android:textSize="@dimen/text_size_16"  />
+                    android:textSize="@dimen/text_size_15"  />
 
                 <TextView
                     android:id="@+id/activity_mesh_trennschnitt_sub_title_2"
@@ -318,7 +360,7 @@
                     android:layout_below="@+id/activity_mesh_trennschnitt_logo"
                     android:layout_marginStart="@dimen/layout_margin_8"
                     android:layout_marginTop="@dimen/layout_margin_30"
-                    android:background="@drawable/oval_blue"
+                    android:background="@drawable/round_box_blue"
                     android:gravity="center_horizontal|center_vertical"
                     android:text="@string/no_1"
                     android:textColor="@color/white" />
@@ -334,7 +376,7 @@
                     android:textColor="@color/black0"
                     android:layout_toEndOf="@+id/activity_mesh_trennschnitt_no1"
                     android:text="@string/mesh_opening"
-                    android:textSize="@dimen/text_size_16" />
+                    android:textSize="@dimen/text_size_15" />
 
                 <EditText
                     android:id="@+id/activity_mesh_trennschnitt_et_1"
@@ -347,7 +389,7 @@
                     android:autofillHints=""
                     android:inputType="numberDecimal"
                     android:digits="0123456789.,$"
-                    android:textColor="@color/grey_background"
+                    android:textColor="@color/header_backgrounds"
                     android:background="@drawable/round_box_blue_border"
                     android:focusableInTouchMode="true"
                     android:gravity="center"
@@ -373,6 +415,7 @@
                         android:padding="2dp"
                         android:textColor="@color/black0"
                         android:layout_margin="0dp"
+                        app:buttonTint="@color/header_backgrounds"
                         android:text="@string/mm" />
 
                     <RadioButton
@@ -380,6 +423,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:text="@string/inch"
+                        app:buttonTint="@color/header_backgrounds"
                         android:textColor="@color/black0"
                         android:padding="2dp"
                         android:layout_margin="0dp" />
@@ -388,11 +432,11 @@
                 <TextView
                     android:id="@+id/activity_mesh_trennschnitt_no2"
                     android:layout_width="@dimen/textview_width"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/textview_width"
                     android:layout_below="@+id/activity_mesh_trennschnitt_no1"
                     android:layout_marginStart="@dimen/layout_margin_10"
                     android:layout_marginTop="@dimen/layout_margin_50"
-                    android:background="@drawable/oval_blue"
+                    android:background="@drawable/round_box_blue"
                     android:text="@string/no_2"
                     android:gravity="center_horizontal|center_vertical"
                     android:textColor="@color/white" />
@@ -407,7 +451,7 @@
                     android:textColor="@color/black0"
                     android:layout_toEndOf="@+id/activity_mesh_trennschnitt_no1"
                     android:text="@string/angle"
-                    android:textSize="@dimen/text_size_16" />
+                    android:textSize="@dimen/text_size_15" />
 
                 <EditText
                     android:id="@+id/activity_mesh_trennschnitt_et_2"
@@ -425,7 +469,7 @@
                     android:imeOptions="actionDone"
                     android:inputType="phone"
                     android:maxLength="5"
-                    android:textColor="@color/grey_background"
+                    android:textColor="@color/header_backgrounds"
                     android:textSize="@dimen/text_size_16" />
 
                 <RadioGroup
@@ -435,7 +479,8 @@
                     android:layout_below="@+id/activity_mesh_trennschnitt_no1"
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="@dimen/layout_margin_30"
-                    android:layout_marginEnd="@dimen/layout_margin_10">
+                    android:layout_marginEnd="@dimen/layout_margin_10"
+                    >
 
                     <RadioButton
                         android:id="@+id/activity_mesh_trennschnitt_manual_radio"
@@ -444,6 +489,7 @@
                         android:padding="2dp"
                         android:layout_margin="0dp"
                         android:checked="true"
+                        app:buttonTint="@color/header_backgrounds"
                         android:textColor="@color/black0"
                         android:text="@string/manual" />
 
@@ -454,6 +500,7 @@
                         android:padding="2dp"
                         android:textColor="@color/black0"
                         android:layout_margin="0dp"
+                        app:buttonTint="@color/header_backgrounds"
                         android:text="@string/automatic" />
                 </RadioGroup>
 
@@ -470,6 +517,20 @@
 
         <TextView
             android:id="@+id/activity_mesh_trennschnitt_no3"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/back_ground_bt"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="@string/no_3"
+            android:layout_marginTop="11dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="0dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            />
+
+      <!--  <TextView
+            android:id="@+id/activity_mesh_trennschnitt_no3"
             android:layout_width="@dimen/textview_width"
             android:layout_height="@dimen/textview_width"
             android:layout_gravity="center_vertical"
@@ -477,18 +538,19 @@
             android:background="@drawable/oval_blue"
             android:gravity="center_vertical|center_horizontal"
             android:text="@string/no_3"
-            android:textColor="@color/white" />
+            android:textColor="@color/white" />-->
 
         <TextView
             android:id="@+id/activity_mesh_trennschnitt_projected_opening"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:textStyle="bold"
             android:layout_marginStart="@dimen/layout_margin_10"
             android:layout_toRightOf="@+id/activity_mesh_trennschnitt_no3"
             android:text="@string/projected_opening"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size_16" />
+            android:textSize="@dimen/text_size_15" />
 
         <TextView
             android:id="@+id/activity_mesh_trennschnitt_result"
@@ -498,8 +560,9 @@
             android:layout_marginStart="@dimen/layout_margin_15"
             android:layout_toRightOf="@+id/activity_mesh_trennschnitt_projected_opening"
             android:text=""
+            android:textStyle="bold"
             android:textColor="@color/header_backgrounds"
-            android:textSize="@dimen/text_size_16"  />
+            android:textSize="@dimen/text_size_15"  />
     </LinearLayout>
     <include
         android:id="@+id/activity_mesh_layout_alert"

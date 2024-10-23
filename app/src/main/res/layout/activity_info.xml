@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <RelativeLayout android:id="@+id/activity_info_header_layout" android:background="@color/grey_background_transperant"
+    <RelativeLayout android:id="@+id/activity_info_header_layout" android:background="@color/gray"
         android:layout_width="match_parent" android:layout_height="@dimen/header_layout">
 
         <RelativeLayout android:id="@+id/activity_info_back_layout"

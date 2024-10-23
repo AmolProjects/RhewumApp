@@ -24,7 +24,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="@dimen/layout_margin_45"
         android:layout_marginEnd="16dp"
-        android:background="#008ac8"
+        android:background="#80008ac8"
         android:maxLength="100"
         android:padding="8dp"
         android:fontFamily="@font/handle_go"

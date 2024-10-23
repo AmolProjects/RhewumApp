@@ -10,6 +10,7 @@
         <item name="android:navigationBarColor">@color/header_backgrounds</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="drawerArrowStyle">@style/DrawerIcon</item>
+        <item name="android:windowIsTranslucent">true</item>
 
     </style>
 
@@ -34,5 +35,11 @@
     </style>
     <style name="DrawerIcon" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="color">@color/header_backgrounds</item>
+    </style>
+
+    <style name="CustomAlertDialog" parent="ThemeOverlay.AppCompat.Dialog.Alert">
+        <item name="android:background">@color/grey_background</item> <!-- Background color -->
+        <item name="android:textColorPrimary">#ffffff</item> <!-- Text color -->
+        <item name="android:colorAccent">#FF0000</item> <!-- Button color -->
     </style>
 </resources>

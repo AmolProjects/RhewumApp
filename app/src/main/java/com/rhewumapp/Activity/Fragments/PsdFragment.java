@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
@@ -20,6 +22,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.rhewumapp.Activity.database.PsdSummaryDao;
@@ -121,6 +124,9 @@ public class PsdFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_psd, container, false);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
         initObjects();
         frequency_LoadChart();
         displacement_loadChart();
@@ -209,8 +215,25 @@ public class PsdFragment extends Fragment {
         mFreSeries2.setColor(Color.GREEN);
         mFreSeries3.setColor(Color.RED);
 
+        // Set custom X-axis labels
+        StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(frequency_chart);
+       //Ensure the number of labels matches the unique X-values in your series
+        String[] xAxisLabels = new String[] {"0","10","20", "30", "40", "50", "60", "70", "80", "90"};
+        staticLabelsFormatter.setHorizontalLabels(xAxisLabels);
+
+// Apply the static labels formatter to the graph
+        frequency_chart.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+
+// Set the exact X-axis range to match your data
+        frequency_chart.getViewport().setMinX(0);  // Set min X value
+        frequency_chart.getViewport().setMaxX(90);  // Set max X value
         frequency_chart.getViewport().setXAxisBoundsManual(true);
-        frequency_chart.getViewport().setMinX(0);
+        // Optional: Set the number of horizontal labels (can be the same as your custom labels)
+        frequency_chart.getGridLabelRenderer().setNumHorizontalLabels(xAxisLabels.length);
+       // Optional: Disable vertical labels if you don't need them
+        staticLabelsFormatter.setVerticalLabels(null);
+        // vertical y axis hide
+        frequency_chart.getGridLabelRenderer().setVerticalLabelsVisible(false);
 
         // Customize graph settings if needed
         frequency_chart.getViewport().setScalable(true);  // enables horizontal zooming and scrolling
@@ -245,6 +268,27 @@ public class PsdFragment extends Fragment {
         mDispSeries1.setColor(Color.BLACK);
         mDispSeries2.setColor(Color.GREEN);
         mDispSeries3.setColor(Color.RED);
+
+
+        // Set custom X-axis labels
+        StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(displacement_graph);
+        //Ensure the number of labels matches the unique X-values in your series
+        String[] xAxisLabels = new String[] {"0","10","20", "30", "40", "50", "60", "70", "80", "90"};
+        staticLabelsFormatter.setHorizontalLabels(xAxisLabels);
+
+// Apply the static labels formatter to the graph
+        displacement_graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+
+// Set the exact X-axis range to match your data
+        displacement_graph.getViewport().setMinX(0);  // Set min X value
+        displacement_graph.getViewport().setMaxX(90);  // Set max X value
+        displacement_graph.getViewport().setXAxisBoundsManual(true);
+        // Optional: Set the number of horizontal labels (can be the same as your custom labels)
+        displacement_graph.getGridLabelRenderer().setNumHorizontalLabels(xAxisLabels.length);
+        // Optional: Disable vertical labels if you don't need them
+        staticLabelsFormatter.setVerticalLabels(null);
+        // vertical y axis hide
+        displacement_graph.getGridLabelRenderer().setVerticalLabelsVisible(false);
 
         // Customize graph settings if needed
         displacement_graph.getViewport().setScalable(true);  // enables horizontal zooming and scrolling

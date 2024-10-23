@@ -51,13 +51,17 @@
         android:allowClearUserData="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher_new"
+        android:icon="@mipmap/ic_launcher_new_foreground"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_new"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="31">
-
+        <activity
+            android:name=".Activity.CapacityCheckerInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.VibCheckerActivity"
+            android:exported="false" />
         <activity
             android:name=".Activity.VibFlashInfoActivity"
             android:exported="false"

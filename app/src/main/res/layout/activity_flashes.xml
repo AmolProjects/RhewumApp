@@ -3,322 +3,343 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:background="@color/light_gray_silver"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.VibFlashActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="1:0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5"
-        tools:context=".Activity.ArchiveActivity">
-        <!-- AppBar layout for using Toolbar as AppBar -->
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBarLayout"
-            android:layout_width="0dp"
+        app:layout_constraintVertical_bias="0.5">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            tools:context=".Activity.ArchiveActivity">
+            <!-- AppBar layout for using Toolbar as AppBar -->
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appBarLayout"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/header_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/my_toolbar"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="@color/grey_line"
-                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                    app:layout_constraintDimensionRatio="w,1:1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+                    android:layout_height="match_parent">
+
+                    <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/my_toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/header_layout"
+                        android:background="@color/gray"
+                        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                        app:layout_constraintDimensionRatio="w,1:1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
 
-                <TextView
-                    android:id="@+id/txtTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:text="@string/txtTitle"
-                    android:fontFamily="@font/handle_go"
-                    android:textSize="@dimen/text_size_15"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="@+id/txtBack"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/txtBack"
-                    app:layout_constraintTop_toTopOf="@+id/txtBack" />
+                    <TextView
+                        android:id="@+id/txtTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/handle_go"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:text="@string/txtTitle"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_15"
+                        app:layout_constraintBottom_toBottomOf="@+id/txtBack"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/txtBack"
+                        app:layout_constraintTop_toTopOf="@+id/txtBack" />
 
-                <TextView
-                    android:id="@+id/txtBack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="@string/back"
-                    android:fontFamily="@font/handle_go"
-                    android:textColor="@color/header_backgrounds"
-                    android:textSize="@dimen/text_size_15"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/images"
-                    app:layout_constraintTop_toTopOf="@+id/my_toolbar" />
+                    <TextView
+                        android:id="@+id/txtBack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/handle_go"
+                        android:text="@string/back"
+                        android:textColor="@color/header_backgrounds"
+                        android:textSize="@dimen/text_size_15"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/images"
+                        app:layout_constraintTop_toTopOf="@+id/my_toolbar" />
 
-                <ImageView
-                    android:id="@+id/images"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/txtBack"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/txtBack"
-                    app:srcCompat="@drawable/baseline_arrow_back_24" />
+                    <ImageView
+                        android:id="@+id/images"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/txtBack"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/txtBack"
+                        app:srcCompat="@drawable/baseline_arrow_back_24" />
 
-                <ImageView
-                    android:id="@+id/activity_mesh_info_iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/txtTitle"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/txtTitle"
-                    app:srcCompat="@drawable/baseline_info_24" />
+                    <TextView
+                        android:id="@+id/activity_mesh_info_iv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/handle_go"
+                        android:text="@string/info"
+                        android:textColor="@color/header_backgrounds"
+                        android:textSize="@dimen/text_size_15"
+                        app:layout_constraintBottom_toBottomOf="@+id/txtTitle"
+                        app:layout_constraintEnd_toStartOf="@+id/image_vib"
+                        app:layout_constraintTop_toTopOf="@+id/txtTitle" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.appbar.AppBarLayout>
+                    <ImageView
+                        android:id="@+id/image_vib"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/txtBack"
+                        app:layout_constraintEnd_toEndOf="@+id/my_toolbar"
+                        app:layout_constraintTop_toTopOf="@+id/txtBack"
+                        app:srcCompat="@drawable/baseline_arrow_forward_24" />
 
-        <EditText
-            android:id="@+id/activity_vib_flash_frequency_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/default_freq"
-            android:textColor="@color/header_backgrounds"
-            android:textSize="@dimen/text_size_80"
-            android:fontFamily="@font/handle_go"
-            android:inputType="numberDecimal"
-            android:digits="0123456789.,$"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.appbar.AppBarLayout>
 
-        <TextView
-            android:id="@+id/activity_vib_flash_hertz_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/activity_vib_flash_frequency_tv"
-            android:layout_marginTop="8dp"
-            android:text="@string/hertz"
-            android:textColor="@color/grey_background"
-            android:textSize="@dimen/text_size_16"
-            app:layout_constraintDimensionRatio="w,1:0"
-            app:layout_constraintEnd_toEndOf="@+id/activity_vib_flash_frequency_tv"
-            app:layout_constraintStart_toStartOf="@+id/activity_vib_flash_frequency_tv"
-            app:layout_constraintTop_toBottomOf="@+id/activity_vib_flash_frequency_tv" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout3"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/rect_bottom_round"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="h,1:0.8"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline"
+            <EditText
+                android:id="@+id/activity_vib_flash_frequency_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintGuide_begin="16dp" />
-
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/activity_vib_flash_freq_16"
-                android:layout_width="@dimen/button_width"
-                android:layout_height="@dimen/button_height"
-                android:layout_margin="@dimen/layout_margin_5"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="32dp"
-                android:layout_weight="1"
-                android:background="@drawable/round_box_grey"
-                android:tag="16.7"
-                android:text="@string/first_freq"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_16"
-                app:layout_constraintDimensionRatio="w,1:0"
-                app:layout_constraintEnd_toStartOf="@+id/activity_vib_flash_freq_20"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/guideline"/>
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/activity_vib_flash_freq_20"
-                android:layout_width="@dimen/button_width"
-                android:layout_height="@dimen/button_height"
-                android:layout_margin="@dimen/layout_margin_5"
-                android:layout_marginStart="16dp"
-                android:layout_weight="1"
-                android:background="@drawable/round_box_grey"
-                android:tag="@string/second_freq"
-                android:text="@string/second_freq"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_16"
-                app:layout_constraintBottom_toBottomOf="@+id/activity_vib_flash_freq_16"
-                app:layout_constraintDimensionRatio="w,1:0"
-                app:layout_constraintEnd_toStartOf="@+id/activity_vib_flash_freq_25"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/activity_vib_flash_freq_16"
-                app:layout_constraintTop_toTopOf="@+id/activity_vib_flash_freq_16" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/activity_vib_flash_freq_25"
-                android:layout_width="@dimen/button_width"
-                android:layout_height="@dimen/button_height"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:background="@drawable/round_box_grey"
-                android:tag="@string/third_freq"
-                android:text="@string/third_freq"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_16"
-                app:layout_constraintBottom_toBottomOf="@+id/activity_vib_flash_freq_20"
-                app:layout_constraintDimensionRatio="w,1:0"
+                android:layout_centerInParent="true"
+                android:digits="0123456789.,$"
+                android:fontFamily="@font/handle_go"
+                android:inputType="numberDecimal"
+                android:text="@string/default_freq"
+                android:textColor="@color/header_backgrounds"
+                android:textSize="@dimen/text_size_80"
+                app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/activity_vib_flash_freq_20"
-                app:layout_constraintTop_toTopOf="@+id/activity_vib_flash_freq_20" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/activity_vib_flash_freq_30"
-                android:layout_width="@dimen/button_width"
-                android:layout_height="@dimen/button_height"
-                android:layout_marginTop="16dp"
-                android:layout_weight="1"
-                android:background="@drawable/round_box_grey"
-                android:tag="@string/fourth_freq"
-                android:text="@string/fourth_freq"
-                android:textColor="@color/white"
+            <TextView
+                android:id="@+id/activity_vib_flash_hertz_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/activity_vib_flash_frequency_tv"
+                android:layout_marginTop="8dp"
+                android:text="@string/hertz"
+                android:textColor="@color/grey_background"
                 android:textSize="@dimen/text_size_16"
                 app:layout_constraintDimensionRatio="w,1:0"
-                app:layout_constraintEnd_toStartOf="@+id/activity_vib_flash_freq_50"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/activity_vib_flash_freq_16" />
+                app:layout_constraintEnd_toEndOf="@+id/activity_vib_flash_frequency_tv"
+                app:layout_constraintStart_toStartOf="@+id/activity_vib_flash_frequency_tv"
+                app:layout_constraintTop_toBottomOf="@+id/activity_vib_flash_frequency_tv" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/activity_vib_flash_freq_50"
-                android:layout_width="@dimen/button_width"
-                android:layout_height="@dimen/button_height"
-                android:layout_marginTop="16dp"
-                android:layout_weight="1"
-                android:background="@drawable/round_box_grey"
-                android:tag="@string/fifth_freq"
-                android:text="@string/fifth_freq"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_16"
-                app:layout_constraintEnd_toStartOf="@+id/activity_vib_flash_freq_60"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/activity_vib_flash_freq_30"
-                app:layout_constraintTop_toBottomOf="@+id/activity_vib_flash_freq_20" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/activity_vib_flash_freq_60"
-                android:layout_width="@dimen/button_width"
-                android:layout_height="@dimen/button_height"
-                android:layout_marginTop="16dp"
-                android:layout_weight="1"
-                android:background="@drawable/round_box_grey"
-                android:tag="@string/sixth_freq"
-                android:text="@string/sixth_freq"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_16"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/activity_vib_flash_freq_50"
-                app:layout_constraintTop_toBottomOf="@+id/activity_vib_flash_freq_25" />
-
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/activity_vib_flash_freq_minus"
-                style="@style/clickEffect"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout3"
                 android:layout_width="0dp"
-                android:layout_height="56dp"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:background="@drawable/round_box_grey"
-                android:text="@string/decrement_freq"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_16"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/activity_vib_flash_start_btn"
-                app:layout_constraintDimensionRatio="1:0"
-                app:layout_constraintEnd_toStartOf="@+id/activity_vib_flash_freq_plus"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_chainStyle="spread"
-                app:layout_constraintStart_toStartOf="@+id/activity_vib_flash_freq_30"
-                app:layout_constraintTop_toBottomOf="@+id/activity_vib_flash_freq_30" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/activity_vib_flash_freq_plus"
-                style="@style/clickEffect"
-                android:layout_width="0dp"
-                android:layout_height="56dp"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:background="@drawable/round_box_grey"
-                android:text="@string/increment_freq"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_16"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/activity_vib_flash_freq_minus"
-                app:layout_constraintDimensionRatio="1:0"
-                app:layout_constraintEnd_toEndOf="@+id/activity_vib_flash_freq_60"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/activity_vib_flash_freq_minus"
-                app:layout_constraintTop_toTopOf="@+id/activity_vib_flash_freq_minus" />
-
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/activity_vib_flash_start_btn"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/edittext_height"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:background="@color/header_backgrounds"
-                android:elevation="8dp"
-                android:gravity="center"
-                android:text="@string/start"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:typeface="serif"
+                android:layout_height="0dp"
+                android:background="@drawable/rect_bottom_round"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="w,1:0"
+                app:layout_constraintDimensionRatio="h,1:0.8"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="16dp"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/activity_vib_flash_freq_16"
+                    android:layout_width="@dimen/button_width"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_margin="@dimen/layout_margin_5"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_box_grey"
+                    android:tag="16.7"
+                    android:text="@string/first_freq"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintDimensionRatio="w,1:0"
+                    app:layout_constraintEnd_toStartOf="@+id/activity_vib_flash_freq_20"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/activity_vib_flash_freq_20"
+                    android:layout_width="@dimen/button_width"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_margin="@dimen/layout_margin_5"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_box_grey"
+                    android:tag="@string/second_freq"
+                    android:text="@string/second_freq"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintBottom_toBottomOf="@+id/activity_vib_flash_freq_16"
+                    app:layout_constraintDimensionRatio="w,1:0"
+                    app:layout_constraintEnd_toStartOf="@+id/activity_vib_flash_freq_25"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/activity_vib_flash_freq_16"
+                    app:layout_constraintTop_toTopOf="@+id/activity_vib_flash_freq_16" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/activity_vib_flash_freq_25"
+                    android:layout_width="@dimen/button_width"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_box_grey"
+                    android:tag="@string/third_freq"
+                    android:text="@string/third_freq"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintBottom_toBottomOf="@+id/activity_vib_flash_freq_20"
+                    app:layout_constraintDimensionRatio="w,1:0"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/activity_vib_flash_freq_20"
+                    app:layout_constraintTop_toTopOf="@+id/activity_vib_flash_freq_20" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/activity_vib_flash_freq_30"
+                    android:layout_width="@dimen/button_width"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_marginTop="16dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_box_grey"
+                    android:tag="@string/fourth_freq"
+                    android:text="@string/fourth_freq"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintDimensionRatio="w,1:0"
+                    app:layout_constraintEnd_toStartOf="@+id/activity_vib_flash_freq_50"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_vib_flash_freq_16" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/activity_vib_flash_freq_50"
+                    android:layout_width="@dimen/button_width"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_marginTop="16dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_box_grey"
+                    android:tag="@string/fifth_freq"
+                    android:text="@string/fifth_freq"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintEnd_toStartOf="@+id/activity_vib_flash_freq_60"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/activity_vib_flash_freq_30"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_vib_flash_freq_20" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/activity_vib_flash_freq_60"
+                    android:layout_width="@dimen/button_width"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_marginTop="16dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_box_grey"
+                    android:tag="@string/sixth_freq"
+                    android:text="@string/sixth_freq"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/activity_vib_flash_freq_50"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_vib_flash_freq_25" />
+
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/activity_vib_flash_freq_minus"
+                    style="@style/clickEffect"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_box_grey"
+                    android:text="@string/decrement_freq"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_22"
+                    app:layout_constraintBottom_toTopOf="@+id/activity_vib_flash_start_btn"
+                    app:layout_constraintDimensionRatio="1:0"
+                    app:layout_constraintEnd_toStartOf="@+id/activity_vib_flash_freq_plus"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintStart_toStartOf="@+id/activity_vib_flash_freq_30"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_vib_flash_freq_30" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/activity_vib_flash_freq_plus"
+                    style="@style/clickEffect"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_box_grey"
+                    android:text="@string/increment_freq"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_22"
+                    app:layout_constraintBottom_toBottomOf="@+id/activity_vib_flash_freq_minus"
+                    app:layout_constraintDimensionRatio="1:0"
+                    app:layout_constraintEnd_toEndOf="@+id/activity_vib_flash_freq_60"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/activity_vib_flash_freq_minus"
+                    app:layout_constraintTop_toTopOf="@+id/activity_vib_flash_freq_minus" />
+
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/activity_vib_flash_start_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/edittext_height_mesh"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/header_backgrounds"
+                    android:elevation="8dp"
+                    android:gravity="center"
+                    android:text="@string/start"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="w,1:0"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

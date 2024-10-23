@@ -39,7 +39,7 @@
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/my_toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
+                    android:layout_height="@dimen/header_layout"
                     android:background="@color/gray"
                     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                     app:layout_constraintDimensionRatio="w,1:1"
@@ -57,7 +57,8 @@
                     android:gravity="center_horizontal|center_vertical"
                     android:text="@string/vibChecker"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_18"
+                    android:fontFamily="@font/handle_go"
+                    android:textSize="@dimen/text_size_15"
                     app:layout_constraintBottom_toBottomOf="@+id/txtBack"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/txtBack"
@@ -69,8 +70,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="@string/back"
+                    android:fontFamily="@font/handle_go"
+                    android:textSize="@dimen/text_size_15"
                     android:textColor="@color/header_backgrounds"
-                    android:textSize="@dimen/text_size_16"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imges_back"
                     app:layout_constraintTop_toTopOf="@+id/my_toolbar" />
@@ -79,7 +81,7 @@
                     android:id="@+id/imges_back"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
+                    android:layout_marginStart="8dp"
                     android:contentDescription="@string/todo"
                     app:layout_constraintBottom_toBottomOf="@+id/txtBack"
                     app:layout_constraintStart_toStartOf="parent"
@@ -90,11 +92,12 @@
                     android:id="@+id/txtResults"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="2dp"
+                    android:layout_marginEnd="8dp"
                     android:gravity="end"
                     android:text="@string/results"
+                    android:fontFamily="@font/handle_go"
+                    android:textSize="@dimen/text_size_15"
                     android:textColor="@color/header_backgrounds"
-                    android:textSize="@dimen/text_size_16"
                     app:layout_constraintBottom_toBottomOf="@+id/txtTitle"
                     app:layout_constraintEnd_toEndOf="@+id/my_toolbar"
                     app:layout_constraintTop_toTopOf="@+id/txtTitle" />
@@ -129,34 +132,70 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
+                    android:fontFamily="@font/handle_go"
                     android:text="@string/accelerometer"
                     android:textColor="@color/header_backgrounds"
-                    android:textSize="@dimen/text_size_18"
+                    android:textSize="@dimen/text_size_15"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout4"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@color/light_gray_silvers"
+                    app:layout_constraintDimensionRatio="h,1:0.6"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView11">
+
+                    <LinearLayout
+                        android:id="@+id/vibrationLineChart"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_weight="1.0"
+                        android:orientation="vertical"
+                        android:padding="4dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="h,1:0.4"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
                     android:id="@+id/textView12"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:background="@drawable/vibchecker_bottom"
+                    android:foregroundGravity="bottom"
                     android:gravity="bottom|center_horizontal"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintDimensionRatio="h,1:0.6"
+                    app:layout_constraintDimensionRatio="h,1:0.5"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/bt_vib_reset"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/button_height"
+                    android:layout_height="@dimen/abc_text_size_display_2_material"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="32dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/header_backgrounds"
                     android:text="@string/reset"
+                    android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_16"
+                    android:textSize="@dimen/text_size_15"
                     app:layout_constraintBottom_toBottomOf="@+id/textView12"
                     app:layout_constraintDimensionRatio="w,1:0"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -165,8 +204,8 @@
 
                 <TextView
                     android:id="@+id/txt_fiveSecond"
-                    android:layout_width="@dimen/layout_margin_80"
-                    android:layout_height="@dimen/layout_margin_80"
+                    android:layout_width="@dimen/layout_margin_90"
+                    android:layout_height="@dimen/layout_margin_90"
                     android:background="@drawable/vibchecker_draw"
                     app:layout_constraintBottom_toTopOf="@+id/bt_vib_reset"
                     app:layout_constraintDimensionRatio="h,1:0.2"
@@ -182,7 +221,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/_5s_time"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_16"
+                    android:textSize="@dimen/text_size_15"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/txt_fiveSecond"
                     app:layout_constraintEnd_toEndOf="@+id/txt_fiveSecond"
@@ -191,9 +230,10 @@
 
                 <TextView
                     android:id="@+id/txt_zeroDelay"
-                    android:layout_width="@dimen/layout_margin_80"
-                    android:layout_height="@dimen/layout_margin_80"
+                    android:layout_width="@dimen/layout_margin_90"
+                    android:layout_height="@dimen/layout_margin_90"
                     android:background="@drawable/vibchecker_draw"
+                    android:textSize="@dimen/text_size_15"
                     app:layout_constraintBottom_toTopOf="@+id/bt_vib_reset"
                     app:layout_constraintDimensionRatio="h,1:0.2"
                     app:layout_constraintEnd_toStartOf="@+id/txt_onLpFilter"
@@ -207,7 +247,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/zeroDelays"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_16"
+                    android:textSize="@dimen/text_size_15"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/txt_zeroDelay"
                     app:layout_constraintEnd_toEndOf="@+id/txt_zeroDelay"
@@ -216,8 +256,8 @@
 
                 <TextView
                     android:id="@+id/txt_onLpFilter"
-                    android:layout_width="@dimen/layout_margin_80"
-                    android:layout_height="@dimen/layout_margin_80"
+                    android:layout_width="@dimen/layout_margin_90"
+                    android:layout_height="@dimen/layout_margin_90"
                     android:background="@drawable/vibchecker_draw"
                     app:layout_constraintBottom_toTopOf="@+id/bt_vib_reset"
                     app:layout_constraintDimensionRatio="h,1:0.2"
@@ -233,66 +273,50 @@
                     android:gravity="center_vertical|center_horizontal"
                     android:text="@string/on_lp_filter"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_16"
+                    android:textSize="@dimen/text_size_15"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/txt_onLpFilter"
                     app:layout_constraintEnd_toEndOf="@+id/txt_onLpFilter"
                     app:layout_constraintStart_toStartOf="@+id/txt_onLpFilter"
                     app:layout_constraintTop_toTopOf="@+id/txt_onLpFilter" />
 
-                <LinearLayout
-                    android:id="@+id/ll_plots"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_weight="1.0"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toTopOf="@+id/txt_content"
-                    app:layout_constraintDimensionRatio="h,1:0.4"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txtZ"
-                    app:layout_constraintVertical_bias="0.5" />
 
                 <TextView
                     android:id="@+id/txt_content"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="32dp"
-                    android:textColor="@color/grey_line"
-                    android:gravity="center_vertical|center_horizontal"
+                    android:layout_marginTop="16dp"
+                    android:gravity="start"
                     android:text="@string/vibcheckercontent"
-                    app:layout_constraintBottom_toTopOf="@+id/bt_vib_start"
+                    android:textColor="@color/grey_line"
                     app:layout_constraintDimensionRatio="w,1:0"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintEnd_toEndOf="@+id/constraintLayout4"
+                    app:layout_constraintStart_toStartOf="@+id/constraintLayout4"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/bt_vib_start"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/button_height"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="32dp"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/abc_text_size_display_2_material"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/header_backgrounds"
                     android:gravity="center_vertical|center_horizontal"
                     android:text="@string/start"
+                    android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_16"
-                    app:layout_constraintBottom_toTopOf="@+id/textView12"
+                    android:textSize="@dimen/text_size_15"
                     app:layout_constraintDimensionRatio="w,1:0"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_content"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="@+id/txt_content"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_content" />
 
                 <TextView
                     android:id="@+id/txtZ"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="16dp"
                     android:background="@drawable/z"
                     android:gravity="center_vertical|center_horizontal"
                     android:text="@string/z"
@@ -316,8 +340,7 @@
                     android:textSize="@dimen/text_size_16"
                     app:layout_constraintBottom_toBottomOf="@+id/txtx"
                     app:layout_constraintDimensionRatio="1:1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView11"
+                    app:layout_constraintEnd_toEndOf="@+id/constraintLayout4"
                     app:layout_constraintWidth_default="percent"
                     app:layout_constraintWidth_percent="0.5" />
 
@@ -325,15 +348,15 @@
                     android:id="@+id/txtx"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="16dp"
                     android:background="@drawable/x"
                     android:gravity="center_vertical|center_horizontal"
                     android:text="@string/x"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_16"
+                    app:layout_constraintBottom_toBottomOf="@+id/txtZ"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toStartOf="@+id/txty"
-                    app:layout_constraintTop_toBottomOf="@+id/textView11"
                     app:layout_constraintWidth_default="percent"
                     app:layout_constraintWidth_percent="0.5" />
 
@@ -342,3 +365,4 @@
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+

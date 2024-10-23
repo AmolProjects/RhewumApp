@@ -1,7 +1,9 @@
 package com.rhewumapp.Activity;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,6 +32,7 @@ public class VibCheckerMainActivity extends DrawerBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_vib_checker_main);
         activityVibCheckerMainBinding = ActivityVibCheckerMainBinding.inflate(getLayoutInflater());
@@ -86,11 +89,24 @@ public class VibCheckerMainActivity extends DrawerBaseActivity {
                     handleFrequencyMagnitudeData();
 
                 }
+                // Reset the background for all tabs
+                for (int i = 0; i < tab_layout.getTabCount(); i++) {
+                    View tab = ((ViewGroup) tab_layout.getChildAt(0)).getChildAt(i);
+                    tab.setBackgroundResource(R.color.white);
+                }
+
+                // Set background for the selected tab
+                View selectedTab = ((ViewGroup) tab_layout.getChildAt(0)).getChildAt(position);
+                selectedTab.setBackgroundResource(R.color.header_backgrounds);
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
                 super.onPageScrollStateChanged(state);
+                handleMaxAcceleration();
+                handleMaxFrequency();
+                handleDisplacementData();
+                handleFrequencyMagnitudeData();
             }
         });
     }
@@ -140,12 +156,9 @@ public class VibCheckerMainActivity extends DrawerBaseActivity {
     }
 
 
-
-
-
     private void initObjects(){
         txtBack=findViewById(R.id.txtBack);
-        imgBack=findViewById(R.id.imges_back);
+        imgBack=findViewById(R.id.imges_backss);
         tab_layout=findViewById(R.id.tab_layout);
         viewPager=findViewById(R.id.viewPager);
     }

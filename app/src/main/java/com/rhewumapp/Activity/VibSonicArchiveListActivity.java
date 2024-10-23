@@ -1,5 +1,6 @@
 package com.rhewumapp.Activity;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -37,6 +38,7 @@ public class VibSonicArchiveListActivity extends DrawerBaseActivity implements V
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         Utils.setFontFamily("fonts/heebo.ttf");
         setContentView(R.layout.activity_vib_sonic_archive_list);

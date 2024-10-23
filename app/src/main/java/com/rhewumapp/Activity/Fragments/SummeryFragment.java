@@ -115,7 +115,7 @@ public class SummeryFragment extends Fragment {
         txtfrZ=view.findViewById(R.id.txtfrZ);
         txtfrx=view.findViewById(R.id.txtfrx);
         txtfry=view.findViewById(R.id.txtfry);
-        ll_plots=view.findViewById(R.id.ll_plots);
+        ll_plots=view.findViewById(R.id.vibrationLineChart);
         txtDateTime=view.findViewById(R.id.txtDateTime);
         vibCheckerAccList=new ArrayList<>();
         bt_save=view.findViewById(R.id.bt_save);
@@ -172,7 +172,7 @@ public class SummeryFragment extends Fragment {
                     FileOutputStream fileOutputStream = new FileOutputStream(file);
                     fileOutputStream.write(bArr);
                     fileOutputStream.close();
-                    arrayList.add(FileProvider.getUriForFile(requireActivity(), "com.rhewum.provider", file));
+                    arrayList.add(FileProvider.getUriForFile(requireActivity(), "com.rhewumapp.provider", file));
                 } catch (Exception e) {
                     Log.e("Summary","Summary:::"+e.getMessage());
                     throw new RuntimeException(e);

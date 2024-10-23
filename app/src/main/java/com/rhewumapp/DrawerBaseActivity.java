@@ -5,14 +5,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.text.SpannableString;
 import android.text.style.AbsoluteSizeSpan;
+import android.text.style.TypefaceSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +31,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -46,6 +50,7 @@ import com.rhewumapp.Activity.NewsActivity;
 
 import com.rhewumapp.Activity.VibFlashActivity;
 import com.rhewumapp.Activity.WebsiteActivity;
+import com.rhewumapp.Activity.data.CustomTypefaceSpan;
 
 import java.util.Objects;
 
@@ -83,6 +88,7 @@ public class DrawerBaseActivity extends AppCompatActivity implements NavigationV
 
     @Override
     public void setContentView(View view) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         drawerLayout = (DrawerLayout) getLayoutInflater().inflate(R.layout.activity_drawer_base, null);
         FrameLayout container = drawerLayout.findViewById(R.id.activityContainer);
         container.addView(view);
@@ -160,7 +166,10 @@ public class DrawerBaseActivity extends AppCompatActivity implements NavigationV
 
     private void setNavigationDrawerMenuTitles(Menu menu) {
 
-        MenuItem navHome = menu.findItem(R.id.nav_home);
+        // Load the custom font
+        Typeface handleGoFont = ResourcesCompat.getFont(this, R.font.handle_go);
+
+//        MenuItem navHome = menu.findItem(R.id.nav_home);
         MenuItem navNews = menu.findItem(R.id.nav_news);
         MenuItem navInfo = menu.findItem(R.id.nav_info);
         MenuItem navWebsite = menu.findItem(R.id.nav_website);
@@ -170,17 +179,20 @@ public class DrawerBaseActivity extends AppCompatActivity implements NavigationV
         MenuItem nav_vib_checker = menu.findItem(R.id.nav_vib_checker);
         MenuItem nav_capacity_checker = menu.findItem(R.id.nav_capacity_checker);
 
+        MenuItem navHome = menu.findItem(R.id.nav_home);
+
         // Set titles based on item IDs
         // Increase the text size using SpannableString
-        increaseMenuItemTitleSize(navHome, "Home", 16); // 18sp
-        increaseMenuItemTitleSize(navNews, "News", 16);
-        increaseMenuItemTitleSize(navInfo, "Info", 16);
-        increaseMenuItemTitleSize(navWebsite, "Website", 16);
-        increaseMenuItemTitleSize(nav_mesh_converter, "Mesh Converter", 16);
-        increaseMenuItemTitleSize(nav_vibsonic, "VibSonic", 16);
-        increaseMenuItemTitleSize(nav_vib_flash, "VibFlash", 16);
-        increaseMenuItemTitleSize(nav_vib_checker, "VibChecker", 16);
-        increaseMenuItemTitleSize(nav_capacity_checker, "Capacity Checker", 16);
+        increaseMenuItemTitleSize(navHome, "Home", 18, handleGoFont);
+        increaseMenuItemTitleSize(navNews, "News", 16,handleGoFont);
+        increaseMenuItemTitleSize(navInfo, "Info", 16,handleGoFont);
+        increaseMenuItemTitleSize(navWebsite, "Website", 16,handleGoFont);
+        increaseMenuItemTitleSize(nav_mesh_converter, "Mesh Converter", 16,handleGoFont);
+        increaseMenuItemTitleSize(nav_vibsonic, "VibSonic", 16,handleGoFont);
+        increaseMenuItemTitleSize(nav_vib_flash, "VibFlash", 16,handleGoFont);
+        increaseMenuItemTitleSize(nav_vib_checker, "VibChecker", 16,handleGoFont);
+        increaseMenuItemTitleSize(nav_capacity_checker, "Capacity Checker", 16,handleGoFont);
+
 
         // susheel
 // Define the desired icon size (width and height in pixels)
@@ -245,6 +257,25 @@ public class DrawerBaseActivity extends AppCompatActivity implements NavigationV
         }
 
 
+    }
+
+
+    private void increaseMenuItemTitleSize(MenuItem menuItem, String title, int textSizeInSp, Typeface typeface) {
+        SpannableString spannableTitle = new SpannableString(title);
+
+        // Set text size in SP (scale-independent pixels)
+        spannableTitle.setSpan(new AbsoluteSizeSpan(textSizeInSp, true), 0, spannableTitle.length(), 0);
+
+        // Set custom font (TypefaceSpan requires API 28 or custom span workaround)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            spannableTitle.setSpan(new TypefaceSpan(typeface), 0, spannableTitle.length(), 0);
+        } else {
+            // For older versions, create a custom TypefaceSpan if needed (workaround for lower API levels)
+            spannableTitle.setSpan(new CustomTypefaceSpan(typeface), 0, spannableTitle.length(), 0);
+        }
+
+        // Set the title with the modified text size and font
+        menuItem.setTitle(spannableTitle);
     }
 
     @Override

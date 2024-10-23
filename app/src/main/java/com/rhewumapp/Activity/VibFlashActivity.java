@@ -3,7 +3,9 @@ package com.rhewumapp.Activity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -42,7 +45,7 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
     private Button freqPlus;
     private TextView txtBack,activity_mesh_info_tv;
     private EditText freqTv;
-    private TextView hertzTv;
+    private TextView hertzTv,activity_mesh_info_iv;
     private  Button activity_vib_flash_start_btn;
     private static final String TAG = VibFlashActivity.class.getName();
     private CameraManager cameraManager;
@@ -51,7 +54,7 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
     private boolean isFlashOn = false;
     private boolean isBlinking = false;
     private Runnable blinkRunnable;
-    ImageView activity_mesh_info_iv;
+    ImageView image_vib;
     ImageView images;
     private boolean isRunning = false;
 
@@ -60,6 +63,7 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
 
         activityFlashesBinding = ActivityFlashesBinding.inflate(getLayoutInflater());
@@ -80,6 +84,7 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
         this.freqTv.setOnClickListener(this);
         activity_mesh_info_iv.setOnClickListener(this);
         this.images.setOnClickListener(this);
+        this.image_vib.setOnClickListener(this);
 
         freqPlus.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -213,6 +218,12 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
 
             }
         });
+        image_vib.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(VibFlashActivity.this, VibFlashInfoActivity.class));
+            }
+        });
 
 
         freqTv.addTextChangedListener(new TextWatcher() {
@@ -342,7 +353,13 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
     }
 
 
+    //changes 8 oct
     public void onClick(View view) {
+        // Stop blinking if currently blinking
+        if (isBlinking) {
+            stopBlinking();
+        }
+
         if (view.equals(this.freqPlus)) {
             // Get the current frequency value and replace comma with dot for processing
             String charSequence = this.freqTv.getText().toString().replace(",", ".");
@@ -423,8 +440,9 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
         this.txtBack = (TextView) findViewById(R.id.txtBack);
        this.images=(ImageView)findViewById(R.id.images);
         this.activity_vib_flash_start_btn=findViewById(R.id.activity_vib_flash_start_btn);
+        this.image_vib=(ImageView)findViewById(R.id.image_vib);
 
-        activity_mesh_info_iv=findViewById(R.id.activity_mesh_info_iv);
+        activity_mesh_info_iv=(TextView) findViewById(R.id.activity_mesh_info_iv);
         this.freq16.setText(Html.fromHtml("16 &frac23;"));
         this.freqMinus.setText(Html.fromHtml("&minus;"));
 
@@ -513,7 +531,7 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
     private void stopBlinking() {
         isBlinking = false;
         handler.removeCallbacks(blinkRunnable);
-        activity_vib_flash_start_btn.setText("Start Flash");
+        activity_vib_flash_start_btn.setText("Start");
         activity_vib_flash_start_btn.setBackgroundColor(VibFlashActivity.this.getResources().getColor(R.color.header_backgrounds));
 
         try {
@@ -526,6 +544,28 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
 
     private boolean isNumeric(String str) {
         return str.matches("-?\\d+(\\.\\d+)?"); // Adjust regex if needed
+    }
+    private void hideSoftInput(View view) {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int) ev.getRawX(), (int) ev.getRawY())) {
+                    v.clearFocus();
+                    hideSoftInput(v);
+                }
+            }
+        }
+        return super.dispatchTouchEvent(ev);
     }
 
 

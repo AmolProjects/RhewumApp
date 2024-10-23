@@ -1,6 +1,9 @@
 package com.rhewumapp.Activity;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -23,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
@@ -40,10 +44,10 @@ import java.util.concurrent.Future;
 
 public class CapacityCheckerActivity extends DrawerBaseActivity {
     private static final String TAG = CapacityCheckerActivity.class.getName();
-    TextView txtBack, activity_mesh_trennschnitt_result;
+    TextView txtBack,activity_mesh_trennschnitt_result_m3, activity_mesh_trennschnitt_result,activity_mesh_info_iv;
     Spinner spinner;
     ImageView img_test, textMachineTypeInfo, textScreenWidthInfo, textScreenAngleInfo, imgMaterialDenInfo, imgLayerHeightInfo;
-    ImageView imges_back;
+    ImageView imges_back,image_vib;
     EditText edt_ScreenWidth, editTextMaterialDensity, editTextLayerHeight;
     RadioGroup radioGroup_screenWidth, radioGroup_MaterialDensity, radioGroup_Height;
     RadioButton radio_screenWidth_m, radio_screenWidth_ft, radio_Material_DensityM, radio_Material_DensityLb, Radioheight_cm, Radioheight_inch;
@@ -59,9 +63,13 @@ public class CapacityCheckerActivity extends DrawerBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         activityCapacityCheckerBinding = ActivityCapacityCheckerBinding.inflate(getLayoutInflater());
         setContentView(activityCapacityCheckerBinding.getRoot());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
         initObjects();
         selectedItemSpinner();
 
@@ -112,9 +120,21 @@ public class CapacityCheckerActivity extends DrawerBaseActivity {
             overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
         });
 
+        image_vib.setOnClickListener(view -> {
+            startActivity(new Intent(this, CapacityCheckerInfoActivity.class));
+
+            overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
+        });
+        activity_mesh_info_iv.setOnClickListener(view -> {
+            startActivity(new Intent(this, CapacityCheckerInfoActivity.class));
+            overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
+        });
+
+
+
         textMachineTypeInfo.setOnClickListener(view -> showAlert("Read the machine's type off your machines type plate"));
         textScreenWidthInfo.setOnClickListener(view -> showAlert("Measure the inside width or read the required parameters off your machine's type plate"));
-        imgMaterialDenInfo.setOnClickListener(view -> showAlert("Give an estimation of the material density in the required unit"));
+        imgMaterialDenInfo.setOnClickListener(view -> showAlert("Give an estimation of the bulk material density in the required unit. Some reference values can be found in the Info section."));
         imgLayerHeightInfo.setOnClickListener(view -> showAlert("While the machine is running, measure or estimate the height of the material layer directly at the infeed of the machine. It should be measured before material has fallen through the screen."));
     }
 
@@ -128,6 +148,9 @@ public class CapacityCheckerActivity extends DrawerBaseActivity {
     private void initObjects() {
         txtBack = findViewById(R.id.txtBack);
         // bt_submit = findViewById(R.id.bt_submit);
+        image_vib=findViewById(R.id.image_vib);
+        activity_mesh_trennschnitt_result_m3 = findViewById(R.id.activity_mesh_trennschnitt_result_m3);
+        activity_mesh_info_iv=findViewById(R.id.activity_mesh_info_iv);
         textMachineTypeInfo = findViewById(R.id.textMachineTypeInfo);
         textScreenWidthInfo = findViewById(R.id.textScreenWidthInfo);
         imgMaterialDenInfo = findViewById(R.id.imgMaterialDenInfo);
@@ -183,7 +206,7 @@ public class CapacityCheckerActivity extends DrawerBaseActivity {
     }
 
 
-    private void calculateAndUpdateResult() {
+    /*private void calculateAndUpdateResult() {
         // Replace commas with dots in EditText values to handle German decimal input
         String screenWidthText = edt_ScreenWidth.getText().toString().replace(",", ".");
         String materialDensityText = editTextMaterialDensity.getText().toString().replace(",", ".");
@@ -245,6 +268,78 @@ public class CapacityCheckerActivity extends DrawerBaseActivity {
                 Toast.makeText(CapacityCheckerActivity.this, "Enter valid input", Toast.LENGTH_SHORT).show();
             }
         }
+    }*/
+
+    private void calculateAndUpdateResult() {
+        // Replace commas with dots in EditText values to handle German decimal input
+        String screenWidthText = edt_ScreenWidth.getText().toString().replace(",", ".");
+        String materialDensityText = editTextMaterialDensity.getText().toString().replace(",", ".");
+        String layerHeightText = editTextLayerHeight.getText().toString().replace(",", ".");
+
+        // Ensure all inputs are valid
+        if (validateInputs(screenWidthText, materialDensityText, layerHeightText)) {
+            double widthScreenValueM, layerHeightValueMM, materialDensityKgM3, materialDensityLbFt3;
+            try {
+                String selectedItem = spinner.getSelectedItem().toString();
+                int selectedWidth = radioGroup_screenWidth.getCheckedRadioButtonId();
+                int selectedKgM = radioGroup_MaterialDensity.getCheckedRadioButtonId();
+                int selectedHeight = radioGroup_Height.getCheckedRadioButtonId();
+
+                RadioButton selectedRadioButton = findViewById(selectedWidth);
+                String selectedOptionWidth = selectedRadioButton.getText().toString();
+
+                RadioButton selectedKgm = findViewById(selectedKgM);
+                String selectedOptionKg = selectedKgm.getText().toString();
+
+                RadioButton selectedLayerHeight = findViewById(selectedHeight);
+                String selectedOptionHeight = selectedLayerHeight.getText().toString();
+
+                // Convert width
+                if (selectedOptionWidth.equals("m")) {
+                    widthScreenValueM = Double.parseDouble(screenWidthText);
+                } else {
+                    widthScreenValueM = Double.parseDouble(screenWidthText) * 0.304;
+                }
+
+                // Convert density
+                if (selectedOptionKg.equals("kg/m3")) {
+                    materialDensityKgM3 = Double.parseDouble(materialDensityText);
+                    materialDensityLbFt3 = materialDensityKgM3 / 16.018;
+                } else {
+                    materialDensityLbFt3 = Double.parseDouble(materialDensityText);
+                    materialDensityKgM3 = materialDensityLbFt3 * 16.018;
+                }
+
+                // Convert height
+                if (selectedOptionHeight.equals("cm")) {
+                    layerHeightValueMM = Double.parseDouble(layerHeightText) * 10;
+                } else {
+                    layerHeightValueMM = Double.parseDouble(layerHeightText) * 25.4;
+                }
+
+                double rheTypeValue = Double.parseDouble(globalFlowVelocity);
+
+                Future<Double> future = executorService.submit(() -> {
+                    return (rheTypeValue) * (layerHeightValueMM) * (materialDensityKgM3) * (widthScreenValueM) * (0.0036);
+                });
+
+                try {
+                    double capacityTonsPerHour = future.get();
+                    double capacityCubicMetersPerHour = capacityTonsPerHour * 1000 / materialDensityKgM3;
+
+                    runOnUiThread(() -> {
+                        activity_mesh_trennschnitt_result.setText(String.format("%.1f t/h", capacityTonsPerHour));
+                        // Update for m³/h
+                        activity_mesh_trennschnitt_result_m3.setText(String.format("%.1f m³/h", capacityCubicMetersPerHour));
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(CapacityCheckerActivity.this, "Error in calculation", Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+                Toast.makeText(CapacityCheckerActivity.this, "Enter valid input", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
 
@@ -284,28 +379,28 @@ public class CapacityCheckerActivity extends DrawerBaseActivity {
 
                     // Update the globalFlowVelocity based on the selected item
                     switch (selectedItem) {
-                        case "RHEsono(formely WA)":
-                        case "RHEmoto(formely WAU)":
+                        case "RHEsono (formerly WA)":
+                        case "RHEmoto (formerly WAU)":
                             globalFlowVelocity = String.valueOf(1);
                             break;
-                        case "RHEstack(formely MDS)":
+                        case "RHEstack (formerly MDS)":
                             globalFlowVelocity = String.valueOf(0.08);
                             break;
-                        case "RHEflex(formely RIUS)":
-                        case "RHEtrans(formely RIU)":
-                        case "RHEfeed(formely RIM)":
+                        case "RHEflex (formerly RIUS)":
+                        case "RHEtrans (formerly RIU)":
+                        case "RHEfeed (formerly RIM)":
                             globalFlowVelocity = String.valueOf(0.25);
                             break;
-                        case "RHEsonox(formely WAF)":
-                        case "RHEmotox(formely WAUF)":
-                        case "RHEside/RHEmid(formely SV/AV)":
+                        case "RHEsonox (formerly WAF)":
+                        case "RHEmotox (formerly WAUF)":
+                        case "RHEside/RHEmid (formerly SV/AV)":
                             globalFlowVelocity = String.valueOf(0.3);
                             break;
-                        case "RHEduo(formely DF)":
-                        case "RHEduox(formely DFM)":
+                        case "RHEduo (formerly DF)":
+                        case "RHEduox (formerly DFM)":
                             globalFlowVelocity = String.valueOf(0.8);
                             break;
-                        case "RHEox(formely UG)":
+                        case "RHEox (formerly UG)":
                             globalFlowVelocity = String.valueOf(0.4);
                             break;
                         default:
@@ -330,11 +425,14 @@ public class CapacityCheckerActivity extends DrawerBaseActivity {
 
 
     private void showAlert(String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(message)
-                .setPositiveButton("OK", (dialog, id) -> dialog.dismiss());
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.CustomAlertDialog); // Apply custom style
+        builder.setMessage(message);
+              //  .setPositiveButton("OK", (dialog, id) -> dialog.dismiss());
         AlertDialog alert = builder.create();
         alert.show();
+
+        // Change button text color programmatically
+       // alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this, R.color.your_button_color));
     }
 
 

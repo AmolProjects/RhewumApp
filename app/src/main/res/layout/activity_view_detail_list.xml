@@ -70,11 +70,11 @@
                     android:textColor="@color/header_backgrounds"
                     android:textSize="@dimen/text_size_16"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imges_back"
+                    app:layout_constraintStart_toEndOf="@+id/imges_backss"
                     app:layout_constraintTop_toTopOf="@+id/my_toolbar" />
 
                 <ImageView
-                    android:id="@+id/imges_back"
+                    android:id="@+id/imges_backss"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"

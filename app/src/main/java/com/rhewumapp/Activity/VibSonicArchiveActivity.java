@@ -1,7 +1,11 @@
 package com.rhewumapp.Activity;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
+import com.github.mikephil.charting.formatter.XAxisValueFormatter;
+import com.github.mikephil.charting.formatter.YAxisValueFormatter;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.rhewumapp.Activity.MeshConveterData.Constants;
 import com.rhewumapp.Activity.MeshConveterData.ResponsiveAndroidBars;
 import com.rhewumapp.Activity.MeshConveterData.Utils;
@@ -24,6 +28,7 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import androidx.core.content.FileProvider;
@@ -75,6 +80,7 @@ public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.
     private RelativeLayout backLayout;
     /* access modifiers changed from: private */
     public String csvFilePath;
+    Button bt_save,bt_share;
     /* access modifiers changed from: private */
     public String currentDateTime;
     /* access modifiers changed from: private */
@@ -97,15 +103,17 @@ public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
-        Utils.setFontFamily("fonts/heebo.ttf");
         setContentView(R.layout.activity_vib_sonic_archive);
         ResponsiveAndroidBars.setNotificationBarColor(this, getResources().getColor(R.color.header_backgrounds), false);
-        ResponsiveAndroidBars.setNavigationBarColor(this, getResources().getColor(R.color.grey_background), false, false);
+        ResponsiveAndroidBars.setNavigationBarColor(this, getResources().getColor(R.color.header_backgrounds), false, false);
         setUpViews();
         getHelper();
         this.backLayout.setOnClickListener(this);
         this.moreLayout.setOnClickListener(this);
+        this.bt_share.setOnClickListener(this);
+        this.bt_save.setOnClickListener(this);
     }
     /* access modifiers changed from: protected */
     public void onResume() {
@@ -158,6 +166,8 @@ public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.
         this.moreLayout = (RelativeLayout) findViewById(R.id.activity_vib_sonic_archive_more_layout);
         this.wv = (WebView) findViewById(R.id.activity_vib_sonic_archive_wv);
         this.mChart = (BarChart) findViewById(R.id.activity_vib_sonic_archieve_soundGraph);
+        bt_save=(Button) findViewById(R.id.bt_save);
+        bt_share=(Button) findViewById(R.id.bt_share);
     }
     private void setUpGraph() {
         this.mChart.setOnChartValueSelectedListener(this);
@@ -169,19 +179,92 @@ public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.
         this.mChart.setClickable(false);
         // this.mChart.setHighlightEnabled(false);
         this.mChart.setDrawGridBackground(true);
+
         XAxis xAxis = this.mChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
         xAxis.setSpaceBetweenLabels(1);
         xAxis.setTextColor(getResources().getColor(R.color.black));
+
+/*        ArrayList<String> xAxisLabelB = new ArrayList<>();
+        xAxisLabelB.add("32");
+        xAxisLabelB.add("63");
+        xAxisLabelB.add("125");
+        xAxisLabelB.add("250");
+        xAxisLabelB.add("500");
+        xAxisLabelB.add("2K");
+        xAxisLabelB.add("4K");
+        xAxisLabelB.add("8K");
+        xAxisLabelB.add("16K");
+
+
+        xAxis.setValueFormatter(new XAxisValueFormatter() {
+            @Override
+            public String getXValue(String original, int index, ViewPortHandler viewPortHandler) {
+                return xAxisLabelB.get((int) index);
+            }
+        });*/
+
+
+
+
+
         YAxis axisLeft = this.mChart.getAxisLeft();
         //axisLeft.setLabelCount(12);
         axisLeft.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
         axisLeft.enableGridDashedLine(40.0f, 10.0f, 40.0f);
         axisLeft.setSpaceTop(0.0f);
-        axisLeft.setAxisMinValue(10.0f);
+        axisLeft.setAxisMinValue(0.0f);
         axisLeft.setAxisMaxValue(120.0f);
         axisLeft.setStartAtZero(true);
+
+        // Use YAxisValueFormatter
+        YAxisValueFormatter customFormatter = new YAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, YAxis yAxis) {
+                // Ensure we are rounding and returning values only in the specified range
+                int roundedValue = Math.round(value / 10) * 10;
+                // Only return values that are within the 0-120 range
+                if (roundedValue % 10 == 0 && roundedValue <= 120 && roundedValue >= 0) {
+                    return String.valueOf(roundedValue); // Return the formatted value
+                } else {
+                    return ""; // Return empty for values outside 0-120 range
+                }
+            }
+        };
+
+// Set the custom formatter to the left y-axis
+        axisLeft.setValueFormatter(customFormatter);
+        // Optionally: Set the number of labels you want on the y-axis
+        axisLeft.setLabelCount(13, true); // Adjust the label count for better display
+
+/*        // x axis top
+        XAxis xAxisTop = this.mChart.getXAxis();
+        xAxisTop.setPosition(XAxis.XAxisPosition.TOP);
+        xAxisTop.setDrawGridLines(false);
+        xAxisTop.setSpaceBetweenLabels(1);
+        xAxisTop.setTextColor(getResources().getColor(R.color.black));
+        ArrayList<String> xAxisLabel = new ArrayList<>();
+        xAxisLabel.add("10");
+        xAxisLabel.add("27");
+        xAxisLabel.add("35");
+        xAxisLabel.add("37");
+        xAxisLabel.add("34");
+        xAxisLabel.add("40");
+        xAxisLabel.add("25");
+        xAxisLabel.add("15");
+        xAxisLabel.add("9");
+        xAxisLabel.add("0");
+
+        xAxisTop.setValueFormatter(new XAxisValueFormatter() {
+            @Override
+            public String getXValue(String original, int index, ViewPortHandler viewPortHandler) {
+                return xAxisLabel.get((int) index);
+            }
+        });*/
+
+
+
         this.mChart.getLegend().setEnabled(false);
         this.mChart.getAxisRight().setEnabled(false);
         this.mChart.setTouchEnabled(false);
@@ -207,7 +290,7 @@ public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.
             }
             BarDataSet barDataSet = new BarDataSet(arrayList3, "DataSet");
             barDataSet.setBarSpacePercent(35.0f);
-            barDataSet.setColor(getResources().getColor(R.color.blue_bar));
+            barDataSet.setColor(getResources().getColor(R.color.header_backgrounds));
             ArrayList<IBarDataSet> arrayList4 = new ArrayList<>();
             arrayList4.add(barDataSet);
             BarData barData = new BarData((List<String>) arrayList2,arrayList4);
@@ -221,6 +304,20 @@ public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.
         if (view.equals(this.backLayout)) {
             goBack();
         } else if (view.equals(this.moreLayout)) {
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setMessage(getResources().getString(R.string.loading));
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+            new Handler().postDelayed(new Runnable() {
+                public void run() {
+                    VibSonicArchiveActivity.this.createPDF();
+                    progressDialog.dismiss();
+                    VibSonicArchiveActivity.this.callMoreMenus();
+                }
+            }, 1000);
+        } else if (view.equals(this.bt_save)) {
+            Toast.makeText(this,"Save data successfully !!",Toast.LENGTH_SHORT).show();
+        } else if (view.equals(this.bt_share)) {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setMessage(getResources().getString(R.string.loading));
             progressDialog.setCancelable(false);
@@ -309,7 +406,7 @@ public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.
                             FileOutputStream fileOutputStream = new FileOutputStream(file);
                             fileOutputStream.write(bArr);
                             fileOutputStream.close();
-                            arrayList.add(FileProvider.getUriForFile(VibSonicArchiveActivity.this, "com.rhewum.provider", file));
+                            arrayList.add(FileProvider.getUriForFile(VibSonicArchiveActivity.this, "com.rhewumapp.provider", file));
                         } catch (Exception e) {
                             Log.e("VibSonicArchive","VibSonicArchive:::"+e.getMessage());
                             throw new RuntimeException(e);
@@ -443,7 +540,7 @@ public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.
                             FileOutputStream fileOutputStream = new FileOutputStream(file2);
                             fileOutputStream.write(bArr);
                             fileOutputStream.close();
-                            arrayList.add(FileProvider.getUriForFile(VibSonicArchiveActivity.this, "com.rhewum.provider", file2));
+                            arrayList.add(FileProvider.getUriForFile(VibSonicArchiveActivity.this, "com.rhewumapp.provider", file2));
                             Log.e("VibSonicArchive","VibSoincArchive::::::::::::::"+arrayList.size());
                         } catch (Exception e) {
                             throw new RuntimeException(e);

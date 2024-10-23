@@ -99,11 +99,8 @@ public class MeshConverterActivity extends DrawerBaseActivity implements View.On
         if (Utils.isTablet(this)) {
             ResponsiveAndroidBars.setNavigationBarColor(this, getResources().getColor(R.color.header_backgrounds), true, false);
         } else {
-            ResponsiveAndroidBars.setNavigationBarColor(this, getResources().getColor(R.color.grey_background), false, false);
+            ResponsiveAndroidBars.setNavigationBarColor(this, getResources().getColor(R.color.header_backgrounds), false, false);
         }
-
-
-
 
         this.back.setOnClickListener(this);
         this.meshBackTv.setOnClickListener(this);
@@ -207,6 +204,31 @@ public class MeshConverterActivity extends DrawerBaseActivity implements View.On
                 }
                 MeshConverterActivity.this.angleEtStr = input;
                 MeshConverterActivity.this.calculateProjectedOpening();
+            }
+        });
+        angleEt.setOnTouchListener((v, event) -> {
+            if (this.automaticRadio.isChecked()) {
+                hideSoftInput(v); // Hide keyboard
+                return true; // Consume the event, prevent further processing
+            }
+            return false; // Allow other events to be processed
+        });
+
+        // dismiss the alert
+        // Hide the keyboard
+        View rootLayout = findViewById(R.id.mesh_relative_2);
+        //hide keyboard
+        rootLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Clear focus from any focused EditText
+                View currentFocus = getCurrentFocus();
+                if (currentFocus instanceof EditText) {
+                    currentFocus.clearFocus();
+                }
+
+                // Hide the keyboard
+                hideSoftInput(v);
             }
         });
     }
@@ -707,10 +729,16 @@ public class MeshConverterActivity extends DrawerBaseActivity implements View.On
         overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
     }
 
-    private void hideSoftInput(EditText editText) {
-        ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(editText.getWindowToken(), 0);
-    }
+//    private void hideSoftInput(EditText editText) {
+//        ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(editText.getWindowToken(), 0);
+//    }
 
+    private void hideSoftInput(View view) {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
 
     public void onClick(boolean z) {
         if (z) {

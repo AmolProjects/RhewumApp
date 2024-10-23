@@ -3,7 +3,9 @@ import static com.smarteist.autoimageslider.IndicatorView.animation.type.Indicat
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -65,6 +67,7 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         makeApiCallWithExecutor();
 
@@ -191,14 +194,19 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
         sliderView.setSliderAdapter(sliderAdapter);
         sliderView.setScrollTimeInSec(5);
         sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
-        sliderView.setIndicatorAnimation(WORM);
+       // sliderView.setIndicatorAnimation(WORM);
         sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
         sliderView.setAutoCycle(true);
         sliderView.startAutoCycle();
-
-        if (sliderItems.isEmpty()) {
-            Toast.makeText(this, "No items available for slider", Toast.LENGTH_SHORT).show();
+        // Check if the list is empty or has only one item, then hide the indicator
+        if (sliderItems.isEmpty() || sliderItems.size() == 0) {
+            sliderView.setIndicatorEnabled(false); // Use the correct method for your library
+            sliderView.setIndicatorSelectedColor(Color.TRANSPARENT);
+        } else {
+            sliderView.setIndicatorEnabled(true);
+            sliderView.setIndicatorSelectedColor(Color.GRAY);// Enable indicator when there are images
         }
+
     }
 
     private void initObjects() {
@@ -233,7 +241,7 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
         Log.e("androidId ","androidId:"+androidId);
     }
 
-    @Override
+/*    @Override
     public void onItemClick(View view, int position) {
         switch (position) {
             case 0:
@@ -256,9 +264,9 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
                 break;
         }
 
-    }
+    }*/
 
-/*
+
     @Override
     public void onItemClick(View view, int position) {
         switch (position) {
@@ -284,7 +292,7 @@ public class DashBoardActivity extends DrawerBaseActivity implements HomeDashBoa
                 break;
         }
 
-    }*/
+    }
     @Override
     protected void onResume() {
         super.onResume();

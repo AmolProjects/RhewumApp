@@ -1,6 +1,7 @@
 package com.rhewumapp.Activity;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -11,6 +12,7 @@ public class WebsiteActivity extends DrawerBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
        setContentView(R.layout.activity_website);
         // Create an Intent to open the web browser

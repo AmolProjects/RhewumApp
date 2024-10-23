@@ -1,9 +1,12 @@
+
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- Header layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/activity_mesh_info_header_layout"
         android:layout_width="match_parent"
@@ -56,6 +59,7 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- Card layout with content -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="0dp"
@@ -72,123 +76,151 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_mesh_info_header_layout">
+            android:layout_height="wrap_content">
 
+            <!-- Norms information -->
             <TextView
                 android:id="@+id/activity_mesh_info_norm_tv"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="4dp"
                 android:layout_marginTop="8dp"
-                android:text="@string/info_about_norms"
+                android:layout_marginEnd="4dp"
                 android:fontFamily="@font/handle_go"
+                android:text="@string/info_about_norms"
                 android:textColor="@color/header_backgrounds"
                 android:textSize="15sp"
-                android:textStyle="bold"
+                app:layout_constraintDimensionRatio="w,1:0"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <!-- Calculations information -->
             <TextView
                 android:id="@+id/activity_mesh_info_calculations_tv"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/activity_mesh_info_norm_tv"
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
                 android:text="@string/cal_info"
                 android:textSize="15sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintDimensionRatio="w,1:0"
+                app:layout_constraintEnd_toEndOf="@+id/activity_mesh_info_norm_tv"
                 app:layout_constraintStart_toStartOf="@+id/activity_mesh_info_norm_tv"
                 app:layout_constraintTop_toBottomOf="@+id/activity_mesh_info_norm_tv" />
 
+            <!-- German standards -->
             <TextView
                 android:id="@+id/activity_mesh_info_deu"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_weight="0.5"
-                android:text="@string/deu"
                 android:fontFamily="@font/handle_go"
+                android:text="@string/deu"
                 android:textColor="@color/header_backgrounds"
                 android:textSize="15sp"
                 app:layout_constraintDimensionRatio="w,1:0"
+                app:layout_constraintEnd_toStartOf="@id/activity_mesh_info_deu_details"
                 app:layout_constraintStart_toStartOf="@+id/activity_mesh_info_calculations_tv"
-                app:layout_constraintTop_toBottomOf="@+id/activity_mesh_info_calculations_tv" />
+                app:layout_constraintTop_toBottomOf="@+id/activity_mesh_info_calculations_tv"
+                app:layout_constraintWidth_percent="0.3" />
 
             <TextView
                 android:id="@+id/activity_mesh_info_deu_details"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
+                android:layout_marginEnd="5dp"
                 android:text="@string/deu_details"
                 android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="@+id/activity_mesh_info_norm_tv"
                 app:layout_constraintBottom_toBottomOf="@+id/activity_mesh_info_deu"
                 app:layout_constraintDimensionRatio="w,1:0"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/activity_mesh_info_deu"
-                app:layout_constraintTop_toTopOf="@+id/activity_mesh_info_deu" />
+                app:layout_constraintTop_toTopOf="@+id/activity_mesh_info_deu"
+                app:layout_constraintWidth_percent="0.7" />
 
+            <!-- USA standards -->
             <TextView
                 android:id="@+id/activity_mesh_info_usa"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_weight="0.5"
-                android:text="@string/usa"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/handle_go"
+                android:text="@string/usa"
                 android:textColor="@color/header_backgrounds"
                 android:textSize="15sp"
-                app:layout_constraintStart_toStartOf="@+id/activity_mesh_info_deu"
-                app:layout_constraintTop_toBottomOf="@+id/activity_mesh_info_deu_details" />
+                app:layout_constraintDimensionRatio="w,1:0"
+                app:layout_constraintEnd_toStartOf="@id/activity_mesh_info_usa_details"
+                app:layout_constraintStart_toStartOf="@+id/activity_mesh_info_calculations_tv"
+                app:layout_constraintTop_toBottomOf="@+id/activity_mesh_info_deu_details"
+                app:layout_constraintWidth_percent="0.3" />
 
+            <!-- Tyler's standards -->
             <TextView
                 android:id="@+id/activity_mesh_info_usa_details"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
                 android:text="@string/usa_details"
                 android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="@+id/activity_mesh_info_norm_tv"
                 app:layout_constraintBottom_toBottomOf="@+id/activity_mesh_info_usa"
                 app:layout_constraintDimensionRatio="w,1:0"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/activity_mesh_info_deu_details"
-                app:layout_constraintTop_toTopOf="@+id/activity_mesh_info_usa" />
+                app:layout_constraintStart_toEndOf="@+id/activity_mesh_info_usa"
+                app:layout_constraintTop_toTopOf="@+id/activity_mesh_info_usa"
+                app:layout_constraintWidth_percent="0.7" />
 
             <TextView
                 android:id="@+id/activity_mesh_info_tyler"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_weight="0.5"
-                android:text="@string/tylers"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/handle_go"
+                android:text="@string/tylers"
                 android:textColor="@color/header_backgrounds"
                 android:textSize="15sp"
                 app:layout_constraintDimensionRatio="w,1:0"
+                app:layout_constraintEnd_toStartOf="@id/activity_mesh_info_tyler_details"
                 app:layout_constraintStart_toStartOf="@+id/activity_mesh_info_usa"
-                app:layout_constraintTop_toBottomOf="@+id/activity_mesh_info_usa_details" />
+                app:layout_constraintTop_toBottomOf="@+id/activity_mesh_info_usa_details"
+                app:layout_constraintWidth_percent="0.3" />
 
             <TextView
                 android:id="@+id/activity_mesh_info_tyler_details"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="@string/tyler_details"
                 android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="@+id/activity_mesh_info_norm_tv"
                 app:layout_constraintBottom_toBottomOf="@+id/activity_mesh_info_tyler"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/activity_mesh_info_usa_details"
-                app:layout_constraintTop_toTopOf="@+id/activity_mesh_info_tyler" />
+                app:layout_constraintDimensionRatio="w,1:0"
+                app:layout_constraintStart_toEndOf="@+id/activity_mesh_info_tyler"
+                app:layout_constraintTop_toTopOf="@+id/activity_mesh_info_tyler"
+                app:layout_constraintWidth_percent="0.7" />
+
+            <!-- Projected mesh principle -->
+            <TextView
+                android:id="@+id/activity_mesh_info_projected_mesh"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/handle_go"
+                android:text="@string/projected_mesh_principle"
+                android:textColor="@color/header_backgrounds"
+                android:textSize="15sp"
+                app:layout_constraintDimensionRatio="w,1:0"
+                app:layout_constraintStart_toStartOf="@+id/activity_mesh_info_tyler"
+                app:layout_constraintTop_toBottomOf="@+id/activity_mesh_info_tyler_details" />
+
+            <TextView
+                android:id="@+id/activity_mesh_info_projected_mesh_details"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@string/projected_mesh_details"
+                android:textSize="15sp"
+                app:layout_constraintDimensionRatio="w,1:0"
+                app:layout_constraintEnd_toEndOf="@+id/activity_mesh_info_norm_tv"
+                app:layout_constraintStart_toStartOf="@+id/activity_mesh_info_projected_mesh"
+                app:layout_constraintTop_toBottomOf="@+id/activity_mesh_info_projected_mesh" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
