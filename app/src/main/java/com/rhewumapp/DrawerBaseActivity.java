@@ -48,7 +48,9 @@ import com.rhewumapp.Activity.InfoActivity;
 import com.rhewumapp.Activity.MeshConverterActivity;
 import com.rhewumapp.Activity.NewsActivity;
 
+import com.rhewumapp.Activity.VibCheckerAccelerometer2Activity;
 import com.rhewumapp.Activity.VibFlashActivity;
+import com.rhewumapp.Activity.VibSonicActivity;
 import com.rhewumapp.Activity.WebsiteActivity;
 import com.rhewumapp.Activity.data.CustomTypefaceSpan;
 
@@ -288,13 +290,13 @@ public class DrawerBaseActivity extends AppCompatActivity implements NavigationV
             startActivity(new Intent(this, DashBoardActivity.class));
         } else if (id == R.id.nav_mesh_converter) {
             startActivity(new Intent(this, MeshConverterActivity.class));
-        } /*else if (id == R.id.nav_vibsonic) {
+        } else if (id == R.id.nav_vibsonic) {
             startActivity(new Intent(this, VibSonicActivity.class));
-        }*/ else if (id == R.id.nav_vib_flash) {
+        } else if (id == R.id.nav_vib_flash) {
             startActivity(new Intent(this, VibFlashActivity.class));
-        }/* else if (id == R.id.nav_vib_checker) {
+        }else if (id == R.id.nav_vib_checker) {
             startActivity(new Intent(this, VibCheckerAccelerometer2Activity.class));
-        }*/ else if (id == R.id.nav_capacity_checker) {
+        } else if (id == R.id.nav_capacity_checker) {
             startActivity(new Intent(this, CapacityCheckerActivity.class));
         } else if (id == R.id.nav_news) {
             startActivity(new Intent(this, NewsActivity.class));

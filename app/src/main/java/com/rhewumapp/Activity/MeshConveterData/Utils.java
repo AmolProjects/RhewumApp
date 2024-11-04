@@ -64,7 +64,7 @@ public class Utils {
     public static final String urlPattern = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
 
     public static void setFontFamily(String str) {
-        ViewPump.init(ViewPump.builder().addInterceptor(new CalligraphyInterceptor(new CalligraphyConfig.Builder().setDefaultFontPath(str).setFontAttrId(io.github.inflationx.calligraphy3.R.attr.fontPath).build())).build());
+       // ViewPump.init(ViewPump.builder().addInterceptor(new CalligraphyInterceptor(new CalligraphyConfig.Builder().setDefaultFontPath(str).setFontAttrId(io.github.inflationx.calligraphy3.R.attr.fontPath).build())).build());
     }
 
     public static boolean validateEmail(String str) {

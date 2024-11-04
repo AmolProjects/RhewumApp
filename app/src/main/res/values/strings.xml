@@ -270,4 +270,9 @@
     <string name="vibflash">VibFlash</string>
     <string name="time">time</string>
     <string name="hz">Hz</string>
+    <string name="how_to_use_vibsonic">How to use VibSonic</string>
+    <string name="vib_1">VibSonic makes it possible to measure the sound level of a screening machine using the sensor technology integrated in the smartphone.</string>
+    <string name="vib_2">There are a few points to consider for optimum reliability:</string>
+    <string name="emission_level_measurement">•     The emission level should be measured at a distance of 1 m from the machine and 1.60 m above the floor or access platform.</string>
+
 </resources>

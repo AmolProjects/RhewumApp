@@ -71,7 +71,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="8dp"
                 android:fontFamily="@font/handle_go"
-                android:text="@string/archive"
+                android:text="@string/info"
                 android:textColor="@color/header_backgrounds"
                 android:textSize="@dimen/text_size_15" />
         </RelativeLayout>
@@ -236,7 +236,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="300dp">
 
             <TextView
                 android:id="@+id/activity_vib_sonic_horizontalline_tv1"
@@ -316,6 +316,15 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/li_strat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/timerLayout1"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="@dimen/layout_margin_30"
+                android:orientation="vertical">
+
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/bt_vib_reset"
@@ -325,19 +334,33 @@
                 android:layout_marginEnd="16dp"
                 android:background="@color/header_backgrounds"
                 android:elevation="8dp"
-                android:layout_marginTop="@dimen/layout_margin_20"
                 android:gravity="center"
                 android:textAllCaps="false"
                 android:text="@string/start"
-                android:layout_alignParentBottom="true"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_size_15"
                 android:layout_marginBottom="@dimen/layout_margin_10"
                 app:layout_constraintHorizontal_bias="1.0"
-                android:layout_below="@+id/timerLayout1"
                 app:layout_constraintStart_toStartOf="parent" />
 
-
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/activity_vib_sonic_archive_tvs"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edittext_height_mesh"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/header_backgrounds"
+                android:elevation="8dp"
+                android:layout_marginTop="@dimen/layout_margin_10"
+                android:gravity="center"
+                android:textAllCaps="false"
+                android:text="@string/archive"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_15"
+                android:layout_marginBottom="@dimen/layout_margin_10"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent" />
+            </LinearLayout>
 
         </RelativeLayout>
     </ScrollView>
