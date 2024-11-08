@@ -87,7 +87,7 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
     }
     // getting the vibsonic data
 
-    public ArrayList<MeasurementDao> getMeasurementList() {
+    /*public ArrayList<MeasurementDao> getMeasurementList() {
         try {
             QueryBuilder<MeasurementDao, Integer> queryBuilder = getMeasurementDao().queryBuilder();
             Utils.showLog("Query Executed: " + queryBuilder.prepareStatementString());
@@ -101,7 +101,29 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
             e2.printStackTrace();
             return null;
         }
+    }*/
+
+    public ArrayList<MeasurementDao> getMeasurementList() {
+        try {
+            QueryBuilder<MeasurementDao, Integer> queryBuilder = getMeasurementDao().queryBuilder();
+
+            // Assuming there is a field "timestamp" or "id" to indicate order of insertion
+            queryBuilder.orderBy("id", false); // 'false' for descending order
+
+            Utils.showLog("Query Executed: " + queryBuilder.prepareStatementString());
+
+            try {
+                return (ArrayList<MeasurementDao>) getMeasurementDao().query(queryBuilder.prepare());
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return null;
+            }
+        } catch (SQLException e2) {
+            e2.printStackTrace();
+            return null;
+        }
     }
+
     // delete the vibsonic data according to vibsonic id
     public void deleteMeasurementListById(ArrayList<MeasurementDao> arrayList) {
         Iterator<MeasurementDao> it = arrayList.iterator();

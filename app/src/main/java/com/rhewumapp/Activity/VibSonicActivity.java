@@ -13,6 +13,7 @@ import com.rhewumapp.Activity.MeshConveterData.ResponsiveAndroidBars;
 import com.rhewumapp.Activity.MeshConveterData.Utils;
 import com.rhewumapp.Activity.data.BarEntryWithShelf;
 import com.rhewumapp.Activity.data.CustomBarChartRenderer;
+import com.rhewumapp.Activity.data.CustomBarChartRendererLiveData;
 import com.rhewumapp.Activity.database.RhewumDbHelper;
 import com.rhewumapp.Activity.dsp.AudioMeasurement;
 import com.rhewumapp.Activity.dsp.AudioProcessingListener;
@@ -24,6 +25,7 @@ import android.annotation.SuppressLint;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewManager;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.RelativeLayout;
@@ -61,6 +63,7 @@ import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -86,17 +89,17 @@ public class VibSonicActivity extends DrawerBaseActivity implements View.OnClick
     private BarChart mChart;
     private String[] mXaxisValues = {"32", "63", "125", "250", "500", "1K", "2K", "4K", "8K", "16K"};
     private HashMap<Integer, Double> mainHashMap = new HashMap<>();
-    private TextView meanLevelTotal;
+    private TextView meanLevelTotal,maxFrequencyVals,minFrequencyVals;
     Runnable r;
     private HashMap<Integer, Double> meanValueHashMap = new HashMap<>();
-    private Button play_stop;
+    private Button play_stop,bt_archive;
     private TextView timer;
     ActivityVibSonicBinding activityVibSonicBinding;
+    int color=Color.parseColor("#555555");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Utils.setFontFamily("fonts/heebo.ttf");
         activityVibSonicBinding = ActivityVibSonicBinding.inflate(getLayoutInflater());
         setContentView(activityVibSonicBinding.getRoot());
         ResponsiveAndroidBars.setNotificationBarColor(this, getResources().getColor(R.color.header_backgrounds), false);
@@ -107,17 +110,23 @@ public class VibSonicActivity extends DrawerBaseActivity implements View.OnClick
         this.backLayout.setOnClickListener(this);
         this.archiveLayout.setOnClickListener(this);
         this.play_stop.setOnClickListener(this);
+        this.bt_archive.setOnClickListener(this);
+
     }
     private void setUpViews() {
         this.timer = (TextView) findViewById(R.id.activity_vib_sonic_time_elapsed_tv);
         this.dbaValue = (TextView) findViewById(R.id.activity_vib_sonic_dbaValue);
         this.meanLevelTotal = (TextView) findViewById(R.id.activity_vib_sonic_mean_level_tv);
+        this.maxFrequencyVals=(TextView)findViewById(R.id.maxFrequncyVal);
+        this.minFrequencyVals=(TextView)findViewById(R.id.minFrequncyVal);
         this.play_stop = (Button) findViewById(R.id.bt_vib_reset);
         this.backLayout = (RelativeLayout) findViewById(R.id.activity_vib_sonic_back_layout);
         this.archiveLayout = (RelativeLayout) findViewById(R.id.activity_vib_sonic_archive_layout);
+        this.bt_archive=(Button)findViewById(R.id.activity_vib_sonic_archive_tvs);
         this.graphLayout = (RelativeLayout) findViewById(R.id.graphLayout);
         this.mChart = (BarChart) findViewById(R.id.activity_vib_sonic_soundGraph);
         this.chronometer = (Chronometer) findViewById(R.id.chronometer1);
+        this.bt_archive.setVisibility(View.INVISIBLE);
         this.mChart.setOnChartValueSelectedListener(this);
         this.mChart.setDrawBarShadow(false);
         this.mChart.setDrawValueAboveBar(true);
@@ -131,9 +140,9 @@ public class VibSonicActivity extends DrawerBaseActivity implements View.OnClick
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
         xAxis.setSpaceBetweenLabels(1);
+
         // xAxis.setSpaceMin(1);
         xAxis.setTextColor(getResources().getColor(R.color.black));
-
         YAxis axisLeft = this.mChart.getAxisLeft();
         // axisLeft.setLabelCount(12);
         axisLeft.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
@@ -167,9 +176,9 @@ public class VibSonicActivity extends DrawerBaseActivity implements View.OnClick
         this.mChart.getAxisRight().setEnabled(false);
         this.mChart.setTouchEnabled(false);
 
-        // Set the custom renderer
+        /*// Set the custom renderer
         CustomBarChartRenderer customRenderer = new CustomBarChartRenderer(mChart, mChart.getAnimator(), mChart.getViewPortHandler());
-        mChart.setRenderer(customRenderer);
+        mChart.setRenderer(customRenderer);*/
     }
 
     @SuppressLint("ResourceAsColor")
@@ -179,7 +188,6 @@ public class VibSonicActivity extends DrawerBaseActivity implements View.OnClick
             String charSequence = this.play_stop.getText().toString();
             if (charSequence.equals(getResources().getString(R.string.start))) {
                 this.play_stop.setText(getResources().getString(R.string.stop_save));
-
                 this.play_stop.setBackgroundColor(Color.RED);
                 this.isGraphStarted = true;
                 startGraph();
@@ -201,10 +209,10 @@ public class VibSonicActivity extends DrawerBaseActivity implements View.OnClick
                 String takeScreenShot = takeScreenShot();
                 String charSequence2 = this.chronometer.getText().toString();
                 String replace = this.meanLevelTotal.getText().toString().replace("Mean Level Total : ", "").replace("dB(A)", "");
-                Log.e("Replace",replace);
                 dbHelper.addNewRecord(VibSonicActivity.this,takeScreenShot,charSequence2,replace + "dB(A)",this.mainHashMap);
                 this.chronometer.stop();
                 this.play_stop.setText(getResources().getString(R.string.play));
+                this.bt_archive.setVisibility(View.VISIBLE);
                 play_stop.setBackgroundColor(ContextCompat.getColor(VibSonicActivity.this, R.color.header_backgrounds));
                 Intent intent = new Intent(this, VibSonicArchiveActivity.class);
                 intent.putExtra("JumpFrom", "MainPage");
@@ -218,6 +226,10 @@ public class VibSonicActivity extends DrawerBaseActivity implements View.OnClick
             finish();
             overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
         } else if (view.equals(this.archiveLayout)) {
+            startActivity(new Intent(this, VibSonicInfoActivity.class));
+            overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
+        }
+        else if(view.equals(this.bt_archive)){
             startActivity(new Intent(this, VibSonicArchiveListActivity.class));
             overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
         }
@@ -259,35 +271,66 @@ public class VibSonicActivity extends DrawerBaseActivity implements View.OnClick
     /* access modifiers changed from: private */
 
     /* access modifiers changed from: private */
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
     public void setData(int i2, float f, int i3) {
         HashMap<Integer, Double> hashMap = this.mainHashMap;
-        if (hashMap != null && hashMap.size() > 0) {
+        if (hashMap != null && !hashMap.isEmpty()) {
             boolean equals = this.play_stop.getText().toString().equals(getResources().getString(R.string.start));
             boolean equals2 = this.play_stop.getText().toString().equals(getResources().getString(R.string.stop_save));
             ArrayList<String> arrayList = new ArrayList<>();
             ArrayList arrayList2 = new ArrayList();
+            ArrayList<Integer> colors = new ArrayList<>(); // List to store colors for each entry
+            float meanValue = 0,mainValue = 0;
+            // Initialize variables to track min and max values
+            float minFrequency = Float.MAX_VALUE;
+            float maxFrequency = -Float.MAX_VALUE;
 
             for (int i4 = 0; i4 < i2; i4++) {
                 arrayList.add(this.mXaxisValues[i4 % 10]);
                 if (equals2) {
                     try {
-                        arrayList2.add(new BarEntryWithShelf(this.meanValueHashMap.get(Integer.valueOf(i4)).floatValue(), i4, this.mainHashMap.get(Integer.valueOf(i4)).floatValue(), ViewCompat.MEASURED_STATE_MASK));
+                         meanValue = Objects.requireNonNull(this.meanValueHashMap.get(i4)).floatValue();
+                          mainValue = Objects.requireNonNull(this.mainHashMap.get(i4)).floatValue();
+                        // Track min and max frequency values
+                        if (mainValue >= 0) {
+                            if (mainValue < minFrequency) minFrequency = mainValue;
+                            if (mainValue > maxFrequency) maxFrequency = mainValue;
+                        }
+                        if (meanValue >= 0 && mainValue >= 0) {
+                            arrayList2.add(new BarEntryWithShelf(meanValue, i4, mainValue, View.MEASURED_STATE_MASK));
+                            // Add color based on condition (meanValue vs mainValue)
+                            if (meanValue > mainValue) {
+                                colors.add(getResources().getColor(R.color.blue_bar));  // Color for meanValue > mainValue
+                            } else {
+                                colors.add(getResources().getColor(R.color.blue_bar));  // Color for mainValue >= meanValue
+                            }
+                        }
                     } catch (Exception unused) {
                         return;
                     }
                 } else {
-                    arrayList2.add(new BarEntryWithShelf(this.mainHashMap.get(Integer.valueOf(i4)).floatValue(), i4, this.mainHashMap.get(Integer.valueOf(i4)).floatValue(), ViewCompat.MEASURED_STATE_MASK));
+                   // Log.e("VibSouinc","equals Called");
+                        arrayList2.add(new BarEntryWithShelf(Float.parseFloat(String.valueOf(this.mainHashMap.get(i4))), i4, Float.parseFloat(String.valueOf(this.mainHashMap.get(i4))), View.MEASURED_STATE_MASK));
+
                 }
             }
-            for (int i5 = 0; i5 < i2; i5++) {
-            }
+
             // Log.e("VibSonicActivity","VibSonicActvity AA2:::::"+arrayList2);
             BarDataSet barDataSet = new BarDataSet(arrayList2, "DataSet");
             barDataSet.setBarSpacePercent(35.0f);
+            barDataSet.setColors(colors);  // Set the dynamic color list for the bars
             if (equals2) {
-                barDataSet.setColor(getResources().getColor(R.color.blue_bar));
+               // Log.e("VibSouinc","equals2  color Called");
+               // barDataSet.setColor(getResources().getColor(R.color.blue_bar));
+               // CustomBarChartRendererLiveData customBarChartRendererLiveData = new CustomBarChartRendererLiveData(mChart, mChart.getAnimator(), mChart.getViewPortHandler());
+               // mChart.setRenderer(customBarChartRendererLiveData);
+
             } else {
+                //Log.e("VibSouinc","equals  color Called");
                 barDataSet.setColor(0);
+                // Set the custom renderer
+               // CustomBarChartRenderer customRenderer = new CustomBarChartRenderer(mChart, mChart.getAnimator(), mChart.getViewPortHandler());
+              //  mChart.setRenderer(customRenderer);
             }
 
             ArrayList<IBarDataSet> arrayList3 = new ArrayList<>();
@@ -296,8 +339,14 @@ public class VibSonicActivity extends DrawerBaseActivity implements View.OnClick
 
             barData.setValueTextSize(10.0f);
             barData.setValueTextColor(getResources().getColor(R.color.blue_bar));
+
             this.mChart.setData(barData);
+            // Apply the custom renderer to draw the indicator line at mainValue
+            CustomBarChartRendererLiveData customRenderer = new CustomBarChartRendererLiveData(mChart, getResources().getColor(R.color.black));
+            mChart.setRenderer(customRenderer);
+
             this.mChart.invalidate();
+            this.mChart.notifyDataSetChanged();
             DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols(Locale.GERMAN);
             decimalFormatSymbols.setDecimalSeparator(ClassUtils.PACKAGE_SEPARATOR_CHAR);
             decimalFormatSymbols.setGroupingSeparator(',');
@@ -307,12 +356,12 @@ public class VibSonicActivity extends DrawerBaseActivity implements View.OnClick
             if (!equals) {
                 TextView textView2 = this.meanLevelTotal;
                 textView2.setText(" " + decimalFormat.format(this.dbaValueFinal) + " dB(A) ");
+                maxFrequencyVals.setText(" "+String.format("%.1f", maxFrequency)+ " dB(A)");
+                minFrequencyVals.setText(" "+String.format("%.1f", minFrequency)+ " dB(A)");
+
             }
         }
     }
-
-
-
 
 
     /* access modifiers changed from: protected */
@@ -334,7 +383,8 @@ public class VibSonicActivity extends DrawerBaseActivity implements View.OnClick
                 public void run() {
                     VibSonicActivity vibSonicActivity = VibSonicActivity.this;
                     vibSonicActivity.setData(10, 10.0f, vibSonicActivity.i);
-                    VibSonicActivity.this.handlerNew.postDelayed(this, 100);
+                    VibSonicActivity.this.handlerNew.postDelayed(this, 1000);
+                   // Log.e("VibSoinc","OnResume Called");
                 }
             };
         }

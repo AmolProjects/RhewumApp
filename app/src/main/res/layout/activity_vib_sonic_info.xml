@@ -109,10 +109,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:fontFamily="@font/handle_go"
                 android:text="@string/vib_2"
                 android:paddingStart="3dp"
-                android:textColor="@color/header_backgrounds"
+                android:textColor="@color/grey_line"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintDimensionRatio="w,1:0"
@@ -122,45 +121,124 @@
 
             <TextView
                 android:id="@+id/worksVibFalsh"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:lineSpacingMultiplier="1.2"
-                android:text="@string/emission_level_measurement"
-                android:textSize="15sp"
-                app:layout_constraintDimensionRatio="w,1:0"
-                app:layout_constraintEnd_toEndOf="@+id/activity_mesh_info_norm_tv"
-                app:layout_constraintStart_toStartOf="@id/activity_mesh_info_norm_tv"
-                app:layout_constraintTop_toBottomOf="@id/vibFalshWork" />
-
-            <TextView
-                android:id="@+id/notes"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/handle_go"
-                android:text="@string/note"
-                android:paddingStart="3dp"
-                android:textColor="@color/header_backgrounds"
-                android:textSize="15sp"
+                android:gravity="center_horizontal"
+                android:text="@string/dot"
+                android:textColor="@color/black"
+                android:textSize="30sp"
                 android:textStyle="bold"
-                app:layout_constraintDimensionRatio="w,1:0"
-                app:layout_constraintEnd_toEndOf="@+id/activity_mesh_info_norm_tv"
                 app:layout_constraintStart_toStartOf="@id/activity_mesh_info_norm_tv"
-                app:layout_constraintTop_toBottomOf="@id/worksVibFalsh" />
+                app:layout_constraintTop_toBottomOf="@+id/vibFalshWork" />
 
             <TextView
-                android:id="@+id/vibFlashNotes"
+                android:id="@+id/txt_dots"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:lineSpacingMultiplier="1.2"
-                android:text="@string/vib_flashNotes"
-                android:textSize="15sp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/emission_level_measurement"
                 app:layout_constraintDimensionRatio="w,1:0"
-                app:layout_constraintEnd_toEndOf="@+id/activity_mesh_info_norm_tv"
+                app:layout_constraintEnd_toEndOf="@+id/vibFalshWork"
+                app:layout_constraintStart_toEndOf="@+id/worksVibFalsh"
+                app:layout_constraintTop_toTopOf="@+id/worksVibFalsh" />
+
+            <TextView
+                android:id="@+id/dots2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/dot"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/activity_mesh_info_norm_tv"
-                app:layout_constraintTop_toBottomOf="@id/notes" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_dots" />
+
+            <TextView
+                android:id="@+id/txt_dot"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/dos"
+                app:layout_constraintDimensionRatio="w,1:0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/dots2"
+                app:layout_constraintTop_toTopOf="@+id/dots2" />
+
+            <TextView
+                android:id="@+id/dots3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/dot"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/activity_mesh_info_norm_tv"
+                app:layout_constraintTop_toBottomOf="@+id/txt_dot" />
+
+            <TextView
+                android:id="@+id/txt_dot2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/dos1"
+                app:layout_constraintDimensionRatio="w,1:0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/dots3"
+                app:layout_constraintTop_toTopOf="@+id/dots3" />
+
+            <TextView
+                android:id="@+id/dots4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/dot"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/activity_mesh_info_norm_tv"
+                app:layout_constraintTop_toBottomOf="@+id/txt_dot2" />
+
+
+            <TextView
+                android:id="@+id/txt_dot3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/dos2"
+                app:layout_constraintDimensionRatio="w,1:0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/dots4"
+                app:layout_constraintTop_toTopOf="@+id/dots4" />
+            <TextView
+                android:id="@+id/dots5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/dot"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/activity_mesh_info_norm_tv"
+                app:layout_constraintTop_toBottomOf="@+id/txt_dot3" />
+            <TextView
+                android:id="@+id/txt_dot6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/dos3"
+                app:layout_constraintDimensionRatio="w,1:0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/dots5"
+                app:layout_constraintTop_toTopOf="@+id/dots5" />
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

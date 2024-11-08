@@ -106,7 +106,7 @@ public class VibSonicArchiveListActivity extends DrawerBaseActivity implements V
                 }
             } else {
                 Utils.showLog("Select All False");
-                if (this.measureListNew.size() < 1) {
+                if (this.measureListNew.isEmpty()) {
                     Utils.showAlert(this, getResources().getString(R.string.select_measurement));
                 } else {
                     deleteList(this.measureListNew);

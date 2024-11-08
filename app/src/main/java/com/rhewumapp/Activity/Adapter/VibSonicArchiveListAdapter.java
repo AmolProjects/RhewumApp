@@ -97,7 +97,7 @@ public class VibSonicArchiveListAdapter extends BaseAdapter {
             this.measureListNew.add(this.measurementList.get(i));
             this.mListner.onDelete(this.measureListNew, true, this.isSelectAll);
         }
-        String replace = new SimpleDateFormat("MMM dd yyyy,hh:mm:ss aa").format(this.measurementList.get(i).measurementDate).replace("AM", "am").replace("PM", "pm");
+        String replace = new SimpleDateFormat("MMM dd yyyy, hh:mm:ss aa").format(this.measurementList.get(i).measurementDate).replace("AM", "am").replace("PM", "pm");
         String replace2 = this.measurementList.get(i).meanLevelTotal.replace("dB(A)", "");
         viewholder.date_tv.setText(replace);
         TextView textView = viewholder.measurement_tv;

@@ -1,9 +1,7 @@
 package com.rhewumapp.Activity.dsp;
-
 import com.rhewumapp.Activity.MeshConveterData.Constants;
 
 import java.util.Date;
-
 public class AudioMeasurement {
     public static final double[] frequencyAttenuations = {-11.8d, -4.199999999999999d, 5.199999999999999d, 10.9d, 15.9d, 16.9d, 18.4d, 20.8d, 21.8d, 22.8d};
     public static final double[] frequencyValues = {31.0d, 63.0d, 125.0d, 250.0d, 500.0d, 1000.0d, 2000.0d, 4000.0d, 8000.0d, 16000.0d};

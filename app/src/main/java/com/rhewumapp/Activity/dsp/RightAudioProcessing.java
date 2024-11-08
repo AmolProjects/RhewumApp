@@ -50,14 +50,14 @@ public class RightAudioProcessing extends Thread {
             int read = this.mRecorder.read(sArr, 0, 16384);
             if (read > 0) {
                 for (int i = 0; i < read; i++) {
-                    arrayList.add(Integer.valueOf(sArr[i]));
+                    arrayList.add((int) sArr[i]);
                 }
                 if (arrayList.size() >= 16384) {
                     int i2 = -1;
                     arrayList = HammingWindow(arrayList);
                     Iterator<Integer> it = arrayList.iterator();
                     while (it.hasNext()) {
-                        int intValue = it.next().intValue();
+                        int intValue = it.next();
                         i2++;
                         if (i2 >= 16384) {
                             break;
@@ -87,12 +87,12 @@ public class RightAudioProcessing extends Thread {
         Iterator<Integer> it = arrayList.iterator();
         int i = 0;
         while (it.hasNext()) {
-            int intValue = it.next().intValue();
+            int intValue = it.next();
             double d = (double) i;
             Double.isNaN(d);
             double d2 = (double) (intValue * 1000);
             Double.isNaN(d2);
-            arrayList2.add(Integer.valueOf((int) Math.round((d2 * (0.54d - (Math.cos(1.4247908812398436E-4d * d) * 0.46d))) / 1000.0d)));
+            arrayList2.add((int) Math.round((d2 * (0.54d - (Math.cos(1.4247908812398436E-4d * d) * 0.46d))) / 1000.0d));
             i++;
             if (i >= 44100) {
                 break;

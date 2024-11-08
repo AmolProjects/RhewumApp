@@ -97,110 +97,6 @@
                 android:textColor="@color/header_backgrounds"
                 android:textSize="@dimen/text_size_12"
                 android:textStyle="bold" />
-            <TextView
-                android:id="@+id/activity_vib_sonic_dba_tv1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="@dimen/layout_margin_5"
-                android:text="10"
-                android:layout_toEndOf="@id/activity_vib_sonic_dba_tv"
-                android:textColor="@color/black0"
-                android:textSize="@dimen/text_size_12" />
-
-            <TextView
-                android:id="@+id/activity_vib_sonic_dba_tv2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="@dimen/layout_margin_5"
-                android:text="27"
-                android:layout_toEndOf="@id/activity_vib_sonic_dba_tv1"
-                android:textColor="@color/black0"
-                android:textSize="@dimen/text_size_12" />
-            <TextView
-                android:id="@+id/activity_vib_sonic_dba_tv3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="@dimen/layout_margin_5"
-                android:text="35"
-                android:layout_toEndOf="@id/activity_vib_sonic_dba_tv2"
-                android:textColor="@color/black0"
-                android:textSize="@dimen/text_size_12" />
-
-            <TextView
-                android:id="@+id/activity_vib_sonic_dba_tv4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="@dimen/layout_margin_5"
-                android:text="37"
-                android:layout_toEndOf="@id/activity_vib_sonic_dba_tv3"
-                android:textColor="@color/black0"
-                android:textSize="@dimen/text_size_12" />
-            <TextView
-                android:id="@+id/activity_vib_sonic_dba_tv5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="@dimen/layout_margin_5"
-                android:text="34"
-                android:layout_toEndOf="@id/activity_vib_sonic_dba_tv4"
-                android:textColor="@color/black0"
-                android:textSize="@dimen/text_size_12" />
-            <TextView
-                android:id="@+id/activity_vib_sonic_dba_tv6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="@dimen/layout_margin_5"
-                android:text="40"
-                android:layout_toEndOf="@id/activity_vib_sonic_dba_tv5"
-                android:textColor="@color/black0"
-                android:textSize="@dimen/text_size_12" />
-            <TextView
-                android:id="@+id/activity_vib_sonic_dba_tv7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="@dimen/layout_margin_5"
-                android:text="25"
-                android:layout_toEndOf="@id/activity_vib_sonic_dba_tv6"
-                android:textColor="@color/black0"
-                android:textSize="@dimen/text_size_12" />
-            <TextView
-                android:id="@+id/activity_vib_sonic_dba_tv8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="@dimen/layout_margin_5"
-                android:text="15"
-                android:layout_toEndOf="@id/activity_vib_sonic_dba_tv7"
-                android:textColor="@color/black0"
-                android:textSize="@dimen/text_size_12" />
-            <TextView
-                android:id="@+id/activity_vib_sonic_dba_tv9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="@dimen/layout_margin_5"
-                android:text="9"
-                android:layout_toEndOf="@id/activity_vib_sonic_dba_tv8"
-                android:textColor="@color/black0"
-                android:textSize="@dimen/text_size_12" />
-
-            <TextView
-                android:id="@+id/activity_vib_sonic_dba_tv10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="@dimen/layout_margin_5"
-                android:text="0"
-                android:layout_toEndOf="@id/activity_vib_sonic_dba_tv9"
-                android:textColor="@color/black0"
-                android:textSize="@dimen/text_size_12" />
-
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/activity_vib_sonic_archieve_soundGraph"
                 android:layout_width="match_parent"
@@ -232,7 +128,7 @@
           android:elevation="8dp"
           android:gravity="center_horizontal|center_vertical"
           android:background="@color/header_backgrounds"
-          android:text="@string/save"
+          android:text="@string/archive"
           android:layout_marginStart="@dimen/layout_margin_5"
           android:textSize="@dimen/text_size_15"
           android:textColor="@color/white" />

@@ -4,7 +4,7 @@
     <string name="back">Back</string>
     <string name="vib_sonic">VibSonic</string>
     <string name="archive">Archive</string>
-    <string name="play">Play</string>
+    <string name="play">Start Management</string>
     <string name="delete_measurement">Delete Measurement</string>
     <string name="todo">TODO</string>
     <string name="selectSize">Select size…</string>
@@ -90,7 +90,7 @@
     <string name="_00_00_00">00:00:00</string>
     <string name="mean_level_total">Mean Level Total:</string>
     <string name="_0_0_db_a">0.0 dB(A)</string>
-    <string name="start">Start</string>
+    <string name="start">Start Measurement</string>
     <string name="StartAndSave">Stop And Save</string>
     <string name="startStop">Start And Stop</string>
 
@@ -273,6 +273,13 @@
     <string name="how_to_use_vibsonic">How to use VibSonic</string>
     <string name="vib_1">VibSonic makes it possible to measure the sound level of a screening machine using the sensor technology integrated in the smartphone.</string>
     <string name="vib_2">There are a few points to consider for optimum reliability:</string>
-    <string name="emission_level_measurement">•     The emission level should be measured at a distance of 1 m from the machine and 1.60 m above the floor or access platform.</string>
+    <string name="emission_level_measurement">The emission level should be measured at a <font color="#008ac8"><b>distance of 1 m</b></font> from the machine and <font color="#008ac8"><b>1.60 m above the floor</b></font> or access platform.</string>
+    <string name="dos">In a room where several machines are in operation, the louder they are, the higher the sum of all sound power levels will be.</string>
+    <string name="dos1">The microphones of the smartphones must not be covered (e.g. by fingers or protective covers) and must point in the direction of the sound source.</string>
+    <string name="dos2">The value measured here is only a guide value for orientation. Due to the different sensor technology and the many external influences, themeasurement results can vary greatly. Smartphone microphones are optimized for the human voice and therefore cannot optimally capture certain frequencies and very loud noises.</string>
+    <string name="dos3">Prolonged exposure to high noise levels can cause lasting damage to hearing. You should therefore wear suitable protective equipment.</string>
+    <string name="dot">.</string>
+    <string name="maxfrequency">Max Frequency:</string>
+    <string name="minfrequency">Min Frequency:</string>
 
 </resources>
