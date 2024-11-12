@@ -4,10 +4,13 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
@@ -37,6 +40,9 @@ public class VibCheckerMainActivity extends DrawerBaseActivity {
 //        setContentView(R.layout.activity_vib_checker_main);
         activityVibCheckerMainBinding = ActivityVibCheckerMainBinding.inflate(getLayoutInflater());
         setContentView(activityVibCheckerMainBinding.getRoot());
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.header_backgrounds));
         initObjects();
 
         txtBack.setOnClickListener(new View.OnClickListener() {

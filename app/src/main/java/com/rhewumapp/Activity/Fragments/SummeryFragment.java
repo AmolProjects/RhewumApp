@@ -12,6 +12,10 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
 import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.SuperscriptSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +43,7 @@ import com.rhewumapp.Activity.database.RhewumDbHelper;
 import com.rhewumapp.Activity.database.VibCheckerSummaryDao;
 import com.rhewumapp.R;
 
+import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -83,6 +88,8 @@ public class SummeryFragment extends Fragment {
     private Runnable runnable;
     public String mailBody = "<html xmlns=\\\"http://www.w3.org/1999/xhtml\\\"><head><meta http-equiv=\\\"Content-Type\\\" content=\\\"text/html; charset=utf-8\\\" /></head><body><table width=\\\"100%%\\\" border=\\\"0\\\" cellspacing=\\\"15\\\" cellpadding=\\\"0\\\"><tr><td>Dear user,<br />Please find attached the results of your measurements with the RHEWUM VibSonic App as of [HTML_DATE_STRING]</td></tr><br><br><tr><td>We hope that our service was of use to you. Please do not hesitate to contact us if you need any more information, more precise measurements or a personal consultation.</td></tr><br><br><tr><td>We are looking forward to support you and your project ideas.</td></tr><br><br><tr><td>RHEWUM GmbH<br />Rosentalstr. 24<br />42899 Remscheid<br />Germany</td></tr><br><br><tr><td>Mail : <a href=\"mailto:info@rhewum.com\">info@rhewum.com</a><br /> Web: <a href=\"http://www.rhewum.com\">http://www.rhewum.com</a></td></tr><tr><td>&nbsp;</td></tr></table></body></html>";
     private String mailSubject = "Result of RHEWUM Summary App";
+    String formattedValueX = "m/s2"; // Replace with your actual value
+
 
 
     public SummeryFragment() {
@@ -229,9 +236,13 @@ public class SummeryFragment extends Fragment {
             String formattedValueX = String.format(Locale.US, "%.1f", accelerationX);
             String formattedValueY = String.format(Locale.US, "%.1f", accelerationY);
             String formattedValueZ = String.format(Locale.US, "%.1f", accelerationZ);
-            txtX.setText(formattedValueX+"m/s2"+"\n"+"x");
-            txty.setText(formattedValueY+"m/s2"+"\n"+"y");
-            txtZZ.setText(formattedValueZ+"m/s2"+"\n"+"z");
+
+            txtX.setText(Html.fromHtml(formattedValueX + "m/s<sup>2</sup><br>x"));
+            txty.setText(Html.fromHtml(formattedValueY + "m/s<sup>2</sup><br>y"));
+            txtZZ.setText(Html.fromHtml(formattedValueZ + "m/s<sup>2</sup><br>z"));
+
+
+
         }
     }
     private void initGUI() {
@@ -372,6 +383,91 @@ public class SummeryFragment extends Fragment {
     }
 
     private void createTable(Paragraph paragraph, Font font) throws BadElementException {
+        PdfPTable pdfPTable = new PdfPTable(2);
+        pdfPTable.setWidthPercentage(100.0f);
+        DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols(Locale.GERMAN);
+        decimalFormatSymbols.setDecimalSeparator(ClassUtils.PACKAGE_SEPARATOR_CHAR);
+        decimalFormatSymbols.setGroupingSeparator(',');
+        DecimalFormat decimalFormat = new DecimalFormat("##.##", decimalFormatSymbols);
+
+
+        PdfPCell pdfPCell = new PdfPCell(new Phrase("Acceleration and Frequency", font));
+        pdfPCell.setHorizontalAlignment(1);
+        pdfPCell.setPadding(4.0f);
+        pdfPTable.addCell(pdfPCell);
+
+        PdfPCell pdfPCell2 = new PdfPCell(new Phrase("Value", font));
+        pdfPCell2.setHorizontalAlignment(1);
+        pdfPCell2.setPadding(4.0f);
+        pdfPTable.addCell(pdfPCell2);
+
+        pdfPTable.setHeaderRows(1);
+        PdfPCell pdfPCell3 = new PdfPCell(new Phrase("Peak Acceleration X"));
+        pdfPCell3.setHorizontalAlignment(1);
+        pdfPCell3.setPadding(4.0f);
+        pdfPTable.addCell(pdfPCell3);
+
+        PdfPCell pdfPCell4 = new PdfPCell(new Phrase(decimalFormat.format(accelerationX)));
+        pdfPCell4.setHorizontalAlignment(1);
+        pdfPCell4.setPadding(4.0f);
+        pdfPTable.addCell(pdfPCell4);
+
+        PdfPCell pdfPCell5 = new PdfPCell(new Phrase("Peak Acceleration Y"));
+        pdfPCell5.setHorizontalAlignment(1);
+        pdfPCell5.setPadding(4.0f);
+        pdfPTable.addCell(pdfPCell5);
+
+        PdfPCell pdfPCell6 = new PdfPCell(new Phrase(decimalFormat.format(accelerationY)));
+        pdfPCell6.setHorizontalAlignment(1);
+        pdfPCell6.setPadding(4.0f);
+        pdfPTable.addCell(pdfPCell6);
+
+
+
+        PdfPCell pdfPCell8 = new PdfPCell(new Phrase("Peak Acceleration Z"));
+        pdfPCell8.setHorizontalAlignment(1);
+        pdfPCell8.setPadding(4.0f);
+        pdfPTable.addCell(pdfPCell8);
+
+        PdfPCell pdfPCell9 = new PdfPCell(new Phrase(decimalFormat.format(accelerationZ)));
+        pdfPCell9.setHorizontalAlignment(1);
+        pdfPCell9.setPadding(4.0f);
+        pdfPTable.addCell(pdfPCell9);
+
+        PdfPCell pdfPCell7 = new PdfPCell(new Phrase("Peak Frequency X"));
+        pdfPCell7.setHorizontalAlignment(1);
+        pdfPCell7.setPadding(4.0f);
+        pdfPTable.addCell(pdfPCell7);
+
+        PdfPCell pdfPCell12 = new PdfPCell(new Phrase(decimalFormat.format(xDominantFrequency)));
+        pdfPCell12.setHorizontalAlignment(1);
+        pdfPCell12.setPadding(4.0f);
+        pdfPTable.addCell(pdfPCell12);
+
+        PdfPCell pdfPCell13 = new PdfPCell(new Phrase("Peak Frequency Y"));
+        pdfPCell13.setHorizontalAlignment(1);
+        pdfPCell13.setPadding(4.0f);
+        pdfPTable.addCell(pdfPCell13);
+
+        PdfPCell pdfPCell10 = new PdfPCell(new Phrase(decimalFormat.format(yDominantFrequency)));
+        pdfPCell10.setHorizontalAlignment(1);
+        pdfPCell10.setPadding(4.0f);
+        pdfPTable.addCell(pdfPCell10);
+
+        PdfPCell pdfPCell11 = new PdfPCell(new Phrase("Peak Frequency Z"));
+        pdfPCell11.setHorizontalAlignment(1);
+        pdfPCell11.setPadding(4.0f);
+        pdfPTable.addCell(pdfPCell11);
+
+        PdfPCell pdfPCell15 = new PdfPCell(new Phrase(decimalFormat.format(zDominantFrequency)));
+        pdfPCell15.setHorizontalAlignment(1);
+        pdfPCell15.setPadding(4.0f);
+        pdfPTable.addCell(pdfPCell15);
+
+        paragraph.add((Element) pdfPTable);
+    }
+
+    /*private void createTable(Paragraph paragraph, Font font) throws BadElementException {
         // Set up a table with 7 columns for Peak Acceleration and Peak Frequency for X, Y, Z
         PdfPTable pdfPTable = new PdfPTable(6);
         pdfPTable.setWidthPercentage(100.0f);
@@ -451,7 +547,7 @@ public class SummeryFragment extends Fragment {
 
         paragraph.add(pdfPTable);
         Toast.makeText(getActivity(), "Generate Pdf Successfully", Toast.LENGTH_LONG).show();
-    }
+    }*/
 
     private void addEmptyLine(Paragraph paragraph, int i) {
         for (int i2 = 0; i2 < i; i2++) {

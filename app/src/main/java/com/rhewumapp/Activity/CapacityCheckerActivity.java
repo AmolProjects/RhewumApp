@@ -1,5 +1,6 @@
 package com.rhewumapp.Activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -61,6 +62,7 @@ public class CapacityCheckerActivity extends DrawerBaseActivity {
     // Declare the executor service at the class level
     private ExecutorService executorService = Executors.newSingleThreadExecutor();
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -129,8 +131,6 @@ public class CapacityCheckerActivity extends DrawerBaseActivity {
             startActivity(new Intent(this, CapacityCheckerInfoActivity.class));
             overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
         });
-
-
 
         textMachineTypeInfo.setOnClickListener(view -> showAlert("Read the machine's type off your machines type plate"));
         textScreenWidthInfo.setOnClickListener(view -> showAlert("Measure the inside width or read the required parameters off your machine's type plate"));
@@ -204,71 +204,6 @@ public class CapacityCheckerActivity extends DrawerBaseActivity {
             calculateAndUpdateResult();
         }
     }
-
-
-    /*private void calculateAndUpdateResult() {
-        // Replace commas with dots in EditText values to handle German decimal input
-        String screenWidthText = edt_ScreenWidth.getText().toString().replace(",", ".");
-        String materialDensityText = editTextMaterialDensity.getText().toString().replace(",", ".");
-        String layerHeightText = editTextLayerHeight.getText().toString().replace(",", ".");
-
-        // Ensure all inputs are valid
-        if (validateInputs(screenWidthText, materialDensityText, layerHeightText)) {
-            double widthScreenValueM, layerHeightValueMM, MaterialDensityFt;
-            try {
-                String selectedItem = spinner.getSelectedItem().toString();
-                int selectedWidth = radioGroup_screenWidth.getCheckedRadioButtonId();
-                int selectedKgM = radioGroup_MaterialDensity.getCheckedRadioButtonId();
-                int selectedHeight = radioGroup_Height.getCheckedRadioButtonId();
-
-                RadioButton selectedRadioButton = findViewById(selectedWidth);
-                String selectedOptionWidth = selectedRadioButton.getText().toString();
-
-                RadioButton selectedKgm = findViewById(selectedKgM);
-                String selectedOptionKg = selectedKgm.getText().toString();
-
-                RadioButton selectedLayerHeight = findViewById(selectedHeight);
-                String selectedOptionHeight = selectedLayerHeight.getText().toString();
-
-                // Convert width
-                if (selectedOptionWidth.equals("m")) {
-                    widthScreenValueM = Double.parseDouble(screenWidthText);
-                } else {
-                    widthScreenValueM = Double.parseDouble(screenWidthText) * 0.304;
-                }
-
-                // Convert density
-                if (selectedOptionKg.equals("kg/m3")) {
-                    MaterialDensityFt = Double.parseDouble(materialDensityText);
-                } else {
-                    MaterialDensityFt = Double.parseDouble(materialDensityText) * 16.018;
-                }
-
-                // Convert height
-                if (selectedOptionHeight.equals("cm")) {
-                    layerHeightValueMM = Double.parseDouble(layerHeightText) * 10;
-                } else {
-                    layerHeightValueMM = Double.parseDouble(layerHeightText) * 25.4;
-                }
-
-                double rheTypeValue = Double.parseDouble(globalFlowVelocity);
-
-                Future<Double> future = executorService.submit(() -> {
-                    return (rheTypeValue) * (layerHeightValueMM) * (MaterialDensityFt) * (widthScreenValueM) * (0.0036);
-                });
-
-                try {
-                    double layerHeight = future.get();
-                    runOnUiThread(() -> activity_mesh_trennschnitt_result.setText(String.format("%.2f", layerHeight) + " t/h"));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(CapacityCheckerActivity.this, "Error in calculation", Toast.LENGTH_SHORT).show();
-                }
-            } catch (Exception e) {
-                Toast.makeText(CapacityCheckerActivity.this, "Enter valid input", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }*/
 
     private void calculateAndUpdateResult() {
         // Replace commas with dots in EditText values to handle German decimal input

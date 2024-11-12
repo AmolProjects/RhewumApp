@@ -3,6 +3,7 @@ package com.rhewumapp.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.formatter.XAxisValueFormatter;
 import com.github.mikephil.charting.formatter.YAxisValueFormatter;
 import com.github.mikephil.charting.utils.ViewPortHandler;
@@ -29,6 +30,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import androidx.core.content.FileProvider;
@@ -90,6 +92,7 @@ public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.
     /* access modifiers changed from: private */
     public String jumpFrom;
     private BarChart mChart;
+    LinearLayout info;
     private final String[] mXaxisValues = {"32", "63", "125", "250", "500", "1K", "2K", "4K", "8K", "16K"};
     /* access modifiers changed from: private */
     public String mailBody = "<html xmlns=\\\"http://www.w3.org/1999/xhtml\\\"><head><meta http-equiv=\\\"Content-Type\\\" content=\\\"text/html; charset=utf-8\\\" /></head><body><table width=\\\"100%%\\\" border=\\\"0\\\" cellspacing=\\\"15\\\" cellpadding=\\\"0\\\"><tr><td>Dear user,<br />Please find attached the results of your measurements with the RHEWUM VibSonic App as of [HTML_DATE_STRING]</td></tr><br><br><tr><td>We hope that our service was of use to you. Please do not hesitate to contact us if you need any more information, more precise measurements or a personal consultation.</td></tr><br><br><tr><td>We are looking forward to support you and your project ideas.</td></tr><br><br><tr><td>RHEWUM GmbH<br />Rosentalstr. 24<br />42899 Remscheid<br />Germany</td></tr><br><br><tr><td>Mail : <a href=\"mailto:info@rhewum.com\">info@rhewum.com</a><br /> Web: <a href=\"http://www.rhewum.com\">http://www.rhewum.com</a></td></tr><tr><td>&nbsp;</td></tr></table></body></html>";
@@ -111,9 +114,13 @@ public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.
         setUpViews();
         getHelper();
         this.backLayout.setOnClickListener(this);
-        this.moreLayout.setOnClickListener(this);
+       // this.moreLayout.setOnClickListener(this);
         this.bt_share.setOnClickListener(this);
         this.bt_save.setOnClickListener(this);
+        this.info.setOnClickListener(this);
+
+
+
     }
     /* access modifiers changed from: protected */
     public void onResume() {
@@ -129,6 +136,7 @@ public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.
             ArrayList<MeasurementDao> listById = this.dbHelper.getListById(i);
             this.measurementList = listById;
             addValuesToIntegerArrayList(listById);
+
         } else {
             htmlPdf = Utils.readHtmlVibSonic(this, 0, this.jumpFrom);
             ArrayList<MeasurementDao> listById2 = this.dbHelper.getListById(this.dbHelper.getLastId());
@@ -165,6 +173,7 @@ public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.
         this.backLayout = (RelativeLayout) findViewById(R.id.activity_vib_sonic_archive_back_layout);
         this.moreLayout = (RelativeLayout) findViewById(R.id.activity_vib_sonic_archive_more_layout);
         this.wv = (WebView) findViewById(R.id.activity_vib_sonic_archive_wv);
+        this.info=(LinearLayout)findViewById(R.id.info_layouts);
         this.mChart = (BarChart) findViewById(R.id.activity_vib_sonic_archieve_soundGraph);
         bt_save=(Button) findViewById(R.id.bt_save);
         bt_share=(Button) findViewById(R.id.bt_share);
@@ -282,7 +291,9 @@ public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.
             ArrayList arrayList3 = new ArrayList();
             while (i2 < i) {
                 try {
-                    arrayList3.add(new BarEntry(this.measurementListDouble.get(i2).floatValue(), i2));
+                    // Round down the value to the nearest whole number (int)
+                    int wholeNumberValue = (int) Math.floor(this.measurementListDouble.get(i2));
+                    arrayList3.add(new BarEntry(wholeNumberValue, i2));
                     i2++;
                 } catch (Exception unused) {
                     return;
@@ -294,11 +305,73 @@ public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.
             ArrayList<IBarDataSet> arrayList4 = new ArrayList<>();
             arrayList4.add(barDataSet);
             BarData barData = new BarData((List<String>) arrayList2,arrayList4);
+            // Set a ValueFormatter to display only whole numbers without decimal points
+            barData.setValueFormatter(new ValueFormatter() {
+                @Override
+                public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+                    return String.valueOf((int) value); // Convert float to int to remove decimal
+                }
+            });
+
             barData.setValueTextSize(10.0f);
             this.mChart.setData(barData);
             this.mChart.invalidate();
         }
     }
+
+//    private void setData(int i, float f) {
+//        // Receive the passed measurementListDouble data
+//        ArrayList<Double> arrayList = this.measurementListDouble;  // This should already be passed from VibSonicActivity
+//
+//        if (arrayList != null && !arrayList.isEmpty()) {
+//            ArrayList<String> xAxisValues = new ArrayList<>();
+//            int xAxisIndex = 0;
+//
+//            // Set up the X-axis labels (assuming mXaxisValues is defined elsewhere in your code)
+//            for (int i3 = 0; i3 < i; i3++) {
+//                xAxisValues.add(this.mXaxisValues[i3 % 10]);
+//            }
+//
+//            ArrayList<BarEntry> barEntries = new ArrayList<>();
+//
+//            // Loop through the measurement data and create BarEntries with whole number values
+//            for (int i2 = 0; i2 < i; i2++) {
+//                try {
+//                    // Round down the value to the nearest whole number (int)
+//                    int wholeNumberValue = (int) Math.floor(arrayList.get(i2));
+//                    barEntries.add(new BarEntry(i2, wholeNumberValue)); // Set index as 'i2' and value as wholeNumberValue
+//                } catch (Exception unused) {
+//                    return;
+//                }
+//            }
+//
+//            // Set up the BarDataSet
+//            BarDataSet barDataSet = new BarDataSet(barEntries, "DataSet");
+//            barDataSet.setBarSpacePercent(35.0f); // Bar spacing percentage
+//            barDataSet.setColor(getResources().getColor(R.color.header_backgrounds)); // Bar color
+//
+//            ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+//            dataSets.add(barDataSet);
+//
+//            // Create BarData with X-axis values and dataset
+//            BarData barData = new BarData((List<String>) xAxisValues, dataSets);
+//
+//            // Set a ValueFormatter to display only whole numbers without decimal points
+//            barData.setValueFormatter(new ValueFormatter() {
+//                @Override
+//                public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+//                    return String.valueOf((int) value); // Convert float to int to remove decimal
+//                }
+//            });
+//
+//            barData.setValueTextSize(10.0f);  // Set text size for value labels
+//
+//            // Set the data on the chart and refresh it
+//            this.mChart.setData(barData);
+//            this.mChart.invalidate(); // Refresh the chart to reflect the changes
+//        }
+//    }
+
 
     public void onClick(View view) {
         if (view.equals(this.backLayout)) {
@@ -315,8 +388,14 @@ public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.
                     VibSonicArchiveActivity.this.callMoreMenus();
                 }
             }, 1000);
-        } else if (view.equals(this.bt_save)) {
-            Toast.makeText(this,"Save data successfully !!",Toast.LENGTH_SHORT).show();
+        }
+        else if(view.equals(this.info)){
+            startActivity(new Intent(this, VibSonicInfoActivity.class));
+            overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
+        }
+        else if (view.equals(this.bt_save)) {
+            startActivity(new Intent(this, VibSonicArchiveListActivity.class));
+            overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
         } else if (view.equals(this.bt_share)) {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setMessage(getResources().getString(R.string.loading));

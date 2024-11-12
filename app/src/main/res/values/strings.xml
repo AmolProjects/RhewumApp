@@ -4,7 +4,7 @@
     <string name="back">Back</string>
     <string name="vib_sonic">VibSonic</string>
     <string name="archive">Archive</string>
-    <string name="play">Start Management</string>
+    <string name="play">Start Measurement</string>
     <string name="delete_measurement">Delete Measurement</string>
     <string name="todo">TODO</string>
     <string name="selectSize">Select size…</string>
@@ -204,9 +204,9 @@
     <string name="results">Results</string>
     <string name="accelerometer">Accelerometer</string>
     <string name="reset">Reset</string>
-    <string name="_5s_time">5s\ntime</string>
-    <string name="zeroDelays">0s\ndelay</string>
-    <string name="on_lp_filter">ON\nLP filter</string>
+    <string name="_5s_time"><b>5s</b>\ntime</string>
+    <string name="zeroDelays"><b>0s</b>\ndelay</string>
+    <string name="on_lp_filter">ON\nFilter</string>
     <string name="res">Results</string>
     <string name="vibcheckercontent">The VibChecker shall be allow you to monitor the vibrations of your screening machine</string>
     <string name="z">z</string>
@@ -281,5 +281,7 @@
     <string name="dot">.</string>
     <string name="maxfrequency">Max Frequency:</string>
     <string name="minfrequency">Min Frequency:</string>
+
+    <string name="z2">m/s<sup>2</sup></string>
 
 </resources>

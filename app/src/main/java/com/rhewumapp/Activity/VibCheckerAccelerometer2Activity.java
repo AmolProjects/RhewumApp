@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -14,6 +15,9 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,12 +90,15 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
     private static final float ALPHA = 0.8f;
     // Variables to store the gravity and linear acceleration components
     private float[] gravity = new float[3];
-
+    private ImageView imgDirection;
     private Handler uiHandler;
     private HandlerThread handlerThread;
     private Handler backgroundHandler;
     ActivityVibCheckerAccelerometer2Binding activityVibCheckerAccelerometer2Binding;
+    private long lastShakeTime = 0;
+    private static final int SHAKE_THRESHOLD = 100; // Threshold for shake detection
 
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -196,10 +203,8 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
                 bt_vib_start.setText(R.string.start);
                 txt_zeroDelay.setBackgroundColor(ContextCompat.getColor(VibCheckerAccelerometer2Activity.this, R.color.header_backgrounds));
                 bt_vib_start.setBackgroundColor(ContextCompat.getColor(VibCheckerAccelerometer2Activity.this, R.color.header_backgrounds));
-                Toast.makeText(this, "Zero Delay ON", Toast.LENGTH_SHORT).show();
             } else {
                 txt_zeroDelay.setBackgroundResource(R.drawable.vibchecker_draw);
-                Toast.makeText(this, "Zero Delay OFF", Toast.LENGTH_SHORT).show();
                 stopTimer();
                 startFlag = true;
                 stopSensor();
@@ -270,17 +275,36 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
 
         // click on onLpFilter
         txt_onLpFilter.setOnClickListener(v -> {
+            // Toggle the applyLowPassFilter state
             applyLowPassFilter = !applyLowPassFilter;
-            // Update the text based on the filter state
-            String message = applyLowPassFilter ? "Remove\nFilter" : "On\nFilter";
-            txt_Filter.setText(message);
-            // Change background color based on the filter state
-            int backgroundColor = applyLowPassFilter ? Color.GREEN : Color.WHITE;
-            txt_Filter.setTextColor(backgroundColor);
-            // Show a toast message
-            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
 
+            // Define the message based on the filter state
+            String message = applyLowPassFilter ? "ON\nFilter" : "Off\nFilter";
+            SpannableString spannableMessage = new SpannableString(message);
+
+            // Make "ON" or "Off" bold based on the filter state
+            if (applyLowPassFilter) {
+                txt_onLpFilter.setBackgroundColor(ContextCompat.getColor(VibCheckerAccelerometer2Activity.this, R.color.header_backgrounds));
+                spannableMessage.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 2, // Bold "ON"
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                );
+            } else {
+                txt_onLpFilter.setBackgroundResource(R.drawable.vibchecker_draw);
+                spannableMessage.setSpan(
+                        new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
+                        0, 3, // Bold "Off"
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                );
+            }
+
+            // Set the styled text to txt_Filter
+            txt_Filter.setText(spannableMessage);
+
+
+            // Show a toast message
+           // Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
         });
+
         // click on the reset button
         bt_vib_reset.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
@@ -318,6 +342,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         txt_Filter=findViewById(R.id.txt_Filter);
         txt_fivesSecond = findViewById(R.id.txt_fivesSecond);
         imgBack = findViewById(R.id.imges_back);
+        imgDirection=findViewById(R.id.img_direction);
         txtZeroDelay = findViewById(R.id.txtZeroDelay);
         bt_vib_start = findViewById(R.id.bt_vib_start);
         bt_vib_reset = findViewById(R.id.bt_vib_reset);
@@ -564,6 +589,8 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         float ax = event.values[0];
         float ay = event.values[1];
         float az = event.values[2];
+        // Detect shake
+       // detectShake(event.values[0], event.values[1], event.values[2]);
 
         // Apply low-pass filter if enabled
         if (applyLowPassFilter) {
@@ -585,6 +612,8 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         xData.add(ax);
         yData.add(ay);
         zData.add(az);
+
+        updateDirection(ax, ay, az);
 
         // Call your method to update the UI with the new data
         onSensorData(ax, ay, az);
@@ -617,12 +646,6 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         yDisplacement.add(dy);
         zDisplacement.add(dz);
     }
-
-
-
-
-
-
 
 
     // stop the sensor
@@ -836,7 +859,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         countdownTimer = new CountDownTimer(5000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                uiHandler.post(() -> txt_fivesSecond.setText(String.valueOf(millisUntilFinished / 1000)));
+                uiHandler.post(() -> txt_fivesSecond.setText(Html.fromHtml(String.valueOf(millisUntilFinished / 1000))));
 //
 
             }
@@ -853,7 +876,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         if (countdownTimer != null) {
             countdownTimer.cancel(); // Stop the timer
         }
-        txt_fivesSecond.setText("5s time");
+        txt_fivesSecond.setText("5s\ntime");
     }
 
     private void resetMaxValues() {
@@ -916,6 +939,39 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
             return maxIndex * samplingRate / (2 * (magnitudes.size() - 1));
         }
     }
+
+    private void updateDirection(float ax, float ay, float az) {
+        // Determine the orientation based on the accelerometer readings
+        Drawable directionDrawable;
+
+        // Check the orientation and set the corresponding image
+        if (Math.abs(ax) > Math.abs(ay) && Math.abs(ax) > Math.abs(az)) {
+            // Phone is mostly tilted left/right
+            if (ax > 0) {
+                directionDrawable = getDrawable(R.drawable.img_2); // Left direction
+            } else {
+                directionDrawable = getDrawable(R.drawable.img_2); // Right direction
+            }
+        } else if (Math.abs(ay) > Math.abs(ax) && Math.abs(ay) > Math.abs(az)) {
+            // Phone is mostly tilted up/down
+            if (ay > 0) {
+                directionDrawable = getDrawable(R.drawable.img_2); // Up direction
+            } else {
+                directionDrawable = getDrawable(R.drawable.img_2); // Down direction
+            }
+        } else {
+            // Phone is mostly flat or in a neutral position
+            directionDrawable = getDrawable(R.drawable.img_2); // Flat direction (or neutral position)
+        }
+
+        // Ensure UI update happens on the main thread
+        runOnUiThread(() -> {
+            // Set the appropriate direction image on the main thread
+            imgDirection.setImageDrawable(directionDrawable);
+        });
+    }
+
+
 
 
 }

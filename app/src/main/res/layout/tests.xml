@@ -13,7 +13,7 @@
         android:background="@color/gray">
 
         <RelativeLayout
-            android:id="@+id/activity_vib_sonic_back_layouts"
+            android:id="@+id/activity_vib_sonic_back_layout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
@@ -58,7 +58,6 @@
 
             <!-- Horizontal LinearLayout for TextView and Arrow Image -->
             <LinearLayout
-                android:id="@+id/info_layouts"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -125,29 +124,31 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/graphLayout"
                 android:layout_alignParentEnd="true"
-                android:layout_marginStart="@dimen/text_size_100"
+                android:layout_marginStart="@dimen/layout_margin_15"
                 android:layout_marginTop="@dimen/layout_margin_8"
                 android:textStyle="bold"
                 android:text="@string/mean_level_0_00_db_a"
                 android:textColor="@color/grey_background"
-                android:textSize="@dimen/text_size_12" />
+                android:textSize="@dimen/text_size_15" />
             <LinearLayout
                 android:id="@+id/timerLayout2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/activity_vib_sonic_dbaValue"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="@dimen/layout_margin_10"
                 android:orientation="horizontal">
                 <TextView
                     android:id="@+id/maxFrequncy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/layout_margin_3"
+                    android:layout_marginTop="@dimen/layout_margin_15"
                     android:text="@string/maxfrequency"
                     android:textColor="@color/grey_background"
-                    android:layout_marginStart="@dimen/text_size_100"
+                    android:layout_marginStart="@dimen/text_size_15"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:textSize="@dimen/text_size_12"
+                    android:textSize="@dimen/text_size_15"
                     android:textStyle="bold" />
                 <TextView
                     android:id="@+id/maxFrequncyVal"
@@ -156,9 +157,9 @@
                     android:layout_marginStart="@dimen/layout_margin_5"
                     android:layout_weight="1"
                     android:text="@string/_0_0_db_a_s"
-                    android:layout_marginTop="@dimen/layout_margin_3"
+                    android:layout_marginTop="@dimen/layout_margin_15"
                     android:textColor="@color/grey_background"
-                    android:textSize="@dimen/text_size_12"
+                    android:textSize="@dimen/text_size_15"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -167,18 +168,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/timerLayout2"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="@dimen/layout_margin_10"
                 android:orientation="horizontal">
                 <TextView
                     android:id="@+id/minFrequncy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/layout_margin_3"
+                    android:layout_marginTop="@dimen/layout_margin_15"
                     android:text="@string/minfrequency"
-                    android:layout_marginStart="@dimen/text_size_100"
                     android:textColor="@color/grey_background"
+                    android:layout_marginStart="@dimen/text_size_15"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:textSize="@dimen/text_size_12"
+                    android:textSize="@dimen/text_size_15"
                     android:textStyle="bold" />
                 <TextView
                     android:id="@+id/minFrequncyVal"
@@ -187,9 +190,9 @@
                     android:layout_marginStart="@dimen/layout_margin_5"
                     android:layout_weight="1"
                     android:text="@string/_0_0_db_a_s"
-                    android:layout_marginTop="@dimen/layout_margin_3"
+                    android:layout_marginTop="@dimen/layout_margin_15"
                     android:textColor="@color/grey_background"
-                    android:textSize="@dimen/text_size_12"
+                    android:textSize="@dimen/text_size_15"
                     android:textStyle="bold" />
             </LinearLayout>
         </RelativeLayout>
@@ -198,12 +201,12 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.5"
+        android:layout_weight="0.6"
         android:background="@color/gray">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp">
+            android:layout_height="300dp">
 
             <TextView
                 android:id="@+id/activity_vib_sonic_horizontalline_tv1"

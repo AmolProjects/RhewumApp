@@ -53,24 +53,32 @@
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true">
 
-            <ImageView
-                android:id="@+id/activity_vib_sonic_archive_more_iv"
+            <!-- Horizontal LinearLayout for TextView and Arrow Image -->
+            <LinearLayout
+                android:id="@+id/info_layouts"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/activity_vib_sonic_archive_more_tv"
-                android:contentDescription="@string/todo" />
+                android:layout_alignParentEnd="true">
 
-            <TextView
-                android:id="@+id/activity_vib_sonic_archive_more_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/layout_margin_8"
-                android:fontFamily="@font/handle_go"
-                android:text="@string/more"
-                android:textColor="@color/header_backgrounds"
-                android:textSize="@dimen/text_size_15" />
+                <TextView
+                    android:id="@+id/activity_vib_sonic_archive_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/info"
+                    android:textColor="@color/header_backgrounds"
+                    android:textSize="@dimen/text_size_15" />
+
+                <ImageView
+                    android:id="@+id/image_vib"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:contentDescription="@string/todo"
+                    app:srcCompat="@drawable/baseline_arrow_forward_24" />
+            </LinearLayout>
         </RelativeLayout>
     </RelativeLayout>
 
