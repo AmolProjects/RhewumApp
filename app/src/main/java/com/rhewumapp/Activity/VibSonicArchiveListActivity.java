@@ -2,11 +2,13 @@ package com.rhewumapp.Activity;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.rhewumapp.Activity.Adapter.VibSonicArchiveListAdapter;
@@ -67,6 +69,7 @@ public class VibSonicArchiveListActivity extends DrawerBaseActivity implements V
             overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
         } else if (view.equals(this.edit)) {
             if (this.measurementList.size() <= 0) {
+                Log.e("Summery List","ccccc"+measurementList.size());
                 return;
             }
             if (!this.isEditClicked) {
@@ -82,6 +85,7 @@ public class VibSonicArchiveListActivity extends DrawerBaseActivity implements V
             this.mAdapter.isSelectAll = false;
             this.isSelectAll = false;
             this.mAdapter.notifyDataSetChanged();
+
         } else if (view.equals(this.selectAll)) {
             if (!this.isSelectAll) {
                 this.measureListNew.clear();

@@ -12,7 +12,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:contentDescription="@string/todo"
-        android:src="@drawable/rhewumt"
+        android:src="@drawable/rhewum"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="H,1:0.4"
         app:layout_constraintStart_toStartOf="parent"

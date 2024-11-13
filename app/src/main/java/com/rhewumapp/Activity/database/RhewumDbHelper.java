@@ -131,9 +131,9 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
 
             Utils.showLog("Query Executed: " + queryBuilder.prepareStatementString());
             try {
-                ArrayList<VibCheckerSummaryDao> results = (ArrayList<VibCheckerSummaryDao>) getAccelerometerDao().query(queryBuilder.prepare());
-                Utils.showLog("Data retrieved: " + results.size() + " records");
-                return results;
+               /* ArrayList<VibCheckerSummaryDao> results = (ArrayList<VibCheckerSummaryDao>) getAccelerometerDao().query(queryBuilder.prepare());
+                Utils.showLog("Data retrieved: " + results.size() + " records");*/
+                return  (ArrayList<VibCheckerSummaryDao>) getAccelerometerDao().query(queryBuilder.prepare());
             } catch (SQLException e) {
                 Utils.showLog("Error querying data: " + e.getMessage());
                 e.printStackTrace();

@@ -51,7 +51,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/toolBar"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/rhewumt" />
+                    app:srcCompat="@drawable/rhewum" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.appbar.AppBarLayout>

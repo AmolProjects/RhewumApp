@@ -49,7 +49,7 @@ public class BadgeIntentService extends IntentService {
             Notification.Builder builder = new Notification.Builder(getApplicationContext())
                     .setContentTitle("")
                     .setContentText("")
-                    .setSmallIcon(R.drawable.rhewumt);
+                    .setSmallIcon(R.drawable.rhewum);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 setupNotificationChannel();

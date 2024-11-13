@@ -669,15 +669,13 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         xData.add(ax);
         yData.add(ay);
         zData.add(az);
-
        // updateDirection(ax, ay, az);
-
         // Call your method to update the UI with the new data
         onSensorData(ax, ay, az);
         uiHandler.post(() -> pvPlot.invalidate()); // Redraw the plot
 
         // Process FFT more frequently (like in your original code)
-        if (xData.size() > 256) {
+        if (xData.size() > 1) {
             processFFT();  // Process FFT regularly while collecting data
         }
 

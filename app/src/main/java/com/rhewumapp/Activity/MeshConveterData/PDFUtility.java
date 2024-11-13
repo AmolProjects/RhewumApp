@@ -108,7 +108,7 @@ public final class PDFUtility {
         PdfPCell cell;
         {
             /*LEFT TOP LOGO*/
-            Drawable d = ContextCompat.getDrawable(mContext, R.drawable.rhewumt);
+            Drawable d = ContextCompat.getDrawable(mContext, R.drawable.rhewum);
             Bitmap bmp = ((BitmapDrawable) d).getBitmap();
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);

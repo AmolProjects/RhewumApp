@@ -67,7 +67,7 @@ public class NotificationService extends FirebaseMessagingService {
         int count = prefs.getInt(BADGE_COUNT_KEY, 0);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.rhewumt) // Replace with your app icon
+                .setSmallIcon(R.drawable.rhewum) // Replace with your app icon
                 .setContentTitle(title)
                 .setContentText(messageBody)
                 .setAutoCancel(true)

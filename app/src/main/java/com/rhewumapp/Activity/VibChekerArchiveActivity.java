@@ -81,10 +81,11 @@ public class VibChekerArchiveActivity extends AppCompatActivity implements View.
     public void onResume() {
         super.onResume();
         SummeryList = this.dbHelper.getVibCheckerAcc();
+        Log.e("SummerYList","susmemryList "+SummeryList.size());
         VibCheckerArchiveAdapter vibCheckerArchiveAdapter=new VibCheckerArchiveAdapter(VibChekerArchiveActivity.this,this,SummeryList);
         this.mAdapter = vibCheckerArchiveAdapter;
         this.listView.setAdapter(vibCheckerArchiveAdapter);
-       // this.bottomLayout.setVisibility(8);
+        this.bottomLayout.setVisibility(8);
         this.isEditClicked = false;
         this.mAdapter.isEditClicked = false;
         this.mAdapter.notifyDataSetChanged();
@@ -98,12 +99,11 @@ public class VibChekerArchiveActivity extends AppCompatActivity implements View.
             overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
         }
         else if (view.equals(this.edits)) {
-            Toast.makeText(this, "click", Toast.LENGTH_SHORT).show();
 
-            if (this.SummeryList.size() <= 0) {
+            /*if (this.SummeryList.size() <= 0) {
                 Log.e("Summery List","ccccc"+SummeryList.size());
                 return;
-            }
+            }*/
             if (!this.isEditClicked) {
                 this.bottomLayout.setVisibility(View.VISIBLE);
                 this.isEditClicked = true;
@@ -117,7 +117,7 @@ public class VibChekerArchiveActivity extends AppCompatActivity implements View.
             this.mAdapter.isSelectAll = false;
             this.isSelectAll = false;
             this.mAdapter.notifyDataSetChanged();
-            Toast.makeText(this, "click", Toast.LENGTH_SHORT).show();
+
         } else if (view.equals(this.selectAll)) {
             if (!this.isSelectAll) {
                 this.SummeryListNew.clear();

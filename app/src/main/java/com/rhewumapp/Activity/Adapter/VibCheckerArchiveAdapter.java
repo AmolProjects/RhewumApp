@@ -80,7 +80,7 @@ public class VibCheckerArchiveAdapter extends BaseAdapter {
     }
 
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
     public View getView(final int i, View view, ViewGroup viewGroup) {
         final viewHolder viewholder;
         if (view == null) {
@@ -115,7 +115,8 @@ public class VibCheckerArchiveAdapter extends BaseAdapter {
         TextView textView = viewholder.measurement_tv;
         textView.setText(this.mContext.getResources().getString(R.string.measurement_time) + StringUtils.SPACE + this.SummeryList.get(i).measurementTotalTime);
         TextView textView2 = viewholder.mean_level_tv;
-        textView2.setText(this.mContext.getResources().getString(R.string.peak_acceleration) + StringUtils.SPACE + replace2);
+
+        textView2.setText(this.mContext.getResources().getString(R.string.peak_acceleration) + StringUtils.SPACE + String.format("%.1f",replace2));
         viewholder.cb.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 if (viewholder.cb.isChecked()) {
@@ -145,16 +146,16 @@ public class VibCheckerArchiveAdapter extends BaseAdapter {
                     VibCheckerArchiveAdapter.this.mListner.onDelete(VibCheckerArchiveAdapter.this.SummeryListNew, true, false);
                 }
             });
-        } else {
+        } /*else {
             viewholder.rl.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    Intent intent = new Intent(VibCheckerArchiveAdapter.this.mContext, VibSonicArchiveActivity.class);
+                    Intent intent = new Intent(VibCheckerArchiveAdapter.this.mContext, VibChekerArchiveActivity.class);
                     intent.putExtra(SecurityConstants.Id, ((VibCheckerSummaryDao) VibCheckerArchiveAdapter.this.SummeryList.get(i)).id);
                     VibCheckerArchiveAdapter.this.mContext.startActivity(intent);
                     VibCheckerArchiveAdapter.this.mContext.overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
                 }
             });
-        }
+        }*/
         return view;
     }
 }
