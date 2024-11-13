@@ -28,7 +28,9 @@ import com.itextpdf.text.xml.xmp.DublinCoreProperties;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.rhewumapp.Activity.database.MeasurementDao;
 import com.rhewumapp.Activity.database.RhewumDbHelper;
+import com.rhewumapp.Activity.database.VibCheckerSummaryDao;
 import com.rhewumapp.Activity.interfaces.DeleteDialog;
+import com.rhewumapp.Activity.interfaces.VibChekerDeleteDialog;
 import com.rhewumapp.R;
 
 import java.io.BufferedReader;
@@ -565,6 +567,24 @@ public class Utils {
         });
         builder.create().show();
     }
+
+
+    public static void showAlertToDeleteSummary(Context context, final VibChekerDeleteDialog vibChekerDeleteDialog, final ArrayList<VibCheckerSummaryDao> arrayList) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(context.getResources().getString(R.string.app_name));
+        builder.setMessage(context.getResources().getString(R.string.delete_measurement)).setCancelable(false).setPositiveButton(context.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogInterface, int i) {
+                vibChekerDeleteDialog.onDeleteYesNo(arrayList, true);
+                dialogInterface.cancel();
+            }
+        }).setNegativeButton(context.getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+        builder.create().show();
+    }
+
 
     public static void setCameraDisplayOrientation(Activity activity, int i, Camera camera) {
         int i2;

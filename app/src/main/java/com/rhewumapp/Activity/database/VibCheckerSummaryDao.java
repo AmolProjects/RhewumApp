@@ -4,6 +4,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @DatabaseTable(tableName = "accelerometer_data")
 public class VibCheckerSummaryDao implements Serializable {
@@ -21,7 +22,8 @@ public class VibCheckerSummaryDao implements Serializable {
     public float dominantFrequencyY;
     @DatabaseField
     public float dominantFrequencyZ;
-
+    @DatabaseField(columnName = "measurement_total_times")
+    public String measurementTotalTime;
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
     public MeasurementDao measurement;
 }

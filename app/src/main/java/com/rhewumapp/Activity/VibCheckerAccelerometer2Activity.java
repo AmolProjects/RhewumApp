@@ -19,6 +19,7 @@ import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -29,9 +30,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 
 import com.rhewumapp.Activity.VibcheckerGraph.PlotView;
+import com.rhewumapp.Activity.database.RhewumDbHelper;
 import com.rhewumapp.DrawerBaseActivity;
 import com.rhewumapp.R;
 import com.rhewumapp.databinding.ActivityVibCheckerAccelerometer2Binding;
@@ -64,6 +67,8 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
     ImageView imgBack;
     Button bt_vib_start, bt_vib_reset;
     boolean startFlag = true;
+    String timer;
+    RhewumDbHelper dbHelper;
     // dominant frequency
     float xDominantFrequency;
     float yDominantFrequency;
@@ -87,6 +92,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
     private boolean applyLowPassFilter = false; // Flag to toggle filter
     private boolean  zeroDelayFlag  = false; // Flag to toggle filter
     private Runnable stopSensorRunnable;
+    private boolean applyZeros=false;
     private static final float ALPHA = 0.8f;
     // Variables to store the gravity and linear acceleration components
     private float[] gravity = new float[3];
@@ -118,6 +124,25 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         txtBack.setOnClickListener(view -> {
             finish();
             overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
+        });
+
+        // click on info image
+        imgDirection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Inflate the custom dialog layout
+                LayoutInflater inflater = getLayoutInflater();
+                View dialogView = inflater.inflate(R.layout.dialog_image, null);
+
+                // Build the dialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(VibCheckerAccelerometer2Activity.this);
+                builder.setView(dialogView)
+                        .setCancelable(true); // Makes the dialog dismissible
+
+                // Display the dialog
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
         });
         txtResults.setOnClickListener(view -> {
             if (startFlag) {
@@ -271,6 +296,34 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
             }
         });
 
+        // click on zero delay
+        txt_zeroDelay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                applyZeros = !applyZeros;
+                String messages = applyZeros ? "Delay\n0 sec On" : "Delay\n0 sec Off";
+                SpannableString spannableMessage = new SpannableString(messages);
+
+                // Make "ON" or "Off" bold based on the filter state
+                if (applyZeros) {
+                    txt_zeroDelay.setBackgroundColor(ContextCompat.getColor(VibCheckerAccelerometer2Activity.this, R.color.header_backgrounds));
+                    spannableMessage.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 4, // Bold "ON"
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    );
+                } else {
+                    txt_zeroDelay.setBackgroundResource(R.drawable.vibchecker_draw);
+                    spannableMessage.setSpan(
+                            new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
+                            0, 4, // Bold "Off"
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    );
+                }
+                // Set the styled text to txt_Filter
+                txtZeroDelay.setText(spannableMessage);
+            }
+        });
+
+
 
 
         // click on onLpFilter
@@ -296,7 +349,6 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
                         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                 );
             }
-
             // Set the styled text to txt_Filter
             txt_Filter.setText(spannableMessage);
 
@@ -331,6 +383,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
     // initialise the object
     private void initObjects() {
         txtBack = findViewById(R.id.txtBack);
+        dbHelper = new RhewumDbHelper(VibCheckerAccelerometer2Activity.this);
         txt_fiveSecond = findViewById(R.id.txt_fiveSecond);
         txtResults=findViewById(R.id.txtResults);
         txtZ = findViewById(R.id.txtZ);
@@ -367,12 +420,16 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
             bt_vib_start.setBackgroundColor(ContextCompat.getColor(VibCheckerAccelerometer2Activity.this, R.color.header_backgrounds));
             bt_vib_start.setText(R.string.start);
         });
+        // save the data for max acceleration x.....
+        uiHandler.post(()->dbHelper.maxAccelerometerData(maxX, maxY,maxZ,timer));
+
         Intent intent = new Intent(VibCheckerAccelerometer2Activity.this, VibCheckerMainActivity.class);
         // send the data for acceleration
         intent.putExtra("accelerationMax_X", maxX);
         intent.putExtra("accelerationMax_Y", maxY);
         intent.putExtra("accelerationMax_Z", maxZ);
         intent.putExtra("sensor_data", buffer);
+        intent.putExtra("timer",timer);
         Log.d("VibChecker", "Max X: " + maxX + " Max Y: " + maxY + " Max Z: " + maxZ);
         // send the dominant frequency
 
@@ -613,14 +670,14 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         yData.add(ay);
         zData.add(az);
 
-        updateDirection(ax, ay, az);
+       // updateDirection(ax, ay, az);
 
         // Call your method to update the UI with the new data
         onSensorData(ax, ay, az);
         uiHandler.post(() -> pvPlot.invalidate()); // Redraw the plot
 
         // Process FFT more frequently (like in your original code)
-        if (xData.size() > 1) {
+        if (xData.size() > 256) {
             processFFT();  // Process FFT regularly while collecting data
         }
 
@@ -857,16 +914,22 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
             countdownTimer = null; // Nullify the countdownTimer after canceling
         }
         countdownTimer = new CountDownTimer(5000, 1000) {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onTick(long millisUntilFinished) {
-                uiHandler.post(() -> txt_fivesSecond.setText(Html.fromHtml(String.valueOf(millisUntilFinished / 1000))));
+                timer=String.valueOf(millisUntilFinished / 1000);
+               // uiHandler.post(() -> txt_fivesSecond.setText(Html.fromHtml(String.valueOf("Timer"+"\n"+millisUntilFinished / 1000))));
+                uiHandler.post(() -> txt_fivesSecond.setText(Html.fromHtml("Timer<br>" + millisUntilFinished / 1000)+ " sec"));
+                ;
+
 //
 
             }
 
             @Override
             public void onFinish() {
-                txt_fivesSecond.setText("0s\ntime");
+               // txt_fivesSecond.setText("0s\ntime");
+                txt_fivesSecond.setText("Timer\n0 sec");
             }
         }.start();
     }
@@ -876,7 +939,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         if (countdownTimer != null) {
             countdownTimer.cancel(); // Stop the timer
         }
-        txt_fivesSecond.setText("5s\ntime");
+        txt_fivesSecond.setText("Timer\n0 sec");
     }
 
     private void resetMaxValues() {
@@ -940,7 +1003,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         }
     }
 
-    private void updateDirection(float ax, float ay, float az) {
+ /*   private void updateDirection(float ax, float ay, float az) {
         // Determine the orientation based on the accelerometer readings
         Drawable directionDrawable;
 
@@ -969,7 +1032,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
             // Set the appropriate direction image on the main thread
             imgDirection.setImageDrawable(directionDrawable);
         });
-    }
+    }*/
 
 
 

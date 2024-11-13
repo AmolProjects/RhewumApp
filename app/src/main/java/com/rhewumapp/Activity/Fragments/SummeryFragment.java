@@ -88,9 +88,7 @@ public class SummeryFragment extends Fragment {
     private Runnable runnable;
     public String mailBody = "<html xmlns=\\\"http://www.w3.org/1999/xhtml\\\"><head><meta http-equiv=\\\"Content-Type\\\" content=\\\"text/html; charset=utf-8\\\" /></head><body><table width=\\\"100%%\\\" border=\\\"0\\\" cellspacing=\\\"15\\\" cellpadding=\\\"0\\\"><tr><td>Dear user,<br />Please find attached the results of your measurements with the RHEWUM VibSonic App as of [HTML_DATE_STRING]</td></tr><br><br><tr><td>We hope that our service was of use to you. Please do not hesitate to contact us if you need any more information, more precise measurements or a personal consultation.</td></tr><br><br><tr><td>We are looking forward to support you and your project ideas.</td></tr><br><br><tr><td>RHEWUM GmbH<br />Rosentalstr. 24<br />42899 Remscheid<br />Germany</td></tr><br><br><tr><td>Mail : <a href=\"mailto:info@rhewum.com\">info@rhewum.com</a><br /> Web: <a href=\"http://www.rhewum.com\">http://www.rhewum.com</a></td></tr><tr><td>&nbsp;</td></tr></table></body></html>";
     private String mailSubject = "Result of RHEWUM Summary App";
-    String formattedValueX = "m/s2"; // Replace with your actual value
-
-
+    static String timer; // Replace with your actual value
 
     public SummeryFragment() {
         // Required empty public constructor
@@ -101,7 +99,6 @@ public class SummeryFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -136,7 +133,8 @@ public class SummeryFragment extends Fragment {
         // click on button save
         bt_save.setOnClickListener(v->{
                 // Add accelerometer data to the database
-                dbHelper.maxAccelerometerData(accelerationX, accelerationY, accelerationZ);
+                Log.e("Timer",timer);
+                dbHelper.maxAccelerometerData(accelerationX, accelerationY, accelerationZ,timer);
                 dbHelper.maxDominantFrequencyData(xDominantFrequency, yDominantFrequency, zDominantFrequency);
                 Toast.makeText(getActivity(), "Data is save successfully !!", Toast.LENGTH_SHORT).show();
 
@@ -216,6 +214,7 @@ public class SummeryFragment extends Fragment {
              accelerationX = intent.getFloatExtra("accelerationMax_X", 0);
              accelerationY = intent.getFloatExtra("accelerationMax_Y", 0);
              accelerationZ = intent.getFloatExtra("accelerationMax_Z", 0);
+             timer=intent.getStringExtra("timer");
              buffer = intent.getFloatArrayExtra("sensor_data");
 
             xDominantFrequency = intent.getFloatExtra("Frequency_X",0);
@@ -297,6 +296,9 @@ public class SummeryFragment extends Fragment {
     }
     public static float maxZAcceleration(){
         return accelerationZ;
+    }
+    public static String timer(){
+        return timer;
     }
 
     public static float dominantXFrequency(){

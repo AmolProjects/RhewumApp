@@ -123,6 +123,28 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
             return null;
         }
     }
+    // fetching the data for the vib-checker for accelerometer
+    public ArrayList<VibCheckerSummaryDao> getVibCheckerAcc() {
+        try {
+            QueryBuilder<VibCheckerSummaryDao, Integer> queryBuilder = getAccelerometerDao().queryBuilder();
+            queryBuilder.orderBy("id", false); // 'false' for descending order
+
+            Utils.showLog("Query Executed: " + queryBuilder.prepareStatementString());
+            try {
+                ArrayList<VibCheckerSummaryDao> results = (ArrayList<VibCheckerSummaryDao>) getAccelerometerDao().query(queryBuilder.prepare());
+                Utils.showLog("Data retrieved: " + results.size() + " records");
+                return results;
+            } catch (SQLException e) {
+                Utils.showLog("Error querying data: " + e.getMessage());
+                e.printStackTrace();
+                return null;
+            }
+        } catch (SQLException e2) {
+            Utils.showLog("Error preparing query: " + e2.getMessage());
+            e2.printStackTrace();
+            return null;
+        }
+    }
 
     // delete the vibsonic data according to vibsonic id
     public void deleteMeasurementListById(ArrayList<MeasurementDao> arrayList) {
@@ -209,12 +231,13 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
 
     // insert the record of Max acceleration data within the database
 
-    public void maxAccelerometerData(float maxAccX,float maxAccY,float maxAccZ){
+    public void maxAccelerometerData(float maxAccX,float maxAccY,float maxAccZ,String measurementTotalTime){
         try {
             VibCheckerSummaryDao accelerometer = new VibCheckerSummaryDao();
             accelerometer.xAxis = maxAccX;
             accelerometer.yAxis = maxAccY;
             accelerometer.zAxis = maxAccZ;
+            accelerometer.measurementTotalTime=measurementTotalTime;
             getAccelerometerDao().create(accelerometer);
             Utils.showLog("Data inserted Max Acceleration: " + maxAccX + ", " + maxAccY + ", " + maxAccZ);
         }catch (SQLException e){
@@ -261,24 +284,17 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
-    // fetching the data for the vib-checker for accelerometer
-    public ArrayList<VibCheckerSummaryDao> getVibCheckerAcc() {
-        try {
-            QueryBuilder<VibCheckerSummaryDao, Integer> queryBuilder = getAccelerometerDao().queryBuilder();
-            Utils.showLog("Query Executed: " + queryBuilder.prepareStatementString());
+
+
+    // delete the vibsonic list
+    public void deleteMeasurementListSummery(ArrayList<VibCheckerSummaryDao> arrayList) {
+        Iterator<VibCheckerSummaryDao> it = arrayList.iterator();
+        while (it.hasNext()) {
             try {
-                ArrayList<VibCheckerSummaryDao> results = (ArrayList<VibCheckerSummaryDao>) getAccelerometerDao().query(queryBuilder.prepare());
-                Utils.showLog("Data retrieved: " + results.size() + " records");
-                return results;
+                getAccelerometerDao().delete(it.next());
             } catch (SQLException e) {
-                Utils.showLog("Error querying data: " + e.getMessage());
                 e.printStackTrace();
-                return null;
             }
-        } catch (SQLException e2) {
-            Utils.showLog("Error preparing query: " + e2.getMessage());
-            e2.printStackTrace();
-            return null;
         }
     }
 

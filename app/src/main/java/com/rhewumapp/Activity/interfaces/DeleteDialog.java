@@ -1,7 +1,5 @@
 package com.rhewumapp.Activity.interfaces;
 
-
-
 import com.rhewumapp.Activity.database.MeasurementDao;
 
 import java.util.ArrayList;

@@ -1,5 +1,6 @@
 package com.rhewumapp.Activity;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -28,8 +30,9 @@ public class VibCheckerMainActivity extends DrawerBaseActivity {
     private TabLayout tab_layout;
     private ViewPager2 viewPager;
     private VibCheckerAdapter vibCheckerAdapter;
-    TextView txtBack;
+    TextView txtBack,txtResults;
     ImageView imgBack;
+    float XMaxAcceleration;
 
     ActivityVibCheckerMainBinding activityVibCheckerMainBinding;
 
@@ -58,6 +61,15 @@ public class VibCheckerMainActivity extends DrawerBaseActivity {
             public void onClick(View view) {
                 finish();
                 VibCheckerMainActivity.this.overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
+
+            }
+        });
+
+        txtResults.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    startActivity(new Intent(VibCheckerMainActivity.this, VibChekerArchiveActivity.class));
+                    overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
 
             }
         });
@@ -119,9 +131,10 @@ public class VibCheckerMainActivity extends DrawerBaseActivity {
 
     private void handleMaxAcceleration() {
         // max acceleration x
-        float XMaxAcceleration = SummeryFragment.maxXAcceleration();
+        XMaxAcceleration = SummeryFragment.maxXAcceleration();
         float YMaxAcceleration = SummeryFragment.maxYAcceleration();
         float ZMaxAcceleration = SummeryFragment.maxZAcceleration();
+        String timer=SummeryFragment.timer();
 
         PsdFragment.xMaxAcceleration(XMaxAcceleration);
         PsdFragment.yMaxAcceleration(YMaxAcceleration);
@@ -167,5 +180,6 @@ public class VibCheckerMainActivity extends DrawerBaseActivity {
         imgBack=findViewById(R.id.imges_backss);
         tab_layout=findViewById(R.id.tab_layout);
         viewPager=findViewById(R.id.viewPager);
+        txtResults=findViewById(R.id.txtResults);
     }
 }

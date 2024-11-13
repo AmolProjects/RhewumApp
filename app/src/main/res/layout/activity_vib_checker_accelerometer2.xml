@@ -149,7 +149,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
                     android:background="@color/light_gray_silvers"
-                    app:layout_constraintDimensionRatio="h,1:0.7"
+                    app:layout_constraintDimensionRatio="h,1:0.6"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView11">
@@ -171,13 +171,14 @@
 
                     <ImageView
                         android:id="@+id/img_direction"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginBottom="8dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:scaleType="fitXY"
+                        android:layout_marginBottom="1dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/vibrationLineChart"
                         app:layout_constraintTop_toBottomOf="@+id/vibrationLineChart"
-                        app:srcCompat="@drawable/img_2" />
+                        app:srcCompat="@drawable/info" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

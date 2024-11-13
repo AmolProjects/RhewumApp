@@ -204,8 +204,8 @@
     <string name="results">Results</string>
     <string name="accelerometer">Accelerometer</string>
     <string name="reset">Reset</string>
-    <string name="_5s_time"><b>5s</b>\ntime</string>
-    <string name="zeroDelays"><b>0s</b>\ndelay</string>
+    <string name="_5s_time"><b>Timer</b>\n5 sec</string>
+    <string name="zeroDelays"><b>Delay</b>\n0 sec On</string>
     <string name="on_lp_filter">ON\nFilter</string>
     <string name="res">Results</string>
     <string name="vibcheckercontent">The VibChecker shall be allow you to monitor the vibrations of your screening machine</string>
