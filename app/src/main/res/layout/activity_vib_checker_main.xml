@@ -96,6 +96,7 @@
                     android:fontFamily="@font/handle_go"
                     android:textSize="@dimen/text_size_15"
                     android:text="@string/archive"
+                    android:visibility="gone"
                     android:textColor="@color/header_backgrounds"
                     app:layout_constraintBottom_toBottomOf="@+id/txtTitle"
                     app:layout_constraintEnd_toEndOf="@+id/my_toolbar"

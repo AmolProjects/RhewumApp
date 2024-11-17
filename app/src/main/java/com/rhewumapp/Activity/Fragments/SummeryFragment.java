@@ -38,6 +38,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.rhewumapp.Activity.MeshConveterData.Constants;
+import com.rhewumapp.Activity.VibChekerArchiveActivity;
 import com.rhewumapp.Activity.VibcheckerGraph.PlotViewMaxValues;
 import com.rhewumapp.Activity.database.RhewumDbHelper;
 import com.rhewumapp.Activity.database.VibCheckerSummaryDao;
@@ -134,19 +135,16 @@ public class SummeryFragment extends Fragment {
         bt_save.setOnClickListener(v->{
                 // Add accelerometer data to the database
                 Log.e("Timer",timer);
-                dbHelper.maxAccelerometerData(accelerationX, accelerationY, accelerationZ,timer);
-                dbHelper.maxDominantFrequencyData(xDominantFrequency, yDominantFrequency, zDominantFrequency);
-                Toast.makeText(getActivity(), "Data is save successfully !!", Toast.LENGTH_SHORT).show();
+               // dbHelper.maxAccelerometerData(accelerationX, accelerationY, accelerationZ,timer);
+               // dbHelper.maxDominantFrequencyData(xDominantFrequency, yDominantFrequency, zDominantFrequency);
 
             runnable=new Runnable() {
                 @Override
                 public void run() {
-                    if(vibCheckerAccList==null){
-                        Toast.makeText(getActivity(),"First save the data ?",Toast.LENGTH_SHORT).show();
-                    }else{
                         vibCheckerAccList = dbHelper.getVibCheckerAcc();
                         createPdf();
-                    }
+                        startActivity(new Intent(getActivity(), VibChekerArchiveActivity.class));
+
                 }
             };handler.postDelayed(runnable,1000);
 
@@ -236,9 +234,9 @@ public class SummeryFragment extends Fragment {
             String formattedValueY = String.format(Locale.US, "%.1f", accelerationY);
             String formattedValueZ = String.format(Locale.US, "%.1f", accelerationZ);
 
-            txtX.setText(Html.fromHtml(formattedValueX + "m/s<sup>2</sup><br>x"));
-            txty.setText(Html.fromHtml(formattedValueY + "m/s<sup>2</sup><br>y"));
-            txtZZ.setText(Html.fromHtml(formattedValueZ + "m/s<sup>2</sup><br>z"));
+            txtX.setText(Html.fromHtml(formattedValueX+ " "+"m/s<sup>2</sup><br>x"));
+            txty.setText(Html.fromHtml(formattedValueY+" "+"m/s<sup>2</sup><br>y"));
+            txtZZ.setText(Html.fromHtml(formattedValueZ+" "+"m/s<sup>2</sup><br>z"));
 
 
 

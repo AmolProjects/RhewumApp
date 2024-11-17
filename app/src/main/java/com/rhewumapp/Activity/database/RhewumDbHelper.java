@@ -21,7 +21,7 @@ import java.util.List;
 
 public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = Constants.DbName;
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     private Dao<MeasurementDao, Integer> frequencyDao;
     private Dao<VibCheckerSummaryDao, Integer> accelerometerDao;
     private Dao<PsdSummaryDao,Integer>displacementDao;

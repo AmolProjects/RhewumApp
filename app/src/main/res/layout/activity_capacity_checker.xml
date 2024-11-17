@@ -192,372 +192,342 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardView"
+                    <!-- Content inside the CardView -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="5dp"
-                    app:contentPaddingBottom="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintDimensionRatio="1:0"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginTop="@dimen/text_size_12"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
-                    <!-- Content inside the CardView -->
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/constraint"
-                        android:layout_width="match_parent"
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
+                        android:layout_marginStart="5dp"
+                        android:background="@drawable/round_box_blue"
+                        android:gravity="center"
+                        android:text="@string/_1"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_15"
+                        android:textStyle="bold"
+                        app:layout_constraintDimensionRatio="1:1"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.5">
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                        <ImageView
-                            android:id="@+id/img_test"
+                    <TextView
+                        android:id="@+id/txtMachineType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="@string/machine_type"
+                        android:textSize="@dimen/text_size_15"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView5"
+                        app:layout_constraintStart_toEndOf="@+id/textView5"
+                        app:layout_constraintTop_toTopOf="@+id/textView5" />
+
+                    <ImageView
+                        android:id="@+id/textMachineTypeInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintBottom_toBottomOf="@+id/spinner"
+                        app:layout_constraintDimensionRatio=""
+                        app:layout_constraintStart_toEndOf="@+id/txtMachineType"
+                        app:layout_constraintTop_toTopOf="@+id/spinner"
+                        app:srcCompat="@drawable/baseline_info_24" />
+
+
+                    <Spinner
+                        android:id="@+id/spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/spinner_background"
+                        android:entries="@array/spinner_items"
+                        android:prompt="@string/spinner_title"
+                        android:spinnerMode="dropdown"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView5"
+                        app:layout_constraintDimensionRatio="h,1:0"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textMachineTypeInfo"
+                        app:layout_constraintTop_toTopOf="@+id/textView5" />
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:background="@drawable/round_box_blue"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:text="@string/_2"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_15"
+                        android:textStyle="bold"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintStart_toStartOf="@+id/textView5"
+                        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
+                    <TextView
+                        android:id="@+id/txtScreenWidth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="@string/screen_width"
+                        android:textSize="@dimen/text_size_15"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView6"
+                        app:layout_constraintStart_toEndOf="@+id/textView5"
+                        app:layout_constraintTop_toTopOf="@+id/textView6" />
+
+                    <ImageView
+                        android:id="@+id/textScreenWidthInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView6"
+                        app:layout_constraintDimensionRatio=""
+                        app:layout_constraintEnd_toEndOf="@+id/textMachineTypeInfo"
+                        app:layout_constraintStart_toStartOf="@+id/textMachineTypeInfo"
+                        app:layout_constraintTop_toTopOf="@+id/textView6"
+                        app:srcCompat="@drawable/baseline_info_24" />
+
+                    <EditText
+                        android:id="@+id/edt_ScreenWidth"
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_marginStart="8dp"
+                        android:autofillHints=""
+                        android:background="@drawable/rectangle"
+                        android:digits="0123456789.,$"
+                        android:ems="10"
+                        android:inputType="numberDecimal"
+                        android:textColor="@color/grey_line"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView6"
+                        app:layout_constraintDimensionRatio="w,1:0.35"
+                        app:layout_constraintStart_toStartOf="@+id/spinner"
+                        app:layout_constraintTop_toTopOf="@+id/textView6"
+                        app:layout_constraintVertical_bias="0.5" />
+
+                    <RadioGroup
+                        android:id="@+id/radioGroup_screenWidth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="8dp"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView6"
+                        app:layout_constraintEnd_toEndOf="@+id/spinner"
+                        app:layout_constraintStart_toEndOf="@+id/edt_ScreenWidth"
+                        app:layout_constraintTop_toTopOf="@+id/textView6">
+
+                        <RadioButton
+                            android:id="@+id/radio_screenWidth_m"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:scaleType="center"
-                            android:src="@drawable/capacity"
-                            app:layout_constraintBottom_toTopOf="@+id/spinner"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            android:layout_height="25dp"
+                            android:layout_margin="0dp"
+                            android:checked="true"
+                            android:padding="2dp"
+                            android:text="@string/m"
+                            app:buttonTint="@color/header_backgrounds" />
 
-                        <TextView
-                            android:id="@+id/textView5"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginTop="@dimen/text_size_20"
-                            android:background="@drawable/round_box_blue"
-                            android:gravity="center"
-                            android:text="@string/_1"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/text_size_15"
-                            android:textStyle="bold"
-                            app:layout_constraintDimensionRatio="1.1:1.1"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/img_test" />
-
-                        <TextView
-                            android:id="@+id/txtMachineType"
+                        <RadioButton
+                            android:id="@+id/radio_screenWidth_ft"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="2dp"
-                            android:text="@string/machine_type"
-                            android:textSize="@dimen/text_size_15"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="@+id/textView5"
-                            app:layout_constraintStart_toEndOf="@+id/textView5"
-                            app:layout_constraintTop_toTopOf="@+id/textView5" />
+                            android:layout_height="25dp"
+                            android:layout_margin="0dp"
+                            android:padding="2dp"
+                            android:text="@string/ft"
+                            app:buttonTint="@color/header_backgrounds" />
+                    </RadioGroup>
 
-                        <ImageView
-                            android:id="@+id/textMachineTypeInfo"
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:background="@drawable/round_box_blue"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:text="@string/_3"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_15"
+                        android:textStyle="bold"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintStart_toStartOf="@+id/textView5"
+                        app:layout_constraintTop_toBottomOf="@+id/radioGroup_screenWidth" />
+
+                    <TextView
+                        android:id="@+id/txtMaterailDensity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="@string/material_density"
+                        android:textSize="@dimen/text_size_15"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView8"
+                        app:layout_constraintStart_toEndOf="@+id/textView6"
+                        app:layout_constraintTop_toTopOf="@+id/textView8" />
+
+                    <ImageView
+                        android:id="@+id/imgMaterialDenInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView8"
+                        app:layout_constraintDimensionRatio=""
+                        app:layout_constraintEnd_toEndOf="@+id/textScreenWidthInfo"
+                        app:layout_constraintStart_toStartOf="@+id/textScreenWidthInfo"
+                        app:layout_constraintTop_toTopOf="@+id/textView8"
+                        app:srcCompat="@drawable/baseline_info_24" />
+
+                    <EditText
+                        android:id="@+id/editTextMaterialDensity"
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_marginStart="8dp"
+                        android:autofillHints="true"
+                        android:background="@drawable/rectangle"
+                        android:digits="0123456789.,$"
+                        android:ems="10"
+                        android:inputType="numberDecimal"
+                        android:textColor="@color/grey_line"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView8"
+                        app:layout_constraintDimensionRatio="w,1:0.35"
+                        app:layout_constraintStart_toStartOf="@+id/spinner"
+                        app:layout_constraintTop_toTopOf="@+id/textView8"
+                        app:layout_constraintVertical_bias="0.5" />
+
+                    <RadioGroup
+                        android:id="@+id/radioGroup_MaterialDensity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="@+id/editTextMaterialDensity"
+                        app:layout_constraintStart_toStartOf="@+id/radioGroup_screenWidth"
+                        app:layout_constraintTop_toTopOf="@+id/editTextMaterialDensity">
+
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/radio_Material_DensityM"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:contentDescription="@string/app_name"
-                            android:scaleType="fitCenter"
-                            app:layout_constraintBottom_toBottomOf="@+id/spinner"
-                            app:layout_constraintDimensionRatio=""
-                            app:layout_constraintStart_toEndOf="@+id/txtMachineType"
-                            app:layout_constraintTop_toTopOf="@+id/spinner"
-                            app:srcCompat="@drawable/baseline_info_24" />
+                            android:layout_height="25dp"
+                            android:layout_margin="0dp"
+                            android:checked="true"
+                            android:padding="2dp"
+                            android:text="@string/kg_m3"
+                            app:buttonTint="@color/header_backgrounds" />
 
-
-                        <Spinner
-                            android:id="@+id/spinner"
-                            android:layout_width="0dp"
-                            android:layout_height="35dp"
-                            app:layout_constraintDimensionRatio="h,1:0"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:background="@drawable/spinner_background"
-                            android:entries="@array/spinner_items"
-                            android:prompt="@string/spinner_title"
-                            android:spinnerMode="dropdown"
-                            app:layout_constraintBottom_toBottomOf="@+id/textView5"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/textMachineTypeInfo"
-                            app:layout_constraintTop_toTopOf="@+id/textView5" />
-
-                        <TextView
-                            android:id="@+id/textView6"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="32dp"
-                            android:background="@drawable/round_box_blue"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:text="@string/_2"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/text_size_15"
-                            android:textStyle="bold"
-                            app:layout_constraintDimensionRatio="1:1"
-                            app:layout_constraintStart_toStartOf="@+id/textView5"
-                            app:layout_constraintTop_toBottomOf="@+id/spinner" />
-
-                        <TextView
-                            android:id="@+id/txtScreenWidth"
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/radio_Material_DensityLb"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="2dp"
-                            android:text="@string/screen_width"
-                            android:textSize="@dimen/text_size_15"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="@+id/textView6"
-                            app:layout_constraintStart_toEndOf="@+id/textView5"
-                            app:layout_constraintTop_toTopOf="@+id/textView6" />
+                            android:layout_height="25dp"
+                            android:layout_margin="0dp"
+                            android:padding="2dp"
+                            android:text="@string/lb_ft3"
+                            app:buttonTint="@color/header_backgrounds" />
+                    </RadioGroup>
 
-                        <ImageView
-                            android:id="@+id/textScreenWidthInfo"
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:background="@drawable/round_box_blue"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:text="@string/_4"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_15"
+                        android:textStyle="bold"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintStart_toStartOf="@+id/textView5"
+                        app:layout_constraintTop_toBottomOf="@+id/radioGroup_MaterialDensity" />
+
+                    <TextView
+                        android:id="@+id/txtLayerHeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="@string/layer_height"
+                        android:textSize="@dimen/text_size_15"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView9"
+                        app:layout_constraintStart_toEndOf="@+id/textView8"
+                        app:layout_constraintTop_toTopOf="@+id/textView9" />
+
+                    <ImageView
+                        android:id="@+id/imgLayerHeightInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView9"
+                        app:layout_constraintDimensionRatio=""
+                        app:layout_constraintEnd_toEndOf="@+id/imgMaterialDenInfo"
+                        app:layout_constraintStart_toStartOf="@+id/imgMaterialDenInfo"
+                        app:layout_constraintTop_toTopOf="@+id/textView9"
+                        app:srcCompat="@drawable/baseline_info_24" />
+
+                    <EditText
+                        android:id="@+id/editTextLayerHeight"
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_marginStart="8dp"
+                        android:autofillHints="true"
+                        android:background="@drawable/rectangle"
+                        android:digits="0123456789.,$"
+                        android:ems="10"
+                        android:inputType="numberDecimal"
+                        android:textColor="@color/grey_line"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView9"
+                        app:layout_constraintDimensionRatio="w,1:0.35"
+                        app:layout_constraintStart_toStartOf="@+id/spinner"
+                        app:layout_constraintTop_toTopOf="@+id/textView9"
+                        app:layout_constraintVertical_bias="0.5" />
+
+                    <RadioGroup
+                        android:id="@+id/radioGroup_Height"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="16dp"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView9"
+                        app:layout_constraintEnd_toEndOf="@+id/radioGroup_screenWidth"
+                        app:layout_constraintStart_toStartOf="@+id/radioGroup_screenWidth"
+                        app:layout_constraintTop_toTopOf="@+id/textView9">
+
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/Radioheight_cm"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:contentDescription="@string/app_name"
-                            android:scaleType="fitCenter"
-                            app:layout_constraintBottom_toBottomOf="@+id/textView6"
-                            app:layout_constraintDimensionRatio=""
-                            app:layout_constraintEnd_toEndOf="@+id/textMachineTypeInfo"
-                            app:layout_constraintStart_toStartOf="@+id/textMachineTypeInfo"
-                            app:layout_constraintTop_toTopOf="@+id/textView6"
-                            app:srcCompat="@drawable/baseline_info_24" />
+                            android:layout_height="25dp"
+                            android:layout_margin="0dp"
+                            android:checked="true"
+                            android:padding="2dp"
+                            android:text="@string/cm"
+                            app:buttonTint="@color/header_backgrounds" />
 
-                        <EditText
-                            android:id="@+id/edt_ScreenWidth"
-                            android:layout_width="0dp"
-                            android:layout_height="35dp"
-                            android:layout_marginStart="8dp"
-                            android:autofillHints=""
-                            android:background="@drawable/rectangle"
-                            android:digits="0123456789.,$"
-                            android:ems="10"
-                            android:inputType="numberDecimal"
-                            android:textColor="@color/grey_line"
-                            app:layout_constraintBottom_toBottomOf="@+id/textView6"
-                            app:layout_constraintDimensionRatio="w,1:0.35"
-                            app:layout_constraintStart_toStartOf="@+id/spinner"
-                            app:layout_constraintTop_toTopOf="@+id/textView6"
-                            app:layout_constraintVertical_bias="0.5" />
-
-                        <RadioGroup
-                            android:id="@+id/radioGroup_screenWidth"
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/Radioheight_inch"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="8dp"
-                            android:orientation="vertical"
-                            app:layout_constraintBottom_toBottomOf="@+id/textView6"
-                            app:layout_constraintEnd_toEndOf="@+id/spinner"
-                            app:layout_constraintStart_toEndOf="@+id/edt_ScreenWidth"
-                            app:layout_constraintTop_toTopOf="@+id/textView6">
+                            android:layout_height="25dp"
+                            android:layout_margin="0dp"
+                            android:padding="2dp"
+                            android:text="@string/inch"
+                            app:buttonTint="@color/header_backgrounds" />
+                    </RadioGroup>
 
-                            <RadioButton
-                                android:id="@+id/radio_screenWidth_m"
-                                android:layout_width="wrap_content"
-                                android:layout_height="25dp"
-                                android:layout_margin="0dp"
-                                android:checked="true"
-                                android:padding="2dp"
-                                android:text="@string/m"
-                                app:buttonTint="@color/header_backgrounds" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                            <RadioButton
-                                android:id="@+id/radio_screenWidth_ft"
-                                android:layout_width="wrap_content"
-                                android:layout_height="25dp"
-                                android:layout_margin="0dp"
-                                android:padding="2dp"
-                                android:text="@string/ft"
-                                app:buttonTint="@color/header_backgrounds" />
-                        </RadioGroup>
-
-                        <TextView
-                            android:id="@+id/textView8"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="32dp"
-                            android:background="@drawable/round_box_blue"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:text="@string/_3"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/text_size_15"
-                            android:textStyle="bold"
-                            app:layout_constraintDimensionRatio="1:1"
-                            app:layout_constraintStart_toStartOf="@+id/textView5"
-                            app:layout_constraintTop_toBottomOf="@+id/radioGroup_screenWidth" />
-
-                        <TextView
-                            android:id="@+id/txtMaterailDensity"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="2dp"
-                            android:text="@string/material_density"
-                            android:textSize="@dimen/text_size_15"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="@+id/textView8"
-                            app:layout_constraintStart_toEndOf="@+id/textView6"
-                            app:layout_constraintTop_toTopOf="@+id/textView8" />
-
-                        <ImageView
-                            android:id="@+id/imgMaterialDenInfo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:contentDescription="@string/app_name"
-                            android:scaleType="fitCenter"
-                            app:layout_constraintBottom_toBottomOf="@+id/textView8"
-                            app:layout_constraintDimensionRatio=""
-                            app:layout_constraintEnd_toEndOf="@+id/textScreenWidthInfo"
-                            app:layout_constraintStart_toStartOf="@+id/textScreenWidthInfo"
-                            app:layout_constraintTop_toTopOf="@+id/textView8"
-                            app:srcCompat="@drawable/baseline_info_24" />
-
-                        <EditText
-                            android:id="@+id/editTextMaterialDensity"
-                            android:layout_width="0dp"
-                            android:layout_height="35dp"
-                            android:layout_marginStart="8dp"
-                            android:autofillHints="true"
-                            android:background="@drawable/rectangle"
-                            android:digits="0123456789.,$"
-                            android:ems="10"
-                            android:inputType="numberDecimal"
-                            android:textColor="@color/grey_line"
-                            app:layout_constraintBottom_toBottomOf="@+id/textView8"
-                            app:layout_constraintDimensionRatio="w,1:0.35"
-                            app:layout_constraintStart_toStartOf="@+id/spinner"
-                            app:layout_constraintTop_toTopOf="@+id/textView8"
-                            app:layout_constraintVertical_bias="0.5" />
-
-                        <RadioGroup
-                            android:id="@+id/radioGroup_MaterialDensity"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:orientation="vertical"
-                            app:layout_constraintBottom_toBottomOf="@+id/editTextMaterialDensity"
-                            app:layout_constraintStart_toStartOf="@+id/radioGroup_screenWidth"
-                            app:layout_constraintTop_toTopOf="@+id/editTextMaterialDensity">
-
-                            <androidx.appcompat.widget.AppCompatRadioButton
-                                android:id="@+id/radio_Material_DensityM"
-                                android:layout_width="wrap_content"
-                                android:layout_height="25dp"
-                                android:layout_margin="0dp"
-                                android:checked="true"
-                                android:padding="2dp"
-                                android:text="@string/kg_m3"
-                                app:buttonTint="@color/header_backgrounds" />
-
-                            <androidx.appcompat.widget.AppCompatRadioButton
-                                android:id="@+id/radio_Material_DensityLb"
-                                android:layout_width="wrap_content"
-                                android:layout_height="25dp"
-                                android:layout_margin="0dp"
-                                android:padding="2dp"
-                                android:text="@string/lb_ft3"
-                                app:buttonTint="@color/header_backgrounds" />
-                        </RadioGroup>
-
-                        <TextView
-                            android:id="@+id/textView9"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="32dp"
-                            android:background="@drawable/round_box_blue"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:text="@string/_4"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/text_size_15"
-                            android:textStyle="bold"
-                            app:layout_constraintDimensionRatio="1:1"
-                            app:layout_constraintStart_toStartOf="@+id/textView5"
-                            app:layout_constraintTop_toBottomOf="@+id/radioGroup_MaterialDensity" />
-
-                        <TextView
-                            android:id="@+id/txtLayerHeight"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="2dp"
-                            android:text="@string/layer_height"
-                            android:textSize="@dimen/text_size_15"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="@+id/textView9"
-                            app:layout_constraintStart_toEndOf="@+id/textView8"
-                            app:layout_constraintTop_toTopOf="@+id/textView9" />
-
-                        <ImageView
-                            android:id="@+id/imgLayerHeightInfo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:contentDescription="@string/app_name"
-                            android:scaleType="fitCenter"
-                            app:layout_constraintBottom_toBottomOf="@+id/textView9"
-                            app:layout_constraintDimensionRatio=""
-                            app:layout_constraintEnd_toEndOf="@+id/imgMaterialDenInfo"
-                            app:layout_constraintStart_toStartOf="@+id/imgMaterialDenInfo"
-                            app:layout_constraintTop_toTopOf="@+id/textView9"
-                            app:srcCompat="@drawable/baseline_info_24" />
-
-                        <EditText
-                            android:id="@+id/editTextLayerHeight"
-                            android:layout_width="0dp"
-                            android:layout_height="35dp"
-                            android:layout_marginStart="8dp"
-                            android:autofillHints="true"
-                            android:background="@drawable/rectangle"
-                            android:digits="0123456789.,$"
-                            android:ems="10"
-                            android:inputType="numberDecimal"
-                            android:textColor="@color/grey_line"
-                            app:layout_constraintBottom_toBottomOf="@+id/textView9"
-                            app:layout_constraintDimensionRatio="w,1:0.35"
-                            app:layout_constraintStart_toStartOf="@+id/spinner"
-                            app:layout_constraintTop_toTopOf="@+id/textView9"
-                            app:layout_constraintVertical_bias="0.5" />
-
-                        <RadioGroup
-                            android:id="@+id/radioGroup_Height"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginStart="16dp"
-                            android:orientation="vertical"
-                            app:layout_constraintBottom_toBottomOf="@+id/textView9"
-                            app:layout_constraintEnd_toEndOf="@+id/radioGroup_screenWidth"
-                            app:layout_constraintStart_toStartOf="@+id/radioGroup_screenWidth"
-                            app:layout_constraintTop_toTopOf="@+id/textView9">
-
-                            <androidx.appcompat.widget.AppCompatRadioButton
-                                android:id="@+id/Radioheight_cm"
-                                android:layout_width="wrap_content"
-                                android:layout_height="25dp"
-                                android:layout_margin="0dp"
-                                android:checked="true"
-                                android:padding="2dp"
-                                android:text="@string/cm"
-                                app:buttonTint="@color/header_backgrounds" />
-
-                            <androidx.appcompat.widget.AppCompatRadioButton
-                                android:id="@+id/Radioheight_inch"
-                                android:layout_width="wrap_content"
-                                android:layout_height="25dp"
-                                android:layout_margin="0dp"
-                                android:padding="2dp"
-                                android:text="@string/inch"
-                                app:buttonTint="@color/header_backgrounds" />
-                        </RadioGroup>
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.cardview.widget.CardView>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 

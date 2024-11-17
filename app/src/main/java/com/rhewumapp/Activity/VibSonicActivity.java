@@ -96,7 +96,7 @@ public class VibSonicActivity extends DrawerBaseActivity implements View.OnClick
     private BarChart mChart;
     private String[] mXaxisValues = {"32", "63", "125", "250", "500", "1K", "2K", "4K", "8K", "16K"};
     private HashMap<Integer, Double> mainHashMap = new HashMap<>();
-    private TextView meanLevelTotal, maxFrequencyVals, minFrequencyVals,text_vibs;
+    private TextView meanLevelTotal,text_vibs;
     Runnable r;
     private HashMap<Integer, Double> meanValueHashMap = new HashMap<>();
     private Button play_stop, bt_archive;
@@ -108,6 +108,7 @@ public class VibSonicActivity extends DrawerBaseActivity implements View.OnClick
     private Handler stopHandler = new Handler();
     private boolean isGraphStopped = false;
     private AudioMeasurement audioMeasurement;
+    float maxFrequency=0.0f;
 
 
     @Override
@@ -134,8 +135,6 @@ public class VibSonicActivity extends DrawerBaseActivity implements View.OnClick
         this.dbaValue = (TextView) findViewById(R.id.activity_vib_sonic_dbaValue);
         this.meanLevelTotal = (TextView) findViewById(R.id.activity_vib_sonic_mean_level_tv);
         this.text_vibs=(TextView)findViewById(R.id.activity_vib_sonic_back_tv);
-        this.maxFrequencyVals = (TextView) findViewById(R.id.maxFrequncyVal);
-        this.minFrequencyVals = (TextView) findViewById(R.id.minFrequncyVal);
         this.play_stop = (Button) findViewById(R.id.bt_vib_reset);
         this.info = (LinearLayout) findViewById(R.id.info_layouts);
         this.activity_vib_sonic_back_ivs=(ImageView)findViewById(R.id.activity_vib_sonic_back_iv);
@@ -212,6 +211,7 @@ public class VibSonicActivity extends DrawerBaseActivity implements View.OnClick
                 this.isGraphStarted = true;
                 startGraph();
                 startTimer();
+                this.bt_archive.setVisibility(View.GONE);
                 Log.e("VibSonicActivity", "VibSonicActivity" + "Start");
             } else if (charSequence.equals(getResources().getString(R.string.play))) {
                 this.chronometer.setBase(SystemClock.elapsedRealtime());
@@ -225,7 +225,6 @@ public class VibSonicActivity extends DrawerBaseActivity implements View.OnClick
                 Log.e("VibSonicActivity", "VibSonicActivity" + "Play");
             }
             else if (charSequence.equals(getResources().getString(R.string.stop_save))) {
-
                 this.isGraphStarted = false;
                 // Prevent further updates to mainHashMap
                 isGraphStopped = true;
@@ -241,6 +240,7 @@ public class VibSonicActivity extends DrawerBaseActivity implements View.OnClick
                 Log.d("VibSonicActivity", "MainHashMap data at stop: " + mainHashMap.toString());
                 Intent intent = new Intent(this, VibSonicArchiveActivity.class);
                 intent.putExtra("JumpFrom", "MainPage");
+                intent.putExtra("MaxFrequency", maxFrequency);
                 startActivity(intent);
             }
 
@@ -695,7 +695,7 @@ public class VibSonicActivity extends DrawerBaseActivity implements View.OnClick
             float meanValue,mainValue;
             // Initialize with 0.0f (or -1.0f based on your choice)
             float minFrequency = 0.0f;
-            float maxFrequency = 0.0f;
+            maxFrequency = 0.0f;
 
 //            for (int i4 = 0; i4 < i2; i4++) {
 //                arrayList.add(this.mXaxisValues[i4 % 10]);
@@ -748,7 +748,7 @@ public class VibSonicActivity extends DrawerBaseActivity implements View.OnClick
                             // Log all values in measurementListDouble
                             for (int i = 0; i < measurementListDouble.size(); i++) {
                                 Double value = measurementListDouble.get(i);
-                                Log.d("MeasurementListDouble", "Index: " + i + ", Value: " + value);
+                               // Log.d("MeasurementListDouble", "Index: " + i + ", Value: " + value);
                             }
                         }
 
@@ -817,8 +817,8 @@ public class VibSonicActivity extends DrawerBaseActivity implements View.OnClick
             if (!equals) {
                 TextView textView2 = this.meanLevelTotal;
                 textView2.setText(" " + decimalFormat.format(this.dbaValueFinal) + " dB(A) ");
-                maxFrequencyVals.setText(" "+String.format("%.1f", maxFrequency)+ " dB(A)");
-                minFrequencyVals.setText(" "+String.format("%.1f", minFrequency)+ " dB(A)");
+               // maxFrequencyVals.setText(" "+String.format("%.1f", maxFrequency)+ " dB(A)");
+               // minFrequencyVals.setText(" "+String.format("%.1f", minFrequency)+ " dB(A)");
             }
 
         }

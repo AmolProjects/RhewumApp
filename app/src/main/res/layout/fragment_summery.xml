@@ -286,7 +286,7 @@
                     android:layout_marginEnd="@dimen/layout_margin_3"
                     android:layout_marginBottom="4dp"
                     android:background="@color/header_backgrounds"
-                    android:text="@string/save"
+                    android:text="@string/archive"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"

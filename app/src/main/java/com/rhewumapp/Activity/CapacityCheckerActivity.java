@@ -29,6 +29,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 import com.rhewumapp.DrawerBaseActivity;
@@ -95,7 +96,7 @@ public class CapacityCheckerActivity extends DrawerBaseActivity {
         });
 
 
-        CardView cardView = findViewById(R.id.cardView);
+        ConstraintLayout cardView = findViewById(R.id.constraint);
 
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override

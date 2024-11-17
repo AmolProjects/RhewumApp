@@ -30,7 +30,7 @@ public class VibCheckerMainActivity extends DrawerBaseActivity {
     private TabLayout tab_layout;
     private ViewPager2 viewPager;
     private VibCheckerAdapter vibCheckerAdapter;
-    TextView txtBack,txtResults;
+    TextView txtBack;
     ImageView imgBack;
     float XMaxAcceleration;
 
@@ -65,14 +65,6 @@ public class VibCheckerMainActivity extends DrawerBaseActivity {
             }
         });
 
-        txtResults.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    startActivity(new Intent(VibCheckerMainActivity.this, VibChekerArchiveActivity.class));
-                    overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
-
-            }
-        });
         vibCheckerAdapter = new VibCheckerAdapter(this);
         viewPager.setAdapter(vibCheckerAdapter);
 
@@ -180,6 +172,5 @@ public class VibCheckerMainActivity extends DrawerBaseActivity {
         imgBack=findViewById(R.id.imges_backss);
         tab_layout=findViewById(R.id.tab_layout);
         viewPager=findViewById(R.id.viewPager);
-        txtResults=findViewById(R.id.txtResults);
     }
 }

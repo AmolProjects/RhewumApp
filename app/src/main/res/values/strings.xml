@@ -126,7 +126,7 @@
     <string name="body_mail">Dear user,\n Please find the attachment the results of your measurements with the RHEWUM VibSonic App as of  \n \n</string>
     <string name="edit">Edit</string>
     <string name="date_and_time">Date And Time</string>
-    <string name="measurement_time">Measurement Time :</string>
+    <string name="measurement_time">MeasurementTime :</string>
     <string name="_00_00_05">00:00:05</string>
     <string name="_43_03">43.03</string>
     <string name="rhewum">RHEWUM</string>
@@ -208,7 +208,7 @@
     <string name="zeroDelays"><b>Delay</b>\n0 sec On</string>
     <string name="on_lp_filter">ON\nFilter</string>
     <string name="res">Results</string>
-    <string name="vibcheckercontent">The VibChecker shall be allow you to monitor the vibrations of your screening machine</string>
+    <string name="vibcheckercontent">The VibChecker shall allow you to monitor the vibrations of your screening machine</string>
     <string name="z">z</string>
     <string name="y">y</string>
     <string name="x">x</string>
@@ -217,7 +217,7 @@
     <string name="psd">PSD</string>
     <string name="new_record">New Record</string>
     <string name="_10_12_24_00_00_pm">10–12-24 00:00 pm</string>
-    <string name="peak_acceleration">Peak Acceleration</string>
+     <string name="peak_acceleration">Peak Acceleration :</string>
     <string name="peak_frequency">Peak Frequency</string>
     <string name="save">Save</string>
     <string name="share">Share</string>
@@ -276,7 +276,7 @@
     <string name="emission_level_measurement">The emission level should be measured at a <font color="#008ac8"><b>distance of 1 m</b></font> from the machine and <font color="#008ac8"><b>1.60 m above the floor</b></font> or access platform.</string>
     <string name="dos">In a room where several machines are in operation, the louder they are, the higher the sum of all sound power levels will be.</string>
     <string name="dos1">The microphones of the smartphones must not be covered (e.g. by fingers or protective covers) and must point in the direction of the sound source.</string>
-    <string name="dos2">The value measured here is only a guide value for orientation. Due to the different sensor technology and the many external influences, themeasurement results can vary greatly. Smartphone microphones are optimized for the human voice and therefore cannot optimally capture certain frequencies and very loud noises.</string>
+    <string name="dos2">The value measured here is only a guide value for orientation. Due to the different sensor technology and the many external influences, the measurement results can vary greatly. Smartphone microphones are optimized for the human voice and therefore cannot optimally capture certain frequencies and very loud noises.</string>
     <string name="dos3">Prolonged exposure to high noise levels can cause lasting damage to hearing. You should therefore wear suitable protective equipment.</string>
     <string name="dot">.</string>
     <string name="maxfrequency">Max Frequency:</string>

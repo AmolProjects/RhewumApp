@@ -222,6 +222,7 @@ public class VibFlashActivity extends DrawerBaseActivity implements View.OnClick
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(VibFlashActivity.this, VibFlashInfoActivity.class));
+                overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
             }
         });
 

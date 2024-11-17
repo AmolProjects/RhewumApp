@@ -422,6 +422,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         });
         // save the data for max acceleration x.....
         uiHandler.post(()->dbHelper.maxAccelerometerData(maxX, maxY,maxZ,timer));
+        uiHandler.post(()->dbHelper.maxDominantFrequencyData(xDominantFrequency, yDominantFrequency, zDominantFrequency));
 
         Intent intent = new Intent(VibCheckerAccelerometer2Activity.this, VibCheckerMainActivity.class);
         // send the data for acceleration

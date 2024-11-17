@@ -465,7 +465,7 @@ public class Utils {
     }
 
 
-    public static String readHtmlVibSonic(Context context, int i, String str) {
+    public static String readHtmlVibSonic(Context context, int i, String str,String maxValue) {
         InputStream inputStream;
         getHelper(context);
         measureMentList.clear();
@@ -500,7 +500,8 @@ public class Utils {
             inputStream = null;
         }
         try {
-            return getStringFromInputStream(inputStream).replace(DublinCoreProperties.DATE, replace).replace("time", valueOf).replace("freq_0", str2).replace("freq_1", str3).replace("freq_2", str4).replace("freq_3", str5).replace("freq_4", str6).replace("freq_5", str7).replace("freq_6", str8).replace("freq_7", str9).replace("freq_8", str10).replace("freq_9", str11).replace("meanLevelTotal", valueOf3).replace("imagelogo", " \" " + valueOf2 + " \" ");
+            return getStringFromInputStream(inputStream).replace(DublinCoreProperties.DATE, replace).replace("time", valueOf).replace("freq_0", str2).replace("freq_1", str3).replace("freq_2", str4).replace("freq_3", str5).replace("freq_4", str6).replace("freq_5", str7).replace("freq_6", str8).replace("freq_7", str9).replace("freq_8", str10).replace("freq_9", str11).replace("meanLevelTotal", valueOf3).replace("imagelogo", " \" " + valueOf2 + " \" ")
+                    .replace("freq", String.valueOf(maxValue));
         } catch (IOException e) {
             e.printStackTrace();
             return "";

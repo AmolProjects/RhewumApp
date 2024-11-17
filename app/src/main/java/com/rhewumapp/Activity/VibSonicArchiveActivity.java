@@ -1,20 +1,17 @@
 package com.rhewumapp.Activity;
-
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.formatter.XAxisValueFormatter;
 import com.github.mikephil.charting.formatter.YAxisValueFormatter;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.rhewumapp.Activity.MeshConveterData.Constants;
 import com.rhewumapp.Activity.MeshConveterData.ResponsiveAndroidBars;
 import com.rhewumapp.Activity.MeshConveterData.Utils;
+import com.rhewumapp.Activity.Pojo.MeasurementDaos;
 import com.rhewumapp.Activity.database.MeasurementDao;
 import com.rhewumapp.Activity.database.RhewumDbHelper;
 import com.rhewumapp.DrawerBaseActivity;
 import com.rhewumapp.R;
-
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -114,13 +111,9 @@ public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.
         setUpViews();
         getHelper();
         this.backLayout.setOnClickListener(this);
-       // this.moreLayout.setOnClickListener(this);
         this.bt_share.setOnClickListener(this);
         this.bt_save.setOnClickListener(this);
         this.info.setOnClickListener(this);
-
-
-
     }
     /* access modifiers changed from: protected */
     public void onResume() {
@@ -130,18 +123,23 @@ public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.
         this.jumpFrom = string;
         assert string != null;
         String htmlPdf;
+        // find the max value of the list measuement
+
         if (string.equals("ArchieveList")) {
             int i = getIntent().getExtras().getInt(SecurityConstants.Id);
-            htmlPdf = Utils.readHtmlVibSonic(this, i, this.jumpFrom);
+            @SuppressLint("DefaultLocale") String  maxValue= String.format("%.1f",(findMaxDecibleValue(this.dbHelper.getListById(this.dbHelper.getLastId()))));
+            Log.e("VibSonicArchiveActivity","maxFrequency::"+maxValue);
+            htmlPdf = Utils.readHtmlVibSonic(this, i, this.jumpFrom, String.valueOf(maxValue));
             ArrayList<MeasurementDao> listById = this.dbHelper.getListById(i);
             this.measurementList = listById;
             addValuesToIntegerArrayList(listById);
 
         } else {
-            htmlPdf = Utils.readHtmlVibSonic(this, 0, this.jumpFrom);
+            @SuppressLint("DefaultLocale") String  maxValue= String.format("%.1f",(findMaxDecibleValue(this.dbHelper.getListById(this.dbHelper.getLastId()))));
+            Log.e("VibSonicArchiveActivity","maxFrequency::"+maxValue);
+            htmlPdf = Utils.readHtmlVibSonic(this, 0, this.jumpFrom, String.valueOf(maxValue));
             ArrayList<MeasurementDao> listById2 = this.dbHelper.getListById(this.dbHelper.getLastId());
             this.measurementList = listById2;
-            Log.e("VibSonicArchiveActivity","VibSonicArchiveActivity List Is::"+this.measurementList.size());
             addValuesToIntegerArrayList(listById2);
         }
         this.wv.loadDataWithBaseURL("", htmlPdf, "text/html", "UTF-8", "");
@@ -188,7 +186,6 @@ public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.
         this.mChart.setClickable(false);
         // this.mChart.setHighlightEnabled(false);
         this.mChart.setDrawGridBackground(true);
-
         XAxis xAxis = this.mChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
@@ -206,16 +203,12 @@ public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.
         xAxisLabelB.add("8K");
         xAxisLabelB.add("16K");
 
-
         xAxis.setValueFormatter(new XAxisValueFormatter() {
             @Override
             public String getXValue(String original, int index, ViewPortHandler viewPortHandler) {
                 return xAxisLabelB.get((int) index);
             }
         });*/
-
-
-
 
 
         YAxis axisLeft = this.mChart.getAxisLeft();
@@ -272,8 +265,6 @@ public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.
             }
         });*/
 
-
-
         this.mChart.getLegend().setEnabled(false);
         this.mChart.getAxisRight().setEnabled(false);
         this.mChart.setTouchEnabled(false);
@@ -301,7 +292,7 @@ public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.
             }
             BarDataSet barDataSet = new BarDataSet(arrayList3, "DataSet");
             barDataSet.setBarSpacePercent(35.0f);
-            barDataSet.setColor(getResources().getColor(R.color.header_backgrounds));
+            barDataSet.setColor(getResources().getColor(R.color.blue_bar));
             ArrayList<IBarDataSet> arrayList4 = new ArrayList<>();
             arrayList4.add(barDataSet);
             BarData barData = new BarData((List<String>) arrayList2,arrayList4);
@@ -821,6 +812,28 @@ public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.
             paragraph.add((Element) new Paragraph(StringUtils.SPACE));
         }
     }
+    public static double findMaxDecibleValue(ArrayList<MeasurementDao> list) {
+        if (list == null || list.isEmpty()) {
+            throw new IllegalArgumentException("List is null or empty");
+        }
+        double maxValue = Double.MIN_VALUE;
+        for (MeasurementDao dao : list) {
+            // Compare all decibel values for each MeasurementDao object
+            maxValue = Math.max(maxValue, dao.decibleForFreq125);
+            maxValue = Math.max(maxValue, dao.decibleForFreq16k);
+            maxValue = Math.max(maxValue, dao.decibleForFreq1k);
+            maxValue = Math.max(maxValue, dao.decibleForFreq250);
+            maxValue = Math.max(maxValue, dao.decibleForFreq2k);
+            maxValue = Math.max(maxValue, dao.decibleForFreq32);
+            maxValue = Math.max(maxValue, dao.decibleForFreq4k);
+            maxValue = Math.max(maxValue, dao.decibleForFreq500);
+            maxValue = Math.max(maxValue, dao.decibleForFreq63);
+            maxValue = Math.max(maxValue, dao.decibleForFreq8k);
+        }
+
+        return maxValue;
+    }
+
 
 
 }

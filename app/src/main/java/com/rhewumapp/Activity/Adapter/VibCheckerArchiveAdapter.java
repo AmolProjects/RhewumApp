@@ -111,12 +111,14 @@ public class VibCheckerArchiveAdapter extends BaseAdapter {
         }
        // String replace = new SimpleDateFormat("MMM dd yyyy, hh:mm:ss aa").format(this.measurementList.get(i).measurementDate).replace("AM", "am").replace("PM", "pm");
         float replace2 = this.SummeryList.get(i).xAxis;
+        String formattedValue = String.format(Locale.US, "%.1f", replace2).replace('.', ',');
+
         viewholder.date_tv.setText(dateValue);
         TextView textView = viewholder.measurement_tv;
         textView.setText(this.mContext.getResources().getString(R.string.measurement_time) + StringUtils.SPACE + this.SummeryList.get(i).measurementTotalTime);
         TextView textView2 = viewholder.mean_level_tv;
 
-        textView2.setText(this.mContext.getResources().getString(R.string.peak_acceleration) + StringUtils.SPACE + String.format("%.1f",replace2));
+        textView2.setText(this.mContext.getResources().getString(R.string.peak_acceleration) + formattedValue);
         viewholder.cb.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 if (viewholder.cb.isChecked()) {
