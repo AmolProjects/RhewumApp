@@ -126,7 +126,7 @@
     <string name="body_mail">Dear user,\n Please find the attachment the results of your measurements with the RHEWUM VibSonic App as of  \n \n</string>
     <string name="edit">Edit</string>
     <string name="date_and_time">Date And Time</string>
-    <string name="measurement_time">MeasurementTime :</string>
+    <string name="measurement_time">Measurement Time:</string>
     <string name="_00_00_05">00:00:05</string>
     <string name="_43_03">43.03</string>
     <string name="rhewum">RHEWUM</string>

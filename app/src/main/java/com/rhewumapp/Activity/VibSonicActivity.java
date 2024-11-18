@@ -143,7 +143,7 @@ public class VibSonicActivity extends DrawerBaseActivity implements View.OnClick
         this.graphLayout = (RelativeLayout) findViewById(R.id.graphLayout);
         this.mChart = (BarChart) findViewById(R.id.activity_vib_sonic_soundGraph);
         this.chronometer = (Chronometer) findViewById(R.id.chronometer1);
-        this.bt_archive.setVisibility(View.INVISIBLE);
+        this.bt_archive.setVisibility(View.VISIBLE);
         this.mChart.setOnChartValueSelectedListener(this);
         this.mChart.setDrawBarShadow(false);
         this.mChart.setDrawValueAboveBar(true);
