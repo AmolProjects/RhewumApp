@@ -1,0 +1,251 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/activity_mesh_info_header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/header_layout"
+        android:background="@color/gray"
+        app:layout_constraintDimensionRatio="w,1:0"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/activity_mesh_info_back_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:contentDescription="@string/todo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/baseline_arrow_back_24" />
+
+        <TextView
+            android:id="@+id/activity_mesh_info_back_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/layout_margin_8"
+            android:fontFamily="@font/handle_go"
+            android:text="@string/back"
+            android:textColor="@color/header_backgrounds"
+            android:textSize="@dimen/text_size_15"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/activity_mesh_info_back_iv"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/activity_mesh_info_header_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/handle_go"
+            android:text="@string/vib_Sonic"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_15"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_mesh_info_header_layout">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0.5">
+
+            <TextView
+                android:id="@+id/activity_mesh_info_norm_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="2dp"
+                android:fontFamily="@font/handle_go"
+                android:paddingStart="1dp"
+                android:paddingEnd="1dp"
+                android:text="@string/how_to_use_vibsonic"
+                android:textColor="@color/header_backgrounds"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintDimensionRatio="w,1:0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/activity_mesh_info_calculations_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:lineSpacingMultiplier="1.1"
+                android:paddingStart="3dp"
+                android:text="@string/vib_1"
+                android:textSize="15sp"
+                app:layout_constraintDimensionRatio="w,1:0"
+                app:layout_constraintEnd_toEndOf="@+id/activity_mesh_info_norm_tv"
+                app:layout_constraintStart_toStartOf="@id/activity_mesh_info_norm_tv"
+                app:layout_constraintTop_toBottomOf="@id/activity_mesh_info_norm_tv"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/vibFalshWork"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/vib_2"
+                android:paddingStart="3dp"
+                android:textColor="@color/grey_line"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintDimensionRatio="w,1:0"
+                app:layout_constraintEnd_toEndOf="@+id/activity_mesh_info_norm_tv"
+                app:layout_constraintStart_toStartOf="@id/activity_mesh_info_norm_tv"
+                app:layout_constraintTop_toBottomOf="@id/activity_mesh_info_calculations_tv" />
+
+            <TextView
+                android:id="@+id/worksVibFalsh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/dot"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/activity_mesh_info_norm_tv"
+                app:layout_constraintTop_toBottomOf="@+id/vibFalshWork" />
+
+            <TextView
+                android:id="@+id/txt_dots"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/emission_level_measurement"
+                app:layout_constraintDimensionRatio="w,1:0"
+                app:layout_constraintEnd_toEndOf="@+id/vibFalshWork"
+                app:layout_constraintStart_toEndOf="@+id/worksVibFalsh"
+                app:layout_constraintTop_toTopOf="@+id/worksVibFalsh" />
+
+            <TextView
+                android:id="@+id/dots2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/dot"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/activity_mesh_info_norm_tv"
+                app:layout_constraintTop_toBottomOf="@+id/txt_dots" />
+
+            <TextView
+                android:id="@+id/txt_dot"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/dos"
+                app:layout_constraintDimensionRatio="w,1:0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/dots2"
+                app:layout_constraintTop_toTopOf="@+id/dots2" />
+
+            <TextView
+                android:id="@+id/dots3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/dot"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/activity_mesh_info_norm_tv"
+                app:layout_constraintTop_toBottomOf="@+id/txt_dot" />
+
+            <TextView
+                android:id="@+id/txt_dot2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/dos1"
+                app:layout_constraintDimensionRatio="w,1:0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/dots3"
+                app:layout_constraintTop_toTopOf="@+id/dots3" />
+
+            <TextView
+                android:id="@+id/dots4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/dot"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/activity_mesh_info_norm_tv"
+                app:layout_constraintTop_toBottomOf="@+id/txt_dot2" />
+
+
+            <TextView
+                android:id="@+id/txt_dot3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/dos2"
+                app:layout_constraintDimensionRatio="w,1:0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/dots4"
+                app:layout_constraintTop_toTopOf="@+id/dots4" />
+            <TextView
+                android:id="@+id/dots5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/dot"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/activity_mesh_info_norm_tv"
+                app:layout_constraintTop_toBottomOf="@+id/txt_dot3" />
+            <TextView
+                android:id="@+id/txt_dot6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/dos3"
+                app:layout_constraintDimensionRatio="w,1:0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/dots5"
+                app:layout_constraintTop_toTopOf="@+id/dots5" />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+

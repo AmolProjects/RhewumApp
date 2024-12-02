@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:id="@+id/row_archive_list_layoutMain"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_margin_85"
+        android:layout_marginTop="@dimen/layout_margin_10"
+        android:layout_marginBottom="@dimen/layout_margin_10">
+
+        <CheckBox
+            android:id="@+id/row_archive_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/layout_margin_5"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/row_archive_date_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_margin_10"
+            android:layout_marginTop="@dimen/layout_margin_5"
+            android:layout_marginRight="@dimen/layout_margin_10"
+            android:layout_toEndOf="@+id/row_archive_cb"
+            android:text="@string/date"
+            android:textStyle="bold"
+            android:textColor="@color/header_backgrounds"
+            android:textSize="@dimen/text_size_15" />
+
+        <TextView
+            android:id="@+id/row_archive_m_time_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/row_archive_date_tv"
+            android:layout_marginLeft="@dimen/layout_margin_10"
+            android:layout_marginTop="@dimen/layout_margin_2"
+            android:layout_marginRight="@dimen/layout_margin_10"
+            android:textColor="@color/grey_text"
+            android:layout_toEndOf="@+id/row_archive_cb"
+            android:text="@string/measurement_timess"
+            android:textSize="@dimen/text_size_15" />
+
+        <TextView
+            android:id="@+id/row_archive_mean_level_total_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/row_archive_m_time_tv"
+            android:layout_marginLeft="@dimen/layout_margin_10"
+            android:layout_marginTop="@dimen/layout_margin_2"
+            android:layout_marginRight="@dimen/layout_margin_10"
+            android:layout_toEndOf="@+id/row_archive_cb"
+            android:text="@string/mean_level_time"
+            android:textColor="@color/grey_text"
+            android:textSize="@dimen/text_size_15" />
+    </RelativeLayout>
+</LinearLayout>

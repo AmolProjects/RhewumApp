@@ -1,0 +1,64 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Regular Item -->
+    <item
+        android:id="@+id/nav_home"
+        android:title="Home"
+
+        android:fontFamily="@font/handle_go"/>
+
+    <!-- Expandable Group -->
+    <!--    <item-->
+    <!--        android:id="@+id/nav_tools"-->
+    <!--        android:title="Tools">-->
+    <item android:title="TOOLS">
+        <menu>
+            <item
+                android:id="@+id/nav_mesh_converter"
+                android:title="MeshConverter"
+                android:fontFamily="@font/handle_go"
+                android:icon="@drawable/circle_red"/>
+            <item
+                android:id="@+id/nav_vibsonic"
+                android:title="Vibsonic"
+                android:fontFamily="@font/handle_go"
+                android:icon="@drawable/circle_red"/>
+            <item
+                android:id="@+id/nav_vib_flash"
+                android:title="VibFlash"
+                android:fontFamily="@font/handle_go"
+                android:icon="@drawable/circle_red"/>
+            <item
+                android:id="@+id/nav_vib_checker"
+                android:title="VibChecker"
+                android:fontFamily="@font/handle_go"
+                android:icon="@drawable/circle_red"/>
+            <item
+                android:id="@+id/nav_capacity_checker"
+                android:title="CapacityChecker"
+                android:fontFamily="@font/handle_go"
+                android:icon="@drawable/circle_red"/>
+        </menu>
+    </item>
+
+    <!-- Regular Item -->
+    <group android:checkableBehavior="single"
+        android:id="@+id/group1">
+        <item
+            android:id="@+id/nav_info"
+            android:title="Info"
+            android:fontFamily="@font/handle_go"/>
+
+        <item
+            android:id="@+id/nav_news"
+            android:title="News"
+            android:fontFamily="@font/handle_go"
+            android:actionLayout="@layout/menu_item_with_badge"/>
+        <item
+            android:id="@+id/nav_website"
+            android:title="Website"
+            android:fontFamily="@font/handle_go"/>
+
+    </group>
+
+</menu>

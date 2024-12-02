@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme -->
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your theme here -->
+        <item name="colorPrimary">@color/header_backgrounds</item>
+        <item name="colorPrimaryDark">@color/primary_s</item>
+        <item name="colorAccent">@color/header_backgrounds</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:navigationBarColor">@color/header_backgrounds</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="drawerArrowStyle">@style/DrawerIcon</item>
+        <item name="android:windowIsTranslucent">true</item>
+
+    </style>
+
+    <!-- Custom TextView style -->
+    <style name="CustomTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/handle_go</item>
+    </style>
+    <style name="clickEffect">
+        <item name="android:background">@drawable/click_effect</item>
+        <item name="android:layout_marginEnd">8dp</item>
+    </style>
+    <style name="clickEffectFr">
+        <item name="android:background">@drawable/click_effect</item>
+        <item name="android:layout_marginStart">8dp</item>
+    </style>
+
+    <style name="spinner_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/spinner_background</item>
+        <item name="android:popupBackground">#DFFFFFFF</item>
+    </style>
+    <style name="DrawerIcon" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/header_backgrounds</item>
+    </style>
+
+    <style name="CustomAlertDialog" parent="ThemeOverlay.AppCompat.Dialog.Alert">
+        <item name="android:background">@color/grey_background</item> <!-- Background color -->
+        <item name="android:textColorPrimary">#ffffff</item> <!-- Text color -->
+        <item name="android:colorAccent">#FF0000</item> <!-- Button color -->
+    </style>
+</resources>
