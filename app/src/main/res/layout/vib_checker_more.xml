@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+<!--    <RelativeLayout
+        android:id="@+id/delete_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_margin_50">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center_horizontal"
+            android:text="@string/delete_measurement"
+            android:textColor="@color/stop_btn"
+            android:textSize="@dimen/text_size_20" />
+    </RelativeLayout>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/grey_line"
+        android:orientation="horizontal" />
+
+    <RelativeLayout
+        android:id="@+id/export_csv_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_margin_50">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center_horizontal"
+            android:text="@string/mail_csv"
+            android:textColor="@color/header_backgrounds"
+            android:textSize="@dimen/text_size_20" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/grey_line"
+        android:orientation="horizontal" />
+
+    <RelativeLayout
+        android:id="@+id/export_pdf_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_margin_50">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center_horizontal"
+            android:text="@string/mail_pdf"
+            android:textColor="@color/header_backgrounds"
+            android:textSize="@dimen/text_size_20" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/grey_line"
+        android:orientation="horizontal" />
+
+    <RelativeLayout
+        android:id="@+id/cancel_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_margin_50">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center_horizontal"
+            android:text="@string/cancel"
+            android:textColor="@color/header_backgrounds"
+            android:textSize="@dimen/text_size_20"
+            android:textStyle="bold" />
+    </RelativeLayout>
+</LinearLayout>

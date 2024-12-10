@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="freqList">
+        <item>32 Hz</item>
+        <item>63 Hz</item>
+        <item>125 Hz</item>
+        <item>250 Hz</item>
+        <item>500 Hz</item>
+        <item>1 KHz</item>
+        <item>2 KHz</item>
+        <item>4 KHz</item>
+        <item>8 KHz</item>
+        <item>16 KHz</item>
+    </array>
+</resources>
