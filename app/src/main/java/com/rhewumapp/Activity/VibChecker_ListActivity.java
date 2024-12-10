@@ -195,7 +195,7 @@ public class VibChecker_ListActivity extends DrawerBaseActivity {
         amplitudeZ = getIntent().getFloatExtra("amplitudeZ", 0.0f);
         listId = String.valueOf(getIntent().getIntExtra("id",0));
 
-        Log.e("LastId","LastId"+listId);
+        Log.e("LastId","LastId:::::::"+listId);
 
 
 //        // Set the values in the TextViews

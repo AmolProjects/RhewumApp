@@ -36,14 +36,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.rhewumapp.Activity.MeshConveterData.Utils;
 import com.rhewumapp.Activity.Pojo.CounterViewModel;
 import com.rhewumapp.Activity.VibcheckerGraph.PlotView;
 import com.rhewumapp.Activity.database.RawDao;
-import com.rhewumapp.Activity.database.RawSensor;
+import com.rhewumapp.Activity.database.RawSensorDao;
 import com.rhewumapp.Activity.database.RhewumDbHelper;
-import com.rhewumapp.Activity.database.VibCheckerSummaryDao;
 import com.rhewumapp.DrawerBaseActivity;
 import com.rhewumapp.R;
 import com.rhewumapp.databinding.ActivityVibCheckerAccelerometer2Binding;
@@ -120,6 +118,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
     private HandlerThread handlerThread;
     float ax,ay,az;
     private Handler backgroundHandler;
+
     ActivityVibCheckerAccelerometer2Binding activityVibCheckerAccelerometer2Binding;
     private long lastShakeTime = 0;
     private static final int SHAKE_THRESHOLD = 100; // Threshold for shake detection
@@ -504,7 +503,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
             if (serializedBuffer != null) {
                 dbHelper.insertVibCheckerData(maxX, maxY, maxZ, peakFrequencyX, peakFrequencyY, peakFrequencyZ,
                         displacementAmplitudeX, displacementAmplitudeY, displacementAmplitudeZ,
-                        currentTimerValue, delay, measurement_date, serializedBuffer
+                        currentTimerValue, delay, measurement_date, serializedBuffer,new RawSensorDao()
                 );
                 isSummarySaved = true;
                 Log.d("DBInsert", "Data inserted successfully with timer value: " + serializedBuffer.length);
@@ -688,6 +687,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         if (lastTimestamp == 0) {
             lastTimestamp = event.timestamp;
             lastUpdateTime = System.currentTimeMillis();
+            lastInsertTime = lastUpdateTime; // Initialize the lastInsertTime
 
             // Initialize gravity with the first sensor values
             gravity[0] = event.values[0];
@@ -714,6 +714,11 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         float ax = event.values[0];
         float ay = event.values[1];
         float az = event.values[2];
+
+        // Calculate time interval since the last insertion
+        long timeInterval = currentTime - lastInsertTime;
+        // Update lastInsertTime
+       // lastInsertTime = currentTime;
 
         /*float sumX = 0, sumY = 0, sumZ = 0;
         float meanX, meanY, meanZ;
@@ -749,7 +754,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
 
 
         Log.d("SensorValues","Sensor X " +ax +"Sensor Y " +ay +"Sensor Z" +az);
-        dbHelper.insertSensorsData(getCurrentDateTime(),System.currentTimeMillis(),ax,ay,az,counterViewModel.getCounter());
+        dbHelper.insertSensorsData(getCurrentDateTime(),timeInterval,ax,ay,az,counterViewModel.getCounter());
 
         //added to database
         // Add to buffer

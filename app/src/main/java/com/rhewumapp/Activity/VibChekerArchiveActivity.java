@@ -1,6 +1,7 @@
 package com.rhewumapp.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -43,6 +44,7 @@ public class VibChekerArchiveActivity extends AppCompatActivity implements View.
     private boolean isSelectAll = false;
     private ListView listView;
     private TextView selectAll;
+    int counterValue;
     private VibCheckerArchiveAdapter mAdapter;
     private ArrayList<VibCheckerSummaryDao> SummeryListNew = new ArrayList<>();
     private ArrayList<VibCheckerSummaryDao> SummeryList = new ArrayList<>();

@@ -312,6 +312,21 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
+    // fetch the counter value
+
+    public int getCounterFromDatabase() {
+        try {
+            RawSensorDao rawSensorDao = getRawSensorDao().queryBuilder()
+                    .orderBy("id", false) // Order by the latest entry
+                    .queryForFirst();     // Get the first/latest record
+            return rawSensorDao != null ? rawSensorDao.getCounter() : 0;
+        } catch (Exception e) {
+            Utils.showLog("Error fetching counter: " + e.getMessage());
+            return 0; // Default to 0 if there's an error
+        }
+    }
+
+
     /*// fetch the sensor data according to id
 
     public List<RawSensor> fetchSensorDataByRecordId(int recordId) {
@@ -350,7 +365,7 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
 
     //added new 29Nov
     //added new for buffer data base
-    public void insertVibCheckerData(float accX, float accY, float accZ, float dominantFrX, float dominantFrY, float dominantFrZ, float ampX, float ampY, float ampZ, int measurementTotalTime, int delay, String measurementDate, byte[] sensorData) {
+    public void insertVibCheckerData(float accX, float accY, float accZ, float dominantFrX, float dominantFrY, float dominantFrZ, float ampX, float ampY, float ampZ, int measurementTotalTime, int delay, String measurementDate, byte[] sensorData,RawSensorDao rawSensorDao1) {
         try {
             VibCheckerSummaryDao data = new VibCheckerSummaryDao();
             // Insert accelerometer data

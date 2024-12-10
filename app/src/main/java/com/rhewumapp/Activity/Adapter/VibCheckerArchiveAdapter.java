@@ -130,6 +130,7 @@ public class VibCheckerArchiveAdapter extends BaseAdapter {
         float amplitudeY = this.SummeryList.get(i).peakAmplitudeY;
         float amplitudeZ = this.SummeryList.get(i).peakAmplitudeZ;
         int delayTime = this.SummeryList.get(i).delay;
+        int id=this.SummeryList.get(i).id;
 //        String newDate = this.SummeryList.get(i).measurementDate;
 
         String formattedValue = String.format(Locale.US, "%.1f", replace2).replace('.', ',');
@@ -158,7 +159,7 @@ public class VibCheckerArchiveAdapter extends BaseAdapter {
                     intent.putExtra("amplitudeX", amplitudeX);
                     intent.putExtra("amplitudeY", amplitudeY);
                     intent.putExtra("amplitudeZ", amplitudeZ);
-                    intent.putExtra("id",i+1);
+                    intent.putExtra("id",id);
                     // Deserialization of buffer
                     byte[] serializedBuffer = SummeryList.get(i).sensorData;
                     float[] buffer = new float[0]; // Default fallback buffer
