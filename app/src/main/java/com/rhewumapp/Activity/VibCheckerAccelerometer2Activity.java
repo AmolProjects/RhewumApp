@@ -1,5 +1,7 @@
 package com.rhewumapp.Activity;
 
+import static com.rhewumapp.Activity.MeshConveterData.Utils.getCurrentDateTime;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -98,7 +100,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
     private boolean isSensorRunning = false;
     private CountDownTimer countdownTimer;
     // Variables to store max values
-    private float maxX = Float.NEGATIVE_INFINITY;;
+    private float maxX = Float.MIN_VALUE;;
     private float maxY = Float.MIN_VALUE;
     private float maxZ = Float.MIN_VALUE;
     // frequency magnitude
@@ -464,20 +466,6 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         backgroundHandler = new Handler(handlerThread.getLooper());
     }
 
-    private String takeScreenShot() {
-        this.llPlots.setDrawingCacheEnabled(true);
-        this.llPlots.buildDrawingCache(true);
-        Bitmap createBitmap = Bitmap.createBitmap(this.llPlots.getDrawingCache());
-        this.llPlots.setDrawingCacheEnabled(false);
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        createBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        byte[] byteArray = byteArrayOutputStream.toByteArray();
-        return "data:image/jpeg;base64," + Base64.encodeToString(byteArray, 0);
-
-
-    }
-
-
     // next to the accelerometer screen
     private void nextToScreen() {
         uiHandler.post(() -> {
@@ -485,7 +473,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
             bt_vib_start.setText(R.string.start);
         });
         // save the data for max acceleration x.....
-        measurement_date = Utils.getCurrentDateTime();
+        measurement_date = getCurrentDateTime();
         // Serialize the buffer
         byte[] serializedBuffer;
         if (buffer != null) {
@@ -525,21 +513,21 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
 
 
         intent.putExtra("sensor_data", buffer);
-        Log.d("DEBUG", "Buffer values: " + Arrays.toString(buffer));
+      //  Log.d("DEBUG", "Buffer values: " + Arrays.toString(buffer));
 
         intent.putExtra("timer",delay);
         intent.putExtra("measurement_date",measurement_date);
-        Log.d("VibChecker", "Max X: " + maxX + " Max Y: " + maxY + " Max Z: " + maxZ + "Timer" +delay + "measurement_date" +measurement_date);
+       // Log.d("VibChecker", "Max X: " + maxX + " Max Y: " + maxY + " Max Z: " + maxZ + "Timer" +delay + "measurement_date" +measurement_date);
         // send the dominant frequency
 
         intent.putExtra("Frequency_X", peakFrequencyX);
-        Log.d("DebugDebug", "IFrequency_X: " + peakFrequencyX );
+     //   Log.d("DebugDebug", "IFrequency_X: " + peakFrequencyX );
 
         intent.putExtra("Frequency_Y", peakFrequencyY);
-        Log.d("Debug", "IFrequency_Y: " + peakFrequencyY );
+       // Log.d("Debug", "IFrequency_Y: " + peakFrequencyY );
 
         intent.putExtra("Frequency_Z", peakFrequencyZ);
-        Log.d("Debug", "IFrequency_Z: " + peakFrequencyZ );
+       // Log.d("Debug", "IFrequency_Z: " + peakFrequencyZ );
 
         // send the frequency magnitude
         bundle.putSerializable("Frequency_xMagnitudes", (Serializable) xMagnitudes);
@@ -551,7 +539,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         bundle.putSerializable("displacement_dataY", (Serializable) yDisplacement);
         bundle.putSerializable("displacement_dataZ", (Serializable) zDisplacement);
         intent.putExtra("BUNDLE", bundle);
-        Log.d("VibChecker", "Max X: " + maxX + " Max Y: " + maxY + " Max Z: " + maxZ);
+       // Log.d("VibChecker", "Max X: " + maxX + " Max Y: " + maxY + " Max Z: " + maxZ);
 
         // 03-12-2024  insert the raw data list x, list y, list z......
        // dbHelper.insertSensorData(xData,yData,zData);
@@ -708,19 +696,17 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         lastUpdateTime = currentTime;
 
         // Collect the x, y, z values into the buffer
-       // accDataBuffer.add(new float[]{event.values[0], event.values[1], event.values[2]});
+        accDataBuffer.add(new float[]{event.values[0], event.values[1], event.values[2]});
 
-        // Extract accelerometer values
+        /*// Extract accelerometer values ssss
         float ax = event.values[0];
         float ay = event.values[1];
-        float az = event.values[2];
+        float az = event.values[2];*/
 
-        // Calculate time interval since the last insertion
+        // Calculate time interval since the last insertion ssssss
         long timeInterval = currentTime - lastInsertTime;
-        // Update lastInsertTime
-       // lastInsertTime = currentTime;
 
-        /*float sumX = 0, sumY = 0, sumZ = 0;
+        float sumX = 0, sumY = 0, sumZ = 0;
         float meanX, meanY, meanZ;
 
         // Calculate the mean
@@ -737,28 +723,17 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
          // Normalize current sensor values
         ax -= meanX;
         ay -= meanY;
-        az -= meanZ;*/
-
-        /*// Normalize the data and calculate RMS
-        double accValX = 0, accValY = 0, accValZ = 0;
-
-        for (float[] values : accDataBuffer) {
-            accValX += Math.pow(values[0] - meanX, 2);
-            accValY += Math.pow(values[1] - meanY, 2);
-            accValZ += Math.pow(values[2] - meanZ, 2);
-        }
-
-        float ax = (float) Math.sqrt(accValX / accDataBuffer.size());
-        float ay = (float) Math.sqrt(accValY / accDataBuffer.size());
-        float az = (float) Math.sqrt(accValZ / accDataBuffer.size());*/
+        az -= meanZ;
 
 
-        Log.d("SensorValues","Sensor X " +ax +"Sensor Y " +ay +"Sensor Z" +az);
-        dbHelper.insertSensorsData(getCurrentDateTime(),timeInterval,ax,ay,az,counterViewModel.getCounter());
+
+        Log.d("AccValues","acc X:: " +ax +"acc Y:: " +ay +"acc Z::" +az);
+
+        dbHelper.insertSensorsData(getCurrentDateTime(), timeInterval,ax,ay,az,counterViewModel.getCounter());
 
         //added to database
         // Add to buffer
-        RawDao summaryDao = new RawDao();
+      /*  RawDao summaryDao = new RawDao();
         summaryDao.xRawValues = ax;
         summaryDao.yRawValues = ay;
         summaryDao.zRawValues = az;
@@ -778,7 +753,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
             } catch (Exception e) {
                 Log.e("DB_INSERT", "Error inserting batch data", e);
             }
-        }
+        }*/
 
         // Apply low-pass filter if enabled
         if (applyLowPassFilter) {
@@ -838,30 +813,6 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         zDisplacement.add(dz);
     }
 
-    //added new method
-    // Calculate mean of the data
-    public float calculateMean(List<Float> data) {
-        if (data == null || data.isEmpty()) {
-            return 0; // Handle empty list gracefully
-        }
-        float sum = 0;
-        for (float value : data) {
-            sum += value;
-        }
-        return sum / data.size();
-    }
-    // calculate the date and time
-    public String getCurrentDateTime() {
-        // Get current date and time
-        LocalDateTime currentDateTime = LocalDateTime.now();
-
-        // Format the date and time
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        return currentDateTime.format(formatter);
-    }
-
-
-
     // stop the sensor
     private void stopSensor() {
         if (isSensorRunning) {
@@ -901,7 +852,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
 
         // Convert ArrayList<Float> to float[]
         float[] xMagnitudesArray = convertToArray(xMagnitudes);
-        Log.d("Debug", "xMagnitudesArray: " + Arrays.toString(xMagnitudesArray));
+      //  Log.d("Debug", "xMagnitudesArray: " + Arrays.toString(xMagnitudesArray));
 
         float[] yMagnitudesArray = convertToArray(yMagnitudes);
         float[] zMagnitudesArray = convertToArray(zMagnitudes);
@@ -920,7 +871,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         for (int i = 0; i < N_half; i++) {
             frequencies[i] = i * (SAMPLING_RATE / (float) N);
         }
-        Log.d("Debug", "Frequencies: " + Arrays.toString(frequencies));
+      //  Log.d("Debug", "Frequencies: " + Arrays.toString(frequencies));
 
 
         // Apply frequency filter (5–70 Hz)
@@ -937,21 +888,21 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         if (peakFrequencyX > 0) {
             float maxAmplitudeX = getMaxAmplitude(xMagnitudesArray);
              displacementAmplitudeX = calculateDisplacementAmplitude(maxAmplitudeX, peakFrequencyX);
-            Log.d("Debug", "Peak Frequency X: " + peakFrequencyX + " Hz, Displacement Amplitude X: " + displacementAmplitudeX + " mm");
+          //  Log.d("Debug", "Peak Frequency X: " + peakFrequencyX + " Hz, Displacement Amplitude X: " + displacementAmplitudeX + " mm");
         } else {
-            Log.e("Error", "Invalid Peak Frequency X: " + peakFrequencyX + ". Ensure data is correct.");
+           // Log.e("Error", "Invalid Peak Frequency X: " + peakFrequencyX + ". Ensure data is correct.");
         }
 
         if (peakFrequencyY > 0) {
             float maxAmplitudeY = getMaxAmplitude(yMagnitudesArray);
              displacementAmplitudeY = calculateDisplacementAmplitude(maxAmplitudeY, peakFrequencyY);
-            Log.d("VibChecker", "Peak Frequency Y: " + peakFrequencyY + " Hz, Displacement Amplitude Y: " + displacementAmplitudeY + " mm");
+          //  Log.d("VibChecker", "Peak Frequency Y: " + peakFrequencyY + " Hz, Displacement Amplitude Y: " + displacementAmplitudeY + " mm");
         }
 
         if (peakFrequencyZ > 0) {
             float maxAmplitudeZ = getMaxAmplitude(zMagnitudesArray);
              displacementAmplitudeZ = calculateDisplacementAmplitude(maxAmplitudeZ, peakFrequencyZ);
-            Log.d("VibChecker", "Peak Frequency Z: " + peakFrequencyZ + " Hz, Displacement Amplitude Z: " + displacementAmplitudeZ + " mm");
+           // Log.d("VibChecker", "Peak Frequency Z: " + peakFrequencyZ + " Hz, Displacement Amplitude Z: " + displacementAmplitudeZ + " mm");
         }
     }
 
@@ -964,7 +915,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         // Validate maxIndex
         if (maxIndex >= 0 && maxIndex < N_half) {
             float peakFrequency = frequencies[maxIndex];
-            Log.d("Debug", "Peak Frequency " + axis + ": " + peakFrequency + " Hz");
+           // Log.d("Debug", "Peak Frequency " + axis + ": " + peakFrequency + " Hz");
             return peakFrequency;
         } else {
             Log.e("Error", "Invalid maxIndex for " + axis + ": " + maxIndex + ", N_half: " + N_half);
@@ -1075,17 +1026,6 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         }
     }
 
-    // Method to get the maximum acceleration from an array
-    private float getMaxAcceleration(float[] array) {
-        float max = 0;
-        for (float value : array) {
-            if (Math.abs(value) > max) {
-                max = Math.abs(value);
-            }
-        }
-        return max;
-    }
-
 
     //     reset the sensor and data
     private void resetData() {
@@ -1119,7 +1059,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
     }
 
     private void onSensorData(float x, float y, float z) {
-        Log.d("SensorData", "X: " + x + ", Y: " + y + ", Z: " + z);
+       // Log.d("SensorData", "X: " + x + ", Y: " + y + ", Z: " + z);
         // Update max values
         if (x > maxX) maxX = x;
         if (y > maxY) maxY = y;
@@ -1130,8 +1070,6 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         y /= 10;
         z /= 10;
 
-
-
         // Only update the buffer if there's space
         if (indexInBuffer < buffer.length) {
             buffer[indexInBuffer++] = x;
@@ -1141,10 +1079,8 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
             // Optionally, handle the situation when buffer is full
             indexInBuffer = 0; // Reset or use circular logic
         }
-        //pvPlot.postInvalidate();
         // Ensure index wraps around
         indexInBuffer %= buffer.length;
-
         // Notify the UI thread to update the plot
         uiHandler.post(() -> pvPlot.invalidate());
     }
@@ -1161,9 +1097,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
             public void onTick(long millisUntilFinished) {
                 String timer;
                 currentTimerValue=(int) (millisUntilFinished / 1000); // Track remaining time
-                // uiHandler.post(() -> txt_fivesSecond.setText(Html.fromHtml(String.valueOf("Timer"+"\n"+millisUntilFinished / 1000))));
                 uiHandler.post(() -> txt_fivesSecond.setText(Html.fromHtml("Timer<br>" + millisUntilFinished / 1000)+ " sec"));
-                ;
 
             }
 
@@ -1172,6 +1106,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
                 // txt_fivesSecond.setText("0s\ntime");
                 currentTimerValue = 5; // Timer finished
                 txt_fivesSecond.setText("Timer\n0 sec");
+                accDataBuffer.clear();
             }
         }.start();
     }
@@ -1182,6 +1117,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
             countdownTimer.cancel(); // Stop the timer
         }
         txt_fivesSecond.setText("Timer\n5 sec");
+        accDataBuffer.clear();
     }
 
     private void resetMaxValues() {

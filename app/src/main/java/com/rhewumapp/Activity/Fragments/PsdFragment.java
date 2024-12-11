@@ -194,6 +194,7 @@ public class PsdFragment extends Fragment {
         dbHelper=new RhewumDbHelper(getActivity());
 
     }
+
     private void frequency_LoadChart(){
         mFreSeries1 = new LineGraphSeries<>();
         mFreSeries2 = new LineGraphSeries<>();
@@ -240,10 +241,10 @@ public class PsdFragment extends Fragment {
         // Enable Y-axis labels (remove if unnecessary)
         frequency_chart.getGridLabelRenderer().setVerticalLabelsVisible(true); // Enable Y-axis labels
 
-        // Customize Y-axis (optional: adjust range manually if needed)
+       /* // Customize Y-axis (optional: adjust range manually if needed)
         frequency_chart.getViewport().setYAxisBoundsManual(true);
         frequency_chart.getViewport().setMinY(0); // Set min Y value
-        frequency_chart.getViewport().setMaxY(getMaxYValue()); // Set max Y value dynamically
+        frequency_chart.getViewport().setMaxY(getMaxYValue()); // Set max Y value dynamically*/
 
         // Enable zooming and scrolling
         frequency_chart.getViewport().setScalable(true);   // Enables horizontal zooming and scrolling

@@ -96,6 +96,7 @@ public class Utils {
         return String.format("%s/%s", objArr);
     }
 
+    @SuppressLint("SimpleDateFormat")
     public static String getCurrentDateTime() {
         return new SimpleDateFormat("dd MMM yyyy HH:mm").format(new Date());
     }
