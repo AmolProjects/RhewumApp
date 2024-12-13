@@ -218,7 +218,7 @@
     <string name="psd">PSD</string>
     <string name="new_record">New Record</string>
     <string name="_10_12_24_00_00_pm">10–12-24 00:00 pm</string>
-    <string name="peak_acceleration">Peak Acceleration:</string>
+    <string name="peak_acceleration">Mean Acceleration:</string>
     <string name="peak_frequency">Peak Frequency:</string>
     <string name="peak_amplitude">Amplitude:</string>
     <string name="save">Save</string>

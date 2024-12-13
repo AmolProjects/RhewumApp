@@ -214,7 +214,7 @@ public class VibCheckerArchiveAdapter extends BaseAdapter {
         TextView textView2 = viewholder.mean_level_tv;
         TextView yAxisTv = viewholder.yAcclereation_tv;
 
-        textView2.setText("Peak Acceleration - X: " +formattedValue + " "  +" "+ "Y: "+formattedYValue + " "+" "+"Z: " +formattedZValue);
+        textView2.setText("Mean Acceleration - X: " +formattedValue + " "  +" "+ "Y: "+formattedYValue + " "+" "+"Z: " +formattedZValue);
 
 
         viewholder.cb.setOnClickListener(new View.OnClickListener() {
