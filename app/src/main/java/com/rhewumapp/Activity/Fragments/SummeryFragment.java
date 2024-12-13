@@ -101,10 +101,7 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
     private static List<Float> xFrequencyMagnitude = new ArrayList<>();
     private static List<Float> yFrequencyMagnitude = new ArrayList<>();
     private static List<Float> zFrequencyMagnitude = new ArrayList<>();
-    // declare the displacement list
-    private static List<Float> xDisplacement = new ArrayList<>();
-    private static List<Float> yDisplacement = new ArrayList<>();
-    private static List<Float> zDisplacement = new ArrayList<>();
+
     private Calendar calendar;
     Button bt_archieve, bt_share;
     RhewumDbHelper dbHelper;
@@ -302,7 +299,6 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
                         .append(String.valueOf(dao.getyAxisRawValue()))
                         .append(",")
                         .append(String.valueOf(dao.getzAxisRawValue()))
-                        .append(",")
                         .append("\n");
 
             }

@@ -381,7 +381,6 @@ public class VibChecker_ListActivity extends DrawerBaseActivity {
                         .append(String.valueOf(dao.getyAxisRawValue()))
                         .append(",")
                         .append(String.valueOf(dao.getzAxisRawValue()))
-                        .append(",")
                         .append("\n");
 
             }

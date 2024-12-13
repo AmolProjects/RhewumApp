@@ -29,6 +29,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
@@ -380,7 +381,6 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
     private void initObjects() {
         // Get ViewModel
         counterViewModel = new ViewModelProvider(this).get(CounterViewModel.class);
-
         txtBack = findViewById(R.id.txtBack);
         dbHelper = new RhewumDbHelper(VibCheckerAccelerometer2Activity.this);
         txt_fiveSecond = findViewById(R.id.txt_fiveSecond);
@@ -534,7 +534,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         yMagnitudes.clear();
         zMagnitudes.clear();
 
-        // Toast.makeText(getApplicationContext(),"onResume Called",Toast.LENGTH_SHORT).show();
+         Toast.makeText(getApplicationContext(),"onResume Called",Toast.LENGTH_SHORT).show();
 
     }
     // activity is on pause state

@@ -111,14 +111,6 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
         return this.accelerometerDao;
     }
 
-    // create model class for displacement data
-    public Dao<PsdSummaryDao, Integer> getDisplacementDao() throws SQLException {
-        if (this.displacementDao == null) {
-            this.displacementDao = getDao(PsdSummaryDao.class);
-        }
-        return this.displacementDao;
-    }
-
     public ArrayList<MeasurementDao> getMeasurementList() {
         try {
             QueryBuilder<MeasurementDao, Integer> queryBuilder = getMeasurementDao().queryBuilder();
