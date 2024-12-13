@@ -392,45 +392,6 @@ public class VibChecker_ListActivity extends DrawerBaseActivity {
     }
 
 
-
-    public void saveDisplacementDataToCSV(Context context, ArrayList<PsdSummaryDao> psdSummaryDaoArrayList) throws IOException {
-        // Check if external storage is available
-        String state = Environment.getExternalStorageState();
-        if (!Environment.MEDIA_MOUNTED.equals(state)) {
-            Log.e("CSV Creation", "External storage not mounted or writable");
-            return;
-        }
-        File file = new File(getCacheDir().getAbsolutePath() + "/" + getResources().getString(R.string.psd_summary) + ".csv");
-
-        // Create a directory and CSV file in external storage
-        if (!file.exists() && !file.createNewFile()) {
-            Toast.makeText(this, "SOMETHING WENT WRONG", Toast.LENGTH_LONG).show();
-        }
-        try (FileWriter writer = new FileWriter(file)) {
-            // Write CSV header
-            writer.append("xDisplacement,yDisplacement,zDisplacement,xFrequency,yFrequency,zFrequency\n");
-
-            // Write data to CSV
-            for (PsdSummaryDao dao : psdSummaryDaoArrayList) {
-                writer.append(String.valueOf(dao.xDisplacement))
-                        .append(",")
-                        .append(String.valueOf(dao.yDisplacement))
-                        .append(",")
-                        .append(String.valueOf(dao.zDisplacement))
-                        .append(",")
-                        .append(String.valueOf(dao.xFrequencyMagnitude))
-                        .append(",")
-                        .append(String.valueOf(dao.yFrequencyMagnitude))
-                        .append(",")
-                        .append(String.valueOf(dao.zFrequencyMagnitude))
-                        .append("\n");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw e;  // Re-throw exception if needed
-        }
-    }
-
     //create and send file
     private void createSendFile() {
         String[] strArr = {getCacheDir() + "/" + getResources().getString(R.string.summary) + ".pdf"};
@@ -728,28 +689,6 @@ public class VibChecker_ListActivity extends DrawerBaseActivity {
         PsdFragment.xMaxFrequency(XMaxFrequency);
         PsdFragment.yMaxFrequency(YMaxFrequency);
         PsdFragment.zMaxFrequency(ZMaxFrequency);
-    }
-
-    private void handleDisplacementData() {
-        // max Displacement
-        List<Float> listDisplacementX = SummeryFragment.getDataListX();
-        List<Float> listDisplacementY = SummeryFragment.getDataListY();
-        List<Float> listDisplacementZ = SummeryFragment.getDataListZ();
-
-        PsdFragment.updateDataX(listDisplacementX);
-        PsdFragment.updateDataY(listDisplacementY);
-        PsdFragment.updateDataZ(listDisplacementZ);
-    }
-
-    private void handleFrequencyMagnitudeData() {
-        // max dominant magnitude frequency
-        List<Float> xMagnitudeFrequency = SummeryFragment.xFrequencyMagnitude();
-        List<Float> yMagnitudeFrequency = SummeryFragment.yFrequencyMagnitude();
-        List<Float> zMagnitudeFrequency = SummeryFragment.zFrequencyMagnitude();
-
-        PsdFragment.xUpdateMagnitudeFrequency(xMagnitudeFrequency);
-        PsdFragment.yUpdateMagnitudeFrequency(yMagnitudeFrequency);
-        PsdFragment.zUpdateMagnitudeFrequency(zMagnitudeFrequency);
     }
 
 

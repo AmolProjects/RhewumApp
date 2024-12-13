@@ -386,10 +386,6 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
             yFrequencyMagnitude = (List<Float>) args.getSerializable("Frequency_yMagnitudes");
             zFrequencyMagnitude = (List<Float>) args.getSerializable("Frequency_zMagnitudes");
 
-            // receive the displacement list
-            xDisplacement = (List<Float>) args.getSerializable("displacement_dataX");
-            yDisplacement = (List<Float>) args.getSerializable("displacement_dataY");
-            zDisplacement = (List<Float>) args.getSerializable("displacement_dataZ");
 
             String formattedValueX = String.format(Locale.US, "%.1f", accelerationX);
             String formattedValueY = String.format(Locale.US, "%.1f", accelerationY);
@@ -438,17 +434,6 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
         txtfrZ.setText(formattedValueZ + "Hz" + "\n" + "z");
     }
 
-    public static List<Float> getDataListX() {
-        return xDisplacement;
-    }
-
-    public static List<Float> getDataListY() {
-        return yDisplacement;
-    }
-
-    public static List<Float> getDataListZ() {
-        return zDisplacement;
-    }
 
     public static List<Float> xFrequencyMagnitude() {
         return xFrequencyMagnitude;
@@ -722,47 +707,6 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
             Toast.makeText(context, "CSV file not found.", Toast.LENGTH_SHORT).show();
         }
     }
-
-
-    //save data to csv file
-    public void saveDisplacementDataToCSV(Context context, ArrayList<PsdSummaryDao> psdSummaryDaoArrayList) throws IOException {
-        // Check if external storage is available
-        String state = Environment.getExternalStorageState();
-        if (!Environment.MEDIA_MOUNTED.equals(state)) {
-            Log.e("CSV Creation", "External storage not mounted or writable");
-            return;
-        }
-        File file = new File(requireActivity().getCacheDir().getAbsolutePath() + "/" + requireActivity().getResources().getString(R.string.psd_summary) + ".csv");
-
-        // Create a directory and CSV file in external storage
-        if (!file.exists() && !file.createNewFile()) {
-            Toast.makeText(requireActivity(), "SOMETHING WENT WRONG", Toast.LENGTH_LONG).show();
-        }
-        try (FileWriter writer = new FileWriter(file)) {
-            // Write CSV header
-            writer.append("xDisplacement,yDisplacement,zDisplacement,xFrequency,yFrequency,zFrequency\n");
-
-            // Write data to CSV
-            for (PsdSummaryDao dao : psdSummaryDaoArrayList) {
-                writer.append(String.valueOf(dao.xDisplacement))
-                        .append(",")
-                        .append(String.valueOf(dao.yDisplacement))
-                        .append(",")
-                        .append(String.valueOf(dao.zDisplacement))
-                        .append(",")
-                        .append(String.valueOf(dao.xFrequencyMagnitude))
-                        .append(",")
-                        .append(String.valueOf(dao.yFrequencyMagnitude))
-                        .append(",")
-                        .append(String.valueOf(dao.zFrequencyMagnitude))
-                        .append("\n");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw e;  // Re-throw exception if needed
-        }
-    }
-
 
     @Override
     public void onDelete(ArrayList<VibCheckerSummaryDao> arrayList, boolean z, boolean z2) {

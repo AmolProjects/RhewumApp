@@ -104,7 +104,6 @@ public class VibCheckerMainActivity extends DrawerBaseActivity {
                     // max acceleration x
                     handleMaxAcceleration();
                     handleMaxFrequency();
-                    handleDisplacementData();
                     handleFrequencyMagnitudeData();
                     handleMaxAmplitude();
 
@@ -125,8 +124,6 @@ public class VibCheckerMainActivity extends DrawerBaseActivity {
                 super.onPageScrollStateChanged(state);
                 handleMaxAcceleration();
                 handleMaxFrequency();
-
-                handleDisplacementData();
                 handleFrequencyMagnitudeData();
             }
         });
@@ -167,17 +164,6 @@ public class VibCheckerMainActivity extends DrawerBaseActivity {
         PsdFragment.xMaxFrequency(XMaxFrequency);
         PsdFragment.yMaxFrequency(YMaxFrequency);
         PsdFragment.zMaxFrequency(ZMaxFrequency);
-    }
-
-    private void handleDisplacementData() {
-        // max Displacement
-        List<Float> listDisplacementX = SummeryFragment.getDataListX();
-        List<Float> listDisplacementY = SummeryFragment.getDataListY();
-        List<Float> listDisplacementZ = SummeryFragment.getDataListZ();
-
-        PsdFragment.updateDataX(listDisplacementX);
-        PsdFragment.updateDataY(listDisplacementY);
-        PsdFragment.updateDataZ(listDisplacementZ);
     }
 
     private void handleFrequencyMagnitudeData() {
