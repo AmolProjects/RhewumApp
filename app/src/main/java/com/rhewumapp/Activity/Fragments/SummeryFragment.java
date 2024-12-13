@@ -54,6 +54,7 @@ import com.rhewumapp.Activity.VibcheckerGraph.PlotViewMaxValues;
 import com.rhewumapp.Activity.database.MeasurementDao;
 import com.rhewumapp.Activity.database.PsdSummaryDao;
 import com.rhewumapp.Activity.database.RawDao;
+import com.rhewumapp.Activity.database.RawSensorDao;
 import com.rhewumapp.Activity.database.RhewumDbHelper;
 import com.rhewumapp.Activity.database.VibCheckerSummaryDao;
 import com.rhewumapp.Activity.interfaces.VibCheckerDeleteListner;
@@ -117,7 +118,7 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
     public String currentDateTime;
     List<PsdSummaryDao> psdSummaryDaoArrayList;
 //    List<VibCheckerSummaryDao> vibCheckerSummaryDaoArrayList;
-    List<RawDao> vibCheckerSummaryDaoArrayLists;
+    List<RawSensorDao> vibCheckerSummaryDaoArrayLists;
     RhewumDbHelper databaseHelper = new RhewumDbHelper(getContext());
 
 
@@ -218,13 +219,10 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
         dialog.setContentView(R.layout.vib_checker_more);
         dialog.setTitle(getResources().getString(R.string.app_name));
 
-
-
-
         //csv file
         ((RelativeLayout) dialog.findViewById(R.id.export_csv_layout)).setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                vibCheckerSummaryDaoArrayLists = dbHelper.getLatestRawValues(100);
+                vibCheckerSummaryDaoArrayLists = dbHelper.fetchSensorRawData();
 
                 if (!vibCheckerSummaryDaoArrayLists.isEmpty()) {
 
@@ -240,7 +238,7 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
 //            }
 
                     try {
-                        saveVibCheckerDataToCSV((Context) requireActivity(), (ArrayList<RawDao>) vibCheckerSummaryDaoArrayLists, csvFile);
+                        saveVibCheckerDataToCSV((Context) requireActivity(), (ArrayList<RawSensorDao>) vibCheckerSummaryDaoArrayLists, csvFile);
                         // Step 3: Share the CSV file via email
                         shareCSVFileViaEmail(requireActivity(), csvFile);
                     } catch (IOException e) {
@@ -274,7 +272,7 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
     }
 
     //added new for rawx
-    public void saveVibCheckerDataToCSV(Context context, ArrayList<RawDao> vibCheckerSummaryDaoArrayList, File file) throws IOException {
+    public void saveVibCheckerDataToCSV(Context context, ArrayList<RawSensorDao> vibCheckerSummaryDaoArrayList, File file) throws IOException {
         // Check if external storage is available
         String state = Environment.getExternalStorageState();
         if (!Environment.MEDIA_MOUNTED.equals(state)) {
@@ -290,24 +288,25 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
 
         try (FileWriter writer = new FileWriter(file)) {
             // Write CSV header
-            writer.append("xRawValue,yRawValue,zRawValue\n");
+            writer.append("DateTime,Time [Ms],xRawValue,yRawValue,zRawValue\n");
 
             // Write data to CSV
-            for (RawDao dao : vibCheckerSummaryDaoArrayList) {
-                Log.d("DB_INSERT", "Summ:Data for CSV: xRawValue=" + dao.xRawValues +
-                        ", yRawValue=" + dao.yRawValues +
-                        ", zRawValue=" + dao.zRawValues);
+            for (RawSensorDao dao : vibCheckerSummaryDaoArrayList) {
 
-                writer.append(String.valueOf(dao.xRawValues))
+                writer.append(String.valueOf(dao.getDateTime()))
                         .append(",")
-                        .append(String.valueOf(dao.yRawValues))
+                        .append(String.valueOf(dao.getTime()))
                         .append(",")
-                        .append(String.valueOf(dao.zRawValues))
+                        .append(String.valueOf(dao.getxAxisRawValue()))
+                        .append(",")
+                        .append(String.valueOf(dao.getyAxisRawValue()))
+                        .append(",")
+                        .append(String.valueOf(dao.getzAxisRawValue()))
                         .append(",")
                         .append("\n");
 
             }
-        } catch (IOException e) {
+        }  catch (IOException e) {
             e.printStackTrace();
             throw e;
         }

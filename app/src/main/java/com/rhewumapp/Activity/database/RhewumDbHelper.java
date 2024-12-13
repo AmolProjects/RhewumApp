@@ -71,13 +71,6 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
         super.close();
     }
 
-    /*// create Raw sensor data
-    public Dao<RawSensor,Integer>getRawSensorsData()throws SQLException{
-        if(this.rawSensors==null){
-            this.rawSensors = getDao(RawSensor.class);
-        }
-        return this.rawSensors;
-    }*/
     // create Raw data
     public Dao<RawDao,Integer>getRawData()throws SQLException{
         if(this.rawDao==null){
@@ -120,13 +113,6 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
 
     // create model class for displacement data
     public Dao<PsdSummaryDao, Integer> getDisplacementDao() throws SQLException {
-        if (this.displacementDao == null) {
-            this.displacementDao = getDao(PsdSummaryDao.class);
-        }
-        return this.displacementDao;
-    }
-    // create model class for frequency data
-    public Dao<PsdSummaryDao, Integer> getFrequencyDao() throws SQLException {
         if (this.displacementDao == null) {
             this.displacementDao = getDao(PsdSummaryDao.class);
         }
@@ -257,46 +243,6 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
-    // Method to fetch the latest Displacement data based on timestamp
-    public List<PsdSummaryDao> getLatestDisplacementsByListSize(int limit) {
-        List<PsdSummaryDao> displacement = new ArrayList<>();
-        try {
-            // Ensure the limit is greater than 0
-            if (limit <= 0) {
-                return displacement;
-            }
-            QueryBuilder<PsdSummaryDao, Integer> queryBuilder = getDisplacementDao().queryBuilder();
-            // Order by ID in descending order to get the latest entries
-            queryBuilder.orderBy("id", false); // 'false' for descending order
-            // Limit the number of results
-            queryBuilder.limit((long) limit);
-            // Log the query to check correctness (Optional)
-            String query = queryBuilder.prepareStatementString();
-            System.out.println("Generated Query: " + query);
-            // Execute the query and retrieve the results
-            displacement = getDisplacementDao().query(queryBuilder.prepare());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return displacement;
-    }
-
-   /* //added new for buffer data base
-    // Insert Sensor Data
-    public void insertSensorData(ArrayList<Float> accX, ArrayList<Float> accY, ArrayList<Float> accZ) {
-        try {
-            RawSensor rawSensor = new RawSensor();
-            rawSensor.xRawVal = accX;
-            rawSensor.yRawVal = accY;
-            rawSensor.zRawVal = accZ;
-
-            getRawSensorsData().create(rawSensor);
-          //  Utils.showLog("Sensor data inserted for Record ID: " + recordId);
-        } catch (Exception e) {
-            Utils.showLog("Error inserting data: " + e.getMessage());
-        }
-    }*/
-
     public void insertSensorsData(String dateTime,Long time,Float accX, Float accY,Float accZ,int counter) {
         try {
             RawSensorDao rawSensorDao = new RawSensorDao();
@@ -312,33 +258,6 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
-    // fetch the counter value
-
-    public int getCounterFromDatabase() {
-        try {
-            RawSensorDao rawSensorDao = getRawSensorDao().queryBuilder()
-                    .orderBy("id", false) // Order by the latest entry
-                    .queryForFirst();     // Get the first/latest record
-            return rawSensorDao != null ? rawSensorDao.getCounter() : 0;
-        } catch (Exception e) {
-            Utils.showLog("Error fetching counter: " + e.getMessage());
-            return 0; // Default to 0 if there's an error
-        }
-    }
-
-
-    /*// fetch the sensor data according to id
-
-    public List<RawSensor> fetchSensorDataByRecordId(int recordId) {
-        try {
-            QueryBuilder<RawSensor, Integer> queryBuilder = getRawSensorsData().queryBuilder();
-            queryBuilder.where().eq("id", recordId); // Query by ID
-            return getRawSensorsData().query(queryBuilder.prepare()); // Return results
-        } catch (SQLException e) {
-            Utils.showLog("Error fetching data: " + e.getMessage());
-            return new ArrayList<>();
-        }
-    }*/
     public List<RawSensorDao> fetchSensorDataById(int recordId) {
         List<RawSensorDao> rawVal = new ArrayList<>();
         try {
@@ -359,8 +278,23 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
         return rawVal;
     }
 
+    public List<RawSensorDao> fetchSensorRawData() {
+        List<RawSensorDao> rawVal = new ArrayList<>();
+        try {
+            // QueryBuilder to filter rows by ID
+            QueryBuilder<RawSensorDao, Integer> queryBuilder = getRawSensorDao().queryBuilder();
+            rawVal = getRawSensorDao().query(queryBuilder.prepare()); // Fetch filtered results
 
-
+            for (RawSensorDao dao : rawVal) {
+                Log.d("DB_INSERT", "RD:Fetched Data: xRawValue=" + dao.getxAxisRawValue() +
+                        ", yRawValue=" + dao.getyAxisRawValue() +
+                        ", zRawValue=" + dao.getzAxisRawValue() +", counter=" + dao.getCounter());
+            }
+        } catch (SQLException e) {
+            Utils.showLog("Error fetching data: " + e.getMessage());
+        }
+        return rawVal;
+    }
 
 
     //added new 29Nov

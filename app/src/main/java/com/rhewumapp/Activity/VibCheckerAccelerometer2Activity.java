@@ -719,11 +719,11 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         onSensorData(ax, ay, az);
 
         uiHandler.post(() -> pvPlot.invalidate()); // Redraw the plot
-        processSensorData();
         dbHelper.insertSensorsData(getCurrentDateTime(), timeInterval,ax,ay,az,counterViewModel.getCounter());
-
+        processSensorData();
         // Process FFT more frequently
         if (xData.size() > 56) {
+
             processFFT();  // Process FFT regularly while collecting data
         }
 
