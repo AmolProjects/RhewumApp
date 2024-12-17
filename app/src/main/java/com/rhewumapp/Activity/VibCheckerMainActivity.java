@@ -169,11 +169,11 @@ public class VibCheckerMainActivity extends DrawerBaseActivity {
 
     private void handleFrequencyMagnitudeData() {
         // max dominant magnitude frequency
-        List<Float[]> xMagnitudeFrequency = SummeryFragment.xFrequencyMagnitude();
+        List<Float> xMagnitudeFrequency = SummeryFragment.xFrequencyMagnitude();
         Log.e("Magnitude x","Magnitude X"+xMagnitudeFrequency.size());
-        List<Float[]> yMagnitudeFrequency = SummeryFragment.yFrequencyMagnitude();
+        List<Float> yMagnitudeFrequency = SummeryFragment.yFrequencyMagnitude();
         Log.e("Magnitude y","Magnitude Y"+yMagnitudeFrequency.size());
-        List<Float[]> zMagnitudeFrequency = SummeryFragment.zFrequencyMagnitude();
+        List<Float> zMagnitudeFrequency = SummeryFragment.zFrequencyMagnitude();
         Log.e("Magnitude z","Magnitude Z"+zMagnitudeFrequency.size());
 
         PsdFragment.xUpdateMagnitudeFrequency(xMagnitudeFrequency);

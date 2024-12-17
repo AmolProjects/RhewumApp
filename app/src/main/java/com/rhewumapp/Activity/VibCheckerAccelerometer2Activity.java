@@ -50,6 +50,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
@@ -70,9 +71,9 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
     private SharedPreferences sharedPreferences;
     private int counter;
 
-    private final List<Float> xAxis = new ArrayList<>();
+    /*private final List<Float> xAxis = new ArrayList<>();
     private final List<Float> yAxis = new ArrayList<>();
-    private final List<Float> zAxis = new ArrayList();
+    private final List<Float> zAxis = new ArrayList();*/
     private final List<Double> timeStamps = new ArrayList<>();
 
 
@@ -102,9 +103,9 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
     private float maxY = Float.MIN_VALUE;
     private float maxZ = Float.MIN_VALUE;
     // frequency magnitude
-    private final List<Float[]> xMagnitudes = new ArrayList<Float[]>();
-    private final List<Float[]> yMagnitudes = new ArrayList<Float[]>();
-    private final List<Float[]> zMagnitudes = new ArrayList<Float[]>();
+    private final List<Float> xMagnitudes = new ArrayList<Float>();
+    private final List<Float> yMagnitudes = new ArrayList<Float>();
+    private final List<Float> zMagnitudes = new ArrayList<Float>();
     private long lastTimestamp = 0;
     private boolean applyLowPassFilter = true; // Flag to toggle filter
     private boolean zeroDelayFlag = false; // Flag to toggle filter
@@ -129,7 +130,8 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
 
     private int currentTimerValue = 5; // Initialize with the default timer value
     float meanAccelerationX, meanAccelerationY, meanAccelerationZ;
-    float peakFrequencysX, peakFrequencysY, peakFrequencysZ, displacementAmplitudesX, displacementAmplitudesY, displacementAmplitudesZ;
+    float peakFrequencysX, peakFrequencysY, peakFrequencysZ,maxXFrequency,maxYFrequency,maxZFrequency,displacementAmplitudesX, displacementAmplitudesY, displacementAmplitudesZ;
+
 
     private boolean isSummarySaved = false;
 
@@ -183,11 +185,11 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         bt_vib_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                counter++;
                 if (startFlag) {
                     // Use SavedStateViewModelFactory to provide the ViewModel
                     hideTheUi();
                     initGUI();
+                    counter++;
                     Log.e("Counter", "counter is:::::::::" + counter);
                     //aaded new
                     // Turn on Low Pass Filter by default
@@ -447,7 +449,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         // Insert into database
         uiHandler.post(() -> {
             if (serializedBuffer != null) {
-                dbHelper.insertVibCheckerData(meanAccelerationX, meanAccelerationY, meanAccelerationZ, peakFrequencysX, peakFrequencysY, peakFrequencysZ,
+                dbHelper.insertVibCheckerData(meanAccelerationX, meanAccelerationY, meanAccelerationZ, maxXFrequency, maxYFrequency, maxZFrequency,
                         displacementAmplitudesX, displacementAmplitudesY, displacementAmplitudesZ,
                         currentTimerValue, delay, measurement_date, serializedBuffer, new RawSensorDao());
                 isSummarySaved = true;
@@ -478,13 +480,13 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         // Log.d("VibChecker", "Max X: " + maxX + " Max Y: " + maxY + " Max Z: " + maxZ + "Timer" +delay + "measurement_date" +measurement_date);
         // send the dominant frequency
 
-        intent.putExtra("Frequency_X", peakFrequencysX);
+        intent.putExtra("Frequency_X", maxXFrequency);
         //   Log.d("DebugDebug", "IFrequency_X: " + peakFrequencyX );
 
-        intent.putExtra("Frequency_Y", peakFrequencysY);
+        intent.putExtra("Frequency_Y", maxYFrequency);
         // Log.d("Debug", "IFrequency_Y: " + peakFrequencyY );
 
-        intent.putExtra("Frequency_Z", peakFrequencysZ);
+        intent.putExtra("Frequency_Z", maxZFrequency);
         // Log.d("Debug", "IFrequency_Z: " + peakFrequencyZ );
 
         // send the frequency magnitude
@@ -531,16 +533,16 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        xAxis.clear();
-        yAxis.clear();
-        zAxis.clear();
+       // xAxis.clear();
+        //yAxis.clear();
+        //zAxis.clear();
         timeStamps.clear();
         sensorData.clear();
-         xMagnitudes.clear();
-         yMagnitudes.clear();
-         zMagnitudes.clear();
+        xMagnitudes.clear();
+        yMagnitudes.clear();
+        zMagnitudes.clear();
 
-        Toast.makeText(getApplicationContext(), "onResume Called", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "onResume Called Accerometer2", Toast.LENGTH_SHORT).show();
 
     }
     // activity is on pause state
@@ -659,9 +661,9 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
 
         // ::::::::::::::::::::
         // Record timestamp and acceleration values
-        xAxis.add((float) event.values[0]);
-        yAxis.add((float) event.values[1]);
-        zAxis.add((float) event.values[2]);
+      //  xAxis.add((float) event.values[0]);
+       // yAxis.add((float) event.values[1]);
+        //zAxis.add((float) event.values[2]);
 
         ax = event.values[0];
         ay = event.values[1];
@@ -691,7 +693,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         timeStamps.add((double) timeInterval);
 
         // Update UI and database
-        onSensorData(ax, ay, az,timeStamps);
+        onSensorData(ax, ay, az);
         uiHandler.post(() -> pvPlot.invalidate()); // Redraw the plot
         dbHelper.insertSensorsData(getCurrentDateTime(), timeInterval, ax, ay, az, counter);
     }
@@ -782,19 +784,26 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         Log.i("Debug Data", "Max Frequency [Hz]: X=" + peakFrequencysX + ", Y=" + peakFrequencysY + ", Z=" + peakFrequencysZ);
         Log.i("Debug Data", "Amplitude [mm]: X=" + displacementAmplitudesX + ", Y=" + displacementAmplitudesY + ", Z=" + displacementAmplitudesZ);
 
-        for (double xResult : xResults) {
-            xMagnitudes.add(new Float[]{(float) xResult});
-        }
+        xMagnitudes.add(peakFrequencysX);
+        yMagnitudes.add(peakFrequencysY);
+        zMagnitudes.add(peakFrequencysZ);
 
-        for (double yResult : yResults) {
-            yMagnitudes.add(new Float[]{(float) yResult});
-        }
 
-        for (double zResult : zResults) {
-            zMagnitudes.add(new Float[]{(float) zResult});
-        }
+        Log.e("VibCheckerAccerlometer","XMagnitude Value is:::<<"+xMagnitudes.size());
+        Log.e("VibCheckerAccerlometer","YMagnitude Value is:::"+yMagnitudes.size());
+        Log.e("VibCheckerAccerlometer","ZMagnitude Value is:::"+zMagnitudes.size());
+
+         maxXFrequency = Collections.max(xMagnitudes);
+         maxYFrequency = Collections.max(yMagnitudes);
+         maxZFrequency = Collections.max(zMagnitudes);
+
+        Log.e("MaxFrequency","MaxFrequency:::::::X"+maxXFrequency);
+        Log.e("MaxFrequency","MaxFrequency:::::::Y"+maxYFrequency);
+        Log.e("MaxFrequency","MaxFrequency:::::::Z"+maxZFrequency);
 
     }
+
+
 
     // Normalize Data
     private double[] normalizeData(double[] data) {
@@ -1202,7 +1211,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         }
     }
 
-    private void onSensorData(float x, float y, float z, List<Double> timeStamps) {
+    private void onSensorData(float x, float y, float z) {
        // Log.d("SensorData", "X: " + x + ", Y: " + y + ", Z: " + z);
         // Update max values
         if (x > maxX) maxX = x;
