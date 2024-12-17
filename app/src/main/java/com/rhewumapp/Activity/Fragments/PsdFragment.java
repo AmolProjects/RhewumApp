@@ -56,9 +56,10 @@ public class PsdFragment extends Fragment {
     private static List<Float> yDisplacement = new ArrayList<>();
     private static List<Float> zDisplacement = new ArrayList<>();
     // declare the frequency magnitude
-    private static List<Float> xFrequencyMagnitude = new ArrayList<>();
-    private static List<Float> yFrequencyMagnitude = new ArrayList<>();
-    private static List<Float> zFrequencyMagnitude = new ArrayList<>();
+
+    private static List<Float[]> xFrequencyMagnitude = new ArrayList<Float[]>();
+    private static List<Float[]> yFrequencyMagnitude = new ArrayList<Float[]>();
+    private static List<Float[]> zFrequencyMagnitude = new ArrayList<Float[]>();
 
 
     public LineGraphSeries<DataPoint>mFreSeries1;
@@ -111,13 +112,13 @@ public class PsdFragment extends Fragment {
     }
 
     // receive the Frequency x axis
-    public static void xUpdateMagnitudeFrequency(List<Float>xMagnitudeFrequncy){
+    public static void xUpdateMagnitudeFrequency(List<Float[]>xMagnitudeFrequncy){
         xFrequencyMagnitude=xMagnitudeFrequncy;
     }
-    public static void yUpdateMagnitudeFrequency(List<Float>yMagnitudeFrequncy){
+    public static void yUpdateMagnitudeFrequency(List<Float[]>yMagnitudeFrequncy){
         yFrequencyMagnitude=yMagnitudeFrequncy;
     }
-    public static void zUpdateMagnitudeFrequency(List<Float>zMagnitudeFrequncy){
+    public static void zUpdateMagnitudeFrequency(List<Float[]>zMagnitudeFrequncy){
         zFrequencyMagnitude=zMagnitudeFrequncy;
     }
 
@@ -202,15 +203,32 @@ public class PsdFragment extends Fragment {
 
         // Add data to mSeries1 (xFrequencyMagnitude)
         for (int i = 0; i < xFrequencyMagnitude.size(); i++) {
-            mFreSeries1.appendData(new DataPoint(i, xFrequencyMagnitude.get(i)), true, xFrequencyMagnitude.size());
+            Float[] magnitudeArray = xFrequencyMagnitude.get(i);  // Extract the Float[] array
+            if (magnitudeArray != null && magnitudeArray.length > 0) {
+                for (int j = 0; j < magnitudeArray.length; j++) {  // Iterate through array elements
+                    mFreSeries1.appendData(new DataPoint(j, magnitudeArray[j]), true, magnitudeArray.length);
+                }
+            }
         }
         // Add data to mSeries2 (yFrequencyMagnitude)
+
         for (int i = 0; i < yFrequencyMagnitude.size(); i++) {
-            mFreSeries2.appendData(new DataPoint(i, yFrequencyMagnitude.get(i)), true, yFrequencyMagnitude.size());
+            Float[] magnitudeArray = yFrequencyMagnitude.get(i);  // Extract the Float[] array
+            if (magnitudeArray != null && magnitudeArray.length > 0) {
+                for (int j = 0; j < magnitudeArray.length; j++) {  // Iterate through array elements
+                    mFreSeries2.appendData(new DataPoint(j, magnitudeArray[j]), true, magnitudeArray.length);
+                }
+            }
         }
+
         // Add data to mSeries3 (zFrequencyMagnitude)
         for (int i = 0; i < zFrequencyMagnitude.size(); i++) {
-            mFreSeries3.appendData(new DataPoint(i, zFrequencyMagnitude.get(i)), true, zFrequencyMagnitude.size());
+            Float[] magnitudeArray = zFrequencyMagnitude.get(i);  // Extract the Float[] array
+            if (magnitudeArray != null && magnitudeArray.length > 0) {
+                for (int j = 0; j < magnitudeArray.length; j++) {  // Iterate through array elements
+                    mFreSeries3.appendData(new DataPoint(j, magnitudeArray[j]), true, magnitudeArray.length);
+                }
+            }
         }
 
         // Add the series to the graph

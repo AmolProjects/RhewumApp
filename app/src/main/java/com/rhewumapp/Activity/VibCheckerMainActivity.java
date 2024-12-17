@@ -3,6 +3,7 @@ package com.rhewumapp.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -168,9 +169,12 @@ public class VibCheckerMainActivity extends DrawerBaseActivity {
 
     private void handleFrequencyMagnitudeData() {
         // max dominant magnitude frequency
-        List<Float> xMagnitudeFrequency = SummeryFragment.xFrequencyMagnitude();
-        List<Float> yMagnitudeFrequency = SummeryFragment.yFrequencyMagnitude();
-        List<Float> zMagnitudeFrequency = SummeryFragment.zFrequencyMagnitude();
+        List<Float[]> xMagnitudeFrequency = SummeryFragment.xFrequencyMagnitude();
+        Log.e("Magnitude x","Magnitude X"+xMagnitudeFrequency.size());
+        List<Float[]> yMagnitudeFrequency = SummeryFragment.yFrequencyMagnitude();
+        Log.e("Magnitude y","Magnitude Y"+yMagnitudeFrequency.size());
+        List<Float[]> zMagnitudeFrequency = SummeryFragment.zFrequencyMagnitude();
+        Log.e("Magnitude z","Magnitude Z"+zMagnitudeFrequency.size());
 
         PsdFragment.xUpdateMagnitudeFrequency(xMagnitudeFrequency);
         PsdFragment.yUpdateMagnitudeFrequency(yMagnitudeFrequency);

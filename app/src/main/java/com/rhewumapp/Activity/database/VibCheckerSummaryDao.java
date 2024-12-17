@@ -58,6 +58,4 @@ public class VibCheckerSummaryDao implements Serializable {
     @DatabaseField
     public int  delay;
 
-    @DatabaseField(foreign = true, foreignAutoRefresh = true)
-    public MeasurementDao measurement;
 }

@@ -25,8 +25,8 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
     private static final int DATABASE_VERSION = 11;
     private Dao<MeasurementDao, Integer> frequencyDao;
     private Dao<VibCheckerSummaryDao, Integer> accelerometerDao;
-    private Dao<PsdSummaryDao,Integer>displacementDao;
-    private Dao<RawDao,Integer>rawDao;
+   // private Dao<PsdSummaryDao,Integer>displacementDao;
+   // private Dao<RawDao,Integer>rawDao;
    // private Dao<RawSensor,Integer>rawSensors;
     private Dao<RawSensorDao,Integer>rawSensorDao;
 
@@ -39,8 +39,8 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
         try {
             TableUtils.createTable(connectionSource, MeasurementDao.class);
             TableUtils.createTable(connectionSource, VibCheckerSummaryDao.class);
-            TableUtils.createTable(connectionSource, PsdSummaryDao.class);
-            TableUtils.createTable(connectionSource, RawDao.class);
+          //  TableUtils.createTable(connectionSource, PsdSummaryDao.class);
+           // TableUtils.createTable(connectionSource, RawDao.class);
            // TableUtils.createTable(connectionSource, RawSensor.class);
             TableUtils.createTable(connectionSource, RawSensorDao.class);
 
@@ -54,8 +54,8 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
         try {
             TableUtils.dropTable(connectionSource, MeasurementDao.class, true);
             TableUtils.dropTable(connectionSource, VibCheckerSummaryDao.class, true);
-            TableUtils.dropTable(connectionSource, PsdSummaryDao.class,true);
-            TableUtils.dropTable(connectionSource, RawDao.class,true);
+           // TableUtils.dropTable(connectionSource, PsdSummaryDao.class,true);
+          //  TableUtils.dropTable(connectionSource, RawDao.class,true);
           //  TableUtils.dropTable(connectionSource, RawSensor.class,true);
             TableUtils.dropTable(connectionSource, RawSensorDao.class,true);
             onCreate(sQLiteDatabase, connectionSource);
@@ -65,19 +65,19 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
             e.getMessage();
         }
     }
-    @Override
+    /*@Override
     public void close() {
         rawDao = null;
         super.close();
-    }
+    }*/
 
     // create Raw data
-    public Dao<RawDao,Integer>getRawData()throws SQLException{
+    /*public Dao<RawDao,Integer>getRawData()throws SQLException{
         if(this.rawDao==null){
             this.rawDao = getDao(RawDao.class);
         }
         return this.rawDao;
-    }
+    }*/
     // create model class for vibSonic data
 
     public Dao<MeasurementDao, Integer> getMeasurementDao() throws SQLException {
@@ -318,7 +318,7 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
     }
 
 
-    public List<RawDao> getLatestRawValues(int limit) {
+    /*public List<RawDao> getLatestRawValues(int limit) {
         List<RawDao> rawValues = new ArrayList<>();
         try {
             // Ensure the limit is greater than 0
@@ -353,9 +353,9 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
             e.printStackTrace();
         }
         return rawValues;
-    }
+    }*/
 
-    public Dao<RawDao, Integer> getRawDao() {
+    /*public Dao<RawDao, Integer> getRawDao() {
         try {
             // Retrieve the DAO for VibCheckerSummaryDao
             return getDao(RawDao.class);
@@ -363,7 +363,7 @@ public class RhewumDbHelper extends OrmLiteSqliteOpenHelper {
             e.printStackTrace();
             return null;
         }
-    }
+    }*/
 
 
 

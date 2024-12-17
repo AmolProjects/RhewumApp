@@ -285,6 +285,7 @@ public class VibChecker_ListActivity extends DrawerBaseActivity {
               //  vibCheckerSummaryDaoArrayLists = dbHelper.getLatestRawValues(100);
               //  rawSensorList=dbHelper.fetchSensorDataByRecordId(Integer.parseInt(listId));
                 List<RawSensorDao> rawSensorList = dbHelper.fetchSensorDataById(Integer.parseInt(listId));
+
                 Log.e("VibcheckerList","VibcheckerList"+rawSensorList.size());
                 if (!rawSensorList.isEmpty()) {
 

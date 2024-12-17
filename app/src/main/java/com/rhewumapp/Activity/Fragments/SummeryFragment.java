@@ -98,9 +98,9 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
     static float yAmplitude;
     static float zAmplitude;
     // declare the frequency magnitude list
-    private static List<Float> xFrequencyMagnitude = new ArrayList<>();
-    private static List<Float> yFrequencyMagnitude = new ArrayList<>();
-    private static List<Float> zFrequencyMagnitude = new ArrayList<>();
+    private static List<Float[]> xFrequencyMagnitude = new ArrayList<>();
+    private static List<Float[]> yFrequencyMagnitude = new ArrayList<>();
+    private static List<Float[]> zFrequencyMagnitude = new ArrayList<>();
 
     private Calendar calendar;
     Button bt_archieve, bt_share;
@@ -378,9 +378,9 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
             Bundle args = intent.getBundleExtra("BUNDLE");
             assert args != null;
             // receive the frequency magnitude list
-            xFrequencyMagnitude = (List<Float>) args.getSerializable("Frequency_xMagnitudes");
-            yFrequencyMagnitude = (List<Float>) args.getSerializable("Frequency_yMagnitudes");
-            zFrequencyMagnitude = (List<Float>) args.getSerializable("Frequency_zMagnitudes");
+            xFrequencyMagnitude = (List<Float[]>) args.getSerializable("Frequency_xMagnitudes");
+            yFrequencyMagnitude = (List<Float[]>) args.getSerializable("Frequency_yMagnitudes");
+            zFrequencyMagnitude = (List<Float[]>) args.getSerializable("Frequency_zMagnitudes");
 
 
             String formattedValueX = String.format(Locale.US, "%.1f", accelerationX);
@@ -431,16 +431,16 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
     }
 
 
-    public static List<Float> xFrequencyMagnitude() {
-        return xFrequencyMagnitude;
+    public static List<Float[]>xFrequencyMagnitude() {
+        return (List<Float[]>) xFrequencyMagnitude;
     }
 
-    public static List<Float> yFrequencyMagnitude() {
-        return yFrequencyMagnitude;
+    public static List<Float[]> yFrequencyMagnitude() {
+        return (List<Float[]>) yFrequencyMagnitude;
     }
 
-    public static List<Float> zFrequencyMagnitude() {
-        return zFrequencyMagnitude;
+    public static List<Float[]> zFrequencyMagnitude() {
+        return (List<Float[]>) zFrequencyMagnitude;
     }
 
     public static float maxXAcceleration() {
