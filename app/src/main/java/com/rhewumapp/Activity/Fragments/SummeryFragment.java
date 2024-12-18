@@ -140,6 +140,7 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
         initObjects();
         getData();
         initGUI();
+        deleteCsvFileFromExternalStorage();
        displayPeakFrequencies();
         onClickUi();
 
@@ -214,6 +215,26 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
             }
         });
     }
+
+    public void deleteCsvFileFromExternalStorage() {
+        // Get the directory for external storage (e.g., Downloads folder)
+        File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        File file = new File(directory, "VibCheckerData.csv");
+
+        // Check if the file exists and delete it
+        if (file.exists()) {
+            boolean deleted = file.delete();
+            if (deleted) {
+                Log.d("FileDeleter", "File deleted successfully.");
+            } else {
+                Log.d("FileDeleter", "Failed to delete the file.");
+            }
+        } else {
+            Log.d("FileDeleter", "File does not exist.");
+        }
+    }
+
+
 
     public void callMoreMenus() {
         final Dialog dialog = new Dialog(getContext());
