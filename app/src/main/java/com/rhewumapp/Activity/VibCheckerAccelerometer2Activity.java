@@ -77,9 +77,9 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
     private final List<Double> timeStamps = new ArrayList<>();
 
 
-    private final List<Float> xDisplacement = new ArrayList<>();
-    private final List<Float> yDisplacement = new ArrayList<>();
-    private final List<Float> zDisplacement = new ArrayList<>();
+    private final List<Float> xAmplitude = new ArrayList<>();
+    private final List<Float> yAmplitude = new ArrayList<>();
+    private final List<Float> zAmplitude = new ArrayList<>();
     private long lastInsertTime = 0; // Track last insert time
     TextView txtBack, txtResults, txt_fiveSecond, txt_zeroDelay,
             txt_onLpFilter, txt_Filter, txtZ, txtx, txty,
@@ -334,7 +334,6 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
 
                 // Make "ON" or "Off" bold based on the filter state
                 if (zeroDelayFlag) {
-
                     delay = 0;
                     txt_zeroDelay.setBackgroundColor(ContextCompat.getColor(VibCheckerAccelerometer2Activity.this, R.color.header_backgrounds));
                     spannableDelayMessage.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 4, // Bold "ON"
@@ -453,7 +452,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
                         displacementAmplitudesX, displacementAmplitudesY, displacementAmplitudesZ,
                         currentTimerValue, delay, measurement_date, serializedBuffer, new RawSensorDao());
                 isSummarySaved = true;
-                Toast.makeText(this, "Data inserted successfully", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(this, "Data inserted successfully", Toast.LENGTH_SHORT).show();
                 Log.d("DBInsert", "Data inserted successfully with timer value: " + serializedBuffer.length);
             } else {
                 Log.e("DBInsertError", "Serialized buffer is null, skipping database insert.");
@@ -495,9 +494,9 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         bundle.putSerializable("Frequency_zMagnitudes", (Serializable) zMagnitudes);
 
         // send the data for displacement
-        bundle.putSerializable("displacement_dataX", (Serializable) xDisplacement);
-        bundle.putSerializable("displacement_dataY", (Serializable) yDisplacement);
-        bundle.putSerializable("displacement_dataZ", (Serializable) zDisplacement);
+        bundle.putSerializable("displacement_dataX", (Serializable) xAmplitude);
+        bundle.putSerializable("displacement_dataY", (Serializable) yAmplitude);
+        bundle.putSerializable("displacement_dataZ", (Serializable) zAmplitude);
         intent.putExtra("BUNDLE", bundle);
 
         // dbHelper.insertSensorData(xData,yData,zData);
@@ -541,6 +540,9 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         xMagnitudes.clear();
         yMagnitudes.clear();
         zMagnitudes.clear();
+        xAmplitude.clear();
+        yAmplitude.clear();
+        zAmplitude.clear();
 
         //Toast.makeText(getApplicationContext(), "onResume Called Accerometer2", Toast.LENGTH_SHORT).show();
 
@@ -776,6 +778,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         peakFrequencysX= (float) xResults[1];
         peakFrequencysY= (float) yResults[1];
         peakFrequencysZ= (float) zResults[1];
+
         displacementAmplitudesX=(float)xResults[0];
         displacementAmplitudesY=(float)yResults[0];
         displacementAmplitudesZ=(float)zResults[0];
@@ -800,6 +803,14 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         Log.e("MaxFrequency","MaxFrequency:::::::X"+maxXFrequency);
         Log.e("MaxFrequency","MaxFrequency:::::::Y"+maxYFrequency);
         Log.e("MaxFrequency","MaxFrequency:::::::Z"+maxZFrequency);
+
+        xAmplitude.add(displacementAmplitudesX);
+        yAmplitude.add(displacementAmplitudesY);
+        zAmplitude.add(displacementAmplitudesZ);
+
+        Log.e("Ampltiude","Ampltiude:::::::X"+xAmplitude.size());
+        Log.e("Ampltiude","Ampltiude:::::::Y"+yAmplitude.size());
+        Log.e("Ampltiude","Ampltiude:::::::Z"+zAmplitude.size());
 
     }
 

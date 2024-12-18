@@ -102,6 +102,10 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
     private static List<Float> yFrequencyMagnitude = new ArrayList<>();
     private static List<Float> zFrequencyMagnitude = new ArrayList<>();
 
+    private static List<Float> xArrayAmplitude = new ArrayList<>();
+    private static List<Float> yArrayAmplitude = new ArrayList<>();
+    private static List<Float> zArrayAmplitude = new ArrayList<>();
+
     private Calendar calendar;
     Button bt_archieve, bt_share;
     RhewumDbHelper dbHelper;
@@ -386,6 +390,14 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
             Log.e("SummaryFragment","SummaryFragment_Y size"+yFrequencyMagnitude.size());
             Log.e("SummaryFragment","SummaryFragment_Z size"+zFrequencyMagnitude.size());
 
+            xArrayAmplitude = (List<Float>) args.getSerializable("displacement_dataX");
+            yArrayAmplitude = (List<Float>) args.getSerializable("displacement_dataY");
+            zArrayAmplitude = (List<Float>) args.getSerializable("displacement_dataZ");
+
+            Log.e("SummaryFragment","Amplitude_X size"+xArrayAmplitude.size());
+            Log.e("SummaryFragment","Amplitude_Y size"+yArrayAmplitude.size());
+            Log.e("SummaryFragment","Amplitude_Z size"+zArrayAmplitude.size());
+
 
             String formattedValueX = String.format(Locale.US, "%.1f", accelerationX);
             String formattedValueY = String.format(Locale.US, "%.1f", accelerationY);
@@ -445,6 +457,18 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
 
     public static List<Float> zFrequencyMagnitude() {
         return (List<Float>) zFrequencyMagnitude;
+    }
+
+    public static List<Float>xArrayAmplitude() {
+        return (List<Float>) xArrayAmplitude;
+    }
+
+    public static List<Float> yArrayAmplitude() {
+        return (List<Float>) yArrayAmplitude;
+    }
+
+    public static List<Float> zArrayAmplitude() {
+        return (List<Float>) zArrayAmplitude;
     }
 
     public static float maxXAcceleration() {

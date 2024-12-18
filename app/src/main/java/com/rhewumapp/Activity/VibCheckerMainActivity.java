@@ -106,6 +106,7 @@ public class VibCheckerMainActivity extends DrawerBaseActivity {
                     handleMaxAcceleration();
                     handleMaxFrequency();
                     handleFrequencyMagnitudeData();
+                    handleAmplitudeMagnitudeData();
                     handleMaxAmplitude();
 
                 }
@@ -179,6 +180,20 @@ public class VibCheckerMainActivity extends DrawerBaseActivity {
         PsdFragment.xUpdateMagnitudeFrequency(xMagnitudeFrequency);
         PsdFragment.yUpdateMagnitudeFrequency(yMagnitudeFrequency);
         PsdFragment.zUpdateMagnitudeFrequency(zMagnitudeFrequency);
+    }
+
+    private void handleAmplitudeMagnitudeData() {
+        // max dominant magnitude frequency
+        List<Float> xArrayAmplitude = SummeryFragment.xArrayAmplitude();
+        Log.e("Amplitude x","Magnitude X"+xArrayAmplitude.size());
+        List<Float> yArrayAmplitude = SummeryFragment.yArrayAmplitude();
+        Log.e("Amplitude y","Amplitude Y"+yArrayAmplitude.size());
+        List<Float> zArrayAmplitude = SummeryFragment.zArrayAmplitude();
+        Log.e("Amplitude z","Amplitude Z"+zArrayAmplitude.size());
+
+        PsdFragment.updateArrayAmplitudeX(xArrayAmplitude);
+        PsdFragment.updateArrayAmplitudeY(yArrayAmplitude);
+        PsdFragment.updateArrayAmplitudeZ(zArrayAmplitude);
     }
 
 
