@@ -384,6 +384,16 @@
                     app:layout_constraintWidth_default="percent"
                     app:layout_constraintWidth_percent="0.5" />
 
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />  <!-- Initially hidden -->
+
+
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

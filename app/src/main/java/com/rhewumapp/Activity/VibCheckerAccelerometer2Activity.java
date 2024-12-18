@@ -14,6 +14,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
@@ -29,6 +30,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,11 +42,18 @@ import com.rhewumapp.Activity.database.RawSensorDao;
 import com.rhewumapp.Activity.database.RhewumDbHelper;
 import com.rhewumapp.DrawerBaseActivity;
 import com.rhewumapp.R;
+import com.rhewumapp.Thread.CalculateMeanAccelerationTask;
+import com.rhewumapp.Utils.CSVReaderUtils;
+import com.rhewumapp.Utils.CSVUtils;
 import com.rhewumapp.databinding.ActivityVibCheckerAccelerometer2Binding;
 
+import org.apache.commons.math3.analysis.interpolation.SplineInterpolator;
+import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction;
 import org.jtransforms.fft.DoubleFFT_1D;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -74,12 +83,12 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
     /*private final List<Float> xAxis = new ArrayList<>();
     private final List<Float> yAxis = new ArrayList<>();
     private final List<Float> zAxis = new ArrayList();*/
-    private final List<Double> timeStamps = new ArrayList<>();
+    private static final List<Double> timeStamps = new ArrayList<>();
 
 
-    private final List<Float> xAmplitude = new ArrayList<>();
-    private final List<Float> yAmplitude = new ArrayList<>();
-    private final List<Float> zAmplitude = new ArrayList<>();
+    private static final List<Float> xAmplitude = new ArrayList<>();
+    private static final List<Float> yAmplitude = new ArrayList<>();
+    private static final List<Float> zAmplitude = new ArrayList<>();
     private long lastInsertTime = 0; // Track last insert time
     TextView txtBack, txtResults, txt_fiveSecond, txt_zeroDelay,
             txt_onLpFilter, txt_Filter, txtZ, txtx, txty,
@@ -103,9 +112,9 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
     private float maxY = Float.MIN_VALUE;
     private float maxZ = Float.MIN_VALUE;
     // frequency magnitude
-    private final List<Float> xMagnitudes = new ArrayList<Float>();
-    private final List<Float> yMagnitudes = new ArrayList<Float>();
-    private final List<Float> zMagnitudes = new ArrayList<Float>();
+    private static final List<Float> xMagnitudes = new ArrayList<Float>();
+    private static final List<Float> yMagnitudes = new ArrayList<Float>();
+    private static final List<Float> zMagnitudes = new ArrayList<Float>();
     private long lastTimestamp = 0;
     private boolean applyLowPassFilter = true; // Flag to toggle filter
     private boolean zeroDelayFlag = false; // Flag to toggle filter
@@ -129,8 +138,19 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
 
 
     private int currentTimerValue = 5; // Initialize with the default timer value
-    float meanAccelerationX, meanAccelerationY, meanAccelerationZ;
-    float peakFrequencysX, peakFrequencysY, peakFrequencysZ,maxXFrequency,maxYFrequency,maxZFrequency,displacementAmplitudesX, displacementAmplitudesY, displacementAmplitudesZ;
+    static float meanAccelerationX;
+    static float meanAccelerationY;
+    static float meanAccelerationZ;
+    static float peakFrequencysX;
+    static float peakFrequencysY;
+    static float peakFrequencysZ;
+    static float maxXFrequency;
+    static float maxYFrequency;
+    static float maxZFrequency;
+    static float displacementAmplitudesX;
+    static float displacementAmplitudesY;
+    static float displacementAmplitudesZ;
+    ProgressBar progressBar;
 
 
     private boolean isSummarySaved = false;
@@ -388,6 +408,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
     // initialise the object
     private void initObjects() {
         // Get ViewModel
+        progressBar=findViewById(R.id.progressBar);
         txtBack = findViewById(R.id.txtBack);
         dbHelper = new RhewumDbHelper(VibCheckerAccelerometer2Activity.this);
         txt_fiveSecond = findViewById(R.id.txt_fiveSecond);
@@ -430,6 +451,8 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
             bt_vib_start.setBackgroundColor(ContextCompat.getColor(VibCheckerAccelerometer2Activity.this, R.color.header_backgrounds));
             bt_vib_start.setText(R.string.start);
         });
+        List<double[]> vibCheckerData = CSVReaderUtils.readVibCheckerData();
+        calculateMeanAcceleration(vibCheckerData);
 
         // save the data for max acceleration x.....
         measurement_date = getCurrentDateTime();
@@ -532,9 +555,6 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-       // xAxis.clear();
-        //yAxis.clear();
-        //zAxis.clear();
         timeStamps.clear();
         sensorData.clear();
         xMagnitudes.clear();
@@ -685,8 +705,8 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         sensorData.add(new double[]{ax, ay, az});
 
         // Check if the batch size has been reached
-        if (sensorData.size() >= DATA_BATCH_SIZE) {
-            calculateMeanAcceleration(sensorData); // Call your method to process the data
+        if (sensorData.size()>1) {
+          //  calculateMeanAcceleration(sensorData); // Call your method to process the data
             //sensorData.clear(); // Clear the list for new batch
         }
 
@@ -698,20 +718,36 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         onSensorData(ax, ay, az);
         uiHandler.post(() -> pvPlot.invalidate()); // Redraw the plot
         dbHelper.insertSensorsData(getCurrentDateTime(), timeInterval, ax, ay, az, counter);
+        // Call the utility method
+        CSVUtils.saveVibCheckerDataToCSV(this, getCurrentDateTime(), timeInterval, ax, ay, az);
     }
 
     // calculate the mean
-    private void calculateMeanAcceleration(List<double[]> rawData) {
+    public static void calculateMeanAcceleration(List<double[]> rawData) {
         // Step 1: Extract raw values
         double[] xRaw = rawData.stream().mapToDouble(row -> row[0]).toArray();
         double[] yRaw = rawData.stream().mapToDouble(row -> row[1]).toArray();
         double[] zRaw = rawData.stream().mapToDouble(row -> row[2]).toArray();
-        double[] timeArray = timeStamps.stream().mapToDouble(Double::floatValue).toArray();
+
+        double[] time = timeStamps.stream().mapToDouble(Double::floatValue).toArray();
+        Log.e("Time", "TimeInterval: " + time.length);
+
+        //added 17
+        double[] normalizedTime = Arrays.stream(time).map(t -> t - time[0]).toArray();
+        Log.e("normalizedTime", "normalizedTime Length " +normalizedTime.length);
+//        double[] newTime = linspace(0, normalizedTime[normalizedTime.length - 1], 500);
+        double stepSize = 10.0; // Match Python's step size
+        int numPoints = (int) ((normalizedTime[normalizedTime.length - 1] - 0) / stepSize) + 1;
+        Log.e("numPoints", "numPoints: " + (numPoints));
+        double[] newTime = linspace(0, normalizedTime[normalizedTime.length - 1], numPoints);
+
+        Log.e("normalizedTime", "newTime Length" + newTime.length);
+
 
         Log.i("Debug Data", "First 10 X Values: " + Arrays.toString(Arrays.copyOfRange(xRaw, 0, 10)));
         Log.i("Debug Data", "First 10 Y Values: " + Arrays.toString(Arrays.copyOfRange(yRaw, 0, 10)));
         Log.i("Debug Data", "First 10 Z Values: " + Arrays.toString(Arrays.copyOfRange(zRaw, 0, 10)));
-
+        Log.i("Debug Data", "First 10 time: " + Arrays.toString(Arrays.copyOfRange(time, 0, 10)));
         // Step 2: Calculate mean
         double meanX = Arrays.stream(xRaw).average().orElse(0.0);
         double meanY = Arrays.stream(yRaw).average().orElse(0.0);
@@ -724,55 +760,42 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         double[] normalizedY = Arrays.stream(yRaw).map(y -> y - meanY).toArray();
         double[] normalizedZ = Arrays.stream(zRaw).map(z -> z - meanZ).toArray();
 
-        Log.i("Debug Data", "First 10 Normalized X Values: " + Arrays.toString(Arrays.copyOfRange(normalizedX, 0, 10)));
-        Log.i("Debug Data", "First 10 Normalized Y Values: " + Arrays.toString(Arrays.copyOfRange(normalizedY, 0, 10)));
-        Log.i("Debug Data", "First 10 Normalized Z Values: " + Arrays.toString(Arrays.copyOfRange(normalizedZ, 0, 10)));
+        Log.i("normalizedTime", "Normalized X Values length: " + normalizedX.length);
+        Log.i("normalizedTime", "Normalized Y Values length: " + normalizedY.length);
+        Log.i("normalizedTime", "Normalized Z Values length" + normalizedZ.length);
 
         // Step 4: Calculate RMS for mean acceleration
         meanAccelerationX = (float) Math.sqrt(Arrays.stream(normalizedX).map(x -> x * x).average().orElse(0.0));
         meanAccelerationY = (float) Math.sqrt(Arrays.stream(normalizedY).map(y -> y * y).average().orElse(0.0));
         meanAccelerationZ = (float) Math.sqrt(Arrays.stream(normalizedZ).map(z -> z * z).average().orElse(0.0));
 
-        Log.i("Debug Data", "Mean Acceleration [m/s²] X " + meanAccelerationX);
-        Log.i("Debug Data", "Mean Acceleration [m/s²] Y: " + meanAccelerationY);
-        Log.i("Debug Data", "Mean Acceleration [m/s²] Z: " + meanAccelerationZ);
+        Log.i("Debug Data", "Mean Acceleration [m/s²] X" + meanAccelerationX);
+        Log.i("Debug Data", "Mean Acceleration [m/s²] Y:" + meanAccelerationY);
+        Log.i("Debug Data", "Mean Acceleration [m/s²] Z:" + meanAccelerationZ);
 
 
         // >>>>>>>>>>>>>>>>>> calculate the frequency ::::::::>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
       //  double[] timeArray = timeStamps.stream().mapToDouble(Double::floatValue).toArray();
        // double[] time = rawData.stream().mapToDouble(row -> row[3]).toArray();
-        // Normalize data
-        double[] xNorm = normalizeData(xRaw);
-        double[] yNorm = normalizeData(yRaw);
-        double[] zNorm = normalizeData(zRaw);
-        double[] normalizedTime = Arrays.stream(timeArray).map(t -> t - timeArray[0]).toArray();
-        // Interpolate data
-//      double[] newTime = linspace(10, 5000, 500);
-        double[] newTime = linspace(0, normalizedTime[normalizedTime.length - 1], 500);
-        double baseTime = timeArray[0];
-//      double[] normalizedTime = normalizeTime(time);
-//      double[] newTime = linspace(0, normalizedTime[normalizedTime.length - 1], 500);
 
-//
-        double[] xInterp = interpolateData(timeArray, xNorm);
-        double[] yInterp = interpolateData(timeArray, yNorm);
-        double[] zInterp = interpolateData(timeArray, zNorm);
+        //added 17
+        double[] xInterp = interpolateData_spilne(normalizedTime, normalizedX, newTime);
+        double[] yInterp = interpolateData_spilne(normalizedTime, normalizedY, newTime);
+        double[] zInterp = interpolateData_spilne(normalizedTime, normalizedZ, newTime);
 
-//      double[] xInterp = interpolate(time, xNorm, newTime);
-//      double[] yInterp = interpolate(time, yNorm, newTime);
-//      double[] zInterp = interpolate(time, zNorm, newTime);
 
         Log.i("Debug Data", "Interpolated X Data: " + Arrays.toString(xInterp));
         Log.i("Debug Data", "Interpolated Y Data: " + Arrays.toString(yInterp));
         Log.i("Debug Data", "Interpolated Z Data: " + Arrays.toString(zInterp));
 
+
         // Perform FFT and PSD calculations
         double timestep = newTime[1] - newTime[0];
 
         Log.i("Debug Data", "Timestep: " + timestep);
-        double[] xResults = calculateFFTAndFindMax(xInterp, 0.01);
-        double[] yResults = calculateFFTAndFindMax(yInterp, 0.01);
-        double[] zResults = calculateFFTAndFindMax(zInterp, 0.01);
+        double[] xResults = calculateFFTAndFindMax_New(xInterp, 0.01);
+        double[] yResults = calculateFFTAndFindMax_New(yInterp, 0.01);
+        double[] zResults = calculateFFTAndFindMax_New(zInterp, 0.01);
 
 
         peakFrequencysX= (float) xResults[1];
@@ -792,40 +815,53 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         zMagnitudes.add(peakFrequencysZ);
 
 
-        Log.e("VibCheckerAccerlometer","XMagnitude Value is:::<<"+xMagnitudes.size());
-        Log.e("VibCheckerAccerlometer","YMagnitude Value is:::"+yMagnitudes.size());
-        Log.e("VibCheckerAccerlometer","ZMagnitude Value is:::"+zMagnitudes.size());
+        Log.e("Debug Data","XMagnitude Value is:::<<"+xMagnitudes.size());
+        Log.e("Debug Data","YMagnitude Value is:::"+yMagnitudes.size());
+        Log.e("Debug Data","ZMagnitude Value is:::"+zMagnitudes.size());
 
          maxXFrequency = Collections.max(xMagnitudes);
          maxYFrequency = Collections.max(yMagnitudes);
          maxZFrequency = Collections.max(zMagnitudes);
 
-        Log.e("MaxFrequency","MaxFrequency:::::::X"+maxXFrequency);
-        Log.e("MaxFrequency","MaxFrequency:::::::Y"+maxYFrequency);
-        Log.e("MaxFrequency","MaxFrequency:::::::Z"+maxZFrequency);
+        Log.e("Debug Data","MaxFrequency:::::::X"+maxXFrequency);
+        Log.e("Debug Data","MaxFrequency:::::::Y"+maxYFrequency);
+        Log.e("Debug Data","MaxFrequency:::::::Z"+maxZFrequency);
 
         xAmplitude.add(displacementAmplitudesX);
         yAmplitude.add(displacementAmplitudesY);
         zAmplitude.add(displacementAmplitudesZ);
 
-        Log.e("Ampltiude","Ampltiude:::::::X"+xAmplitude.size());
-        Log.e("Ampltiude","Ampltiude:::::::Y"+yAmplitude.size());
-        Log.e("Ampltiude","Ampltiude:::::::Z"+zAmplitude.size());
+        Log.e("Debug Data","Ampltiude:::::::X"+xAmplitude.size());
+        Log.e("Debug Data","Ampltiude:::::::Y"+yAmplitude.size());
+        Log.e("Debug Data","Ampltiude:::::::Z"+zAmplitude.size());
 
     }
 
+    private static double[] interpolateData_spilne(double[] time, double[] values, double[] newTime) {
+        SplineInterpolator interpolator = new SplineInterpolator();
+        PolynomialSplineFunction spline = interpolator.interpolate(time, values);
 
-
-    // Normalize Data
-    private double[] normalizeData(double[] data) {
-        double mean = Arrays.stream(data).average().orElse(0);
-        return Arrays.stream(data).map(value -> value - mean).toArray();
+        double[] interpolated = new double[newTime.length];
+        for (int i = 0; i < newTime.length; i++) {
+            // Handle out-of-bound extrapolation safely
+            if (newTime[i] < time[0]) {
+                interpolated[i] = values[0];
+            } else if (newTime[i] > time[time.length-1]) {
+                interpolated[i] = values[values.length - 1];
+            } else {
+                interpolated[i] = spline.value(newTime[i]);
+            }
+        }
+        return interpolated;
     }
 
-    private double[] calculateFFTAndFindMax(double[] data, double timestep) {
+    private static double[] calculateFFTAndFindMax_New(double[] data, double timestep) {
         int n = data.length;
         DoubleFFT_1D fft = new DoubleFFT_1D(n);
-        double[] fftData = Arrays.copyOf(data, 2 * n); // Zero-padding
+        double[] fftData = new double[2 * n]; // Zero-padding for complex FFT
+        double[] windowedData = applyHanningWindow(data); // Apply Hanning Window
+
+        System.arraycopy(windowedData, 0, fftData, 0, n); // Copy windowed data
         fft.realForward(fftData);
 
         double[] psd = new double[n / 2];
@@ -834,21 +870,40 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         double maxPsd = 0;
         double maxFreq = 0;
 
-        for (int i = 0; i < n / 2; i++) {
+        for (int i = 1; i < n / 2; i++) { // Start from index 1 to ignore DC component
             double real = fftData[2 * i];
             double imag = fftData[2 * i + 1];
-            psd[i] = 2 * Math.sqrt(real * real + imag * imag) / n; // Compute amplitude
+            double freq = freqs[i];
+
+            // Amplitude with angular frequency scaling
+            psd[i] = 2 * Math.sqrt(real * real + imag * imag) / n / Math.pow((2 * Math.PI * freq), 2);
+
+            // Filter out frequencies below 10 Hz
+            if (freq < 10) {
+                psd[i] = 0;
+            }
+
+            // Track max amplitude
             if (psd[i] > maxPsd) {
                 maxPsd = psd[i];
-                maxFreq = freqs[i];
+                maxFreq = freq;
             }
         }
-        return new double[]{maxPsd, maxFreq};
+
+        return new double[]{maxPsd * 1000, maxFreq}; // Convert amplitude to millimeters
+    }
+    // Apply Hanning Window
+    private static double[] applyHanningWindow(double[] data) {
+        int n = data.length;
+        double[] windowedData = new double[n];
+        for (int i = 0; i < n; i++) {
+            windowedData[i] = data[i] * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / (n - 1)));
+        }
+        return windowedData;
     }
 
-
     // Linspace
-    private double[] linspace(double start, double end, int num) {
+    private static double[] linspace(double start, double end, int num) {
         double[] result = new double[num];
         double step = (end - start) / (num - 1);
         for (int i = 0; i < num; i++) {
@@ -856,101 +911,6 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         }
         return result;
     }
-
-    private double[] interpolateData(double[] time, double[] data) {
-        // Number of points for interpolation
-        int numPoints = 500; // You can set the desired number of points (e.g., 500)
-        double[] interpolatedTime = new double[numPoints];
-        double[] interpolatedData = new double[numPoints];
-
-        // Generate evenly spaced time array for interpolation
-        double minTime = time[0];
-        double maxTime = time[time.length - 1];
-        double step = (maxTime - minTime) / (numPoints - 1);
-
-        for (int i = 0; i < numPoints; i++) {
-            interpolatedTime[i] = minTime + i * step;
-        }
-
-        // Linear interpolation for each new time point
-        for (int i = 0; i < numPoints; i++) {
-            interpolatedData[i] = linearInterpolation(time, data, interpolatedTime[i]);
-        }
-
-        return interpolatedData;
-    }
-
-    // Helper method to perform linear interpolation
-    private double linearInterpolation(double[] time, double[] data, double targetTime) {
-        for (int i = 0; i < time.length - 1; i++) {
-            if (targetTime >= time[i] && targetTime <= time[i + 1]) {
-                double t1 = time[i];
-                double t2 = time[i + 1];
-                double d1 = data[i];
-                double d2 = data[i + 1];
-                // Perform linear interpolation
-                return d1 + (d2 - d1) * (targetTime - t1) / (t2 - t1);
-            }
-        }
-        // If targetTime is out of bounds, return the closest value
-        return (targetTime <= time[0]) ? data[0] : data[data.length - 1];
-    }
-
-
-    // Linear Interpolation
-    private double[] interpolate(double[] time, double[] values, double[] newTime) {
-        int n = time.length;
-        double[] interpolated = new double[newTime.length];
-
-        // Normalize time arrays
-        double[] normalizedTime = Arrays.stream(time).map(t -> t - time[0]).toArray();
-        double[] normalizedNewTime = Arrays.stream(newTime).map(t -> t - newTime[0]).toArray(); // Fix normalization mismatch
-
-        // Log normalized values
-        Log.i("Interpolating", "Original Time: " + Arrays.toString(time));
-        Log.i("Interpolating", "Normalized Time: " + Arrays.toString(normalizedTime));
-        Log.i("Interpolating", "Original New Time: " + Arrays.toString(newTime));
-        Log.i("Interpolating", "Normalized New Time: " + Arrays.toString(normalizedNewTime));
-        Log.i("Interpolating", "Original Values: " + Arrays.toString(values));
-
-        for (int i = 0; i < normalizedNewTime.length; i++) {
-            double t = normalizedNewTime[i];
-
-            if (t <= normalizedTime[0]) {
-                interpolated[i] = values[0];
-                Log.i("Interpolating", "t = " + t + " is before the first time point. Using value: " + values[0]);
-            } else if (t >= normalizedTime[n - 1]) {
-                interpolated[i] = values[n - 1];
-                Log.i("Interpolating", "t = " + t + " is after the last time point. Using value: " + values[n - 1]);
-            } else {
-                boolean intervalFound = false;
-                for (int j = 0; j < n - 1; j++) {
-//                    Log.i("Interpolating", "Checking Interval: [" + normalizedTime[j] + ", " + normalizedTime[j + 1] + "]");
-                    if (t >= normalizedTime[j] && t <= normalizedTime[j + 1]) {
-                        double t1 = normalizedTime[j];
-                        double t2 = normalizedTime[j + 1];
-                        double v1 = values[j];
-                        double v2 = values[j + 1];
-
-                        // Interpolate
-                        interpolated[i] = v1 + (v2 - v1) * (t - t1) / (t2 - t1);
-
-                        Log.i("Interpolating", "t = " + t + " -> Using Interval [" + t1 + ", " + t2 + "] with Values [" + v1 + ", " + v2 + "] -> Interpolated Value: " + interpolated[i]);
-                        intervalFound = true;
-                        break;
-                    }
-                }
-                if (!intervalFound) {
-                    Log.e("Interpolating", "No interval found for t = " + t);
-                }
-            }
-        }
-
-        Log.i("Interpolating", "Final Interpolated Data (First 10): " + Arrays.toString(Arrays.copyOfRange(interpolated, 0, Math.min(interpolated.length, 10))));
-        return interpolated;
-    }
-
-
     // stop the sensor
     private void stopSensor() {
         if (isSensorRunning) {
@@ -1306,4 +1266,6 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
             return null;
         }
     }
+
+
 }

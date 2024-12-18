@@ -166,7 +166,9 @@ public class PsdFragment extends Fragment {
         List<DataPoint> sortedXDataPoints = getSortedDataPoints(xFrequencyMagnitude, xArrayAmplitude);
         for (DataPoint dataPoint : sortedXDataPoints) {
             mFreSeries1.appendData(dataPoint, true, xFrequencyMagnitude.size());
+            Log.e("Psd_X","Data Point:::"+dataPoint);
         }
+
         // Find and mark the peak value for mFreSeries1
         DataPoint peakPoint = getPeakPoint(sortedXDataPoints);
         if (peakPoint != null) {
@@ -192,7 +194,7 @@ public class PsdFragment extends Fragment {
         }
 
         // Find and mark the peak value for mFreSeries1
-        DataPoint zpeakPoint = getPeakPoint(sortedYDataPoints);
+        DataPoint zpeakPoint = getPeakPoint(sortedZDataPoints);
         if (zpeakPoint != null) {
             peakMarker.appendData(zpeakPoint, true, 1);
         }
@@ -214,7 +216,7 @@ public class PsdFragment extends Fragment {
 
         // Set custom X-axis labels if needed
         StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(frequency_chart);
-        String[] xAxisLabels = new String[]{"0", "10", "20", "30", "40", "50"};
+        String[] xAxisLabels = new String[]{"0", "2", "4", "6", "8", "10"};
         staticLabelsFormatter.setHorizontalLabels(xAxisLabels);
         frequency_chart.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
 
