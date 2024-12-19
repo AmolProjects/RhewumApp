@@ -50,7 +50,7 @@ public class CSVReaderUtils {
             }
 
             String[] values = line.split(",");
-            Log.i("CSV Debug", "Parsed Row: " + String.join(", ", values));
+           // Log.i("CSV Debug", "Parsed Row: " + String.join(", ", values));
 
             // Ensure correct parsing based on the CSV structure
             try {
