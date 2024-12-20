@@ -36,11 +36,37 @@ public class NotificationService extends FirebaseMessagingService {
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-        // Consolidate data and notification payload handling
+     /*   // Consolidate data and notification payload handling
         if (!remoteMessage.getData().isEmpty() || remoteMessage.getNotification() != null) {
             incrementNotificationCount();
             String title = remoteMessage.getNotification() != null ? remoteMessage.getNotification().getTitle() : "Default Title";
             String body = remoteMessage.getNotification() != null ? remoteMessage.getNotification().getBody() : "Default Message";
+            sendNotification(title, body);
+            broadcastBadgeCount();
+        }*/
+
+        if (!remoteMessage.getData().isEmpty() || remoteMessage.getNotification() != null) {
+            incrementNotificationCount();
+
+            String title;
+            String body;
+
+            // Prioritize data payload over notification payload
+            if (!remoteMessage.getData().isEmpty()) {
+                // Extract title and body from data payload
+                title = remoteMessage.getData().get("title");
+                body = remoteMessage.getData().get("body");
+            } else if (remoteMessage.getNotification() != null) {
+                // Fallback to notification payload if data payload is empty
+                title = remoteMessage.getNotification().getTitle();
+                body = remoteMessage.getNotification().getBody();
+            } else {
+                // Use default values if both are missing
+                title = "New article published";
+                body = "See the latest RHEWUM news";
+
+            }
+
             sendNotification(title, body);
             broadcastBadgeCount();
         }

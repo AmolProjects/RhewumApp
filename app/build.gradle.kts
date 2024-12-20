@@ -58,6 +58,10 @@ dependencies {
     implementation (libs.ormlite.android)
     implementation (libs.opencsv)
     implementation (libs.viewpump)
+    implementation ("com.github.AnyChart:AnyChart-Android:1.1.2")
+
+
+
 
     // barchart
     implementation (libs.mpandroidchart)

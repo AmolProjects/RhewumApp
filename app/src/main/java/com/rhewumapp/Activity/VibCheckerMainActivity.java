@@ -25,6 +25,7 @@ import com.rhewumapp.DrawerBaseActivity;
 import com.rhewumapp.R;
 import com.rhewumapp.databinding.ActivityVibCheckerMainBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VibCheckerMainActivity extends DrawerBaseActivity {
@@ -170,11 +171,11 @@ public class VibCheckerMainActivity extends DrawerBaseActivity {
 
     private void handleFrequencyMagnitudeData() {
         // max dominant magnitude frequency
-        List<Float> xMagnitudeFrequency = SummeryFragment.xFrequencyMagnitude();
+        ArrayList<Double> xMagnitudeFrequency = SummeryFragment.xFrequencyMagnitude();
         Log.e("Magnitude x","Magnitude X"+xMagnitudeFrequency.size());
-        List<Float> yMagnitudeFrequency = SummeryFragment.yFrequencyMagnitude();
+        ArrayList<Double> yMagnitudeFrequency = SummeryFragment.yFrequencyMagnitude();
         Log.e("Magnitude y","Magnitude Y"+yMagnitudeFrequency.size());
-        List<Float> zMagnitudeFrequency = SummeryFragment.zFrequencyMagnitude();
+        ArrayList<Double> zMagnitudeFrequency = SummeryFragment.zFrequencyMagnitude();
         Log.e("Magnitude z","Magnitude Z"+zMagnitudeFrequency.size());
 
         PsdFragment.xUpdateMagnitudeFrequency(xMagnitudeFrequency);
@@ -184,11 +185,11 @@ public class VibCheckerMainActivity extends DrawerBaseActivity {
 
     private void handleAmplitudeMagnitudeData() {
         // max dominant magnitude frequency
-        List<Float> xArrayAmplitude = SummeryFragment.xArrayAmplitude();
+        ArrayList<Double> xArrayAmplitude = SummeryFragment.xArrayAmplitude();
         Log.e("Amplitude x","Magnitude X"+xArrayAmplitude.size());
-        List<Float> yArrayAmplitude = SummeryFragment.yArrayAmplitude();
+        ArrayList<Double> yArrayAmplitude = SummeryFragment.yArrayAmplitude();
         Log.e("Amplitude y","Amplitude Y"+yArrayAmplitude.size());
-        List<Float> zArrayAmplitude = SummeryFragment.zArrayAmplitude();
+        ArrayList<Double> zArrayAmplitude = SummeryFragment.zArrayAmplitude();
         Log.e("Amplitude z","Amplitude Z"+zArrayAmplitude.size());
 
         PsdFragment.updateArrayAmplitudeX(xArrayAmplitude);

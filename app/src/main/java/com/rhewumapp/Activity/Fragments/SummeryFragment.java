@@ -48,6 +48,7 @@ import com.itextpdf.text.pdf.security.SecurityConstants;
 import com.rhewumapp.Activity.Adapter.VibCheckerArchiveAdapter;
 import com.rhewumapp.Activity.MeshConveterData.Constants;
 import com.rhewumapp.Activity.MeshConveterData.Utils;
+import com.rhewumapp.Activity.VibCheckerAccelerometer2Activity;
 import com.rhewumapp.Activity.VibChekerArchiveActivity;
 import com.rhewumapp.Activity.VibSonicArchiveActivity;
 import com.rhewumapp.Activity.VibcheckerGraph.PlotViewMaxValues;
@@ -59,6 +60,7 @@ import com.rhewumapp.Activity.database.RhewumDbHelper;
 import com.rhewumapp.Activity.database.VibCheckerSummaryDao;
 import com.rhewumapp.Activity.interfaces.VibCheckerDeleteListner;
 import com.rhewumapp.R;
+import com.rhewumapp.Utils.CSVUtils;
 
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -98,13 +100,13 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
     static float yAmplitude;
     static float zAmplitude;
     // declare the frequency magnitude list
-    private static List<Float> xFrequencyMagnitude = new ArrayList<>();
-    private static List<Float> yFrequencyMagnitude = new ArrayList<>();
-    private static List<Float> zFrequencyMagnitude = new ArrayList<>();
+    private static List<Double> xFrequencyMagnitude = new ArrayList<>();
+    private static List<Double> yFrequencyMagnitude = new ArrayList<>();
+    private static List<Double> zFrequencyMagnitude = new ArrayList<>();
 
-    private static List<Float> xArrayAmplitude = new ArrayList<>();
-    private static List<Float> yArrayAmplitude = new ArrayList<>();
-    private static List<Float> zArrayAmplitude = new ArrayList<>();
+    private static List<Double> xArrayAmplitude = new ArrayList<>();
+    private static List<Double> yArrayAmplitude = new ArrayList<>();
+    private static List<Double> zArrayAmplitude = new ArrayList<>();
 
     private Calendar calendar;
     Button bt_archieve, bt_share;
@@ -141,6 +143,7 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
         getData();
         initGUI();
         deleteCsvFileFromExternalStorage();
+       // CSVUtils.deleteVibCheckerDataFile(requireContext());
        displayPeakFrequencies();
         onClickUi();
 
@@ -403,17 +406,17 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
             Bundle args = intent.getBundleExtra("BUNDLE");
             assert args != null;
             // receive the frequency magnitude list
-            xFrequencyMagnitude = (List<Float>) args.getSerializable("Frequency_xMagnitudes");
-            yFrequencyMagnitude = (List<Float>) args.getSerializable("Frequency_yMagnitudes");
-            zFrequencyMagnitude = (List<Float>) args.getSerializable("Frequency_zMagnitudes");
+            xFrequencyMagnitude = (List<Double>) args.getSerializable("Frequency_xMagnitudes");
+            yFrequencyMagnitude = (List<Double>) args.getSerializable("Frequency_yMagnitudes");
+            zFrequencyMagnitude = (List<Double>) args.getSerializable("Frequency_zMagnitudes");
 
             Log.e("SummaryFragment","SummaryFragment_X size"+xFrequencyMagnitude.size());
             Log.e("SummaryFragment","SummaryFragment_Y size"+yFrequencyMagnitude.size());
             Log.e("SummaryFragment","SummaryFragment_Z size"+zFrequencyMagnitude.size());
 
-            xArrayAmplitude = (List<Float>) args.getSerializable("displacement_dataX");
-            yArrayAmplitude = (List<Float>) args.getSerializable("displacement_dataY");
-            zArrayAmplitude = (List<Float>) args.getSerializable("displacement_dataZ");
+            xArrayAmplitude = (List<Double>) args.getSerializable("displacement_dataX");
+            yArrayAmplitude = (List<Double>) args.getSerializable("displacement_dataY");
+            zArrayAmplitude = (List<Double>) args.getSerializable("displacement_dataZ");
 
             Log.e("SummaryFragment","Amplitude_X size"+xArrayAmplitude.size());
             Log.e("SummaryFragment","Amplitude_Y size"+yArrayAmplitude.size());
@@ -468,28 +471,28 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
     }
 
 
-    public static List<Float>xFrequencyMagnitude() {
-        return (List<Float>) xFrequencyMagnitude;
+    public static ArrayList<Double>xFrequencyMagnitude() {
+        return (ArrayList<Double>) xFrequencyMagnitude;
     }
 
-    public static List<Float> yFrequencyMagnitude() {
-        return (List<Float>) yFrequencyMagnitude;
+    public static ArrayList<Double> yFrequencyMagnitude() {
+        return (ArrayList<Double>) yFrequencyMagnitude;
     }
 
-    public static List<Float> zFrequencyMagnitude() {
-        return (List<Float>) zFrequencyMagnitude;
+    public static ArrayList<Double> zFrequencyMagnitude() {
+        return (ArrayList<Double>) zFrequencyMagnitude;
     }
 
-    public static List<Float>xArrayAmplitude() {
-        return (List<Float>) xArrayAmplitude;
+    public static ArrayList<Double>xArrayAmplitude() {
+        return (ArrayList<Double>) xArrayAmplitude;
     }
 
-    public static List<Float> yArrayAmplitude() {
-        return (List<Float>) yArrayAmplitude;
+    public static ArrayList<Double> yArrayAmplitude() {
+        return (ArrayList<Double>) yArrayAmplitude;
     }
 
-    public static List<Float> zArrayAmplitude() {
-        return (List<Float>) zArrayAmplitude;
+    public static ArrayList<Double> zArrayAmplitude() {
+        return (ArrayList<Double>) zArrayAmplitude;
     }
 
     public static float maxXAcceleration() {

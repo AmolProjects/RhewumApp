@@ -16,7 +16,7 @@ public class CSVUtils {
         String state = Environment.getExternalStorageState();
         if (!Environment.MEDIA_MOUNTED.equals(state)) {
             Log.e("CSV Creation", "External storage not mounted or writable");
-            Toast.makeText(context, "Storage not available", Toast.LENGTH_LONG).show();
+            //  Toast.makeText(context, "Storage not available", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -24,7 +24,7 @@ public class CSVUtils {
         File downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
         if (!downloadsDir.exists() && !downloadsDir.mkdirs()) {
             Log.e("CSV Creation", "Failed to create Downloads directory");
-            Toast.makeText(context, "Failed to access Downloads folder", Toast.LENGTH_LONG).show();
+            //  Toast.makeText(context, "Failed to access Downloads folder", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -53,11 +53,11 @@ public class CSVUtils {
             writer.flush();
 
             // Notify user
-            Toast.makeText(context, "CSV file saved: " + file.getAbsolutePath(), Toast.LENGTH_LONG).show();
+            //   Toast.makeText(context, "CSV file saved: " + file.getAbsolutePath(), Toast.LENGTH_LONG).show();
             Log.d("CSV Creation", "File saved at: " + file.getAbsolutePath());
         } catch (IOException e) {
             Log.e("CSV Creation", "Error writing file", e);
-            Toast.makeText(context, "Error saving CSV file", Toast.LENGTH_LONG).show();
+            //  Toast.makeText(context, "Error saving CSV file", Toast.LENGTH_LONG).show();
         }
     }
 }

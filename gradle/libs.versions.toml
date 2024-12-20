@@ -28,6 +28,7 @@ firebaseMessaging = "24.0.0"
 viewpump = "2.0.3"
 
 [libraries]
+
 autoimageslider = { module = "com.github.smarteist:autoimageslider", version.ref = "autoimageslider" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 firebase-database = { module = "com.google.firebase:firebase-database", version.ref = "firebaseDatabase" }
