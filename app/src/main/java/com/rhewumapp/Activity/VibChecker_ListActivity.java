@@ -205,13 +205,13 @@ public class VibChecker_ListActivity extends DrawerBaseActivity {
 
         txty.setText(Html.fromHtml(String.format(Locale.US, "Y: %.2f<br>m/s²", valueYaxis)));
         txtZZ.setText(Html.fromHtml(String.format(Locale.US, "Z: %.2f<br>m/s²", valueZaxis)));
-        txtfrZ.setText(Html.fromHtml(String.format(Locale.US, "Z: %.2f<br>Hz", zDominantFrequency)));
-        txtfrx.setText(Html.fromHtml(String.format(Locale.US, "X: %.2f<br>Hz", xDominantFrequency)));
-        txtfry.setText(Html.fromHtml(String.format(Locale.US, "Y: %.2f<br>Hz", yDominantFrequency)));
+        txtfrZ.setText(Html.fromHtml(String.format(Locale.US, "Z: %.2f<br>Frequency /Hz", zDominantFrequency)));
+        txtfrx.setText(Html.fromHtml(String.format(Locale.US, "X: %.2f<br>Frequency /Hz", xDominantFrequency)));
+        txtfry.setText(Html.fromHtml(String.format(Locale.US, "Y: %.2f<br>Frequency /Hz", yDominantFrequency)));
 
-        txtampz.setText(Html.fromHtml(String.format(Locale.US, "Z: %.2f<br>mm", amplitudeZ)));
-        txtampy.setText(Html.fromHtml(String.format(Locale.US, "Y: %.2f<br>mm", amplitudeY)));
-        txtampx.setText(Html.fromHtml(String.format(Locale.US, "X: %.2f<br>mm", amplitudeX)));
+        txtampz.setText(Html.fromHtml(String.format(Locale.US, "Z: %.2f<br>Amplitude /mm", amplitudeZ)));
+        txtampy.setText(Html.fromHtml(String.format(Locale.US, "Y: %.2f<br>Amplitude /mm", amplitudeY)));
+        txtampx.setText(Html.fromHtml(String.format(Locale.US, "X: %.2f<br>Amplitude /mm", amplitudeX)));
 
 
         txtBack.setOnClickListener(new View.OnClickListener() {
@@ -723,13 +723,13 @@ public class VibChecker_ListActivity extends DrawerBaseActivity {
         txty=findViewById(R.id.txty);
         txtX=findViewById(R.id.txtx);
 
-        txtfrZ=findViewById(R.id.pftxtZZ);
-        txtfrx=findViewById(R.id.pftxtx);
-        txtfry=findViewById(R.id.pftxty);
+        txtfrZ=findViewById(R.id.txtfrZ);
+        txtfrx=findViewById(R.id.txtfrx);
+        txtfry=findViewById(R.id.txtfry);
 
-        txtampz=findViewById(R.id.amptxtZZ);
-        txtampy=findViewById(R.id.amptxty);
-        txtampx=findViewById(R.id.amptxtx);
+        txtampz=findViewById(R.id.txtampZ);
+        txtampy=findViewById(R.id.txtampy);
+        txtampx=findViewById(R.id.txtampx);
 
         txtDateTime=findViewById(R.id.txtDateTime);
         txtBack=findViewById(R.id.activity_vib_sonic_archive_list_back_tv);

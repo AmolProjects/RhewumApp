@@ -173,7 +173,7 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
         bt_share = view.findViewById(R.id.bt_share);
         dbHelper = new RhewumDbHelper(getActivity());
         calendar = Calendar.getInstance();
-        txtDateTime.setText("New Record " + new SimpleDateFormat("MM-dd-yyyy,hh:mm:ss a", Locale.US).format(calendar.getTime()));
+        txtDateTime.setText("timestamp: " + new SimpleDateFormat("dd-MM-yyyy,hh:mm:ss ", Locale.US).format(calendar.getTime()));
     }
 
     private void onClickUi() {

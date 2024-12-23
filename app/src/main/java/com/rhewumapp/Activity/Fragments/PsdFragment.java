@@ -153,23 +153,23 @@ public class PsdFragment extends Fragment {
         // Plot data for X-axis
         LineGraphSeries<DataPoint> xSeries = new LineGraphSeries<>();
         for (int i = 0; i < xFrequencyMagnitude.size(); i++) {
-            xSeries.appendData(new DataPoint(xFrequencyMagnitude.get(i), xArrayAmplitude.get(i)), true, xFrequencyMagnitude.size());
+            xSeries.appendData(new DataPoint(xFrequencyMagnitude.get(i), xArrayAmplitude.get(i)*1000), true, xFrequencyMagnitude.size());
         }
         xSeries.setTitle("X Axis");
-        xSeries.setColor(Color.RED);
+        xSeries.setColor(Color.BLACK);
 
         // Plot data for Y-axis
         LineGraphSeries<DataPoint> ySeries = new LineGraphSeries<>();
         for (int i = 0; i < yFrequencyMagnitude.size(); i++) {
-            ySeries.appendData(new DataPoint(yFrequencyMagnitude.get(i), yArrayAmplitude.get(i)), true, yFrequencyMagnitude.size());
+            ySeries.appendData(new DataPoint(yFrequencyMagnitude.get(i), yArrayAmplitude.get(i)*1000), true, yFrequencyMagnitude.size());
         }
         ySeries.setTitle("Y Axis");
-        ySeries.setColor(Color.GREEN);
+        ySeries.setColor(Color.RED);
 
         // Plot data for Z-axis
         LineGraphSeries<DataPoint> zSeries = new LineGraphSeries<>();
         for (int i = 0; i < zFrequencyMagnitude.size(); i++) {
-            zSeries.appendData(new DataPoint(zFrequencyMagnitude.get(i), zArrayAmplitude.get(i)), true, zFrequencyMagnitude.size());
+            zSeries.appendData(new DataPoint(zFrequencyMagnitude.get(i), zArrayAmplitude.get(i)*1000), true, zFrequencyMagnitude.size());
         }
         zSeries.setTitle("Z Axis");
         zSeries.setColor(Color.BLUE);

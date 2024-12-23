@@ -606,7 +606,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         stopSensor();
         stopTimer();
         resetData();
-          deleteCsvFileFromExternalStorage();
+        deleteCsvFileFromExternalStorage();
         //CSVUtils.deleteVibCheckerDataFile(VibCheckerAccelerometer2Activity.this);
         // Save counter value to SharedPreferences
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -756,7 +756,9 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         final long finalTimeInterval = timeInterval;
 
         ioExecutor.execute(() -> {
+            // insert data into database
             dbHelper.insertSensorsData(getCurrentDateTime(), finalTimeInterval, finalAx, finalAy, finalAz, counter);
+            // save the data into phone memory location
             CSVUtils.saveVibCheckerDataToCSV(this, getCurrentDateTime(), finalTimeInterval, finalAx, finalAy, finalAz);
         });
     }
@@ -819,7 +821,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         //  double[] timeArray = timeStamps.stream().mapToDouble(Double::floatValue).toArray();
         // double[] time = rawData.stream().mapToDouble(row -> row[3]).toArray();
 
-        //added 17
+        // calculate the interpolation
         double[] xInterp = interpolateData_spilne(normalizedTime, normalizedX, newTime);
         double[] yInterp = interpolateData_spilne(normalizedTime, normalizedY, newTime);
         double[] zInterp = interpolateData_spilne(normalizedTime, normalizedZ, newTime);
@@ -840,10 +842,11 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         double[] zResults = calculateFFTAndFindMax_New(zInterp, 0.01);
 
         // Log.i("Element", "xResults: " + Arrays.toString(xResults));
-
+        // calculate the peak frequency
         peakFrequencysX= (float) xResults[1];
         peakFrequencysY= (float) yResults[1];
         peakFrequencysZ= (float) zResults[1];
+        // calculate the amplitude
 
         displacementAmplitudesX=(float)xResults[0];
         displacementAmplitudesY=(float)yResults[0];
@@ -874,6 +877,8 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
 
     }
 
+    // interpolation method
+
 
     private static double[] interpolateData_spilne(double[] time, double[] values, double[] newTime) {
         SplineInterpolator interpolator = new SplineInterpolator();
@@ -892,6 +897,8 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         }
         return interpolated;
     }
+
+    // using fft calculate the peak frequency
 
     private static double[]  calculateFFTAndFindMax_New(double[] data, double timestep) {
         int n = data.length;
