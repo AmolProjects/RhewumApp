@@ -55,6 +55,7 @@ import com.rhewumapp.Activity.VibcheckerGraph.PlotViewMaxValues;
 import com.rhewumapp.Activity.database.MeasurementDao;
 import com.rhewumapp.Activity.database.PsdSummaryDao;
 import com.rhewumapp.Activity.database.RawDao;
+import com.rhewumapp.Activity.database.RawSensor;
 import com.rhewumapp.Activity.database.RawSensorDao;
 import com.rhewumapp.Activity.database.RhewumDbHelper;
 import com.rhewumapp.Activity.database.VibCheckerSummaryDao;
@@ -91,6 +92,7 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
     static float accelerationX;
     static float accelerationY;
     static float accelerationZ;
+     static int counter;
 
     static float xDominantFrequency;
     static float yDominantFrequency;
@@ -121,8 +123,9 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
     public String currentDateTime;
     List<PsdSummaryDao> psdSummaryDaoArrayList;
 //    List<VibCheckerSummaryDao> vibCheckerSummaryDaoArrayList;
-    List<RawSensorDao> vibCheckerSummaryDaoArrayLists;
+   // List<RawSensorDao> vibCheckerSummaryDaoArrayLists;
     RhewumDbHelper databaseHelper = new RhewumDbHelper(getContext());
+    List<RawSensor>rawSensorList;
 
 
     public SummeryFragment() {
@@ -247,11 +250,13 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
         //csv file
         ((RelativeLayout) dialog.findViewById(R.id.export_csv_layout)).setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                vibCheckerSummaryDaoArrayLists = dbHelper.fetchSensorRawData();
+                //vibCheckerSummaryDaoArrayLists = dbHelper.fetchSensorRawData();
+                Log.e("Summery Fragment","Summery Counter is::"+counter);
+                List<RawSensorDao> rawSensorList = dbHelper.fetchSensorDataById(counter);
 
-                if (!vibCheckerSummaryDaoArrayLists.isEmpty()) {
+                if (!rawSensorList.isEmpty()) {
 
-                    Log.e("FRAGMENT", "FRAGMENT LIST" + vibCheckerSummaryDaoArrayLists.size());
+                    Log.e("FRAGMENT", "FRAGMENT LIST" + rawSensorList.size());
                     // Step 2: Get the CSV file reference
                     File csvFile = new File(requireActivity().getCacheDir() + "/" + getResources().getString(R.string.psd_summary) + ".csv");
                     // Step 3: Share the CSV file via email
@@ -263,7 +268,7 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
 //            }
 
                     try {
-                        saveVibCheckerDataToCSV((Context) requireActivity(), (ArrayList<RawSensorDao>) vibCheckerSummaryDaoArrayLists, csvFile);
+                        saveVibCheckerDataToCSV((Context) requireActivity(), (ArrayList<RawSensorDao>) rawSensorList, csvFile);
                         // Step 3: Share the CSV file via email
                         shareCSVFileViaEmail(requireActivity(), csvFile);
                     } catch (IOException e) {
@@ -271,7 +276,7 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
                         Toast.makeText(requireActivity(), "Error saving CSV file.", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Log.e("FRAGMENT", "FRAGMENT LIST " + vibCheckerSummaryDaoArrayLists.size());
+                    Log.e("FRAGMENT", "FRAGMENT LIST " + rawSensorList.size());
                     Toast.makeText(requireActivity(), "Save the data first?", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -297,7 +302,7 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
     }
 
     //added new for rawx
-    public void saveVibCheckerDataToCSV(Context context, ArrayList<RawSensorDao> vibCheckerSummaryDaoArrayList, File file) throws IOException {
+    public void saveVibCheckerDataToCSV(Context context, ArrayList<RawSensorDao> rawSensorDaoArrayList, File file) throws IOException {
         // Check if external storage is available
         String state = Environment.getExternalStorageState();
         if (!Environment.MEDIA_MOUNTED.equals(state)) {
@@ -316,7 +321,7 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
             writer.append("DateTime,Time [Ms],xRawValue,yRawValue,zRawValue\n");
 
             // Write data to CSV
-            for (RawSensorDao dao : vibCheckerSummaryDaoArrayList) {
+            for (RawSensorDao dao : rawSensorDaoArrayList) {
 
                 writer.append(String.valueOf(dao.getDateTime()))
                         .append(",")
@@ -330,7 +335,7 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
                         .append("\n");
 
             }
-        }  catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             throw e;
         }
@@ -390,6 +395,7 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
             accelerationX = intent.getFloatExtra("accelerationMax_X", 0);
             accelerationY = intent.getFloatExtra("accelerationMax_Y", 0);
             accelerationZ = intent.getFloatExtra("accelerationMax_Z", 0);
+            counter=intent.getIntExtra("Counter_Value",0);
 
             //added for ampltitude to get data from VibChekaerAcclerometer
             xAmplitude = intent.getFloatExtra("displacementAmplitudeX", 0);
@@ -498,6 +504,7 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
     public static float maxXAcceleration() {
         return accelerationX;
     }
+
 
     public static float maxYAcceleration() {
         return accelerationY;

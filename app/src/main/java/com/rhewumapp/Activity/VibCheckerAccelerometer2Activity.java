@@ -536,6 +536,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
 
         intent.putExtra("Frequency_Z", peakFrequencysZ);
         // Log.d("Debug", "IFrequency_Z: " + peakFrequencyZ );
+        intent.putExtra("Counter_Value",counter);
 
         // send the frequency magnitude
         bundle.putSerializable("Frequency_xMagnitudes", (Serializable) xFrequencyList);

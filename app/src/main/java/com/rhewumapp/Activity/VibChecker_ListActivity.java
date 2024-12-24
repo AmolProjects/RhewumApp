@@ -205,13 +205,13 @@ public class VibChecker_ListActivity extends DrawerBaseActivity {
 
         txty.setText(Html.fromHtml(String.format(Locale.US, "Y: %.2f<br>m/s²", valueYaxis)));
         txtZZ.setText(Html.fromHtml(String.format(Locale.US, "Z: %.2f<br>m/s²", valueZaxis)));
-        txtfrZ.setText(Html.fromHtml(String.format(Locale.US, "Z: %.2f<br>Frequency /Hz", zDominantFrequency)));
-        txtfrx.setText(Html.fromHtml(String.format(Locale.US, "X: %.2f<br>Frequency /Hz", xDominantFrequency)));
-        txtfry.setText(Html.fromHtml(String.format(Locale.US, "Y: %.2f<br>Frequency /Hz", yDominantFrequency)));
+        txtfrZ.setText(Html.fromHtml(String.format(Locale.US, "Z: %.2f<br>Hz", zDominantFrequency)));
+        txtfrx.setText(Html.fromHtml(String.format(Locale.US, "X: %.2f<br>Hz", xDominantFrequency)));
+        txtfry.setText(Html.fromHtml(String.format(Locale.US, "Y: %.2f<br>Hz", yDominantFrequency)));
 
-        txtampz.setText(Html.fromHtml(String.format(Locale.US, "Z: %.2f<br>Amplitude /mm", amplitudeZ)));
-        txtampy.setText(Html.fromHtml(String.format(Locale.US, "Y: %.2f<br>Amplitude /mm", amplitudeY)));
-        txtampx.setText(Html.fromHtml(String.format(Locale.US, "X: %.2f<br>Amplitude /mm", amplitudeX)));
+        txtampz.setText(Html.fromHtml(String.format(Locale.US, "Z: %.2f<br>mm", amplitudeZ)));
+        txtampy.setText(Html.fromHtml(String.format(Locale.US, "Y: %.2f<br>mm", amplitudeY)));
+        txtampx.setText(Html.fromHtml(String.format(Locale.US, "X: %.2f<br>mm", amplitudeX)));
 
 
         txtBack.setOnClickListener(new View.OnClickListener() {

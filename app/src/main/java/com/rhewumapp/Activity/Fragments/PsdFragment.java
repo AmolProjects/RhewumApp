@@ -186,6 +186,17 @@ public class PsdFragment extends Fragment {
         graph.getViewport().setMinX(0);
         graph.getViewport().setMaxX(90);
         graph.getViewport().setYAxisBoundsManual(true);
+
+        // Set titles for X and Y axes
+        GridLabelRenderer gridLabelRenderer = graph.getGridLabelRenderer();
+        gridLabelRenderer.setHorizontalAxisTitle("Frequency (Hz)"); // Title for X-axis
+        gridLabelRenderer.setVerticalAxisTitle("Amplitude (mm)");   // Title for Y-axis
+        gridLabelRenderer.setHorizontalAxisTitleTextSize(50); // Optional: Adjust title text size
+        gridLabelRenderer.setVerticalAxisTitleTextSize(50);   // Optional: Adjust title text size
+
+        // Enable legend
+       // graph.getLegendRenderer().setVisible(true);
+        //graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
     }
 }
 
