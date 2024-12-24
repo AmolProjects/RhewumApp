@@ -156,7 +156,6 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
     static float displacementAmplitudesZ;
     ProgressBar progressBar;
 
-
     private boolean isSummarySaved = false;
 
 
@@ -384,6 +383,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         });
     }
 
+
     // delete the csv file
     public void deleteCsvFileFromExternalStorage() {
         // Get the directory for external storage (e.g., Downloads folder)
@@ -477,9 +477,6 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
             bt_vib_start.setBackgroundColor(ContextCompat.getColor(VibCheckerAccelerometer2Activity.this, R.color.header_backgrounds));
             bt_vib_start.setText(R.string.start);
         });
-       /* List<double[]> vibCheckerData = CSVReaderUtils.readVibCheckerData();
-        calculateMeanAcceleration(vibCheckerData);*/
-
         // save the data for max acceleration x.....
         measurement_date = getCurrentDateTime();
         // Serialize the buffer
@@ -587,7 +584,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        timeStamps.clear();
+       // timeStamps.clear();
         sensorData.clear();
         xFrequencyList.clear();
         yFrequencyList.clear();
@@ -595,8 +592,6 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         xAmplitudeList.clear();
         yAmplitudeList.clear();
         zAmplitudeList.clear();
-
-        //Toast.makeText(getApplicationContext(), "onResume Called Accerometer2", Toast.LENGTH_SHORT).show();
 
     }
     // activity is on pause state
@@ -606,14 +601,14 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         super.onPause();
         stopSensor();
         stopTimer();
-        resetData();
-        deleteCsvFileFromExternalStorage();
+       // resetData();
+        //deleteCsvFileFromExternalStorage();
         //CSVUtils.deleteVibCheckerDataFile(VibCheckerAccelerometer2Activity.this);
         // Save counter value to SharedPreferences
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(COUNTER_KEY, counter);
         editor.apply();
-
+        // Check if the user left the app (e.g., pressing the home button).
     }
 
     private void initGUI() {
@@ -770,8 +765,9 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         double[] xRaw = rawData.stream().mapToDouble(row -> row[0]).toArray();
         double[] yRaw = rawData.stream().mapToDouble(row -> row[1]).toArray();
         double[] zRaw = rawData.stream().mapToDouble(row -> row[2]).toArray();
+        double[] time = rawData.stream().mapToDouble(row -> row[3]).toArray();
 
-        double[] time = timeStamps.stream().mapToDouble(Double::floatValue).toArray();
+       // double[] time = timeStamps.stream().mapToDouble(Double::floatValue).toArray();
         Log.i("Debug Data", "TimeInterval: " + time.length);
 
         //added 17

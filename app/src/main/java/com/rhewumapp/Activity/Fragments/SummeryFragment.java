@@ -146,7 +146,6 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
         getData();
         initGUI();
         deleteCsvFileFromExternalStorage();
-       // CSVUtils.deleteVibCheckerDataFile(requireContext());
        displayPeakFrequencies();
         onClickUi();
 
@@ -166,8 +165,6 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
         txtampZ = view.findViewById(R.id.txtampZ);
         txtampY = view.findViewById(R.id.txtampy);
         txtampX = view.findViewById(R.id.txtampx);
-
-
         txtfry = view.findViewById(R.id.txtfry);
         ll_plots = view.findViewById(R.id.vibrationLineChart);
         txtDateTime = view.findViewById(R.id.txtDateTime);
@@ -239,8 +236,6 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
             Log.d("FileDeleter", "File does not exist.");
         }
     }
-
-
 
     public void callMoreMenus() {
         final Dialog dialog = new Dialog(getContext());
