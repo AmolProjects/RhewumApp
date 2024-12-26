@@ -189,14 +189,14 @@ public class PsdFragment extends Fragment {
 
         // Set titles for X and Y axes
         GridLabelRenderer gridLabelRenderer = graph.getGridLabelRenderer();
-        gridLabelRenderer.setHorizontalAxisTitle("Frequency (Hz)"); // Title for X-axis
         gridLabelRenderer.setVerticalAxisTitle("Amplitude (mm)");   // Title for Y-axis
-        gridLabelRenderer.setHorizontalAxisTitleTextSize(50); // Optional: Adjust title text size
-        gridLabelRenderer.setVerticalAxisTitleTextSize(50);   // Optional: Adjust title text size
+        gridLabelRenderer.setVerticalAxisTitleTextSize(30);// Optional: Adjust title text size
+       // gridLabelRenderer.setPadding(10);
+        //gridLabelRenderer.setHorizontalLabelsVisible(true);
+       // gridLabelRenderer.setHorizontalAxisTitle("Frequency (Hz)"); // Title for X-axis
+       // gridLabelRenderer.setHorizontalAxisTitleTextSize(30); // Optional: Adjust title text size
 
-        // Enable legend
-       // graph.getLegendRenderer().setVisible(true);
-        //graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
+
     }
 }
 

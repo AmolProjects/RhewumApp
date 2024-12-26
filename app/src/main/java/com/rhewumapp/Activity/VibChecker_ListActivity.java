@@ -179,7 +179,7 @@ public class VibChecker_ListActivity extends DrawerBaseActivity {
          valueYaxis = getIntent().getFloatExtra("valueYaxis", 0.0f);
          valueZaxis = getIntent().getFloatExtra("valueZaxis", 0.0f);
         String dateValue = getIntent().getStringExtra("dateValue");
-        txtDateTime.setText(" " + dateValue);
+        txtDateTime.setText("timestamp:" +" "+ dateValue);
         Log.d("DateVAlue","Getintent Date "+dateValue);
 
          xDominantFrequency = getIntent().getFloatExtra("dominantFreqX", 0.0f);

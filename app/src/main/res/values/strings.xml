@@ -286,5 +286,6 @@
 
     <string name="z2">m/s<sup>2</sup></string>
     <string name="mean_acceleration">Mean Acceleration:</string>
+    <string name="frequency_hz">Frequency(Hz)</string>
 
 </resources>
