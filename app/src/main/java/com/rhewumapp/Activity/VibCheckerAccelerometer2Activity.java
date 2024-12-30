@@ -828,11 +828,6 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         double[] zInterp = interpolateData_spilne(normalizedTime, normalizedZ, newTime);
 
 
-//        Log.i("Debug Data", "Interpolated X Data: " + Arrays.toString(Arrays.copyOfRange(xInterp, 100, 110)));
-//        Log.i("Debug Data", "Interpolated Y Data: " + Arrays.toString(Arrays.copyOfRange(yInterp, 100, 110)));
-//        Log.i("Debug Data", "Interpolated Z Data: " + Arrays.toString(Arrays.copyOfRange(zInterp, 100, 110)));
-//
-
         // Perform FFT and PSD calculations
         double timestep = newTime[1] - newTime[0];
 
@@ -878,26 +873,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
 
     }
 
-    // interpolation method
 
-
-//    private static double[] interpolateData_spilne(double[] time, double[] values, double[] newTime) {
-//        SplineInterpolator interpolator = new SplineInterpolator();
-//        PolynomialSplineFunction spline = interpolator.interpolate(time, values);
-//
-//        double[] interpolated = new double[newTime.length];
-//        for (int i = 0; i < newTime.length; i++) {
-//            // Handle out-of-bound extrapolation safely
-//            if (newTime[i] < time[0]) {
-//                interpolated[i] = values[0];
-//            } else if (newTime[i] > time[time.length-1]) {
-//                interpolated[i] = values[values.length - 1];
-//            } else {
-//                interpolated[i] = spline.value(newTime[i]);
-//            }
-//        }
-//        return interpolated;
-//    }
 
     private static double[] interpolateData_spilne(double[] time, double[] values, double[] newTime) {
         // Sort the time array and ensure values are sorted accordingly
@@ -1105,16 +1081,6 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
         y /= 10;
         z /= 10;
 
-        // Only update the buffer if there's space
-//        if (indexInBuffer < buffer.length) {
-//            indexInBuffer %= buffer.length;
-//            buffer[indexInBuffer++] = x;
-//            buffer[indexInBuffer++] = y;
-//            buffer[indexInBuffer++] = z;
-//        } else {
-//            // Optionally, handle the situation when buffer is full
-//            indexInBuffer = 0; // Reset or use circular logic
-//        }
 
         if (indexInBuffer < buffer.length) {
             buffer[indexInBuffer++] = x;
