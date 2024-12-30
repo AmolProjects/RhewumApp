@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "255361527015",
+    "project_id": "rhewumnews",
+    "storage_bucket": "rhewumnews.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:255361527015:android:8f2cad0970975c90bd4642",
+        "android_client_info": {
+          "package_name": "com.android.navigation_drawer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZ_Fo2klJMEttml1r7_oLA9i6zJo3-0Yw"
+        },
+        {
+          "current_key": "AIzaSyBA-h_F4AAn_4KWQP3v32Ataw3Z1K2HFrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:255361527015:android:b42b19da4a4cc5d5bd4642",
+        "android_client_info": {
+          "package_name": "com.rhewum"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZ_Fo2klJMEttml1r7_oLA9i6zJo3-0Yw"
+        },
+        {
+          "current_key": "AIzaSyBA-h_F4AAn_4KWQP3v32Ataw3Z1K2HFrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:255361527015:android:3d12266aa9c13a9ebd4642",
+        "android_client_info": {
+          "package_name": "com.rhewumapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZ_Fo2klJMEttml1r7_oLA9i6zJo3-0Yw"
+        },
+        {
+          "current_key": "AIzaSyBA-h_F4AAn_4KWQP3v32Ataw3Z1K2HFrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

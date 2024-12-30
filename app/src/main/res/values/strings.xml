@@ -1,0 +1,291 @@
+<resources>
+    <string name="app_name">Rhewum</string>
+    <string name="time_elapsed">Time Elapsed:</string>
+    <string name="back">Back</string>
+    <string name="vib_sonic">VibSonic</string>
+    <string name="archive">Archive</string>
+    <string name="play">Start Measurement</string>
+    <string name="delete_measurement">Delete Measurement</string>
+    <string name="todo">TODO</string>
+    <string name="selectSize">Select size…</string>
+
+
+    <!--::::::::::::::::::::DashBoard Screen::::::::::::::::::-->
+    <string name="meshConverter">MeshConverter</string>
+    <string name="vibSonic">VibSonic</string>
+    <string name="vibFlash">VibFlash</string>
+    <string name="vibChecker">VibChecker</string>
+    <string name="norm">Norm to Norm</string>
+    <string name="normValues">Values entered into the corresponding box will be automatically converted</string>
+    <string name="din">DIN</string>
+    <string name="astm">ASTM</string>
+    <string name="tyler">Tyler</string>
+    <string name="tylers">Tyler :</string>
+    <string name="yes">Yes</string>
+    <string name="stop">Stop</string>
+    <string name="stop_save">Stop And Save</string>
+    <string name="screen_cut">Screen cut</string>
+    <string name="calinst">To calculate the screen cut of the mesh, eneter the value and angle. You can use the actual tilt angle from the device.</string>
+    <string name="notTitle">Note:</string>
+    <string name="angleval">Angle range is between 0 and 45.</string>
+    <string name="deu">DEU :</string>
+    <string name="usa">USA :</string>
+    <string name="tyler_details">TYLER Screen Scale</string>
+    <string name="tyler_sign">TYLER (c) Sign</string>
+    <string name="usa_details">ASTM E 11(2013) and ASTM E 323 1980 (2011)</string>
+    <string name="deu_details">DIN ISO 3310</string>
+    <string name="info_about_norms">Info about Norms</string>
+    <string name="cal_info">The calculations within this app use the norms defined in the \"International Test Sieve Comparison Table 2024\":</string>
+    <string name="angle">Angle</string>
+    <string name="mesh_opening">Mesh Opening</string>
+    <string name="_1">1</string>
+    <string name="part_b_sub_title">To calculate the screen cut of the mesh, enter the value and angle. You can use the actual tilt angle from the device.</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="no_1">1</string>
+    <string name="no_2">2</string>
+    <string name="projected_opening">Projected opening is:</string>
+    <string name="no_3">3</string>
+    <string name="manual">manual</string>
+    <string name="automatic">automatic</string>
+    <string name="mm">mm</string>
+    <string name="inch">inch</string>
+    <string name="info">Info</string>
+    <string name="part_b_title">Screen cut</string>
+    <string name="norm_to_norm">Norm to Norm</string>
+    <string name="norm_to_norm_subtext">Values entered into the corresponding box will be automatically converted</string>
+    <string name="mesh_converter">MeshConverter</string>
+
+    <!--::::::::::::::::::::VibSonic  Screen::::::::::::::::::-->
+    <string name="pdf_html_1">We hope that our service was of use to you. Please do not hesitate to contact us if you need any more information, more precise measurements or a personal consultation.</string>
+    <string name="pdf_html_10">www.rhewum.com</string>
+    <string name="select_all">Select All</string>
+    <string name="delete">Delete</string>
+    <string name="select_measurement">Please Select Item</string>
+    <string name="pdf_html_2">We are looking forward to support you and your project ideas.</string>
+    <string name="pdf_html_3">RHEWUM GmbH</string>
+    <string name="pdf_html_4">Rosentalstr. 24</string>
+    <string name="pdf_html_5">42899 Remscheid</string>
+    <string name="pdf_html_6">Germany</string>
+    <string name="pdf_html_7">Mail:</string>
+    <string name="pdf_html_8">info@rhewum.com</string>
+    <string name="pdf_html_9">Web:</string>
+    <string name="vib_Sonic">VibSonic</string>
+    <string name="pdf_sub_title">VibSonic</string>
+    <string name="pdf_sub_titleVibChecker">VibChecker</string>
+    <string name="pdf_table_heading_1">Frequency</string>
+    <string name="pdf_table_heading_2">Sound Pressure Level</string>
+    <string name="csv_falied">Failed to create CSV</string>
+    <string name="result_file_vib_sonic_csv">dB(A)</string>
+    <string name="result_file_vib_sonic_pdf">Rhewum_Vibsonic_Result_dB(A)</string>
+    <string name="pdf_title">Please find attached the results of your measurements with the RHEWUM APP:</string>
+    <string name="loading">Loading…</string>
+    <string name="choose_email">Send Email</string>
+    <string name="mail_csv">Mail as CSV</string>
+    <string name="mail_pdf">Mail as PDF</string>
+    <string name="mean_level">Mean Level:</string>
+    <string name="text_info">We hope that our service was of use to you. Please do not hesitate to contact us if
+                you need any more information, more precise measurements or a personal
+                consultation.\n\n We are looking forward to support you and your project ideas.</string>
+    <string name="_0_56_db_a">0.56 dB(A)</string>
+    <string name="_00_00_00">00:00:00</string>
+    <string name="mean_level_total">Mean Level Total:</string>
+    <string name="_0_0_db_a">0.0 dB(A)</string>
+    <string name="start">Start Measurement</string>
+    <string name="StartAndSave">Stop And Save</string>
+    <string name="startStop">Start And Stop</string>
+
+    <!--::::::::::::::::::::Archive  Screen::::::::::::::::::-->
+    <string name="arch_ScreenTit">Archive</string>
+    <string name="more">More</string>
+    <string name="currentDate">01–30–2024,11:56</string>
+    <string name="measure_time">Measurement Time :</string>
+    <string name="txtFrequency">Frequency</string>
+    <string name="sound_pressure_leve">Sound Pressure Level</string>
+    <string name="_32_hz">32 Hz</string>
+    <string name="_63_hz">63 Hz</string>
+    <string name="_125_hz">125 Hz</string>
+    <string name="_250_hz">250 Hz</string>
+    <string name="_500_hz">500 Hz</string>
+    <string name="_1_khz">1 KHz</string>
+    <string name="_2_khz">2 KHz</string>
+    <string name="_4_khz">4 KHz</string>
+    <string name="_8_khz">8 KHz</string>
+    <string name="_16_khz">16 KHz</string>
+    <string name="means_level">Mean Level</string>
+    <string name="means_levelVal">0.56 dB(A)</string>
+    <string name="text_content"> We hope that our service was of use to you.\n Please do not hesitate to contact us if you need any more information, more precise measurements or a personal consultation.\n \n
+    We are looking forward to support you and your project ideas.\n \n \n RHEWUM GmbH \n Rosentalstr.  24 \n 42899 Remscheid \n Germany
+        \n \n Mail: info@rhewum.com\n Web:http://www.rhewum.com
+</string>
+    <string name="txt_mail">Mail :</string>
+    <string name="email_value">info@rhewum.com</string>
+    <string name="txt_web">Web :</string>
+    <string name="web_value">www.rhewum.com</string>
+    <string name="subject_mail">Result of RHEWUM VibSonic App</string>
+
+    <string name="body_mail">Dear user,\n Please find the attachment the results of your measurements with the RHEWUM VibSonic App as of  \n \n</string>
+    <string name="edit">Edit</string>
+    <string name="date_and_time">Date And Time</string>
+    <string name="measurement_time">Measurement Time:</string>
+    <string name="_00_00_05">00:00:05</string>
+    <string name="_43_03">43.03</string>
+    <string name="rhewum">RHEWUM</string>
+    <string name="mail_as_csv">Mail as CSV</string>
+    <string name="mail_as_pdf">Mail as PDF</string>
+    <string name="cancel">Cancel</string>
+    <string name="txtTitleVib">VibChecker</string>
+
+    <!-- // Flash Screen ....-->
+    <string name="vib_flash_content">With VibFlash, vibrating and rotating machine parts can be "frozen" for inspection or troubleshooting.\n\nIf the flash frequency of the stroboscope matches the movement frequency, the measured object appears stationary.</string>
+    <string name="vib_flash_works">The human eye adjusts to the brightness generated by these flashes of light and only perceives the illuminated images.\n\nIf the flash frequency (the number of flashes per second "FPS" or Hz) is synchronized with the movement frequency, we see a still image.\n\nIf the flash frequency and movement frequency deviate slightly from each other, the movement can be observed completely and very slowly.</string>
+    <string name="vib_flashNotes">Due to the different telephone hardware, the displayable frequencies are limited on some devices. Malfunctions and a deviation from the displayed frequency can unfortunately not be ruled out.\n\nPlease do not look directly into the flash to protect your eyes.\n\nUsing the phone flash for very long periods of time can damage the hardware.</string>
+    <string name="Vib_note">Notes</string>
+    <string name="vib_flashInfo">Info</string>
+    <string name="txtTitle">VibFlash</string>
+    <string name="enter_frequency_hz">Enter Frequency(Hz)</string>
+    <string name="enter_duration">Enter Duration(Seconds)</string>
+    <string name="countdown">CountDown</string>
+    <string name="count_timer">Count Timer :</string>
+    <string name="vib_flash">VibFlash</string>
+    <string name="decrement_freq">-</string>
+    <string name="hertz">Hertz</string>
+    <string name="second_freq">20</string>
+    <string name="fifth_freq">50</string>
+    <string name="sixth_freq">60</string>
+    <string name="increment_freq">+</string>
+    <string name="first_freq">16 2/3</string>
+    <string name="flash_check">Your phone does not have flash</string>
+    <string name="fourth_freq">30</string>
+    <string name="grain_size_max">Grain size maximum</string>
+    <string name="grain_size_max_range">(2–150)</string>
+    <string name="grain_size_min">Grain size minimum</string>
+    <string name="grain_size_min_range">(1–149)</string>
+    <string name="hardware_alert">Dear customer: It might happen that the flash hardware in your device is not properly supporting the function. We apologize for any inconvenience.</string>
+    <string name="third_freq">25</string>
+    <string name="default_freq">1.0</string>
+    <string name="result">Waiting Result…</string>
+    <string name="analysis_result">Analysis Result :</string>
+    <string name="vibchecker">VibChecker</string>
+    <string name="alert">Alert</string>
+    <string name="mtrl_picker_confirm">OK</string>
+    <string name="check_internet">Please check your internet connection</string>
+    <string name="ok">OK</string>
+    <string name="no">No</string>
+    <string name="txtTitles">CapacityChecker</string>
+    <string name="vibTitle">Information before you start</string>
+    <string name="vibContent">To be able to identify your machine\'s capacity, we need your help with entering some of your machine\'s data. Please fill out the following.The information buttons will give you advice regarding how to do so.</string>
+    <string name="alert_machines">"Read the machine\'s type off your machines type plate"</string>
+    <string name="alert_secM">"Measure the inside width or read the required parameters off your machine\'s type plate"</string>
+    <string name="m">m</string>
+    <string name="ft">ft</string>
+    <string name="screen_width">Screen width</string>
+    <string name="screen_angle">Screen angle</string>
+    <string name="degree">degree</string>
+    <string name="kg_sqm">Kg/m3</string>
+    <string name="layer_height">Layer height</string>
+    <string name="cm">cm</string>
+    <string name="material_density">Bulk density</string>
+    <string name="_4">4</string>
+    <string name="machine_type">Machine type</string>
+    <string name="_5">5</string>
+    <string name="_6">6</string>
+    <string name="projected_capacity">Projected capacity:</string>
+    <string name="meshconverter">MeshConverter</string>
+    <string name="all_is_good">News title</string>
+    <string name="txtContent">News header </string>
+    <string name="txtDescriptions">News descriptions</string>
+    <string name="meine_funktionen">My tools</string>
+    <string name="chronometer">Chronometer</string>
+    <string name="mean_level_total_0_0_db_a">Mean Level Total:</string>
+    <string name="_2_99_inches">2.99 inches</string>
+    <string name="mean_level_0_00_db_a">Mean Level 0.00 dB(A)</string>
+    <string name="spinner_title">first item</string>
+    <string name="submit">Submit</string>
+    <string name="results">Results</string>
+    <string name="accelerometer">Accelerometer</string>
+    <string name="reset">Reset</string>
+    <string name="_5s_time"><b>Timer</b>\n5 sec</string>
+    <string name="zeroDelays"><b>Delay</b>\n5 sec </string>
+    <string name="on_lp_filter">Filter\nON</string>
+    <string name="res">Results</string>
+    <string name="vibcheckercontent">The VibChecker shall allow you to monitor the vibrations of your screening machine.</string>
+    <string name="z">z</string>
+    <string name="y">y</string>
+    <string name="x">x</string>
+    <string name="summary">Summary</string>
+    <string name="psd_summary">PSD Summary</string>
+    <string name="psd">PSD</string>
+    <string name="new_record">New Record</string>
+    <string name="_10_12_24_00_00_pm">10–12-24 00:00 pm</string>
+    <string name="peak_acceleration">Mean Acceleration:</string>
+    <string name="peak_frequency">Peak Frequency:</string>
+    <string name="peak_amplitude">Amplitude:</string>
+    <string name="save">Save</string>
+    <string name="share">Share</string>
+    <string name="pdf_summary_title">Please find attached the results of your accelerometer data measurements with the RHEWUM APP:</string>
+    <string name="pdf_sub_summarytitle">Summary</string>
+    <!--::::::::::::::::::::MeshConverter Screen::::::::::::::::::-->
+    <string name="projected_mesh_principle">Projected mesh principle</string>
+    <string name="projected_mesh_details">The incline of the screening machine shortens the usable length of each mesh.\n\nProjection of the mesh length compensates this and leads to more throughput and less clogging.</string>
+
+    <string-array name="spinner_items">
+        <item>RHEsono (formerly WA)</item>
+        <item>RHEmoto (formerly WAU)</item>
+        <item>RHEstack (formerly MDS)</item>
+        <item>RHEflex (formerly RIUS)</item>
+        <item>RHEmotox (formerly WAUF)</item>
+        <item>RHEsonox (formerly WAF)</item>
+        <item>RHEduo (formerly DF)</item>
+        <item>RHEduox (formerly DFM)</item>
+        <item>RHEside/RHEmid (formerly SV/AV)</item>
+        <item>RHEox (formerly UG)</item>
+        <item>RHEtrans (formerly RIU)</item>
+        <item>RHEfeed (formerly RIM)</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="note">Note:</string>
+    <string name="date">Date</string>
+    <string name="mean_level_time">Mean Level Time</string>
+    <string name="menu_drawer_open">Open</string>
+    <string name="menu_drawer_close">Close</string>
+    <string name="detailnews">DetailNews</string>
+    <string name="how_to_use_vibflash">How to use VibFlash</string>
+    <string name="how_it_works">How it works</string>
+    <string name="kg_m3">kg/m<sup>3</sup></string>
+    <string name="lb_ft3">lb/ft<sup>3</sup></string>
+    <string name="enjoy_the_difference">Enjoy the Difference</string>
+    <string name="_0_0_db_a_s">0.0 dB(A)</string>
+    <string name="db_a">dB(A)</string>
+    <string name="measurement_times">Measurement time:</string>
+    <string name="frequency">Frequency</string>
+    <string name="sound_pressure_level">Sound pressure level</string>
+    <string name="_7_18_db_a">7.18 db(A)</string>
+    <string name="measurement_timess">Measurement Time</string>
+    <string name="projected_capacitys">Projected capacity :</string>
+    <string name="bulk_density_reference_values">Bulk density reference values</string>
+    <string name="capInfo">The bulk density is defined as the mass of the material divided by its bulk volume (including the empty space between particles).\nThe bulk density may vary due to different particle size distribution and differing moisture content</string>
+    <string name="material">Material</string>
+    <string name="_0_t_h">0 t/h</string>
+    <string name="_0_m_h">0 m³/h</string>
+    <string name="vibflash">VibFlash</string>
+    <string name="time">Time:</string>
+    <string name="hz">Hz</string>
+    <string name="how_to_use_vibsonic">How to use VibSonic</string>
+    <string name="vib_1">VibSonic makes it possible to measure the sound level of a screening machine using the sensor technology integrated in the smartphone.</string>
+    <string name="vib_2">There are a few points to consider for optimum reliability:</string>
+    <string name="emission_level_measurement">The emission level should be measured at a <font color="#008ac8"><b>distance of 1 m</b></font> from the machine and <font color="#008ac8"><b>1.60 m above the floor</b></font> or access platform.</string>
+    <string name="dos">In a room where several machines are in operation, the louder they are, the higher the sum of all sound power levels will be.</string>
+    <string name="dos1">The microphones of the smartphones must not be covered (e.g. by fingers or protective covers) and must point in the direction of the sound source.</string>
+    <string name="dos2">The value measured here is only a guide value for orientation. Due to the different sensor technology and the many external influences, the measurement results can vary greatly. Smartphone microphones are optimized for the human voice and therefore cannot optimally capture certain frequencies and very loud noises.</string>
+    <string name="dos3">Prolonged exposure to high noise levels can cause lasting damage to hearing. You should therefore wear suitable protective equipment.</string>
+    <string name="dot">.</string>
+    <string name="maxfrequency">Max Frequency:</string>
+    <string name="minfrequency">Min Frequency:</string>
+
+    <string name="z2">m/s<sup>2</sup></string>
+    <string name="mean_acceleration">Mean Acceleration:</string>
+    <string name="frequency_hz">Frequency(Hz)</string>
+
+</resources>
