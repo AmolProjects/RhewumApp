@@ -316,7 +316,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
 
 
         // click on zero delay secondui
-        txt_zeroDelay.setOnClickListener(v -> {
+        /*txt_zeroDelay.setOnClickListener(v -> {
             initGUI();
             zeroDelayFlag = !zeroDelayFlag;  // Toggle the flag
             if (zeroDelayFlag) {
@@ -337,7 +337,7 @@ public class VibCheckerAccelerometer2Activity extends DrawerBaseActivity {
                 bt_vib_start.setBackgroundColor(ContextCompat.getColor(VibCheckerAccelerometer2Activity.this, R.color.header_backgrounds));
             }
 
-        });
+        });*/
 
 
         // click on the reset button

@@ -298,10 +298,9 @@
                     android:id="@+id/txtampZ"
                     android:layout_width="95dp"
                     android:layout_height="81dp"
-                    android:layout_marginTop="22dp"
-                    android:layout_marginBottom="61dp"
                     android:background="@drawable/z"
                     android:elevation="8dp"
+                    android:layout_marginTop="32dp"
                     android:gravity="center"
                     android:text=""
                     android:textColor="@color/white"
@@ -313,7 +312,7 @@
                     app:layout_constraintHeight_default="percent"
                     app:layout_constraintHeight_percent="0.4"
                     app:layout_constraintStart_toStartOf="@+id/peakfreqTv"
-                    app:layout_constraintTop_toBottomOf="@+id/peakfreqTv"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_default="percent"
                     app:layout_constraintWidth_percent="0.5" />
 

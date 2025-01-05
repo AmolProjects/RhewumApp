@@ -335,6 +335,7 @@ public class VibChecker_ListActivity extends DrawerBaseActivity {
                     dialog.dismiss();
                 }
                 createSendFile();
+                dialog.dismiss();
             }
 
         });
@@ -565,20 +566,44 @@ public class VibChecker_ListActivity extends DrawerBaseActivity {
         pdfPCell3.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell3);
 
-        PdfPCell pdfPCell4 = new PdfPCell(new Phrase(decimalFormat.format(replace2)));
-        pdfPCell4.setHorizontalAlignment(1);
+        DecimalFormat decimalFormat1 = new DecimalFormat("#.##");
+        String formattedValue = decimalFormat1.format(replace2); // Format the number
+        // Create the HTML-styled string
+        String htmlString = formattedValue + " m/s<sup>2</sup><br>";
+
+        // Convert the HTML string to a `Phrase` using `Html.fromHtml`
+        Phrase phrase = new Phrase(Html.fromHtml(htmlString).toString());
+        // Create the PdfPCell
+        PdfPCell pdfPCell4 = new PdfPCell(phrase);
+        pdfPCell4.setHorizontalAlignment(1); // Align center
         pdfPCell4.setPadding(4.0f);
+        // Add the cell to the table
         pdfPTable.addCell(pdfPCell4);
+
 
         PdfPCell pdfPCell5 = new PdfPCell(new Phrase("Peak Acceleration Y"));
         pdfPCell5.setHorizontalAlignment(1);
         pdfPCell5.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell5);
 
-        PdfPCell pdfPCell6 = new PdfPCell(new Phrase(decimalFormat.format(valueYaxis)));
-        pdfPCell6.setHorizontalAlignment(1);
+        DecimalFormat decimalFormat2 = new DecimalFormat("#.##");
+        String formattedValue2 = decimalFormat2.format(valueYaxis); // Format the number
+        // Create the HTML-styled string
+        String htmlString1 = formattedValue2 + " m/s<sup>2</sup><br>";
+
+        // Convert the HTML string to a `Phrase` using `Html.fromHtml`
+        Phrase phrase1 = new Phrase(Html.fromHtml(htmlString1).toString());
+        // Create the PdfPCell
+        PdfPCell pdfPCell6 = new PdfPCell(phrase1);
+        pdfPCell6.setHorizontalAlignment(1); // Align center
         pdfPCell6.setPadding(4.0f);
+        // Add the cell to the table
         pdfPTable.addCell(pdfPCell6);
+
+
+
+
+
 
 
         PdfPCell pdfPCell8 = new PdfPCell(new Phrase("Peak Acceleration Z"));
@@ -586,9 +611,18 @@ public class VibChecker_ListActivity extends DrawerBaseActivity {
         pdfPCell8.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell8);
 
-        PdfPCell pdfPCell9 = new PdfPCell(new Phrase(decimalFormat.format(valueZaxis)));
-        pdfPCell9.setHorizontalAlignment(1);
+        DecimalFormat decimalFormat3 = new DecimalFormat("#.##");
+        String formattedValue3 = decimalFormat3.format(valueZaxis); // Format the number
+        // Create the HTML-styled string
+        String htmlString3 = formattedValue3 + " m/s<sup>2</sup><br>";
+
+        // Convert the HTML string to a `Phrase` using `Html.fromHtml`
+        Phrase phrase3 = new Phrase(Html.fromHtml(htmlString3).toString());
+        // Create the PdfPCell
+        PdfPCell pdfPCell9 = new PdfPCell(phrase3);
+        pdfPCell9.setHorizontalAlignment(1); // Align center
         pdfPCell9.setPadding(4.0f);
+        // Add the cell to the table
         pdfPTable.addCell(pdfPCell9);
 
         //Frequency
@@ -597,7 +631,7 @@ public class VibChecker_ListActivity extends DrawerBaseActivity {
         pdfPCell7.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell7);
 
-        PdfPCell pdfPCell12 = new PdfPCell(new Phrase(decimalFormat.format(xDominantFrequency)));
+        PdfPCell pdfPCell12 = new PdfPCell(new Phrase(decimalFormat.format(xDominantFrequency) + " Hz"));
         pdfPCell12.setHorizontalAlignment(1);
         pdfPCell12.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell12);
@@ -607,7 +641,7 @@ public class VibChecker_ListActivity extends DrawerBaseActivity {
         pdfPCell13.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell13);
 
-        PdfPCell pdfPCell10 = new PdfPCell(new Phrase(decimalFormat.format(yDominantFrequency)));
+        PdfPCell pdfPCell10 = new PdfPCell(new Phrase(decimalFormat.format(yDominantFrequency) + " Hz"));
         pdfPCell10.setHorizontalAlignment(1);
         pdfPCell10.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell10);
@@ -617,7 +651,7 @@ public class VibChecker_ListActivity extends DrawerBaseActivity {
         pdfPCell11.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell11);
 
-        PdfPCell pdfPCell15 = new PdfPCell(new Phrase(decimalFormat.format(zDominantFrequency)));
+        PdfPCell pdfPCell15 = new PdfPCell(new Phrase(decimalFormat.format(zDominantFrequency) + " Hz"));
         pdfPCell15.setHorizontalAlignment(1);
         pdfPCell15.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell15);
@@ -628,7 +662,7 @@ public class VibChecker_ListActivity extends DrawerBaseActivity {
         pdfPCell16.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell16);
 
-        PdfPCell pdfPCell17 = new PdfPCell(new Phrase(decimalFormat.format(amplitudeX)));
+        PdfPCell pdfPCell17 = new PdfPCell(new Phrase(decimalFormat.format(amplitudeX)+ " mm"));
         pdfPCell17.setHorizontalAlignment(1);
         pdfPCell17.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell17);
@@ -639,7 +673,7 @@ public class VibChecker_ListActivity extends DrawerBaseActivity {
         pdfPCell18.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell18);
 
-        PdfPCell pdfPCell19 = new PdfPCell(new Phrase(decimalFormat.format(amplitudeY)));
+        PdfPCell pdfPCell19 = new PdfPCell(new Phrase(decimalFormat.format(amplitudeY)+ " mm"));
         pdfPCell19.setHorizontalAlignment(1);
         pdfPCell19.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell19);
@@ -650,7 +684,7 @@ public class VibChecker_ListActivity extends DrawerBaseActivity {
         pdfPCell20.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell20);
 
-        PdfPCell pdfPCell21 = new PdfPCell(new Phrase(decimalFormat.format(amplitudeZ)));
+        PdfPCell pdfPCell21 = new PdfPCell(new Phrase(decimalFormat.format(amplitudeZ)+ " mm"));
         pdfPCell21.setHorizontalAlignment(1);
         pdfPCell21.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell21);

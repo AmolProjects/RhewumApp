@@ -1,5 +1,6 @@
 package com.rhewumapp.Activity;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,6 +39,7 @@ public class VibSonicArchiveListActivity extends DrawerBaseActivity implements V
     private ArrayList<MeasurementDao> measurementList = new ArrayList<>();
     private TextView selectAll;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -46,6 +48,9 @@ public class VibSonicArchiveListActivity extends DrawerBaseActivity implements V
 
         ResponsiveAndroidBars.setNotificationBarColor(this, getResources().getColor(R.color.header_backgrounds), false);
         ResponsiveAndroidBars.setNavigationBarColor(this, getResources().getColor(R.color.grey_background), false, false);
+
+
+
         setUpViews();
         getHelper();
         this.backLayout.setOnClickListener(this);

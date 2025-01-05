@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +20,13 @@ import com.rhewumapp.Activity.interfaces.DeleteListner;
 import com.rhewumapp.R;
 
 import org.apache.commons.lang3.StringUtils;
+
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class VibSonicArchiveListAdapter extends BaseAdapter {
     /* access modifiers changed from: private */
@@ -36,6 +42,7 @@ public class VibSonicArchiveListAdapter extends BaseAdapter {
     /* access modifiers changed from: private */
     public ArrayList<MeasurementDao> measurementList;
 
+
     public long getItemId(int i) {
         return (long) i;
     }
@@ -46,6 +53,7 @@ public class VibSonicArchiveListAdapter extends BaseAdapter {
         this.mContext = vibSonicArchiveListActivity;
         this.measurementList = arrayList;
         this.mListner = deleteListner;
+       // this.meanLevel=meanLevel;
         arrayList2.clear();
     }
 
@@ -66,6 +74,32 @@ public class VibSonicArchiveListAdapter extends BaseAdapter {
 
         viewHolder() {
         }
+    }
+
+    private double findMeanDecibelValue(List<MeasurementDao> measurementList) {
+        if (measurementList == null || measurementList.isEmpty()) {
+            throw new IllegalArgumentException("Measurement list is empty or null");
+        }
+
+        double totalSum = 0.0;
+        int totalCount = 0;
+
+        for (MeasurementDao dao : measurementList) {
+            totalSum += dao.decibleForFreq125;
+            totalSum += dao.decibleForFreq16k;
+            totalSum += dao.decibleForFreq1k;
+            totalSum += dao.decibleForFreq250;
+            totalSum += dao.decibleForFreq2k;
+            totalSum += dao.decibleForFreq32;
+            totalSum += dao.decibleForFreq4k;
+            totalSum += dao.decibleForFreq500;
+            totalSum += dao.decibleForFreq63;
+            totalSum += dao.decibleForFreq8k;
+
+            totalCount += 10; // 10 frequencies in total
+        }
+
+        return totalSum / totalCount; // Return the mean
     }
 
     @SuppressLint("SetTextI18n")
@@ -99,6 +133,8 @@ public class VibSonicArchiveListAdapter extends BaseAdapter {
         }
         String replace = new SimpleDateFormat("MMM dd yyyy, hh:mm:ss aa").format(this.measurementList.get(i).measurementDate).replace("AM", "am").replace("PM", "pm");
         String replace2 = this.measurementList.get(i).meanLevelTotal.replace("dB(A)", "");
+       // double t=findMeanDecibelValue(measurementList);
+       // Log.e("VibSonicAdapter","VibSonic:::::"+t);
         viewholder.date_tv.setText(replace);
         TextView textView = viewholder.measurement_tv;
         textView.setText(this.mContext.getResources().getString(R.string.measurement_time) + StringUtils.SPACE + this.measurementList.get(i).measurementTotalTime);

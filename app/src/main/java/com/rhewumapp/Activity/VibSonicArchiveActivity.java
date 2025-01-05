@@ -167,14 +167,18 @@ public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.
             addValuesToIntegerArrayList(listById);
 
         } else {
-            // Get max value
-            @SuppressLint("DefaultLocale")
-            String maxValue = String.format("%.1f", findMaxDecibleValue(this.dbHelper.getListById(this.dbHelper.getLastId())));
 
-            // Get mean value
-            @SuppressLint("DefaultLocale")
-            String meanValue = String.format("%.1f", findMeanDecibelValue(this.dbHelper.getListById(this.dbHelper.getLastId())));
+            // Get the maximum value
+           // DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.getDefault());
+           // symbols.setDecimalSeparator(','); // Set the decimal separator to a comma
+           // DecimalFormat decimalFormat = new DecimalFormat("#.0", symbols);
 
+          //  String maxValue = decimalFormat.format(findMaxDecibleValue(this.dbHelper.getListById(this.dbHelper.getLastId())));
+            @SuppressLint("DefaultLocale") String maxValue = String.format("%.1f", findMaxDecibleValue(this.dbHelper.getListById(this.dbHelper.getLastId())));
+
+            // Get the mean value
+           // String meanValue = decimalFormat.format(findMeanDecibelValue(this.dbHelper.getListById(this.dbHelper.getLastId())));
+            @SuppressLint("DefaultLocale") String meanValue =String.format("%.1f",findMeanDecibelValue(this.dbHelper.getListById(this.dbHelper.getLastId())));
             Log.e("VibSonicArchiveActivity", "maxFrequency::" + maxValue);
             Log.e("VibSonicArchiveActivity", "meanFrequency::" + meanValue);
 

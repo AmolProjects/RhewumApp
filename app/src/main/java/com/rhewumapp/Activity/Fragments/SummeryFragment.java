@@ -288,6 +288,7 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
         ((RelativeLayout) dialog.findViewById(R.id.export_pdf_layout)).setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 createSendFile();
+                dialog.dismiss();
             }
 
         });
@@ -472,9 +473,9 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
         String formattedValueY = String.format(Locale.US, "%.1f", yDominantFrequency);
         String formattedValueZ = String.format(Locale.US, "%.1f", zDominantFrequency);
 
-       txtfrx.setText(formattedValueX + "Hz" + "\n" + "x");
-        txtfry.setText(formattedValueY + "Hz" + "\n" + "y");
-        txtfrZ.setText(formattedValueZ + "Hz" + "\n" + "z");
+       txtfrx.setText(formattedValueX + " Hz" + "\n" + "x");
+        txtfry.setText(formattedValueY + " Hz" + "\n" + "y");
+        txtfrZ.setText(formattedValueZ + " Hz" + "\n" + "z");
     }
 
 
@@ -640,9 +641,19 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
         pdfPCell3.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell3);
 
-        PdfPCell pdfPCell4 = new PdfPCell(new Phrase(decimalFormat.format(accelerationX)));
-        pdfPCell4.setHorizontalAlignment(1);
+
+        DecimalFormat decimalFormat1 = new DecimalFormat("#.##");
+        String formattedValue = decimalFormat1.format(accelerationX); // Format the number
+      // Create the HTML-styled string
+        String htmlString = formattedValue + " m/s<sup>2</sup><br>";
+
+       // Convert the HTML string to a `Phrase` using `Html.fromHtml`
+        Phrase phrase = new Phrase(Html.fromHtml(htmlString).toString());
+        // Create the PdfPCell
+        PdfPCell pdfPCell4 = new PdfPCell(phrase);
+        pdfPCell4.setHorizontalAlignment(1); // Align center
         pdfPCell4.setPadding(4.0f);
+       // Add the cell to the table
         pdfPTable.addCell(pdfPCell4);
 
         PdfPCell pdfPCell5 = new PdfPCell(new Phrase("Peak Acceleration Y"));
@@ -650,10 +661,20 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
         pdfPCell5.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell5);
 
-        PdfPCell pdfPCell6 = new PdfPCell(new Phrase(decimalFormat.format(accelerationY)));
-        pdfPCell6.setHorizontalAlignment(1);
+        DecimalFormat decimalFormat2 = new DecimalFormat("#.##");
+        String formattedValue2 = decimalFormat2.format(accelerationY); // Format the number
+        // Create the HTML-styled string
+        String htmlString1 = formattedValue2 + " m/s<sup>2</sup><br>";
+
+        // Convert the HTML string to a `Phrase` using `Html.fromHtml`
+        Phrase phrase1 = new Phrase(Html.fromHtml(htmlString1).toString());
+        // Create the PdfPCell
+        PdfPCell pdfPCell6 = new PdfPCell(phrase1);
+        pdfPCell6.setHorizontalAlignment(1); // Align center
         pdfPCell6.setPadding(4.0f);
+        // Add the cell to the table
         pdfPTable.addCell(pdfPCell6);
+
 
 
         PdfPCell pdfPCell8 = new PdfPCell(new Phrase("Peak Acceleration Z"));
@@ -661,10 +682,22 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
         pdfPCell8.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell8);
 
-        PdfPCell pdfPCell9 = new PdfPCell(new Phrase(decimalFormat.format(accelerationZ)));
-        pdfPCell9.setHorizontalAlignment(1);
+
+
+        DecimalFormat decimalFormat3 = new DecimalFormat("#.##");
+        String formattedValue3 = decimalFormat3.format(accelerationZ); // Format the number
+        // Create the HTML-styled string
+        String htmlString3 = formattedValue3 + " m/s<sup>2</sup><br>";
+
+        // Convert the HTML string to a `Phrase` using `Html.fromHtml`
+        Phrase phrase3 = new Phrase(Html.fromHtml(htmlString3).toString());
+        // Create the PdfPCell
+        PdfPCell pdfPCell9 = new PdfPCell(phrase3);
+        pdfPCell9.setHorizontalAlignment(1); // Align center
         pdfPCell9.setPadding(4.0f);
+        // Add the cell to the table
         pdfPTable.addCell(pdfPCell9);
+
 
         //Frequency
         PdfPCell pdfPCell7 = new PdfPCell(new Phrase("Peak Frequency X"));
@@ -672,7 +705,7 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
         pdfPCell7.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell7);
 
-        PdfPCell pdfPCell12 = new PdfPCell(new Phrase(decimalFormat.format(xDominantFrequency)));
+        PdfPCell pdfPCell12 = new PdfPCell(new Phrase(decimalFormat.format(xDominantFrequency) + " Hz"));
         pdfPCell12.setHorizontalAlignment(1);
         pdfPCell12.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell12);
@@ -682,7 +715,7 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
         pdfPCell13.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell13);
 
-        PdfPCell pdfPCell10 = new PdfPCell(new Phrase(decimalFormat.format(yDominantFrequency)));
+        PdfPCell pdfPCell10 = new PdfPCell(new Phrase(decimalFormat.format(yDominantFrequency)+ " Hz"));
         pdfPCell10.setHorizontalAlignment(1);
         pdfPCell10.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell10);
@@ -692,7 +725,7 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
         pdfPCell11.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell11);
 
-        PdfPCell pdfPCell15 = new PdfPCell(new Phrase(decimalFormat.format(zDominantFrequency)));
+        PdfPCell pdfPCell15 = new PdfPCell(new Phrase(decimalFormat.format(zDominantFrequency)+ " Hz"));
         pdfPCell15.setHorizontalAlignment(1);
         pdfPCell15.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell15);
@@ -703,7 +736,7 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
         pdfPCell16.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell16);
 
-        PdfPCell pdfPCell17 = new PdfPCell(new Phrase(decimalFormat.format(xAmplitude)));
+        PdfPCell pdfPCell17 = new PdfPCell(new Phrase(decimalFormat.format(xAmplitude)+ " mm"));
         pdfPCell17.setHorizontalAlignment(1);
         pdfPCell17.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell17);
@@ -714,7 +747,7 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
         pdfPCell18.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell18);
 
-        PdfPCell pdfPCell19 = new PdfPCell(new Phrase(decimalFormat.format(yAmplitude)));
+        PdfPCell pdfPCell19 = new PdfPCell(new Phrase(decimalFormat.format(yAmplitude)+ " mm"));
         pdfPCell19.setHorizontalAlignment(1);
         pdfPCell19.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell19);
@@ -725,7 +758,7 @@ public class SummeryFragment extends Fragment implements VibCheckerDeleteListner
         pdfPCell20.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell20);
 
-        PdfPCell pdfPCell21 = new PdfPCell(new Phrase(decimalFormat.format(zAmplitude)));
+        PdfPCell pdfPCell21 = new PdfPCell(new Phrase(decimalFormat.format(zAmplitude)+ " mm"));
         pdfPCell21.setHorizontalAlignment(1);
         pdfPCell21.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell21);
