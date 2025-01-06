@@ -145,6 +145,7 @@ public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.
             addValuesToIntegerArrayList(listById2);
         }*/
 
+
         //added for mean
         if (string.equals("ArchieveList")) {
             int i = getIntent().getExtras().getInt(SecurityConstants.Id);
@@ -155,7 +156,13 @@ public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.
 
             // Get mean value
             @SuppressLint("DefaultLocale")
-            String meanValue = String.format("%.1f", findMeanDecibelValue(this.dbHelper.getListById(i)));
+            //String meanValue = String.format("%.1f", this.dbHelper.getMeasurementList().get(i).meanLevelTotal.replace("dB(A)", ""));
+           // String meanValue = String.format("%.1f", this.dbHelper.getMeasurementList().get(i).meanLevelTotal.replace("dB(A)", ""));
+            String meanValue=this.dbHelper.getMeasurementList().get(0).meanLevelTotal.replace("dB(A)", "");
+
+
+            // String meanValue = String.format("%.1f", findMeanDecibelValue(this.dbHelper.getListById(i)));
+           // this.dbHelper.getMeasurementList().get(i).meanLevelTotal
 
             Log.e("VibSonicArchiveActivity", "maxFrequency::" + maxValue);
             Log.e("VibSonicArchiveActivity", "meanFrequency::" + meanValue);
@@ -167,23 +174,24 @@ public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.
             addValuesToIntegerArrayList(listById);
 
         } else {
+            // Get max value
+            @SuppressLint("DefaultLocale")
+            String maxValue = String.format("%.1f", findMaxDecibleValue(this.dbHelper.getListById(this.dbHelper.getLastId())));
 
-            // Get the maximum value
-           // DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.getDefault());
-           // symbols.setDecimalSeparator(','); // Set the decimal separator to a comma
-           // DecimalFormat decimalFormat = new DecimalFormat("#.0", symbols);
+            // Get mean value
+            @SuppressLint("DefaultLocale")
+          //  String meanValue = String.format("%.1f",this.dbHelper.getMeasurementList().get(this.dbHelper.getLastId()).meanLevelTotal.replace("dB(A)", "") );
+          //  String meanValue = String.format("%.1f", findMeanDecibelValue(this.dbHelper.getListById(this.dbHelper.getLastId())));
+            String meansVakue=this.dbHelper.getMeasurementList().get(0).meanLevelTotal.replace("dB(A)", "");
 
-          //  String maxValue = decimalFormat.format(findMaxDecibleValue(this.dbHelper.getListById(this.dbHelper.getLastId())));
-            @SuppressLint("DefaultLocale") String maxValue = String.format("%.1f", findMaxDecibleValue(this.dbHelper.getListById(this.dbHelper.getLastId())));
+          //  Log.e("VibSonicArchiveActivity", "Mean Values:::::::::" + meansVakue);
 
-            // Get the mean value
-           // String meanValue = decimalFormat.format(findMeanDecibelValue(this.dbHelper.getListById(this.dbHelper.getLastId())));
-            @SuppressLint("DefaultLocale") String meanValue =String.format("%.1f",findMeanDecibelValue(this.dbHelper.getListById(this.dbHelper.getLastId())));
+
             Log.e("VibSonicArchiveActivity", "maxFrequency::" + maxValue);
-            Log.e("VibSonicArchiveActivity", "meanFrequency::" + meanValue);
+            Log.e("VibSonicArchiveActivity", "meanFrequency::" + meansVakue);
 
             //added 5th parameter mean
-            htmlPdf = Utils.readHtmlVibSonic(this, 0, this.jumpFrom, maxValue, meanValue); // Pass meanValue if needed
+            htmlPdf = Utils.readHtmlVibSonic(this, 0, this.jumpFrom, maxValue, meansVakue); // Pass meanValue if needed
 
             ArrayList<MeasurementDao> listById2 = this.dbHelper.getListById(this.dbHelper.getLastId());
             this.measurementList = listById2;
@@ -758,7 +766,7 @@ public class VibSonicArchiveActivity extends DrawerBaseActivity implements View.
         pdfPCell22.setHorizontalAlignment(1);
         pdfPCell22.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell22);
-        PdfPCell pdfPCell23 = new PdfPCell(new Phrase("Mean Level", font));
+        PdfPCell pdfPCell23 = new PdfPCell(new Phrase("Mean Level Total", font));
         pdfPCell23.setHorizontalAlignment(1);
         pdfPCell23.setPadding(4.0f);
         pdfPTable.addCell(pdfPCell23);
